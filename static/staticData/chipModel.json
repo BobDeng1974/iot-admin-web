@@ -1,0 +1,159 @@
+{
+  "code": 0,
+  "message": "成功",
+  "result": [
+    {
+      "name": "CK802/902"
+    },
+    {
+      "name": "Droid X"
+    },
+    {
+      "name": "OMAP3630"
+    },
+    {
+      "name": "STM-32"
+    },
+    {
+      "name": "Monarch SX"
+    },
+    {
+      "name": "ALT1250"
+    },
+    {
+      "name": "nRF91"
+    },
+    {
+      "name": "RDA8910"
+    },
+    {
+      "name": "Wisefone7100"
+    },
+    {
+      "name": "RoseFinch7100"
+    },
+    {
+      "name": "MDM9206"
+    },
+    {
+      "name": "Boudica120"
+    },
+    {
+      "name": "Boudica150"
+    },
+    {
+      "name": "MTK MT2625"
+    },
+    {
+      "name": "MTK MT7697/7697D"
+    },
+    {
+      "name": "MXCHIP MK3060"
+    },
+    {
+      "name": "MXCHIP STM32L071"
+    },
+    {
+      "name": "MXCHIP EML3047"
+    },
+    {
+      "name": "NUCLEO-L073RZ"
+    },
+    {
+      "name": "FRDM-KL27Z(MKL27Z64VLH4)"
+    },
+    {
+      "name": "ST BlueNRG-1"
+    },
+    {
+      "name": "MX1101"
+    },
+    {
+      "name": "MK1101"
+    },
+    {
+      "name": "B-L475E-IOT01A"
+    },
+    {
+      "name": "NUCLEO-L432KC"
+    },
+    {
+      "name": "NUCLEO-L432KC"
+    },
+    {
+      "name": "32L496GDISCOVERY"
+    },
+    {
+      "name": "MXCHIP STM32L412"
+    },
+    {
+      "name": "NXP LPC5410x"
+    },
+    {
+      "name": "LPCXpresso54102"
+    },
+    {
+      "name": "GigaDevice GD32 F4"
+    },
+    {
+      "name": "Eastsoft ES8P508x"
+    },
+    {
+      "name": "MXCHIP MK3166"
+    },
+    {
+      "name": "MXCHIP MK3239"
+    },
+    {
+      "name": "REALTEK RTL8710BN"
+    },
+    {
+      "name": "REALTEK RTL8710BX"
+    },
+    {
+      "name": "South Silicon Valley SSV6266P"
+    },
+    {
+      "name": "RDA5981"
+    },
+    {
+      "name": "Cypress PSoC 6"
+    },
+    {
+      "name": "Xradio Tech XR871"
+    },
+    {
+      "name": "Actions Technology ATS3503"
+    },
+    {
+      "name": "Beken BK3435"
+    },
+    {
+      "name": "Beken BK7231"
+    },
+    {
+      "name": "TI CC3220S"
+    },
+    {
+      "name": "Nordic nRF52840"
+    },
+    {
+      "name": "STM32F769I-DISCO"
+    },
+    {
+      "name": "Xtensa ESP32-DevkitC"
+    },
+    {
+      "name": "Xtensa ESP8266"
+    },
+    {
+      "name": "AndesCore MVSILICON P20"
+    },
+    {
+      "name": "C-SKY CK801/860/610"
+    },
+    {
+      "name": "Renesas R7F0C004/RX65N"
+    }
+  ]
+}

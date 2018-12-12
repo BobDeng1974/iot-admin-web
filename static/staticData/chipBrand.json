@@ -1,0 +1,165 @@
+{
+  "code": 0,
+  "message": "成功",
+  "result": [
+    {
+      "name": "Allwinner (全志)"
+    },
+    {
+      "name": "Actions Technology (炬芯)"
+    },
+    {
+      "name": "Andes(晶心科技)"
+    },
+    {
+      "name": "Altair (澳汰尔)"
+    },
+    {
+      "name": "AMD (美国AMD半导体公司)"
+    },
+    {
+      "name": "ARM"
+    },
+    {
+      "name": "ATMEL (爱特梅尔)"
+    },
+    {
+      "name": "Beken (上海博通)"
+    },
+    {
+      "name": "BroadCom (博通)"
+    },
+    {
+      "name": "CSR"
+    },
+    {
+      "name": "C-Sky Microsystems (中天微)"
+    },
+    {
+      "name": "CYPRESS (赛普拉斯)"
+    },
+    {
+      "name": "ELAN (台湾义隆电子)"
+    },
+    {
+      "name": "Espressif (乐鑫)"
+    },
+    {
+      "name": "FIBOCOM (广和通)"
+    },
+    {
+      "name": "Freescale (飞思卡尔/NXP)"
+    },
+    {
+      "name": "Goodix (汇顶科技)"
+    },
+    {
+      "name": "HDSC (华大半导体)"
+    },
+    {
+      "name": "HiSilicon (海思)"
+    },
+    {
+      "name": "Infineon (英飞凌)"
+    },
+    {
+      "name": "Ingenic (北京君正)"
+    },
+    {
+      "name": "Intel (因特尔)"
+    },
+    {
+      "name": "LEADCORE (联芯科技)"
+    },
+    {
+      "name": "Marvell (美满)"
+    },
+    {
+      "name": "MICROCHIP (美国微芯)"
+    },
+    {
+      "name": "MTK (联发科)"
+    },
+    {
+      "name": "Nationz (国民技术)"
+    },
+    {
+      "name": "Nordic"
+    },
+    {
+      "name": "Nufront (新岸线)"
+    },
+    {
+      "name": "Nvidia (英伟达)"
+    },
+    {
+      "name": "NXP (恩智浦半导体)"
+    },
+    {
+      "name": "Qualcomm (高通)"
+    },
+    {
+      "name": "RDA (瑞迪科)"
+    },
+    {
+      "name": "Realtek (瑞昱)"
+    },
+    {
+      "name": "RENESAS (瑞萨)"
+    },
+    {
+      "name": "Samsung (三星)"
+    },
+    {
+      "name": "Sequans (赛肯)"
+    },
+    {
+      "name": "SILICON LABS (芯科)"
+    },
+    {
+      "name": "SIMCom (芯讯通)"
+    },
+    {
+      "name": "Skyworks (思佳讯)"
+    },
+    {
+      "name": "SMICS (中芯国际)"
+    },
+    {
+      "name": "South Silicon Valley (南方硅谷)"
+    },
+    {
+      "name": "SONIX (松翰)"
+    },
+    {
+      "name": "Spreadtrum (展讯)"
+    },
+    {
+      "name": "SST (超捷)"
+    },
+    {
+      "name": "ST (意法半导体)"
+    },
+    {
+      "name": "Synwit (华芯微特)"
+    },
+    {
+      "name": "TI (德州仪器)"
+    },
+    {
+      "name": "TSMC (台积电)"
+    },
+    {
+      "name": "Tensilica"
+    },
+    {
+      "name": "Unisplendour (紫光)"
+    },
+    {
+      "name": "Vimicro (中星微)"
+    },
+    {
+      "name": "Xradiotech (深圳芯之联)"
+    }
+  ]
+}

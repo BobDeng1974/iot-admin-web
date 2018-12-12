@@ -1,0 +1,132 @@
+{
+  "code": 0,
+  "message": "成功",
+  "result": [
+    {
+      "name": "ARM v1"
+    },
+    {
+      "name": "ARM v2"
+    },
+    {
+      "name": "ARM v3"
+    },
+    {
+      "name": "ARM v4"
+    },
+    {
+      "name": "ARM v4T"
+    },
+    {
+      "name": "ARM v5"
+    },
+    {
+      "name": "ARM v6"
+    },
+    {
+      "name": "ARM v6-M"
+    },
+    {
+      "name": "ARM v7"
+    },
+    {
+      "name": "ARM v7-M"
+    },
+    {
+      "name": "ARM v7E-M"
+    },
+    {
+      "name": "ARM v7-R"
+    },
+    {
+      "name": "ARM v7-A"
+    },
+    {
+      "name": "ARM v8"
+    },
+    {
+      "name": "ARM v8-A"
+    },
+    {
+      "name": "ARM v8-R"
+    },
+    {
+      "name": "MIPS I"
+    },
+    {
+      "name": "MIPS II"
+    },
+    {
+      "name": "MIPS III"
+    },
+    {
+      "name": "MIPS IV"
+    },
+    {
+      "name": "MIPS V"
+    },
+    {
+      "name": "MIPS16"
+    },
+    {
+      "name": "MIPS32"
+    },
+    {
+      "name": "microMIPS"
+    },
+    {
+      "name": "MIPS64"
+    },
+    {
+      "name": "MIPS-x"
+    },
+    {
+      "name": "OMAP"
+    },
+    {
+      "name": "X86 CISC"
+    },
+    {
+      "name": "X86-64"
+    },
+    {
+      "name": "IA-32"
+    },
+    {
+      "name": "IA-64"
+    },
+    {
+      "name": "EPIC x"
+    },
+    {
+      "name": "Davinci"
+    },
+    {
+      "name": "Xtensa"
+    },
+    {
+      "name": "RISC-V32"
+    },
+    {
+      "name": "x-VLIW"
+    },
+    {
+      "name": "Xscale"
+    },
+    {
+      "name": "Ultra SPARC"
+    },
+    {
+      "name": "PowerPC"
+    },
+    {
+      "name": "RISC-V32"
+    },
+    {
+      "name": "RISC-V"
+    },
+    {
+      "name": "OpenRisc"
+    }
+  ]
+}
