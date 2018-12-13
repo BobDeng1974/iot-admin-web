@@ -4,12 +4,12 @@
     <div class="login-container center-wrapper">
       <el-row class="login-main">
         <el-col :span="15" class="login-left">
-          <h2 class="title">美的IoT开放平台</h2>
-          <p class="desc">实现从终端、云到服务，实现真正的开放，与各合作伙伴将建立起耦合式、嵌入式的合作关系，相互赋能，彻底打破信息孤岛，实现生态共建、共享资源、开放系统，与各行业合作伙伴共同构筑用户智慧生活生态</p>
+          <!-- <h2 class="title">美的IoT开放平台</h2> -->
+          <!-- <p class="desc">实现从终端、云到服务，实现真正的开放，与各合作伙伴将建立起耦合式、嵌入式的合作关系，相互赋能，彻底打破信息孤岛，实现生态共建、共享资源、开放系统，与各行业合作伙伴共同构筑用户智慧生活生态</p> -->
         </el-col>
         <el-col :span="9" class="login-right">
           <div class="login-box">
-            <h5 class="title5">账号密码登录</h5>
+            <h5 class="title5">美的IoT开发者中心后台管理系统</h5>
             <div class="form-wrapper">
               <el-form class="login-form" :model="loginData" ref="loginForm" :rules="loginRules" :show-message="false">
                 <el-form-item prop="account">
@@ -30,8 +30,8 @@
                 <el-button type="primary" size="medium" @click="handleSubmitLogin">登录</el-button>
               </div>
               <div class="forget clearfix">
-                <a class="forget-psw pull-left" href="javascript:void(0)" @click="forget">忘记密码</a>
-                <a class="register-new pull-right" href="javascript:void(0)" @click="register">注册新账号</a>
+                <!-- <a class="forget-psw pull-left" href="javascript:void(0)" @click="forget">忘记密码</a> -->
+                <!-- <a class="register-new pull-right" href="javascript:void(0)" @click="register">注册新账号</a> -->
               </div>
               <!-- <div class="other-box">
                 <div class="wechat-box">
@@ -167,17 +167,17 @@ export default {
           ? decryptedData.password
           : '';
       }
-    },
-
-    // 跳转注册页面
-    register() {
-      this.$router.push({ path: '/register' });
-    },
-
-    // 跳转忘记密码页面
-    forget() {
-      this.$router.push({ path: '/forget' });
     }
+
+    // // 跳转注册页面
+    // register() {
+    //   this.$router.push({ path: '/register' });
+    // },
+
+    // // 跳转忘记密码页面
+    // forget() {
+    //   this.$router.push({ path: '/forget' });
+    // }
   },
   created() {
     this.getInfo();
