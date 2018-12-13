@@ -5,7 +5,7 @@
       <layout :isShowLeft="rootPath"></layout>
     </div>
     <div v-else>
-      <header-home :headerStyle="{position: 'absolute',width:'100%',zIndex:'1'}"></header-home>
+      <header-home :headerStyle="{position: 'relative',width:'100%',zIndex:'1'}"></header-home>
       <transition name="fadePage" mode="out-in">
         <router-view></router-view>
       </transition>
