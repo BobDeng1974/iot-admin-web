@@ -197,6 +197,9 @@ export default {
   z-index: 2;
   a {
     color: #5667ff;
+        &:hover{
+    color: #6F7DFF;
+  }
   }
 }
 .card-bottom {

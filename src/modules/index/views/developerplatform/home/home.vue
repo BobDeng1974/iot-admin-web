@@ -20,7 +20,7 @@
         <Fun :cardList="advantageList" :hasBorder="true" :funCardStyle="{width:'317px',height:'440px', border:'none',boxSizing:'content-box'}" :cardBackgroundColor="{backgroundColor:'#000'}"></Fun>
      </div>
      <div>
-       <Fun :decStyle="{color:'#999999',fontSize:'12px',width:'164px',lineHeight:'20px'}" :cardList="cooperationProcessList" :hasBorder="false" :hasWrapBottomBorder="false" :funCardStyle="{height:'215px'}"></Fun>
+      <Fun :titleStyle="{fontSize: '16px'}" :decStyle="{color:'#999999',fontSize:'12px',width:'164px',lineHeight:'20px'}" :cardList="cooperationProcessList" :hasBorder="false" :hasWrapBottomBorder="false" :funCardStyle="{height:'215px'}"></Fun>
      </div>
      <div class="btn-container"><el-button class="advantage-btn" type="primary" @click="test">申请合作</el-button></div>
      <div>

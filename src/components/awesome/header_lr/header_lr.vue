@@ -38,18 +38,27 @@ export default {
   position: relative;
   height: 65px;
   margin: 0 auto;
+      width: 100%;
+    display: flex;
+    justify-content: space-between;
 
   a {
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
+    span{
+      font-size: 18px;
+    }
   }
 }
 .logo-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0px;
-  padding: 18px 0;
-  overflow: hidden;
+  // position: absolute;
+  // top: 0;
+  // left: 0px;
+  // padding: 18px 0;
+  // overflow: hidden;
+  display: flex;
+  align-items: center;
+    justify-content: center;
 }
 .logo {
   display: inline-block;

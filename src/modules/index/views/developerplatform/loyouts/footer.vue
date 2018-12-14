@@ -71,7 +71,7 @@ ul {
 }
   .title{
     opacity: 0.8;
-    font-size: 14px;
+    font-size: 16px;
     color: #FFFFFF;
     // letter-spacing: 0.07px;
     padding-bottom: 35px;

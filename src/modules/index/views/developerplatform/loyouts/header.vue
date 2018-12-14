@@ -178,8 +178,8 @@ export default {
   justify-content: space-between;
 }
 .header-content {
-  // background-color: rgba(0, 0, 0, 0.2);
-  background-color: #1D233C;
+  background-color: rgba(0, 0, 0, 0.2);
+  // background-color: #1D233C;
 }
 .el-menu-demo {
   background-color: transparent !important;
