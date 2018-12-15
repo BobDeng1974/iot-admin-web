@@ -153,9 +153,6 @@ export default {
     }
   },
   created() {
-    // 获取4a登录信息
-    this.get4AUserInfo();
-
     this.getDocAllMenu();
     this.getHeight();
     window.addEventListener(
@@ -167,9 +164,11 @@ export default {
     );
   },
   mounted() {
-    this.$route.params.id;
-    this.$route.params;
-    console.log(this.$route.params.id);
+        // 获取4a登录信息
+    this.$store.dispatch('get4AUserInfo');
+    // this.$route.params.id;
+    // this.$route.params;
+    // console.log(this.$route.params.id);
     // console.log(this.menuData);
     // debugger;
     // this.lefNavSelect(10);
