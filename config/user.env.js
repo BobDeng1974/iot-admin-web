@@ -7,8 +7,8 @@
 var environment = (function () {
   // 后台接口域
   var _application = {
-    iotserver: '/adminWeb/v1/iotserver',
-    iotserverUcenterAdminWeb:'/ucenterAdminWeb/v1/iotserver',
+    iotserver: '/v1/iotserver',
+    iotserverUcenterAdminWeb:'/v1/iotserver',
     iotmj: '/mj'
   };
   //项目目录

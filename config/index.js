@@ -28,14 +28,14 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/adminWeb/v1/iotserver': {
+      '/v1/iotserver': {
         // target: 'http://iotdeveloper-sit.smartmidea.net',
-        target: 'https://iotdeveloperadminweb-sit.smartmidea.net',
+        target: 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb',
         logLevel: 'debug',
         changeOrigin: true
       },
-      '/ucenterAdminWeb/v1/iotserver': {
-        target: 'https://iotdeveloperadminweb-sit.smartmidea.net',
+      '/v1/iotserver': {
+        target: 'https://iotdeveloperadminweb-sit.smartmidea.net/ucenterAdminWeb',
         logLevel: 'debug',
         changeOrigin: true
       }
