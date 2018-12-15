@@ -66,7 +66,7 @@ const API = {
   // 单点登录获取信息
   get4AUser: (params) => {
     return request({
-      url: `${APPLICATION_NAME}/adminWeb/v1/iotserver/get`,
+      url: `${APPLICATION_NAME}/get`,
       method: 'post',
       data: params
     });
