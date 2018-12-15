@@ -62,6 +62,14 @@ const API = {
       method: 'post',
       data: params
     });
+  },
+  // 单点登录获取信息
+  get4AUser: (params) => {
+    return request({
+      url: `${APPLICATION_NAME}/adminWeb/v1/iotserver/get`,
+      method: 'post',
+      data: params
+    });
   }
   // /user/ update
   // // wifiSdk信息列表

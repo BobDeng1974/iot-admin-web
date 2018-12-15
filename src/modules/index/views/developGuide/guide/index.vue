@@ -153,6 +153,9 @@ export default {
     }
   },
   created() {
+    // 获取4a登录信息
+    this.get4AUserInfo();
+
     this.getDocAllMenu();
     this.getHeight();
     window.addEventListener(

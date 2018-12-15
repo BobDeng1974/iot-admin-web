@@ -167,7 +167,17 @@ const user = {
         });
       });
     },
-
+    // 4A 登录 获取用户信息
+    get4AUserInfo({ commit, state }, params) {
+      return new Promise((resolve, reject) => {
+        API.get4AUser(params).then(response => {
+          this.commit('saveGetUserInfo', response.result);
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
     // 第三方验证登录
     // LoginByThirdparty({ commit, state }, code) {
     //   return new Promise((resolve, reject) => {
