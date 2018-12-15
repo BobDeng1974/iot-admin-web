@@ -43,7 +43,7 @@ service.interceptors.response.use(
     } else {
       const res = response.data;
       // 统一处理请求不成功的
-      // debugger;
+      debugger;
       if (res.code !== 0) {
         if (res.code === 12010003) {
           MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {

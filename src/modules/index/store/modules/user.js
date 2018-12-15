@@ -75,7 +75,7 @@ const user = {
     // 用户名登录
     LoginByUsername({ commit }, userInfo) {
       // debugger;
-      userInfo.account.trim();
+      // userInfo.account.trim();
       return new Promise((resolve, reject) => {
         API.loginByUsername(userInfo).then(response => {
           const data = response.result;

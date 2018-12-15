@@ -129,7 +129,12 @@ export default {
       this.$router.push({ name: 'Register' });
     },
     land() {
-      this.$router.push({ name: '登陆' });
+      // location.href = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/login';
+      this.$store.dispatch('LoginByUsername', '').then((res) => {
+        debugger;
+          // location.href = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/login';
+        });
+      // this.$router.push({ name: '登陆' });
       // window.location.href = './login.html';
     }
   }
