@@ -66,7 +66,7 @@ const API = {
   // 单点登录获取信息
   get4AUser: (params) => {
     return request({
-      url: `${APPLICATION_NAME}/get`,
+      url: `${APPLICATION_NAME}/admin/get`,
       method: 'post',
       data: params
     });
