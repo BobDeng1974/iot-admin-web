@@ -13,7 +13,7 @@ pipeline {
     		iotdevwebpath = "dist/dist.zip"      		 		
     	}
     	agent {
-    		label "${params.nodeName}"
+    		label "iotdevweb"
     	}
       steps {
       	  sh 'cp -af /root/node_modules .'
@@ -23,20 +23,20 @@ pipeline {
       }
       post {
     	success {
-    		sh 'ssh mcloud@${packageSerHost} "[[ ! -d "/app/output/iotdevweb" ]] && mkdir -pv /app/output/iotdevweb || exit 0"'
-    		sh 'scp ${iotdevwebpath} mcloud@${packageSerHost}:/app/output/iotdevweb/iotdevweb-${BRANCH_NAME}-${GIT_COMMIT}.zip'
+    		sh 'ssh mcloud@${packageSerHost} "[[ ! -d "/app/output/iotdevweb-admin" ]] && mkdir -pv /app/output/iotdevweb-admin || exit 0"'
+    		sh 'scp ${iotdevwebpath} mcloud@${packageSerHost}:/app/output/iotdevweb-admin/iotdevweb-admin-${BRANCH_NAME}-${GIT_COMMIT}.zip'
     	}
     }
     }
     stage('Deploy sit') {
     	   environment {    		
-    			packageName = "iotdevweb-${BRANCH_NAME}-${GIT_COMMIT}.zip"     		 		
+    			packageName = "iotdevweb-admin-${BRANCH_NAME}-${GIT_COMMIT}.zip"     		 		
     		}
     		agent {
     			label "master"
     		}
     		steps {
-    			sh '/app/scripts/deploy-iotdevweb.sh'
+    			sh '/app/scripts/deploy-iotdevweb-admin.sh'
     		}
      }    
   }
