@@ -171,7 +171,7 @@ const user = {
     get4AUserInfo({ commit, state }, params) {
       return new Promise((resolve, reject) => {
         API.get4AUser(params).then(response => {
-          this.commit('saveGetUserInfo', response.result);
+          // this.commit('saveGetUserInfo', response.result);
           resolve(response);
         }).catch(error => {
           reject(error);
