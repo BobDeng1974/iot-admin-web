@@ -36,9 +36,14 @@ export default {
 </script>
 <style lang="less" scoped>
 .home-top{
+  display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding-left: 40px;
   height: 160px;
   background-image: linear-gradient(40deg, #5667FF 0%, #88BFFF 100%);
   .home-top-left{
+        padding-right: 32px;
     img{
       width: 80px;
       height: 80px;
