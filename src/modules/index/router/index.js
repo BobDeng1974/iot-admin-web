@@ -55,14 +55,14 @@ export const constantRouterMap = [
     name: '开发指引模块',
     component: _import('layout/index'),
     meta: { title: '开发指引模块' },
-    redirect: '/developGuideTop/developGuide',
+    // redirect: '/developGuideTop/developGuide',
     children: [
       {
         path: 'developGuide',
         name: '开发指引',
         component: _import('developGuide/index'),
         meta: { title: '开发指引' },
-        redirect: '/developGuideTop/developGuide/guide',
+        // redirect: '/developGuideTop/developGuide/guide',
         children: [
           {
             path: 'guide/:adminWebEroorToken',

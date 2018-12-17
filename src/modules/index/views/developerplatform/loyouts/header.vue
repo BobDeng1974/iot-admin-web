@@ -84,11 +84,12 @@ export default {
         //   this.$router.push({ name: '登陆' });
         // });
           await this.$store.dispatch('adminWeb4Alogout').then(result => {
+            console.log(result);
           debugger;
           // this.$router.push({ name: '登陆' });
         });
       } catch (e) {}
-      window.location = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/logout';
+      // window.location = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/logout';
       // logout().then(res => {
       //   console.log(res);
       // });
