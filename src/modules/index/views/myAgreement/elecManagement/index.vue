@@ -3,6 +3,7 @@
       <div class="page-main-con">
         <con-header :titleIcon="titleIcon1" title="首页"></con-header>
         <div class="page-main-wrapper">
+          <div class="user-title">个人信息</div>
           <div class="home-top">
             <div class="home-top-left">
               <img :src="userInfo.profilePicUrl" alt="">
@@ -14,6 +15,15 @@
               <!-- <div ><span></span>{{userInfo.}}</div> -->
             </div>
           </div>
+          <div class="user-title">登录记录</div>
+            <!--Lua协议列表-->
+        <div class="table-wrapper">
+          <el-table  class="table" :data="userInfo.loginRecords" style="width: 100%">
+            <el-table-column prop="id" label="ID" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="loginTime" label="登录时间" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="loginIp" label="登录ip" width="110" show-overflow-tooltip></el-table-column>
+          </el-table>
+        </div>
         </div>
       </div>
     </div>
@@ -35,6 +45,11 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.user-title{
+  font-size: 16px;
+color: #333333;
+font-weight: 700;
+}
 .home-top{
   display: flex;
     /* justify-content: space-between; */
