@@ -70,6 +70,13 @@ const API = {
       method: 'post',
       data: params
     });
+  },
+  // 单点登录退出 /adminWeb/v1/iotserver/logout
+  adminWeb4Alogout: () => {
+    return request({
+      url: `${APPLICATION_NAME}/logout`,
+      method: 'post'
+    });
   }
   // /user/ update
   // // wifiSdk信息列表

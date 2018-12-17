@@ -153,6 +153,7 @@ export default {
     }
   },
   created() {
+    debugger;
     this.getDocAllMenu();
     this.getHeight();
     window.addEventListener(
@@ -164,6 +165,12 @@ export default {
     );
   },
   mounted() {
+    this.$route.params.adminWebEroorToken;
+    if (this.this.$route.params.adminWebEroorToken) {
+      this.$store.commit('SET_TOKEN', this.$route.params.adminWebEroorToken);
+    }
+
+    debugger;
         // 获取4a登录信息
     this.$store.dispatch('get4AUserInfo');
     // this.$route.params.id;

@@ -178,6 +178,29 @@ const user = {
         });
       });
     },
+    // 4a 登出
+    adminWeb4Alogout({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        API.adminWeb4Alogout().then(() => {
+          // commit('SET_TOKEN', '');
+          // commit('SET_ROLES', []);
+          commit('SET_USERINFO', '');
+          removeToken();
+          ls.removeItem('userInfo');
+          ls.removeItem('roles');
+          ls.removeItem('userInfoNickName');
+          ls.removeItem('buttonFlag');
+          commit('saveGetUserInfo', null);
+          ls.removeItem('saveGetUserInfo');
+
+          ls.removeItem('proto');
+          ls.removeItem('network');
+          resolve(resolve);
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
     // 第三方验证登录
     // LoginByThirdparty({ commit, state }, code) {
     //   return new Promise((resolve, reject) => {
