@@ -65,7 +65,7 @@ export const constantRouterMap = [
         redirect: '/developGuideTop/developGuide/guide',
         children: [
           {
-            path: 'guide/:accessToken',
+            path: 'guide',
             component: _import('developGuide/guide/index'),
             name: 'IOS SDK',
             meta: { title: 'IOS SDK', icon: 'dots' }

@@ -152,6 +152,11 @@ export default {
       // deep: true
     }
   },
+  // beforeRouteEnter (to, from, next) {
+  //   // ...
+  //   debugger;
+  //   next();
+  // },
   created() {
         console.log(this.$route);
     console.log(this.$route.query);
@@ -171,12 +176,12 @@ export default {
   },
   mounted() {
     console.log(this.$route);
-    console.log(this.$route.query);
-    console.log(this.$route.query.accessToken);
-    console.log(this.$route.params.accessToken, 'this.$route.params.accessToken');
-    if (this.$route.params.accessToken) {
-      this.$store.commit('SET_TOKEN', this.$route.params.accessToken);
-    }
+    // console.log(this.$route.query);
+    // console.log(this.$route.query.accessToken);
+    // console.log(this.$route.params.accessToken, 'this.$route.params.accessToken');
+    // if (this.$route.params.accessToken) {
+    //   this.$store.commit('SET_TOKEN', this.$route.params.accessToken);
+    // }
 
     debugger;
         // 获取4a登录信息

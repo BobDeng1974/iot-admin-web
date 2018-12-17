@@ -9,9 +9,34 @@ import commonFun from '@/common/js/func';
 const whiteList = ['/login', '/platformIntroduction', '/register', '/forget', '/developGuideTop']; // 不重定向白名单
 router.beforeEach((to, from, next) => {
   NProgress.start();
-  console.log(from.path, 'from');
-  console.log(to.path, 'pesstest');
-  debugger;
+  // console.log(from.path, 'from');
+  // console.log(to.path, 'pesstest');
+  // window.location;
+  // console.log(location);
+  // let myPath = location.hash;
+  // debugger;
+  // 4a
+  // if (myPath.split('/')[2] === 'developGuide') {
+  //   if (myPath.split('/')[3]) {
+  //     let devPath = myPath.split('/')[3];
+  //     let tempPath = '';
+  //     for (let i = 0; i < devPath.length; i++) {
+  //       tempPath += devPath[i];
+  //       if (i === 4) {
+  //         tempPath += '-';
+  //       }
+  //     }
+  //     let token = tempPath.split('-')[1];
+  //     // tempPath
+  //     // next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
+  //     // NProgress.done();
+  //     // next({path: `/developGuideTop/developGuide`});
+  //     // store.commit('SET_TOKEN', token);
+  //     // location.hash = '/developGuideTop/developGuide';
+  //     NProgress.done();
+  //     console.log(devPath);
+  //   }
+  // }
 
   if (getToken()) {
     debugger;
@@ -37,6 +62,29 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     let rootPath = commonFun.getRootPath(to.path);
+    // debugger;
+    // if (to.path.split('/')[1] === 'developGuideTop') {
+    //   if (to.path.split('/')[3]) {
+    //     let devPath = to.path.split('/')[3];
+    //     let tempPath = '';
+    //     for (let i = 0; i < devPath.length; i++) {
+    //       tempPath += devPath[i];
+    //       if (i === 4) {
+    //         tempPath += '-';
+    //       }
+    //     }
+    //     let token = tempPath.split('-')[1];
+    //     // tempPath
+    //     // next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
+    //     // NProgress.done();
+    //     next({path: `/developGuideTop/developGuide`});
+    //     // store.commit('SET_TOKEN', token);
+    //     // location.hash = '/developGuideTop/developGuide';
+    //     NProgress.done();
+    //     console.log(devPath);
+    //   }
+    // }
+
     console.log(rootPath);
     if (whiteList.indexOf(rootPath) !== -1) {
       next();
