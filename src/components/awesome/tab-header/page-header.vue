@@ -129,10 +129,12 @@ export default {
     },
     // 退出登陆
     async handleLogout() {
-      try {
-        await this.$store.dispatch('LogOut');
-        this.$router.push({ name: '登陆' });
-      } catch (e) {}
+      window.location = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/logout';
+
+      // try {
+      //   await this.$store.dispatch('LogOut');
+      //   this.$router.push({ name: '登陆' });
+      // } catch (e) {}
       // logout().then(res => {
       //   console.log(res);
       // });

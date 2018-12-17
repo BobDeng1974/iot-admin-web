@@ -71,9 +71,11 @@ export default {
 
     // 退出登陆
     handleLogout () {
-      logout().then(res => {
-        console.log(res);
-      });
+      window.location = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/logout';
+
+      // logout().then(res => {
+      //   console.log(res);
+      // });
     }
   },
   mounted () {
