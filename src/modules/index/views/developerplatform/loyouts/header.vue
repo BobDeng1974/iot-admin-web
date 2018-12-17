@@ -14,14 +14,19 @@
         </div>
         <div v-else class="myInfo-wrapper" @mouseleave="isShow = false">
           <div class="user-info-content" @click.stop="isShow = !isShow">
-            <span v-if="nickName">
+            <span>
+              <span class="user-info">{{mobile}}</span>
+              <span class="user-info" v-if="roleName">({{roleName}})</span>
+            </span>
+
+            <!-- <span v-if="nickName">
               <span class="user-info">{{nickName}}</span>
               <span class="user-info" v-if="roleName">({{roleName}})</span>
             </span>
             <span v-else>
               <span class="user-info">{{mobile}}</span>
               <span class="user-info" v-if="roleName">({{roleName}})</span>
-            </span>
+            </span> -->
             <span class="icon-down" :class="{rotate: isShow}"></span>
           </div>
           <span class="icon-bell"></span>
@@ -112,13 +117,13 @@ export default {
         this.roleName = tempUserInfo.roleName || lsUserInfo.roleName;
         // debugger;
       }
-      if (
-        (tempUserInfo && tempUserInfo.nickName) ||
-        (lsUserInfo && lsUserInfo.nickName)
-      ) {
-        this.nickName = tempUserInfo.nickName || lsUserInfo.nickName;
-        // debugger;
-      }
+      // if (
+      //   (tempUserInfo && tempUserInfo.nickName) ||
+      //   (lsUserInfo && lsUserInfo.nickName)
+      // ) {
+      //   this.nickName = tempUserInfo.nickName || lsUserInfo.nickName;
+      //   // debugger;
+      // }
     },
     // 跳转开发者信息
     goToInfo() {
