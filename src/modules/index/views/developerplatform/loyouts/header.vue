@@ -78,18 +78,18 @@ export default {
     // 退出登陆
     async handleLogout() {
       debugger;
-      try {
-        // await this.$store.dispatch('LogOut').then(result => {
-          debugger;
-        //   this.$router.push({ name: '登陆' });
-        // });
-          await this.$store.dispatch('adminWeb4Alogout').then(result => {
-            console.log(result);
-          debugger;
-          // this.$router.push({ name: '登陆' });
-        });
-      } catch (e) {}
-      // window.location = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/logout';
+      // try {
+      //   // await this.$store.dispatch('LogOut').then(result => {
+      //     debugger;
+      //   //   this.$router.push({ name: '登陆' });
+      //   // });
+      //     await this.$store.dispatch('adminWeb4Alogout').then(result => {
+      //       console.log(result);
+      //     debugger;
+      //     // this.$router.push({ name: '登陆' });
+      //   });
+      // } catch (e) {}
+      window.location = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/logout';
       // logout().then(res => {
       //   console.log(res);
       // });
