@@ -49,6 +49,19 @@ export default {
       height: 80px;
       display: inline-block;
     }
+    .user-name{
+    text-align: center;
+    padding-top: 10px;
+    }
+  }
+  .home-top-right{
+    >div{
+          height: 32px;
+    line-height: 32px;
+    >span{
+      padding-right: 24px;
+    }
+    }
   }
 }
 </style>

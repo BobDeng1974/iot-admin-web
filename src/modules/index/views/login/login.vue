@@ -101,7 +101,8 @@ export default {
           //         store.dispatch('FedLogOut').then(() => {
           //   location.reload(); // 为了重新实例化vue-router对象 避免bug
           // });
-        await this.$store.dispatch('LoginByUsername', params).then((res) => {
+        // await this.$store.dispatch('LoginByUsername', params).then((res) => {
+          await this.$store.dispatch('adminWeb4Alogin2', params).then((res) => {
           this.$store.dispatch('getMeauAuthed', {uid: res.user.uid}).then(res => {
           });
         });

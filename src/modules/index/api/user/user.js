@@ -77,6 +77,14 @@ const API = {
       url: `${APPLICATION_NAME}/logout`,
       method: 'post'
     });
+  },
+  // 临时登录
+  adminWeb4Alogin2: (params) => {
+    return request({
+      url: `${APPLICATION_NAME}/login`,
+      method: 'post',
+      data: params
+    });
   }
   // /user/ update
   // // wifiSdk信息列表
