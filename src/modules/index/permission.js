@@ -89,7 +89,9 @@ router.beforeEach((to, from, next) => {
     if (whiteList.indexOf(rootPath) !== -1) {
       next();
     } else {
-      next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
+      // 4a 登录
+      location.href = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/login';
+      // next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
       NProgress.done();
     }
   }
