@@ -131,6 +131,9 @@ export default {
     async handleLogout() {
       this.$store.dispatch('adminWeb4Alogout').then(result => {
             console.log(result, 'adminWeb4Alogout');
+              if (result.code === 0) {
+              window.location.href = result.result;
+            }
         });
       // window.location = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/logout';
 
