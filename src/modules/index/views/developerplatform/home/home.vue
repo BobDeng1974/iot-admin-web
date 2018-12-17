@@ -87,6 +87,7 @@ export default {
         console.log(window.location.search);
     if (window.location.search) {
       window.location.search.split('=')[1];
+      alert(window.location.search.split('=')[1]);
       this.$store.commit('SET_TOKEN', window.location.search.split('=')[1]);
     }
     debugger;
