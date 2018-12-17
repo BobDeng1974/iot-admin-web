@@ -29,7 +29,11 @@
     </div>
 </template>
 <script>
+import conHeader from '@/components/awesome/con-header/con-header';
 export default {
+    components: {
+    'con-header': conHeader
+  },
   data() {
     return {
         titleIcon1: '/static/img/title_07@2x.png',
@@ -49,6 +53,9 @@ export default {
   font-size: 16px;
 color: #333333;
 font-weight: 700;
+    height: 44px;
+    padding-top: 24px;
+    line-height: 44px;
 }
 .home-top{
   display: flex;
