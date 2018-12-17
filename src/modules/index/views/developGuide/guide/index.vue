@@ -175,7 +175,14 @@ export default {
     );
   },
   mounted() {
+    console.log(window.location.search);
+    if (window.location.search) {
+      window.location.search.split('=')[1];
+      this.$store.commit('SET_TOKEN', window.location.search.split('=')[1]);
+    }
+    debugger;
     console.log(this.$route);
+    // if()
     // console.log(this.$route.query);
     // console.log(this.$route.query.accessToken);
     // console.log(this.$route.params.accessToken, 'this.$route.params.accessToken');
