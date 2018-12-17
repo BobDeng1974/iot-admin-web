@@ -13,8 +13,8 @@ export default {
       window.location.search.split('=')[1];
       // alert(window.location.search.split('=')[1]);
       setToken(window.location.search.split('=')[1]);
-      window.location.hash = '/developGuideTop/developGuide/guide';
-      // window.location.hash = '/product';
+      // window.location.hash = '/developGuideTop/developGuide/guide';
+      window.location.hash = '/product';
       // this.$store.commit('SET_TOKEN', window.location.search.split('=')[1]);
     }
     debugger;
