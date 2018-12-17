@@ -153,7 +153,11 @@ export default {
     }
   },
   created() {
-    console.log(this.$route);
+        console.log(this.$route);
+    console.log(this.$route.query);
+    console.log(this.$route.query.accessToken);
+    console.log(this.$route.params.accessToken, 'this.$route.params.accessToken');
+
     debugger;
     this.getDocAllMenu();
     this.getHeight();
@@ -167,9 +171,11 @@ export default {
   },
   mounted() {
     console.log(this.$route);
-    console.log(this.$route.params.adminWebEroorToken, 'this.$route.params.adminWebEroorToken');
-    if (this.$route.params.adminWebEroorToken) {
-      this.$store.commit('SET_TOKEN', this.$route.params.adminWebEroorToken);
+    console.log(this.$route.query);
+    console.log(this.$route.query.accessToken);
+    console.log(this.$route.params.accessToken, 'this.$route.params.accessToken');
+    if (this.$route.params.accessToken) {
+      this.$store.commit('SET_TOKEN', this.$route.params.accessToken);
     }
 
     debugger;
