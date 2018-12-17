@@ -75,6 +75,8 @@ font-weight: 700;
     line-height: 32px;
     >span{
       padding-right: 24px;
+          width: 70px;
+    display: inline-block;
     }
     }
   }
