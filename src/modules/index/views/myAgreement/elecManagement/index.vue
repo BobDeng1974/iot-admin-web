@@ -21,7 +21,7 @@
           <el-table  class="table" :data="userInfo.loginRecords" style="width: 100%">
             <el-table-column prop="id" label="ID" show-overflow-tooltip></el-table-column>
             <el-table-column prop="loginTime" label="登录时间" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="loginIp" label="登录ip" width="110" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="loginIp" label="登录ip"  show-overflow-tooltip></el-table-column>
           </el-table>
         </div>
         </div>
