@@ -4,7 +4,8 @@
 <script>
 export default {
   created() {
-    this.$store.dispatch('getUserInfo', '');
+    // 获取4a登录信息
+    this.$store.dispatch('get4AUserInfo');
   }
 };
 </script>

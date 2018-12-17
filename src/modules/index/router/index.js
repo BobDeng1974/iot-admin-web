@@ -12,7 +12,7 @@ import platformIntroductionRouter from './modules/platformIntroduction';
 export const constantRouterMap = [
   {
     path: '/',
-    redirect: '/platformIntroduction',
+    redirect: '/product',
     name: 'home',
     hidden: true
   },
