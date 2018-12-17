@@ -166,7 +166,7 @@ export default {
   },
   mounted() {
     console.log(this.$route.params.adminWebEroorToken, 'this.$route.params.adminWebEroorToken');
-    if (this.this.$route.params.adminWebEroorToken) {
+    if (this.$route.params.adminWebEroorToken) {
       this.$store.commit('SET_TOKEN', this.$route.params.adminWebEroorToken);
     }
 

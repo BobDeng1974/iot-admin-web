@@ -9,11 +9,12 @@ import commonFun from '@/common/js/func';
 const whiteList = ['/login', '/platformIntroduction', '/register', '/forget', '/developGuideTop']; // 不重定向白名单
 router.beforeEach((to, from, next) => {
   NProgress.start();
-  // console.log(getToken());
-  // debugger;
+  console.log(from.path, 'from');
+  console.log(to.path, 'pesstest');
+  debugger;
 
   if (getToken()) {
-    // debugger;
+    debugger;
     if (to.path === '/login') {
       // debugger;
       next({ path: '/product' });

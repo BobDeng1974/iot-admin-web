@@ -71,6 +71,9 @@ export default {
       activeIndex2: 'home'
     };
   },
+  created() {
+    debugger;
+  },
   methods: {
     // 退出登陆
     async handleLogout() {
