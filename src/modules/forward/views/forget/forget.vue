@@ -4,13 +4,17 @@
   </div>
 </template>
 <script>
+import { setToken } from '@/utils/auth';
 export default {
   mounted() {
     console.log(window.location.href);
     console.log(window.location.search);
     if (window.location.search) {
       window.location.search.split('=')[1];
-      alert(window.location.search.split('=')[1]);
+      // alert(window.location.search.split('=')[1]);
+      setToken(window.location.search.split('=')[1]);
+      window.location.hash = '/developGuideTop/developGuide/guide';
+      // window.location.hash = '/product';
       // this.$store.commit('SET_TOKEN', window.location.search.split('=')[1]);
     }
     debugger;
