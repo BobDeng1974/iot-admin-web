@@ -201,6 +201,20 @@ const user = {
         });
       });
     },
+    adminWeb4Alogin2({ commit }, userInfo) {
+      debugger;
+      // userInfo.account.trim();
+      return new Promise((resolve, reject) => {
+        API.adminWeb4Alogin2(userInfo).then(response => {
+          const data = response.result;
+          commit('SET_TOKEN', data.accessToken);
+          commit('SET_USERINFO', data.user);
+          resolve(data);
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
     // 第三方验证登录
     // LoginByThirdparty({ commit, state }, code) {
     //   return new Promise((resolve, reject) => {

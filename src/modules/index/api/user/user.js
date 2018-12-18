@@ -81,7 +81,7 @@ const API = {
   // 临时登录
   adminWeb4Alogin2: (params) => {
     return request({
-      url: `${APPLICATION_NAME}/login`,
+      url: `${APPLICATION_NAME}/login2`,
       method: 'post',
       data: params
     });
