@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-        titleIcon1: '/static/img/title_07@2x.png',
+        titleIcon1: '/static/img/title_04@2x.png',
         userInfo: ''
     };
   },
