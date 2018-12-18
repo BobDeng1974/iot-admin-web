@@ -207,8 +207,9 @@ const user = {
       return new Promise((resolve, reject) => {
         API.adminWeb4Alogin2(userInfo).then(response => {
           const data = response.result;
-          commit('SET_TOKEN', data.accessToken);
-          commit('SET_USERINFO', data.user);
+          debugger;
+          commit('SET_TOKEN', data);
+          // commit('SET_USERINFO', data.user);
           resolve(data);
         }).catch(error => {
           reject(error);

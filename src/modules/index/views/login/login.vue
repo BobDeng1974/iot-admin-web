@@ -91,7 +91,7 @@ export default {
       let md5Psw = Encrypt(this.loginData.password);
       // console.log(md5Psw);
       let params = {
-        account: this.loginData.account,
+        mip: this.loginData.account,
         password: md5Psw
         // remember: this.loginData.remember
       };
@@ -103,10 +103,11 @@ export default {
           // });
         // await this.$store.dispatch('LoginByUsername', params).then((res) => {
           await this.$store.dispatch('adminWeb4Alogin2', params).then((res) => {
+            this.$router.push({name: 'home'});
           this.$store.dispatch('getMeauAuthed', {uid: res.user.uid}).then(res => {
           });
         });
-        this.$router.push({name: '开发者平台系统管理'});
+        // this.$router.push({name: 'home'});
       } catch (e) {}
     },
     // handleLogin() {
