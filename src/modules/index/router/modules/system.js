@@ -190,12 +190,6 @@ export const sconfigurationManagementRouter =
       component: _import('mineSystem/configurationManagement/macManagement/index'),
       name: 'mac地址管理',
       meta: { title: 'mac地址管理' }
-    },
-    {
-      path: 'documentManagement',
-      component: _import('mineSystem/configurationManagement/documentManagement/index'),
-      name: '文档管理',
-      meta: { title: '文档管理' }
     }
   ]
 };

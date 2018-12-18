@@ -30,11 +30,11 @@
   import "./static/js/kindeditor/kindeditor-all";
   import "./static/js/kindeditor/themes/default/default.css";
   import request from "@/utils/http";
-  const { APPLICATION_NAME } = window.environment.iotserver.MJAPP_NAME;
+  const { APPLICATION_NAME, MJAPP_NAME } = window.environment.iotserver;
   export default {
     data() {
       return {
-        apiRootPath: `${APPLICATION_NAME}/`,
+        apiRootPath: `${MJAPP_NAME}/`,
         menuTitle: "",
         docType: 1,
         editor: null,

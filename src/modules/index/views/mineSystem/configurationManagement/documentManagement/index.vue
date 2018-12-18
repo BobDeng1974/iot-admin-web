@@ -25,11 +25,11 @@
   import "./static/js/zTree/jquery.ztree.all.min";
   import "@/assets/css/zTreeStyle.css";
   import request from "@/utils/http";
-  const { APPLICATION_NAME } = window.environment.iotserver.MJAPP_NAME;
+  const { APPLICATION_NAME, MJAPP_NAME } = window.environment.iotserver;
   export default {
     data() {
       return {
-        apiRootPath: `${APPLICATION_NAME}/`,
+        apiRootPath: `${MJAPP_NAME}/`,
         zTreeObj: null,
         docDetail: null,
         newCount: 1,
