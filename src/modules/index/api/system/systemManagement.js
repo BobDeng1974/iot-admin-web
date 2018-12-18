@@ -108,7 +108,7 @@ const systemManagementApi = {
     // 账户管理API
     getUserList: (query) => {
       return request({
-        url: `${APPLICATION_NAME}/user/list`,
+        url: `${APPLICATION_NAME}/admin/list`,
         method: 'post',
         data: query
       }).then(res => res);

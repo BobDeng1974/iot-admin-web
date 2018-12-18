@@ -23,9 +23,9 @@ const productRouter = {
         }
       ]
     },
-    // auditsManagementRouter,
+    auditsManagementRouter,
     systemManagementRouter,
-    // sconfigurationManagementRouter,
+    sconfigurationManagementRouter,
     liencesRouter,
     dataCenterRouter
   ]

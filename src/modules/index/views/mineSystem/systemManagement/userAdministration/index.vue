@@ -50,7 +50,7 @@
             <el-table-column prop="departmentName" label="所在事业部" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column label="认证状态" align="center" show-overflow-tooltip>
               <template slot-scope="scope">
-                <div>{{scope.row.status === 0 ? '正常' : '禁用'}}</div>
+                <div>{{scope.row.isMipAuth ? '已认证' : '未认证'}}</div>
               </template>
             </el-table-column>
             <el-table-column label="创建时间" align="center" show-overflow-tooltip width="150">
@@ -62,8 +62,8 @@
               <template slot-scope="scope">
                 <div v-if="scope.row.status === 0">
                   <span @click="forbidRole(scope.row)" >禁用</span>
-                  <span style="color: #DEDFE5;">|</span>
-                  <span @click="authorizedAccess(scope.row)" >授权对接人</span>
+                  <span style="color: #DEDFE5;" v-if="!scope.row.isContacter">|</span>
+                  <span @click="authorizedAccess(scope.row)" v-if="!scope.row.isContacter">授权对接人</span>
                 </div>
                 <div v-if="scope.row.status === 1">
                   <span @click="userRecover(scope.row)">启用</span>
