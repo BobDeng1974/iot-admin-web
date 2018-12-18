@@ -9,7 +9,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="事业部">
-              <el-select v-model="formInline.departId" placeholder="请选择" clearable>
+              <el-select v-model="formInline.departmentId" placeholder="请选择" clearable>
                 <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -17,7 +17,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="品类">
-              <el-select v-model="formInline.applianceType" placeholder="请选择" @change="applianChange" clearable>
+              <el-select v-model="formInline.applianTypeId" placeholder="请选择" @change="applianChange" clearable>
                 <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
                 </el-option>
               </el-select>
@@ -48,14 +48,26 @@
         <el-table-column prop="index"  align="center" :render-header="renderIndex"></el-table-column>
         <el-table-column prop="applianceType"  label="品类" align="center"></el-table-column>
         <el-table-column prop="sn8"  label="型号码" align="center"></el-table-column>
-        <el-table-column prop="departName"  label="所属事业部" align="center"></el-table-column>
-        <el-table-column prop="applyUserName"  label="创建人" align="center"></el-table-column>
+        <el-table-column prop="departmentName"  label="所属事业部" align="center"></el-table-column>
+        <el-table-column prop="cName"  label="创建人" align="center"></el-table-column>
         <el-table-column prop="applyTime"  label="创建时间" align="center">
           <template slot-scope="scope">
             <div>{{scope.row.applyTime | fomatDate('yyyy-MM-dd HH:mm')}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="status"  label="状态" align="center"></el-table-column>
+        <el-table-column  label="状态" align="center">
+          <template slot-scope="scope">
+            <div>
+                <span :class="[{green: scope.row.publicStatus === 10},{darkgray: scope.row.publicStatus === 20},{blue: scope.row.publicStatus === 31},{yellow: scope.row.publicStatus === 41}, 'commerStyle']">
+                </span>
+                <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 10">{{'待审核'}}</span>
+                <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 20">{{'待开发'}}</span>
+                <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 31">{{'申请试产中'}}</span>
+                <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 41">{{'申请上线中'}}</span>
+                <!-- <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 5">{{'开发完成'}}</span> -->
+            </div>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
     <div class="fenye">
@@ -82,8 +94,8 @@ export default {
       formInline: {
         sn8: '',
         supplyId: '',
-        departId: '',
-        applianceType: '',
+        departmentId: '',
+        applianTypeId: '',
         time: [],
         applyEndTime: '',
         applyStartTime: ''
@@ -122,22 +134,11 @@ export default {
     handleCurrentChange(val) {
       this.getList(false);
     },
-    // 翻译芯片厂商
-    fetchChipBrand(val) {
-      var str = '';
-      for (var i = 0; i < this.chipBrandList.length; i++) {
-        if (Number(val) === this.chipBrandList[i].id) {
-          str = this.chipBrandList[i].name;
-        }
-      }
-      return str;
-    },
     // 给请求回来的表格数据新增index属性（序号）
     initTableData(val) {
       if (!val && !val.length) return [];
       for (var i = 0; i < val.length; i++) {
         val[i].index = (this.currentPage - 1) * this.pageSize + i + 1;
-        val[i].chipShow = this.fetchChipBrand(val[i].chip);
       }
       return val;
     },
@@ -171,7 +172,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize
       };
-      API.getLicApplyList(params)
+      API.getExamineList(params)
         .then(res => {
           console.log(res, '获取列表');
           this.loading = false;

@@ -9,7 +9,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="开发组">
-              <el-select v-model="formInline.departId" placeholder="请选择" disabled>
+              <el-select v-model="formInline.groupId" placeholder="请选择" >
                 <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -25,7 +25,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="型号码">
-              <el-select v-model="formInline.sn8" placeholder="请选择" clearable>
+              <el-select v-model="sn8" placeholder="请选择" multiple>
                 <el-option v-for="item in sn8List" :key="item.id" :label="item.sn8" :value="item.sn8">
                 </el-option>
               </el-select>
@@ -40,7 +40,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="地区">
-              <v-distpicker :province="formInline.province" hide-area :city="formInline.city"  @province='one' @city="two"></v-distpicker>
+              <v-distpicker :province="formInline.provinces" hide-area :city="formInline.cities"  @province='one' @city="two"></v-distpicker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -84,7 +84,7 @@
 <script>
 import { restData, format } from '@/modules/index/api/system/common.js';
 import conHeader from '@/components/awesome/con-header/con-header';
-import API from '@/modules/index/api/system/system.js';
+import API from '@/modules/index/api/dataCenter/dataCenter.js';
 import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 import moment from 'moment';
 import VDistpicker from 'v-distpicker';
@@ -99,16 +99,16 @@ export default {
       loading: false,
       addProductsIcon: '/static/img/title_05@2x.png',
       formInline: {
-        sn8: '',
-        supplyId: '',
-        departId: '',
+        typeCode: '',
+        groupId: '',
         applianceType: '',
         time: [],
-        applyEndTime: '',
-        applyStartTime: '',
-        province: '',
-        city: ''
+        endTime: '',
+        startTime: '',
+        provinces: '',
+        cities: ''
       },
+      sn8: [],
       tableData: [],
       currentPage: 1,
       total: 0,
@@ -129,42 +129,10 @@ export default {
       }
     },
     one(val) {
-      this.formInline.province = this.initAddres(val);
-      // if (
-      //   !this.userFormData.addressInput ||
-      //   !this.formInline.province ||
-      //   !this.formInline.city ||
-      //   !this.formInline.area
-      // ) {
-      //   this.userFormData.address = '';
-      // } else {
-      //   this.userFormData.address =
-      //     this.formInline.province +
-      //     ',' +
-      //     this.formInline.city +
-      //     ',' +
-      //     this.formInline.area +
-      //     ',' +
-      //     this.userFormData.addressInput;
-      // }
+      this.formInline.provinces = this.initAddres(val);
     },
     two(val) {
-      this.formInline.city = this.initAddres(val);
-      // if (
-      //   !this.userFormData.addressInput ||
-      //   !this.formInline.province ||
-      //   !this.formInline.city ||
-      //   !this.formInline.area
-      // ) {
-      //   this.userFormData.address = '';
-      // } else {
-      //   this.userFormData.address =
-      //     this.formInline.province +
-      //     ',' +
-      //     this.formInline.city +
-      //     ',' +
-      //     this.formInline.area
-      // }
+      this.formInline.cities = this.initAddres(val);
     },
     // 获取所有下拉字典
     getDict() {
@@ -173,7 +141,8 @@ export default {
       this.getApply();
     },
     applianChange(val) {
-      this.formInline.sn8 = '';
+      this.sn8 = [];
+      this.formInline.typeCode = '';
       if (val) {
         this.getSn8List(val);
       } else {
@@ -186,16 +155,23 @@ export default {
     getList(flag) {
       // 时间处理
       if (this.formInline.time && this.formInline.time.length) {
-        this.formInline.applyStartTime = format(
+        this.formInline.startTime = format(
           this.formInline.time[0],
           'yyyy-MM-dd HH:mm:ss'
         );
-        this.formInline.applyEndTime = moment(this.formInline.time[1]).format(
+        this.formInline.endTime = moment(this.formInline.time[1]).format(
           'YYYY-MM-DD 23:59:59'
         );
       } else {
-        this.formInline.applyStartTime = '';
-        this.formInline.applyEndTime = '';
+        this.formInline.startTime = '';
+        this.formInline.endTime = '';
+      }
+      // 新号码处理
+      if (this.sn8.length) {
+        this.formInline.typeCode = this.sn8.join(',');
+        // for (var i = 0; i < this.sn8.length; i++) {
+        //   this.formInline.typeCode += this.sn8[i];
+        // }
       }
       if (flag) {
         this.currentPage = 1;
@@ -203,10 +179,10 @@ export default {
       this.loading = true;
       const params = {
         ...this.formInline,
-        pageNo: this.currentPage,
+        curPage: this.currentPage,
         pageSize: this.pageSize
       };
-      API.getLicApplyList(params)
+      API.getStatisticsInfo(params)
         .then(res => {
           console.log(res, '获取列表');
           this.loading = false;
