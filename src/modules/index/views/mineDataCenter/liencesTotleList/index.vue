@@ -111,7 +111,8 @@ export default {
         applianceType: '',
         time: [],
         applyEndTime: '',
-        applyStartTime: ''
+        applyStartTime: '',
+        status: 9999
       },
       tableData: [],
       currentPage: 1,
@@ -148,22 +149,11 @@ export default {
     handleCurrentChange(val) {
       this.getList(false);
     },
-    // 翻译芯片厂商
-    fetchChipBrand(val) {
-      var str = '';
-      for (var i = 0; i < this.chipBrandList.length; i++) {
-        if (Number(val) === this.chipBrandList[i].id) {
-          str = this.chipBrandList[i].name;
-        }
-      }
-      return str;
-    },
     // 给请求回来的表格数据新增index属性（序号）
     initTableData(val) {
       if (!val && !val.length) return [];
       for (var i = 0; i < val.length; i++) {
         val[i].index = (this.currentPage - 1) * this.pageSize + i + 1;
-        val[i].chipShow = this.fetchChipBrand(val[i].chip);
       }
       return val;
     },

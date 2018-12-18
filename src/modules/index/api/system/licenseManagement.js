@@ -9,28 +9,28 @@ const licenseManagementApi = {
   */
   getLicApplyList: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licApply/list`,
+      url: `${MJAPP_NAME}/licApply/list`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   addLicApply: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licApply/apply`,
+      url: `${MJAPP_NAME}/licApply/apply`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   getLicApplyInfo: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licApply/get`,
+      url: `${MJAPP_NAME}/licApply/get`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   auditLicApplyInfo: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licApply/audit`,
+      url: `${MJAPP_NAME}/licApply/audit`,
       method: 'post',
       data: query
     }).then(res => res);
@@ -38,7 +38,7 @@ const licenseManagementApi = {
   // 预测单请求
   findListBySupplyId: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licPreApply/findListBySupplyId `,
+      url: `${MJAPP_NAME}/licPreApply/findListBySupplyId `,
       method: 'post',
       data: query
     }).then(res => res);
@@ -48,28 +48,28 @@ const licenseManagementApi = {
   */
   getLicPreApplyList: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licPreApply/list`,
+      url: `${MJAPP_NAME}/licPreApply/list`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   addLicPreApply: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licPreApply/apply`,
+      url: `${MJAPP_NAME}/licPreApply/apply`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   getLicPreApplyInfo: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licPreApply/get`,
+      url: `${MJAPP_NAME}/licPreApply/get`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   auditLicPreApplyInfo: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licPreApply/audit`,
+      url: `${MJAPP_NAME}/licPreApply/audit`,
       method: 'post',
       data: query
     }).then(res => res);
@@ -84,7 +84,7 @@ const licenseManagementApi = {
   // 下载Lic
   downloadLic: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/licApply/downloadLic`,
+      url: `${MJAPP_NAME}/licApply/downloadLic`,
       method: 'post',
       data: query,
       responseType: 'blob'
@@ -92,7 +92,7 @@ const licenseManagementApi = {
   },
   getHardInfoForLicApply: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/hardware/getHardInfoForLicApply`,
+      url: `${MJAPP_NAME}/hardware/getHardInfoForLicApply`,
       method: 'post',
       data: query
     }).then(res => res);
