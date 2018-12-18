@@ -8,6 +8,7 @@ import productRouter from './modules/product';
 import infoRouter from './modules/info';
 import platformIntroductionRouter from './modules/platformIntroduction';
 // import systemRouter from './modules/system';
+import { docManagementRouter } from "./modules/system";
 
 export const constantRouterMap = [
   {
@@ -19,6 +20,7 @@ export const constantRouterMap = [
   platformIntroductionRouter,
   infoRouter,
   productRouter,
+  docManagementRouter,
   // systemRouter,
   {
     path: '/downloadCenter',
@@ -86,7 +88,7 @@ export const constantRouterMap = [
     name: '登陆',
     meta: { title: '登陆', icon: 'dots' }
   },
-    {
+  {
     path: '/register',
     name: 'Register',
     component: _import('register/register'),
