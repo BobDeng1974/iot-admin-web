@@ -3,7 +3,12 @@
     <el-form method="POST">
       <el-form-item label="文档类型">
         <select v-model="docType">
-          <option disabled v-for="item in options" :key="item.value" :value="item.value">{{item.label}}</option>
+          <option
+            disabled
+            v-for="item in options"
+            :key="item.value"
+            :value="item.value"
+          >{{item.label}}</option>
         </select>
       </el-form-item>
       <el-form-item>
@@ -25,7 +30,7 @@
   import "./static/js/kindeditor/kindeditor-all";
   import "./static/js/kindeditor/themes/default/default.css";
   import request from "@/utils/http";
-  const { APPLICATION_NAME } = window.environment.iotserver;
+  const { APPLICATION_NAME } = window.environment.iotserver.MJAPP_NAME;
   export default {
     data() {
       return {

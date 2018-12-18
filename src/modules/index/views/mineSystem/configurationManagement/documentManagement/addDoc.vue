@@ -28,7 +28,7 @@
   import "./static/js/kindeditor/kindeditor-all";
   import "./static/js/kindeditor/themes/default/default.css";
   import request from "@/utils/http";
-  const { APPLICATION_NAME } = window.environment.iotserver;
+  const { APPLICATION_NAME } = window.environment.iotserver.MJAPP_NAME;
   export default {
     data() {
       return {
