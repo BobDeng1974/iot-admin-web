@@ -190,17 +190,13 @@ export const sconfigurationManagementRouter =
       component: _import('mineSystem/configurationManagement/macManagement/index'),
       name: 'mac地址管理',
       meta: { title: 'mac地址管理' }
-    }
-  ]
-};
-// 文档管理
-export const docManagementRouter =
-{
-  path: 'documentManagement',
-  component: _import('mineSystem/configurationManagement/documentManagement/index'),
-  name: '文档管理',
-  meta: { title: '文档管理' },
-  children: [
+    },
+    {
+      path: 'documentManagement',
+      component: _import('mineSystem/configurationManagement/documentManagement/index'),
+      name: '文档管理',
+      meta: { title: '文档管理' }
+    },
     {
       path: 'addDevDoc',
       component: _import('mineSystem/configurationManagement/documentManagement/addDoc'),
@@ -211,24 +207,6 @@ export const docManagementRouter =
       component: _import('mineSystem/configurationManagement/documentManagement/editDoc'),
       name: 'editDevDoc'
     }
-    // {
-    //   path: 'downSdkManagement',
-    //   component: _import('mineSystem/configurationManagement/downSdkManagement/index'),
-    //   name: 'downSdkManagement',
-    //   meta: { title: 'sdk文档管理' }
-    // },
-    // {
-    //   path: 'addSdkDoc',
-    //   component: _import('mineSystem/configurationManagement/downSdkManagement/addSdk'),
-    //   name: 'addSdkDoc',
-    //   meta: { title: 'sdk文档管理' }
-    // },
-    // {
-    //   path: 'editSdkDoc',
-    //   component: _import('mineSystem/configurationManagement/downSdkManagement/editSdk'),
-    //   name: 'editSdkDoc',
-    //   meta: { title: 'sdk文档管理' }
-    // }
   ]
 };
 // liences管理
