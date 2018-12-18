@@ -21,7 +21,7 @@ var environment = (function () {
     // 基础框架配置
     iotserver: {
       APPLICATION_NAME: _application.iotserver,
-      MJAPP_NAME: _application.iotmj
+      MJAPP_NAME: _application.iotserverUcenterAdminWeb
     }
   }
 })();
