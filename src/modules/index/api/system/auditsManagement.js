@@ -1,6 +1,7 @@
 import request from '@/utils/http';
 const {
-    APPLICATION_NAME
+    APPLICATION_NAME,
+    MJAPP_NAME
   } = window.environment.iotserver;
 const auditsManagementApi = {
   getApplianSelect: (query) => {

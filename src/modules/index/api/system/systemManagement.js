@@ -1,8 +1,38 @@
 import request from '@/utils/http';
 const {
-  APPLICATION_NAME
+  APPLICATION_NAME,
+  MJAPP_NAME
 } = window.environment.iotserver;
 const systemManagementApi = {
+  // 用户管理api
+  getUserListUcenter: (query) => {
+    return request({
+        url: `${MJAPP_NAME}/user/list`,
+        method: 'post',
+        data: query
+    }).then(res => res);
+  },
+  forbidUserUcenter: (query) => {
+    return request({
+        url: `${MJAPP_NAME}/user/forbid`,
+        method: 'post',
+        data: query
+    }).then(res => res);
+  },
+  recoverUserUcenter: (query) => {
+    return request({
+        url: `${MJAPP_NAME}/user/recover`,
+        method: 'post',
+        data: query
+    }).then(res => res);
+  },
+  userSetContacts: (query) => {
+    return request({
+        url: `${MJAPP_NAME}/user/setContacts`,
+        method: 'post',
+        data: query
+    }).then(res => res);
+  },
   // 用户mip认证api
   mipList: (query) => {
     return request({

@@ -1,6 +1,7 @@
 import request from '@/utils/http';
 const {
-    APPLICATION_NAME
+    APPLICATION_NAME,
+    MJAPP_NAME
   } = window.environment.iotserver;
 const licenseManagementApi = {
   /*
@@ -76,7 +77,7 @@ const licenseManagementApi = {
   // 获取模组厂商下拉
   getSupplyList: () => {
     return request({
-      url: `${APPLICATION_NAME}/supply/all`,
+      url: `${MJAPP_NAME}/supply/all`,
       method: 'post'
     }).then(res => res);
   },

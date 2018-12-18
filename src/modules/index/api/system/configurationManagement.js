@@ -1,6 +1,7 @@
 import request from '@/utils/http';
 const {
-  APPLICATION_NAME
+  APPLICATION_NAME,
+  MJAPP_NAME
 } = window.environment.iotserver;
 const configurationManagementApi = {
   // 文档管理api
@@ -20,27 +21,27 @@ const configurationManagementApi = {
   // mac地址管理api
   validMacList: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/mac/list`,
+      url: `${MJAPP_NAME}/mac/list`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   allocatedMacList: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/macAllocated/list`,
+      url: `${MJAPP_NAME}/macAllocated/list`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   getNumber: () => {
     return request({
-      url: `${APPLICATION_NAME}/mac/get`,
+      url: `${MJAPP_NAME}/mac/get`,
       method: 'post'
     }).then(res => res);
   },
   addValidMac: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/mac/add`,
+      url: `${MJAPP_NAME}/mac/add`,
       method: 'post',
       data: query
     }).then(res => res);
@@ -48,7 +49,7 @@ const configurationManagementApi = {
   // 品类与事业部管理API
   applianList: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/applian/list`,
+      url: `${MJAPP_NAME}/applian/list`,
       method: 'post',
       data: query
     }).then(res => res);
@@ -76,7 +77,7 @@ const configurationManagementApi = {
   },
   getDepartment: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/department/all`,
+      url: `${MJAPP_NAME}/department/all`,
       method: 'post',
       data: query
     }).then(res => res);
@@ -84,28 +85,28 @@ const configurationManagementApi = {
   // 模组厂商管理API
   getSupplyListIndex: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/supply/list`,
+      url: `${MJAPP_NAME}/supply/list`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   getSupplyInfo: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/supply/get`,
+      url: `${MJAPP_NAME}/supply/get`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   supplyAdd: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/supply/add`,
+      url: `${MJAPP_NAME}/supply/add`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   updateContact: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/supply/updateContact`,
+      url: `${MJAPP_NAME}/supply/updateContact`,
       method: 'post',
       data: query
     }).then(res => res);

@@ -124,29 +124,36 @@ export const systemManagementRouter =
   meta: { title: '系统管理' },
   // redirect: '/system/auditsManagement/information',
   children: [
+    // 新增页面
+    {
+      path: 'userAdministration',
+      name: '用户管理',
+      component: _import('mineSystem/systemManagement/userAdministration/index'),
+      meta: { title: '用户管理', icon: 'dots' }
+    },
     {
       path: 'account',
       component: _import('mineSystem/systemManagement/account/index'),
       name: '账户管理',
-      meta: { title: '账户管理' }
+      meta: { title: '账户管理', icon: 'dots' }
     },
     {
       path: 'menu',
       component: _import('mineSystem/systemManagement/menu/index'),
       name: '菜单管理',
-      meta: { title: '菜单管理' }
+      meta: { title: '菜单管理', icon: 'dots' }
     },
     {
       path: 'role',
       component: _import('mineSystem/systemManagement/role/index'),
       name: '角色管理',
-      meta: { title: '角色管理' }
+      meta: { title: '角色管理', icon: 'dots' }
     },
     {
       path: 'userAuthenticationManagement',
       component: _import('mineSystem/systemManagement/authenticationManagement/index'),
       name: '用户认证管理',
-      meta: { title: '用户认证管理' }
+      meta: { title: '用户认证管理', icon: 'dots' }
     }
   ]
 };
@@ -159,6 +166,13 @@ export const sconfigurationManagementRouter =
   name: '配置管理',
   meta: { title: '配置管理' },
   children: [
+    // 新增型号录入路由
+    {
+      path: 'typeEntry',
+      component: _import('mineSystem/configurationManagement/typeEntry/index'),
+      name: '型号录入',
+      meta: { title: '型号录入' }
+    },
     {
       path: 'category',
       component: _import('mineSystem/configurationManagement/category/index'),
