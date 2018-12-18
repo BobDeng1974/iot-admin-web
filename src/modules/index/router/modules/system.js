@@ -200,12 +200,14 @@ export const sconfigurationManagementRouter =
     {
       path: 'addDevDoc',
       component: _import('mineSystem/configurationManagement/documentManagement/addDoc'),
-      name: 'addDevDoc'
+      name: 'addDevDoc',
+      hidden: true
     },
     {
       path: 'editDevDoc',
       component: _import('mineSystem/configurationManagement/documentManagement/editDoc'),
-      name: 'editDevDoc'
+      name: 'editDevDoc',
+      hidden: true
     }
   ]
 };
