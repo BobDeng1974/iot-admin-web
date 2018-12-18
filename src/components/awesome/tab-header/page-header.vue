@@ -125,7 +125,7 @@ export default {
 
     // 跳转介绍页
     gotHome() {
-      this.$router.push({ path: '/platformIntroduction' });
+      // this.$router.push({ path: '/platformIntroduction' });
     },
     // 退出登陆
     async handleLogout() {
