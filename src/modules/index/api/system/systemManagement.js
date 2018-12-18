@@ -36,14 +36,14 @@ const systemManagementApi = {
   // 用户mip认证api
   mipList: (query) => {
     return request({
-        url: `${APPLICATION_NAME}/mip/list`,
+        url: `${MJAPP_NAME}/mip/list`,
         method: 'post',
         data: query
     }).then(res => res);
   },
   mipAudit: (query) => {
     return request({
-        url: `${APPLICATION_NAME}/mip/audit`,
+        url: `${MJAPP_NAME}/mip/audit`,
         method: 'post',
         data: query
     }).then(res => res);

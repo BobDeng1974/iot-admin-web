@@ -1,5 +1,5 @@
 const _import = require('./../_import_' + process.env.NODE_ENV);
-import {auditsManagementRouter, systemManagementRouter, sconfigurationManagementRouter, liencesRouter} from './system';
+import {auditsManagementRouter, systemManagementRouter, sconfigurationManagementRouter, liencesRouter, developerRouter, backgroundAccountRouter} from './system';
 import { dataCenterRouter } from './dataCenter';
 const productRouter = {
   path: '/product',
@@ -26,8 +26,10 @@ const productRouter = {
     auditsManagementRouter,
     systemManagementRouter,
     sconfigurationManagementRouter,
-    liencesRouter,
-    dataCenterRouter
+    // liencesRouter,
+    dataCenterRouter,
+    developerRouter,
+    backgroundAccountRouter
   ]
 };
 export default productRouter;

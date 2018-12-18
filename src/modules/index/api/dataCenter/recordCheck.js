@@ -43,6 +43,14 @@ const recordCheckApi = {
         data: query,
         method: 'post'
       }).then(res => res);
+    },
+    // 硬件申请列表
+    getHardwareListInfo: (query) => {
+      return request({
+        url: `${MJAPP_NAME}/hardware/getHardwareList`,
+        data: query,
+        method: 'post'
+      }).then(res => res);
     }
 };
 export default recordCheckApi;

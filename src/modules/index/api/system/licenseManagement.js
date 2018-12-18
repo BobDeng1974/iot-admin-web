@@ -77,7 +77,7 @@ const licenseManagementApi = {
   // 获取模组厂商下拉
   getSupplyList: () => {
     return request({
-      url: `${MJAPP_NAME}/supply/all`,
+      url: `${MJAPP_NAME}/supply/supplySelect`,
       method: 'post'
     }).then(res => res);
   },

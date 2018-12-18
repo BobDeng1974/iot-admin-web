@@ -95,21 +95,48 @@ export const auditsManagementRouter =
 {
   path: 'auditsManagement',
   component: _import('mineSystem/auditsManagement/index'),
-  name: '审核及管理',
+  name: '审核管理',
   meta: { title: '审核及管理' },
   redirect: '/product/auditsManagement/information',
   children: [
     {
       path: 'information',
       component: _import('mineSystem/auditsManagement/information/index'),
-      name: '审核者消息',
-      meta: { title: '审核者消息' }
+      name: '硬件审核',
+      meta: { title: '硬件审核', icon: 'dots' }
     },
     {
       path: 'management/:id',
       component: _import('mineSystem/auditsManagement/information/management'),
       name: '审核管理',
       meta: { title: '审核管理' },
+      hidden: true
+    },
+    // licesce移动过来
+    {
+      path: 'applicationManagement',
+      component: _import('mineSystem/licenseManagement/applicationManagement/index'),
+      name: 'applicationManagement',
+      meta: { title: 'liences审核', icon: 'dots' }
+    },
+    {
+      path: 'eidtApplication',
+      component: _import('mineSystem/licenseManagement/applicationManagement/eidt'),
+      name: 'eidtApplication',
+      meta: { title: 'license申请' },
+      hidden: true
+    },
+    {
+      path: 'preApplicationManagement',
+      component: _import('mineSystem/licenseManagement/preApplicationManagement/index'),
+      name: 'preApplicationManagement',
+      meta: { title: 'liences预审核', icon: 'dots' }
+    },
+    {
+      path: 'eidtPreApplication',
+      component: _import('mineSystem/licenseManagement/preApplicationManagement/eidt'),
+      name: 'eidtPreApplication',
+      meta: { title: 'license预申请' },
       hidden: true
     }
   ]
@@ -120,41 +147,40 @@ export const systemManagementRouter =
   path: 'systemManagement',
   component: _import('mineSystem/systemManagement/index'),
   redirect: '/product/systemManagement/account',
-  name: '系统管理',
-  meta: { title: '系统管理' },
+  name: '系统设置',
+  meta: { title: '系统设置' },
   // redirect: '/system/auditsManagement/information',
   children: [
-    // 新增页面
-    {
-      path: 'userAdministration',
-      name: '用户管理',
-      component: _import('mineSystem/systemManagement/userAdministration/index'),
-      meta: { title: '用户管理', icon: 'dots' }
-    },
-    {
-      path: 'account',
-      component: _import('mineSystem/systemManagement/account/index'),
-      name: '账户管理',
-      meta: { title: '账户管理', icon: 'dots' }
-    },
+    // {
+    //   path: 'userAdministration',
+    //   name: '用户管理',
+    //   component: _import('mineSystem/systemManagement/userAdministration/index'),
+    //   meta: { title: '用户管理', icon: 'dots' }
+    // },
+    // {
+    //   path: 'account',
+    //   component: _import('mineSystem/systemManagement/account/index'),
+    //   name: '账户管理',
+    //   meta: { title: '账户管理', icon: 'dots' }
+    // },
     {
       path: 'menu',
       component: _import('mineSystem/systemManagement/menu/index'),
       name: '菜单管理',
       meta: { title: '菜单管理', icon: 'dots' }
-    },
-    {
-      path: 'role',
-      component: _import('mineSystem/systemManagement/role/index'),
-      name: '角色管理',
-      meta: { title: '角色管理', icon: 'dots' }
-    },
-    {
-      path: 'userAuthenticationManagement',
-      component: _import('mineSystem/systemManagement/authenticationManagement/index'),
-      name: '用户认证管理',
-      meta: { title: '用户认证管理', icon: 'dots' }
     }
+    // {
+    //   path: 'role',
+    //   component: _import('mineSystem/systemManagement/role/index'),
+    //   name: '角色管理',
+    //   meta: { title: '角色管理', icon: 'dots' }
+    // }
+    // {
+    //   path: 'userAuthenticationManagement',
+    //   component: _import('mineSystem/systemManagement/authenticationManagement/index'),
+    //   name: '用户认证管理',
+    //   meta: { title: '用户认证管理', icon: 'dots' }
+    // }
   ]
 };
 // 配置管理
@@ -229,7 +255,7 @@ export const sconfigurationManagementRouter =
     }
   ]
 };
-// liences管理
+// liences管理(这里移动到审核管理模块)
 export const liencesRouter =
 {
   path: 'licenseManagement',
@@ -261,6 +287,52 @@ export const liencesRouter =
       component: _import('mineSystem/licenseManagement/preApplicationManagement/eidt'),
       name: 'eidtPreApplication',
       meta: { title: 'license预申请' }
+    }
+  ]
+};
+// 开发者管理(新模块)Developer management
+export const developerRouter =
+{
+  path: 'developerManagement',
+  name: '开发者管理',
+  component: _import('mineSystem/licenseManagement/index'),
+  meta: { title: '开发者管理' },
+  redirect: '/product/developerManagement/userAuthenticationManagement',
+  children: [
+    {
+      path: 'userAuthenticationManagement',
+      component: _import('mineSystem/systemManagement/authenticationManagement/index'),
+      name: '开发者认证管理',
+      meta: { title: '开发者认证管理', icon: 'dots' }
+    },
+    {
+      path: 'userAdministration',
+      name: '开发者账户管理',
+      component: _import('mineSystem/systemManagement/userAdministration/index'),
+      meta: { title: '开发者账户管理', icon: 'dots' }
+    }
+  ]
+};
+// 后台账户管理（新模块）Background account management
+export const backgroundAccountRouter =
+{
+  path: 'backgroundAccountManagement',
+  name: '后台账户管理',
+  component: _import('mineSystem/licenseManagement/index'),
+  meta: { title: '后台账户管理' },
+  redirect: '/product/backgroundAccountManagement/userAuthenticationManagement',
+  children: [
+    {
+      path: 'account',
+      component: _import('mineSystem/systemManagement/account/index'),
+      name: '账户管理',
+      meta: { title: '账户管理', icon: 'dots' }
+    },
+    {
+      path: 'role',
+      component: _import('mineSystem/systemManagement/role/index'),
+      name: '角色管理',
+      meta: { title: '角色管理', icon: 'dots' }
     }
   ]
 };

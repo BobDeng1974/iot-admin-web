@@ -8,33 +8,33 @@ export const dataCenterRouter =
     meta: { title: '数据中心' },
     redirect: '/product/dataCenter/mineDataCenterCheck',
     children: [
-      {
-        path: 'mineDataCenterCheck',
-        name: '数据查询',
-        component: _import('mineDataCenter/mineDataCenterCheck/index'),
-        redirect: '/product/dataCenter/mineDataCenterCheck/userInfoCheck',
-        meta: { title: '数据查询' },
-        children: [
-          {
-            path: 'userInfoCheck',
-            name: '用户信息查询',
-            component: _import('mineDataCenter/mineDataCenterCheck/recordCheck/userInfomation'),
-            meta: { title: '用户信息查询', icon: 'dots' }
-          },
-          {
-            path: 'equipmentInfoCheck',
-            component: _import('mineDataCenter/mineDataCenterCheck/recordCheck/equipmentInformation'),
-            name: '设备信息查询',
-            meta: { title: '设备信息查询', icon: 'dots' }
-          },
-          {
-            path: 'equipmentStateCheck',
-            component: _import('mineDataCenter/mineDataCenterCheck/recordCheck/equipmentState'),
-            name: '设备状态查询',
-            meta: { title: '设备状态查询', icon: 'dots' }
-          }
-        ]
-      },
+      // {
+      //   path: 'mineDataCenterCheck',
+      //   name: '数据查询',
+      //   component: _import('mineDataCenter/mineDataCenterCheck/index'),
+      //   redirect: '/product/dataCenter/mineDataCenterCheck/userInfoCheck',
+      //   meta: { title: '数据查询' },
+      //   children: [
+      //     {
+      //       path: 'userInfoCheck',
+      //       name: '用户信息查询',
+      //       component: _import('mineDataCenter/mineDataCenterCheck/recordCheck/userInfomation'),
+      //       meta: { title: '用户信息查询', icon: 'dots' }
+      //     },
+      //     {
+      //       path: 'equipmentInfoCheck',
+      //       component: _import('mineDataCenter/mineDataCenterCheck/recordCheck/equipmentInformation'),
+      //       name: '设备信息查询',
+      //       meta: { title: '设备信息查询', icon: 'dots' }
+      //     },
+      //     {
+      //       path: 'equipmentStateCheck',
+      //       component: _import('mineDataCenter/mineDataCenterCheck/recordCheck/equipmentState'),
+      //       name: '设备状态查询',
+      //       meta: { title: '设备状态查询', icon: 'dots' }
+      //     }
+      //   ]
+      // },
       // 新增页面
       {
         path: 'liencesTotleList',

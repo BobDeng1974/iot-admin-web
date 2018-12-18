@@ -79,7 +79,7 @@
 <script>
 import { restData, format } from '@/modules/index/api/system/common.js';
 import conHeader from '@/components/awesome/con-header/con-header';
-import API from '@/modules/index/api/system/system.js';
+import API from '@/modules/index/api/dataCenter/dataCenter.js';
 import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 import moment from 'moment';
 export default {
@@ -172,7 +172,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize
       };
-      API.getExamineList(params)
+      API.getHardwareListInfo(params)
         .then(res => {
           console.log(res, '获取列表');
           this.loading = false;
