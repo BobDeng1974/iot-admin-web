@@ -168,7 +168,9 @@ export default {
               res.result[i].id === 1040 ||
               res.result[i].id === 7110 ||
               res.result[i].id === 7112 ||
-              res.result[i].id === 7114
+              res.result[i].id === 7114 ||
+              res.result[i].id === 11 ||
+              res.result[i].id === 40
               ) {
               arr.push(res.result[i].id);
             } else {}

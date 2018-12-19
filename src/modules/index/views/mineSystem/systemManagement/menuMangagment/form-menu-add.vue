@@ -1,11 +1,30 @@
 <template>
     <div class="add-menu-warp">
        <el-form label-width="120px" :model="form" ref="form" :rules="rules">
-            <el-form-item label="角色名称" prop="roleName">
-                <el-input v-model="form.roleName"></el-input>
+            <el-form-item label="上级菜单" prop="type">
+              <el-select v-model="form.type" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
-            <el-form-item label="说明" prop="discription">
-                <el-input v-model="form.discription" type="textarea"></el-input>
+            <el-form-item label="菜单名称" prop="menuName">
+                <el-input v-model="form.menuName"></el-input>
+            </el-form-item>
+            <el-form-item label="菜单图标" prop="img">
+                <el-input v-model="form.img"></el-input>
+            </el-form-item>
+            <el-form-item label="接口url" prop="url">
+                <el-input v-model="form.url"></el-input>
+            </el-form-item>
+            <el-form-item label="排序" prop="order">
+                <el-input v-model="form.order"></el-input>
+            </el-form-item>
+            <el-form-item label="是否显示" prop="isShow">
+                <el-input v-model="form.isShow" type="textarea"></el-input>
             </el-form-item>
         </el-form>
         <div class="dialog-footer">
@@ -23,8 +42,12 @@ export default {
   data () {
     return {
       form: {
-        roleName: '',
-        discription: ''
+        type: '',
+        menuName: '',
+        img: '',
+        url: '',
+        order: '',
+        isShow: ''
       },
       rules: {
         roleName: { required: true, validator: this.checkRoleName, trigger: 'blur' },
