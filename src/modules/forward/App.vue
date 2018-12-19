@@ -1,14 +1,20 @@
 <template>
   <div id="app">
-    <forget></forget>
   </div>
 </template>
 
 <script>
-import forget from './views/forget/forget.vue';
+import { setToken } from '@/utils/auth';
 export default {
-  components: {
-    forget
+  beforeCreate() {
+        debugger;
+    console.log(window.location.href);
+    console.log(window.location.search);
+    if (window.location.search) {
+      window.location.search.split('=')[1];
+      setToken(window.location.search.split('=')[1]);
+      window.location.href = '/';
+    }
   }
 };
 </script>
