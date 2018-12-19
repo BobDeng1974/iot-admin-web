@@ -18,7 +18,7 @@ export default {
       height: '803px',
       rootPath: '',
       menus: [],
-      openedsArr: ['产品', '我的产品', '硬件产品', '我的协议', '审核及管理', '配置管理', '系统管理', 'license管理', '数据中心', '数据查询'],
+      openedsArr: ['产品', '我的产品', '硬件产品', '我的协议', '审核管理', '配置管理', '系统设置', '开发者管理', '数据中心', '后台账户管理'],
       defaultActive: '/product/myAgreement/elecManagement',
       urlArrTemp: []
     };

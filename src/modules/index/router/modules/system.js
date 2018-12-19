@@ -96,7 +96,7 @@ export const auditsManagementRouter =
   path: 'auditsManagement',
   component: _import('mineSystem/auditsManagement/index'),
   name: '审核管理',
-  meta: { title: '审核及管理' },
+  meta: { title: '审核管理' },
   redirect: '/product/auditsManagement/information',
   children: [
     {
@@ -255,81 +255,41 @@ export const sconfigurationManagementRouter =
     }
   ]
 };
-// 文档管理
-export const docManagementRouter =
-{
-  path: 'documentManagement',
-  component: _import('mineSystem/configurationManagement/documentManagement/index'),
-  name: '文档管理',
-  meta: { title: '文档管理' },
-  children: [
-    {
-      path: 'addDevDoc',
-      component: _import('mineSystem/configurationManagement/documentManagement/addDoc'),
-      name: 'addDevDoc',
-      hidden: true
-    },
-    {
-      path: 'editDevDoc',
-      component: _import('mineSystem/configurationManagement/documentManagement/editDoc'),
-      name: 'editDevDoc',
-      hidden: true
-    }
-    // {
-    //   path: 'downSdkManagement',
-    //   component: _import('mineSystem/configurationManagement/downSdkManagement/index'),
-    //   name: 'downSdkManagement',
-    //   meta: { title: 'sdk文档管理' }
-    // },
-    // {
-    //   path: 'addSdkDoc',
-    //   component: _import('mineSystem/configurationManagement/downSdkManagement/addSdk'),
-    //   name: 'addSdkDoc',
-    //   meta: { title: 'sdk文档管理' }
-    // },
-    // {
-    //   path: 'editSdkDoc',
-    //   component: _import('mineSystem/configurationManagement/downSdkManagement/editSdk'),
-    //   name: 'editSdkDoc',
-    //   meta: { title: 'sdk文档管理' }
-    // }
-  ]
-};
 // liences管理(这里移动到审核管理模块)
-export const liencesRouter =
-{
-  path: 'licenseManagement',
-  name: 'license管理',
-  component: _import('mineSystem/licenseManagement/index'),
-  meta: { title: 'license管理' },
-  redirect: '/product/licenseManagement/applicationManagement',
-  children: [
-    {
-      path: 'applicationManagement',
-      component: _import('mineSystem/licenseManagement/applicationManagement/index'),
-      name: 'applicationManagement',
-      meta: { title: '申请管理', icon: 'dots' }
-    },
-    {
-      path: 'eidtApplication',
-      component: _import('mineSystem/licenseManagement/applicationManagement/eidt'),
-      name: 'eidtApplication',
-      meta: { title: 'license申请' }
-    },
-    {
-      path: 'preApplicationManagement',
-      component: _import('mineSystem/licenseManagement/preApplicationManagement/index'),
-      name: 'preApplicationManagement',
-      meta: { title: '预申请管理', icon: 'dots' }
-    },
-    {
-      path: 'eidtPreApplication',
-      component: _import('mineSystem/licenseManagement/preApplicationManagement/eidt'),
-      name: 'eidtPreApplication',
-      meta: { title: 'license预申请' }
-    }
-  ]
-};
+// export const liencesRouter =
+// {
+//   path: 'licenseManagement',
+//   name: 'license管理',
+//   component: _import('mineSystem/licenseManagement/index'),
+//   meta: { title: 'license管理' },
+//   redirect: '/product/licenseManagement/applicationManagement',
+//   children: [
+//     {
+//       path: 'applicationManagement',
+//       component: _import('mineSystem/licenseManagement/applicationManagement/index'),
+//       name: 'applicationManagement',
+//       meta: { title: '申请管理', icon: 'dots' }
+//     },
+//     {
+//       path: 'eidtApplication',
+//       component: _import('mineSystem/licenseManagement/applicationManagement/eidt'),
+//       name: 'eidtApplication',
+//       meta: { title: 'license申请' }
+//     },
+//     {
+//       path: 'preApplicationManagement',
+//       component: _import('mineSystem/licenseManagement/preApplicationManagement/index'),
+//       name: 'preApplicationManagement',
+//       meta: { title: '预申请管理', icon: 'dots' }
+//     },
+//     {
+//       path: 'eidtPreApplication',
+//       component: _import('mineSystem/licenseManagement/preApplicationManagement/eidt'),
+//       name: 'eidtPreApplication',
+//       meta: { title: 'license预申请' }
+//     }
+//   ]
+// };
 // 开发者管理(新模块)Developer management
 export const developerRouter =
 {
