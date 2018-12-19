@@ -132,7 +132,7 @@ export default {
   data () {
     return {
       rules: {
-        account: { required: true, validator: this.checkAccount, trigger: 'change' }
+        // account: { required: true, validator: this.checkAccount, trigger: 'change' }
       },
       loading: false,
       isAdd: false,

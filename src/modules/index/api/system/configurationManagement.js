@@ -7,7 +7,7 @@ const configurationManagementApi = {
   // 文档管理api
   getDocList: () => {
     return request({
-      url: `${APPLICATION_NAME}/doc/allMenu`,
+      url: `${MJAPP_NAME}/doc/allMenu`,
       method: 'post'
     }).then(res => res);
   },
@@ -56,21 +56,21 @@ const configurationManagementApi = {
   },
   deleteApplian: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/applian/delete`,
+      url: `${MJAPP_NAME}/applian/delete`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   updateApplian: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/applian/update`,
+      url: `${MJAPP_NAME}/applian/update`,
       method: 'post',
       data: query
     }).then(res => res);
   },
   addApplian: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/applian/add`,
+      url: `${MJAPP_NAME}/applian/add`,
       method: 'post',
       data: query
     }).then(res => res);
