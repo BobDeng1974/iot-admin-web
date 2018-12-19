@@ -90,7 +90,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       // 4a 登录
-      location.href = '：http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver/login';
+      location.href = 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver/login';
       // next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
       NProgress.done();
     }
