@@ -49,10 +49,12 @@ export default (Vue) => {
       // buttonFlag.forEach(menu => {
       //   arr.push(menu.permissionTag);
       // });
-      if (buttonFlag.indexOf(authName) > -1) {
-        el.style.display = styleDisplay;
-      } else {
-        el.style.display = 'none';
+      if (buttonFlag) {
+        if (buttonFlag.indexOf(authName) > -1) {
+          el.style.display = styleDisplay;
+        } else {
+          el.style.display = 'none';
+        }
       }
     }
   });
