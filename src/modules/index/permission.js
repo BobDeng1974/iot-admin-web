@@ -5,7 +5,9 @@ import 'nprogress/nprogress.css';// Progress 进度条样式
 // import { Message } from 'element-ui';
 import { getToken } from '@/utils/auth'; // 验权
 import commonFun from '@/common/js/func';
-
+const {
+  APPLICATION_NAME
+} = window.environment.iotserver;
 const whiteList = ['/login', '/platformIntroduction', '/register', '/forget', '/developGuideTop']; // 不重定向白名单
 router.beforeEach((to, from, next) => {
   NProgress.start();
@@ -90,7 +92,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       // 4a 登录
-      location.href = 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver/login';
+      location.href = `${APPLICATION_NAME}/login`;
       // next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
       NProgress.done();
     }
