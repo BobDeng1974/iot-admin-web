@@ -30,12 +30,12 @@ module.exports = {
     proxyTable: {
       '/adminWeb/v1/iotserver': {
         // target: 'http://iotdeveloper-sit.smartmidea.net',
-        target: 'https://iotdeveloperadminweb-sit.smartmidea.net',
+        target: 'http://devadmin-sit.msmartlife.com',
         logLevel: 'debug',
         changeOrigin: true
       },
       '/ucenterAdminWeb/v1/iotserver': {
-        target: 'https://iotdeveloperadminweb-sit.smartmidea.net',
+        target: 'http://devadmin-sit.msmartlife.com',
         logLevel: 'debug',
         changeOrigin: true
       }
