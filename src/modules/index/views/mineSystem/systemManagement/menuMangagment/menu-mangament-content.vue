@@ -8,14 +8,12 @@
                 </div>
                 <div class="popwer-mine">
                     <el-tree
+                    :render-content="renderContent"
                     :data="treeData"
-                    show-checkbox
                     node-key="id"
                     ref="tree"
-                    @check="handleNodeClick"
                     :props="defaultProps"
                     :default-expanded-keys="[1]"
-                    :default-checked-keys="checkedArr"
                     >
                     </el-tree>
                 </div>
@@ -25,6 +23,7 @@
 </template>
 <script>
 import API from '@/modules/index/api/system/system.js';
+import TreeRender from './test';
 export default {
   data () {
     return {
@@ -36,7 +35,6 @@ export default {
         children: 'children',
         label: 'name'
       },
-      checkedArr: [],
       roleId: '',
       menuSaveParams: null
     };
@@ -45,6 +43,52 @@ export default {
     this.getAllAuthed();
   },
   methods: {
+    renderContent (h, {node, data, store}) {
+      let that = this;
+      return h(TreeRender, {
+        props: {
+          DATA: data,
+          NODE: node,
+          STORE: store
+        },
+        on: {
+          nodeEdit: (s, d, n) => that.handleEdit(s, d, n),
+          nodeDel: (s, d, n) => that.handleDelete(s, d, n)
+        }
+      });
+    },
+    handleEdit (s, d, n) {
+      debugger;
+      console.log(s, d, n)
+    },
+    handleDelete (s, d, n) {
+      debugger;
+      // let that = this;
+      // let delNode = () => {
+      //   let list = n.parent.data.children || n.parent.data;
+      //   let _index = 99999;
+      //   list.map((c, i) => {
+      //     if (d.id === c.id) {
+      //       _index = i;
+      //     }
+      //   })
+      //   let k = list.splice(_index, 1);
+      //   console.log(k)
+      //   this.$message.success('删除成功！')
+      // };
+      // let isDel = () => {
+      //   that.$confirm('是否删除此节点？', '提示', {
+      //     confirmButtonText: '确认',
+      //     cancelButtonText: '取消',
+      //     type: 'warning'
+      //   }).then(() => {
+      //     delNode()
+      //   }).catch(() => {
+      //     return false;
+      //   })
+      // }
+      // d.id > this.non_maxexpandId ? delNode() : isDel()
+    },
     // 获取所有权限
     getAllAuthed () {
       this.autedLoading = true;
@@ -64,14 +108,6 @@ export default {
 <style lang="less" scoped>
 @deep: ~'>>>';
 .menu-content-warp{
-  .box-img{
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-  }
-  .totle-role-box{
-    vertical-align: middle;
-  }
   .content-mine{
      border: 1px solid #DEDFE5;
      height: 660px;
@@ -96,9 +132,26 @@ export default {
            }
         }
         @{deep} .popwer-mine{
-          padding: 0 0px 28px 5px;
+          padding: 0 0px 28px 0px;
           overflow-y: auto;
-          height: 559px;
+          height: 588px;
+          .tree-expand{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            .tree-btn{
+              padding-right: 25px;
+              span{
+                color: blue;
+              }
+              span:hover{
+                cursor: pointer;
+              }
+              .line{
+                color: #DEDFE5;
+              }
+            }
+          }
           .el-tree-node__content{
             height: 50px !important;
            .el-tree-node__label{

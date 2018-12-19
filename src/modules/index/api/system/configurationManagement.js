@@ -113,7 +113,7 @@ const configurationManagementApi = {
   },
   getAllusers: () => {
     return request({
-      url: `${APPLICATION_NAME}/user/getContacts`,
+      url: `${MJAPP_NAME}/user/getContacts`,
       method: 'post'
     }).then(res => res);
   }
