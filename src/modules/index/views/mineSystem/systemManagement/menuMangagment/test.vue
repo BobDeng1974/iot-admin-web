@@ -3,7 +3,7 @@
       <span class="tree-label" >
         <span>{{DATA.name}}</span>
       </span>
-      <span class="tree-btn">
+      <span class="tree-btn" v-if="DATA.id !== 1">
         <span @click.stop="nodeEdit(STORE, DATA, NODE)">编辑</span>
         <span class="line">|</span>
         <span @click.stop="nodeDel(STORE, DATA, NODE)">删除</span>
