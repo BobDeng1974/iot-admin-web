@@ -5,17 +5,36 @@
       <div class="tip-one">
         联网设备明细
       </div>
-      <div>
+      <div style="height: 150px;">
         <mine-table :info="info" :tabelParameter='userParameter'></mine-table>
       </div>
     </div>
 
-    <div v-for="(item, index) in applianList" :key="index" v-if="applianList.length" class="mine-r-table">
-      <div class="tip-one">
-        {{'绑定设备' + (index + 1)}}
+    <div class="table-mine">
+      <div style="text-align: right; margin-bottom: 24px;">
+        <el-button type="primary" @click="downLoad">导出统计结果</el-button>
       </div>
       <div>
-        <mine-table :info="item" :tabelParameter='appParameter'></mine-table>
+        <el-table :data="info.list" style="width: 100%" class='table'>
+          <el-table-column prop="newUsers"  label="设备id" align="center"></el-table-column>
+          <el-table-column prop="applianceType"  label="品类" align="center"></el-table-column>
+          <el-table-column prop="sn8"  label="型号码" align="center"></el-table-column>
+          <el-table-column prop="sn"  label="设备SN" align="center"></el-table-column>
+          <el-table-column prop="code"  label="设备一维码" align="center"></el-table-column>
+          <el-table-column prop="province"  label="所在省" align="center"></el-table-column>
+          <el-table-column prop="city"  label="所在市" align="center"></el-table-column>
+          <el-table-column prop="status"  label="绑定状态" align="center"></el-table-column>
+          <el-table-column prop="boundTime"  label="绑定时间" align="center">
+            <template slot-scope="scope">
+              <div>{{scope.row.boundTime | fomatDate('yyyy-MM-dd')}}</div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="activeTime"  label="激活时间" align="center">
+            <template slot-scope="scope">
+              <div>{{scope.row.activeTime | fomatDate('yyyy-MM-dd')}}</div>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
     </div>
   </div>
@@ -23,17 +42,17 @@
 
 <script>
 import conHeader from '@/components/awesome/con-header/con-header';
-import { checkInfo } from '@/modules/index/views/mineDataCenter/mixin';
-import { doSubmit } from '@/modules/index/api/system/common.js';
 import API from '@/modules/index/api/dataCenter/dataCenter.js';
-import { restData } from '@/modules/index/api/system/common.js';
 import mineTable from './mine-table';
+import { format } from '@/modules/index/api/system/common.js';
 export default {
   components: {
     conHeader,
     mineTable
   },
-  mixins: [checkInfo],
+  created () {
+    this.getInfo();
+  },
   data() {
     return {
       userParameter: [
@@ -43,72 +62,18 @@ export default {
         { head: '注册时间', body: 'registerTime' },
         { head: '邮箱', body: 'email' }
       ],
-      appParameter: [],
       addProductsIcon: '/static/img/title_05@2x.png',
       formInline: {
         userId: '',
         mobile: ''
       },
       info: {
-        id: '',
-        mobile: '',
-        nickName: '',
-        registerTime: '',
-        email: ''
-      },
-      applianList: [],
-      rules: {
-        userId: {
-          required: true,
-          validator: this.checkUserId,
-          trigger: 'blur'
-        },
-        mobile: { required: true, validator: this.checkMobile, trigger: 'blur' }
+        list: []
       }
     };
   },
-  // created() {
-  //   // 键盘enter事件
-  //   var lett = this;
-  //   document.onkeydown = function(e) {
-  //     var key = window.event.keyCode;
-  //     if (key == 13) {
-  //       lett.getInformation();
-  //     }
-  //   }
-  // },
   methods: {
-    clear() {
-      restData(this.formInline);
-      this.applianList = [];
-      this.info = {
-        id: '',
-        mobile: '',
-        nickName: '',
-        registerTime: '',
-        email: ''
-      };
-    },
-    getInformation() {
-      console.log(this.formInline);
-      if (!doSubmit('form', this)) {
-        this.info = {
-          id: '',
-          mobile: '',
-          nickName: '',
-          registerTime: '',
-          email: ''
-        };
-        this.applianList = [];
-        return;
-      }
-      // 同时校验必须至少有一条查询条件才去请求
-      if (!this.formInline.userId && !this.formInline.mobile) {
-        this.$message('请至少输入一条查询条件查询');
-        return;
-      }
-      this.getInfo();
-    },
+    downLoad () {},
     // 查询方法
     getInfo() {
       const query = {
@@ -118,53 +83,19 @@ export default {
         .then(res => {
           if (res.code === 0) {
             this.info = res.result;
-            this.applianList = this.info.applianList.length
-              ? this.info.applianList
-              : [];
-            this.initParameter(this.applianList);
           } else {
-            this.info = {
-              id: '',
-              mobile: '',
-              nickName: '',
-              registerTime: '',
-              email: ''
-            };
-            this.applianList = [];
+            this.info = {};
           }
         })
         .catch(() => {
-          this.info = {
-            id: '',
-            mobile: '',
-            nickName: '',
-            registerTime: '',
-            email: ''
-          };
-          this.applianList = [];
+          this.info = {};
         });
-    },
-    // 初始化表格参数
-    initParameter(val) {
-      for (var i = 0; i < val.length; i++) {
-        if (val[i].activeStatus === 0) {
-          val[i].activeStatusShow = '未激活';
-        } else {
-          val[i].activeStatusShow = '已激活';
-        }
-      }
-      this.appParameter = [
-        { head: '设备ID', body: 'applianCode' },
-        { head: '设备SN', body: 'applianSn' },
-        { head: '设备条码', body: 'productCode' },
-        { head: '品类', body: 'applianType' },
-        { head: '型号码', body: 'modelNumber' },
-        { head: '绑定状态', body: 'activeStatusShow' },
-        { head: '注册时间', body: 'registerTime' },
-        { head: '绑定时间', body: 'activeTime' },
-        { head: '绑定地点', body: 'applianPos' },
-        { head: 'wifi版本号', body: 'wifiVersion' }
-      ];
+    }
+  },
+  filters: {
+    fomatDate(val, type) {
+      if (!val) return '';
+      return format(val, type);
     }
   }
 };
@@ -172,21 +103,8 @@ export default {
 
 <style lang="less">
 .equipmentDetails-info-warp {
-  .userInfomation-check {
-    margin-top: 24px;
-    border-bottom: 1px solid #eeeeee;
-  }
-  .is-required {
-    .el-form-item__label:before {
-      content: '' !important;
-    }
-  }
-  .el-input {
-    width: 230px;
-  }
-  .btn-select {
-    text-align: right;
-    margin-bottom: 20px;
+  .table-mine{
+    padding-top: 24px;
   }
   .tip-one {
     // margin-top: 24px;
@@ -196,20 +114,6 @@ export default {
   }
   .hasBorder {
     border-bottom: 1px solid #333333;
-  }
-  .user-form {
-    margin-bottom: 30px;
-    .el-form-item {
-      margin-bottom: 0px;
-    }
-    .el-form-item__content {
-      p {
-        width: 235px;
-        word-wrap: break-word;
-        line-height: 30px;
-        padding-top: 5px;
-      }
-    }
   }
 }
 </style>

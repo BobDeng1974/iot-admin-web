@@ -57,20 +57,20 @@
     <!-- 表格部分 -->
     <div class="table-breadcrumb" v-loading="loading">
       <el-table :data="tableData" style="width: 100%" class='table'>
-        <el-table-column prop="applyTime"  label="时间" align="center">
+        <el-table-column prop="nickName"  label="时间" align="center">
           <template slot-scope="scope">
-            <div>{{scope.row.applyTime | fomatDate('yyyy-MM-dd')}}</div>
+            <div>{{scope.row.nickName | fomatDate('yyyy-MM-dd')}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="applianceType"  label="新增用户（人）" align="center"></el-table-column>
-        <el-table-column prop="applianceType"  label="联网总数" align="center"></el-table-column>
-        <el-table-column prop="applianceType"  label="新增联网" align="center"></el-table-column>
-        <el-table-column prop="applianceType"  label="新增激活" align="center"></el-table-column>
+        <el-table-column prop="newUsers"  label="新增用户（人）" align="center"></el-table-column>
+        <el-table-column prop="activeDevices"  label="联网总数" align="center"></el-table-column>
+        <el-table-column prop="newDevices"  label="新增联网" align="center"></el-table-column>
+        <el-table-column prop="newActives"  label="新增激活" align="center"></el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-              <span @click="changeRole(scope.row)" >用户明细</span>
+              <span @click="toUserList(scope.row)" >用户明细</span>
               <span style="color: #DEDFE5;">|</span>
-              <span @click="forbidRole(scope.row)">设备明细</span>
+              <span @click="toEquipmentList(scope.row)">设备明细</span>
           </template>
         </el-table-column>
       </el-table>
@@ -121,6 +121,12 @@ export default {
     this.getList(true);
   },
   methods: {
+    toUserList(val) {
+      this.$router.push({name: '用户明细'});
+    },
+    toEquipmentList(val) {
+      this.$router.push({name: '设备明细'});
+    },
     initAddres(val) {
       if (val.value === '省' || val.value === '市' || val.value === '区') {
         return '';
@@ -197,7 +203,7 @@ export default {
           }
         })
         .catch(() => {
-          this.tableData = [];
+          this.tableData = [{newActives: 1}];
           this.total = 0;
           this.loading = false;
         });
