@@ -63,7 +63,9 @@ font-weight: 700;
     align-items: center;
     padding-left: 40px;
   height: 160px;
-  background-image: linear-gradient(40deg, #5667FF 0%, #88BFFF 100%);
+  // background-image: linear-gradient(40deg, #5667FF 0%, #88BFFF 100%);
+      // background-image: linear-gradient(40deg, #5667FF14, #88BFFF14);
+  background-image: linear-gradient(40deg,  hsla(212, 100%, 77%, 0.078), hsla(234, 100%, 67%, 0.078));
   .home-top-left{
         padding-right: 32px;
     img{

@@ -3,15 +3,15 @@
     <div class="page-header-container center-wrapper clearfix">
       <a class="logo-wrapper pull-left" @click="gotHome">
         <img class="logo" src="../../../assets/img/logo@2x.png" alt="图片不存在" width="43" height="29">
-        <span style="fontSize:18px">开发者中心</span>
+        <span style="fontSize:18px">开发者中心管理后台</span>
       </a>
-      <div class="page-nav pull-left">
+      <div style="display:none" class="page-nav pull-left">
         <div class="page-nav-item" :class="{'nav-active': navActive === pItem.name}" v-for="(pItem, index) in hNavData" :key="index" @click="handleNavClick(pItem)">
           <span class="level-nav-item" style="display:inline-block;width:100%;padding: 0 28px">{{pItem.name}}</span>
         </div>
       </div>
-      <div class="user-info-wrapper pull-right" @mouseleave="isShow = false">
-        <div class="user-info-content" @click.stop="isShow = !isShow">
+      <div class="user-info-wrapper pull-right">
+        <div class="user-info-content">
           <span v-if="nickName">
             <span class="user-info">{{nickName}}</span>
             <span class="user-info" v-if="roleName">({{roleName}})</span>
@@ -20,9 +20,13 @@
             <span class="user-info">{{mobile}}</span>
             <span class="user-info" v-if="roleName">({{roleName}})</span>
           </span>
-          <span class="icon-down" :class="{rotate: isShow}"></span>
+          <span class="list-item mylog-out" @click="handleLogout">
+                <a href="javascript:void(0)">退出</a>
+          </span>
+          <!-- <span class="icon-down" :class="{rotate: isShow}"></span> -->
         </div>
-        <span class="icon-bell"></span>
+
+        <!-- <span class="icon-bell"></span> -->
         <transition name="slideInfo">
           <div class="hide-user-info" v-show="isShow" @click.stop>
             <ul class="user-info-list">
@@ -185,6 +189,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.page-header-container {
+.mylog-out{
+  a{
+      font-size: 14px;
+    color: #fff;
+    padding-left: 10px;
+  }
+
+}
+}
+
 .page-header {
   position: fixed;
   top: 0;

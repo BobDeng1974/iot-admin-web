@@ -181,7 +181,7 @@ const user = {
     // 4a 登出
     adminWeb4Alogout({ commit, state }) {
       return new Promise((resolve, reject) => {
-        API.adminWeb4Alogout().then(() => {
+        API.adminWeb4Alogout().then((response) => {
           // commit('SET_TOKEN', '');
           // commit('SET_ROLES', []);
           commit('SET_USERINFO', '');
@@ -195,7 +195,7 @@ const user = {
 
           ls.removeItem('proto');
           ls.removeItem('network');
-          resolve(resolve);
+          resolve(response);
         }).catch(error => {
           reject(error);
         });

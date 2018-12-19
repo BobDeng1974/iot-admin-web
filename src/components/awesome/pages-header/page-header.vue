@@ -75,6 +75,7 @@ export default {
             console.log(result, 'adminWeb4Alogout');
             if (result.code === 0) {
               window.location.href = result.result;
+              debugger;
             }
         });
       // window.location = 'https://iotdeveloperadminweb-sit.smartmidea.net/adminWeb/v1/iotserver/logout';
