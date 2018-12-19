@@ -23,7 +23,7 @@ const API = {
   // 获取登陆用户权限数组
   getAuthedList: (params) => {
     return request({
-      url: `${APPLICATION_NAME}/user/findMenus`,
+      url: `${APPLICATION_NAME}/admin/findMenus`,
       method: 'post',
       data: params
     });
