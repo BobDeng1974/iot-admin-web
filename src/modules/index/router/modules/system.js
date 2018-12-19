@@ -192,66 +192,70 @@ export const sconfigurationManagementRouter =
   name: '配置管理',
   meta: { title: '配置管理' },
   children: [
-    // 新增型号录入路由
-    {
-      path: 'typeEntry',
-      component: _import('mineSystem/configurationManagement/typeEntry/index'),
-      name: '型号录入',
-      meta: { title: '型号录入' }
-    },
     {
       path: 'category',
       component: _import('mineSystem/configurationManagement/category/index'),
       name: '品类与事业部管理',
-      meta: { title: '品类与事业部管理' }
+      meta: { title: '品类与事业部管理', icon: 'dots' }
     },
     {
       path: 'moduleVendor',
       component: _import('mineSystem/configurationManagement/moduleVendor/index'),
       name: '模组厂商管理',
-      meta: { title: '模组厂商管理' }
+      meta: { title: '模组厂商管理', icon: 'dots' }
     },
     {
       path: 'macManagement',
       component: _import('mineSystem/configurationManagement/macManagement/index'),
       name: 'mac地址管理',
-      meta: { title: 'mac地址管理' }
+      meta: { title: 'mac地址管理', icon: 'dots' }
     },
     {
       path: 'documentManagement',
       component: _import('mineSystem/configurationManagement/documentManagement/index'),
       name: '文档管理',
-      meta: { title: '文档管理' }
+      meta: { title: '文档管理', icon: 'dots' }
     },
     {
       path: 'addDevDoc',
       component: _import('mineSystem/configurationManagement/documentManagement/addDoc'),
       name: 'addDevDoc',
-      meta: { title: '文档管理' }
+      meta: { title: '文档管理' },
+      hidden: true
     },
     {
       path: 'editDevDoc',
       component: _import('mineSystem/configurationManagement/documentManagement/editDoc'),
       name: 'editDevDoc',
-      meta: { title: '文档管理' }
+      meta: { title: '文档管理' },
+      hidden: true
     },
     {
       path: 'downSdkManagement',
       component: _import('mineSystem/configurationManagement/downSdkManagement/index'),
       name: 'downSdkManagement',
-      meta: { title: 'sdk文档管理' }
+      meta: { title: 'sdk文档管理', icon: 'dots' }
     },
     {
       path: 'addSdkDoc',
       component: _import('mineSystem/configurationManagement/downSdkManagement/addSdk'),
       name: 'addSdkDoc',
-      meta: { title: 'sdk文档管理' }
+      meta: { title: 'sdk文档管理' },
+      hidden: true
     },
     {
       path: 'editSdkDoc',
       component: _import('mineSystem/configurationManagement/downSdkManagement/editSdk'),
       name: 'editSdkDoc',
-      meta: { title: 'sdk文档管理' }
+      meta: { title: 'sdk文档管理' },
+      hidden: true
+    },
+    // 新增型号录入路由
+    {
+      path: 'typeEntry',
+      component: _import('mineSystem/configurationManagement/typeEntry/index'),
+      name: '型号录入',
+      meta: { title: '型号录入', icon: 'dots' }
     }
   ]
 };
