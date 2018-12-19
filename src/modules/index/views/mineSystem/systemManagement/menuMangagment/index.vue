@@ -3,13 +3,18 @@
         <div class="title-menu"> 
             <con-header :title-icon="addProductsIcon" title="菜单管理" :hasBottomBorder="false"></con-header>
         </div>
+        <div>
+           <menu-content></menu-content>
+        </div>
     </div>
 </template>
 <script>
 import conHeader from '@/components/awesome/con-header/con-header';
+import menuContent from './menu-mangament-content';
 export default {
   components: {
-    conHeader
+    conHeader,
+    menuContent
   },
   data () {
     return {
