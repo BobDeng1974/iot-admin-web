@@ -63,8 +63,9 @@
               <template slot-scope="scope">
                 <div v-if="scope.row.status === 0">
                   <span @click="forbidRole(scope.row)" >禁用</span>
-                  <span style="color: #DEDFE5;" v-if="!scope.row.isContacter">|</span>
+                  <span style="color: #DEDFE5;">|</span>
                   <span @click="authorizedAccess(scope.row)" v-if="!scope.row.isContacter">授权对接人</span>
+                  <span @click="forbidden(scope.row)" v-if="scope.row.isContacter">取消对接人</span>
                 </div>
                 <div v-if="scope.row.status === 1">
                   <span @click="userRecover(scope.row)">启用</span>
@@ -94,7 +95,6 @@
 <script>
 import { restData, format } from '@/modules/index/api/system/common.js';
 import conHeader from '@/components/awesome/con-header/con-header';
-// 这里需要替换
 import API from '@/modules/index/api/system/system.js';
 import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 import _ from 'lodash';
@@ -234,12 +234,35 @@ export default {
         });
         this.$message({
           type: 'success',
-          message: '禁用成功!'
+          message: '授权成功!'
         });
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消禁用'
+          message: '已取消授权'
+        });
+      });
+    },
+    // 取消对接人
+    forbidden (val) {
+      this.$confirm('此操作将取消对接人, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const params = {uid: val.uid, type: 0};
+        API.disContactsUcenter(params)
+        .then(res => {
+          this.selectSerch(false);
+        });
+        this.$message({
+          type: 'success',
+          message: '取消对接人成功!'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消操作'
         });
       });
     },
@@ -287,7 +310,7 @@ export default {
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消禁用'
+          message: '已取消启用'
         });
       });
 

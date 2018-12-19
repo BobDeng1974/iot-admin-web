@@ -12,6 +12,13 @@ const systemManagementApi = {
         data: query
     }).then(res => res);
   },
+  disContactsUcenter: (query) => {
+    return request({
+        url: `${MJAPP_NAME}/user/disContacts`,
+        method: 'post',
+        data: query
+    }).then(res => res);
+  },
   forbidUserUcenter: (query) => {
     return request({
         url: `${MJAPP_NAME}/user/forbid`,
@@ -128,14 +135,14 @@ const systemManagementApi = {
     },
     recoverUser: (query) => {
       return request({
-        url: `${APPLICATION_NAME}/user/recover`,
+        url: `${APPLICATION_NAME}/admin/recover`,
         method: 'post',
         data: query
       }).then(res => res);
     },
     authChange: (query) => {
       return request({
-        url: `${APPLICATION_NAME}/user/auth`,
+        url: `${APPLICATION_NAME}/admin/auth`,
         method: 'post',
         data: query
       }).then(res => res);
@@ -149,7 +156,7 @@ const systemManagementApi = {
     },
     forbidUser: (query) => {
       return request({
-        url: `${APPLICATION_NAME}/user/forbid`,
+        url: `${APPLICATION_NAME}/admin/forbid`,
         method: 'post',
         data: query
       }).then(res => res);
