@@ -120,6 +120,7 @@ const user = {
 
           ls.removeItem('proto');
           ls.removeItem('network');
+          ls.removeAll();
           resolve(resolve);
         }).catch(error => {
           reject(error);
@@ -195,6 +196,7 @@ const user = {
 
           ls.removeItem('proto');
           ls.removeItem('network');
+          ls.removeAll();
           resolve(response);
         }).catch(error => {
           reject(error);
@@ -265,6 +267,7 @@ const user = {
 
         ls.removeItem('proto');
         ls.removeItem('network');
+        ls.removeAll();
         resolve();
       });
     }
