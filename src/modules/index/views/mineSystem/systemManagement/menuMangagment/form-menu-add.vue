@@ -14,16 +14,6 @@
             <el-form-item label="菜单名称" prop="name">
                 <el-input v-model="form.name"></el-input>
             </el-form-item>
-            <el-form-item label="菜单图标" prop="imgUrl">
-              <div class="upload-btn">
-                <el-upload class="upload-demo" :accept="accept" :http-request="uploadImgApi" drag :action="'dddd'" multiple :limit="1" :file-list="fileList" :before-upload="beforeUpload" :on-success="uploadSuccess" :on-error="uploadError" :on-remove="uploadRemove">
-                  <i class="el-icon-upload"></i>
-                  <div class="el-upload__text">点击或将文件拖拽到这里上传或<em>点击上传</em></div>
-                  <div class="el-upload__tip" slot="tip">支持扩展名：.lua，且不超过5M</div>
-                </el-upload>
-              </div>
-              <el-input v-model="form.imgUrl" type="hidden"></el-input>
-            </el-form-item>
             <el-form-item label="接口url" prop="path">
                 <el-input v-model="form.path"></el-input>
             </el-form-item>
@@ -71,19 +61,13 @@ export default {
       form: {
         pid: '',
         name: '',
-        // 上传
-        imgUrl: '',
-        flieName: '',
         path: '',
         order: '',
         hidden: ''
       },
-      fileList: [],
-      accept: '.png',
       rules: {
         pid: { required: true, validator: this.checkRoleName, trigger: 'blur' },
         name: { required: true, message: '请输入说明', trigger: 'blur' },
-        imgUrl: { required: true, message: '请输入说明', trigger: 'blur' },
         path: { required: true, message: '请输入说明', trigger: 'blur' },
         order: { required: true, message: '请输入说明', trigger: 'blur' },
         hidden: { required: true, message: '请输入说明', trigger: 'blur' }
@@ -92,54 +76,6 @@ export default {
   },
   mixins: [ roleMixin ],
   methods: {
-    beforeUpload(file) {
-      return (
-        commonFun.extMatch(file, this.accept, this) &&
-        commonFun.extMatchSize(file, 5, this)
-      );
-    },
-    // 上传成功
-    uploadSuccess(res, file, fileList) {
-      // this.editLuaFileName = '';
-      this.fileList = fileList;
-    },
-    // 移除文件时
-    uploadRemove(file, fileList) {
-      this.form.imgUrl = result.result.url;
-      this.fileList = fileList;
-    },
-    // 上传失败
-    uploadError(err, file, fileList) {
-      if (err) {
-        this.$message({
-          showClose: true,
-          message: '文件上传失败',
-          type: 'error'
-        });
-      }
-    },
-    // 图片上传
-    uploadImgApi(item) {
-      // 传入参数uploadFile是后端需要的健
-      let param = { uploadFile: item.file };
-      this.getUpAddHardware(param);
-    },
-    // 上传的接口
-    async getUpAddHardware(param) {
-      try {
-        await this.$store.dispatch('imgDoUpLoad', param).then(result => {
-          if (result.code === 0) {
-            debugger;
-            this.form.flieName = result.result.originalFileName;
-            this.form.imgUrl = result.result.url;
-            this.$message({
-              message: result.message,
-              type: 'success'
-            });
-          }
-        });
-      } catch (e) {}
-    },
     save () {
       if (!doSubmit('form', this)) return;
       this.addSubmit();
