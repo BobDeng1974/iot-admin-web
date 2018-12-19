@@ -141,7 +141,7 @@ export const auditsManagementRouter =
     }
   ]
 };
-// 系统管理
+// 系统设置
 export const systemManagementRouter =
 {
   path: 'systemManagement',
@@ -165,7 +165,7 @@ export const systemManagementRouter =
     // },
     {
       path: 'systemMenu',
-      component: _import('mineSystem/systemManagement/menu/index'),
+      component: _import('mineSystem/systemManagement/menuMangagment/index'),
       name: '菜单管理',
       meta: { title: '菜单管理', icon: 'dots' }
     }
