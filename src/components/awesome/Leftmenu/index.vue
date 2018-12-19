@@ -74,21 +74,21 @@ export default {
     // 获取侧边栏菜单
     getMenus() {
       let path = this.getRootPath(this.$router.history.current.path);
-      // if (path === '/product') {
-      //   this.menus = this.getSecondPath(this.$store.getters.roles.length ? this.$store.getters.roles : ls.getObject('roles'), path);
-      //   // debugger;
-      //   this.$router.push({path: this.urlArrTemp.join('/')});
-      //   this.defaultActive = this.urlArrTemp.join('/');
-      // } else {
-      //   this.menus = this.getSecondPath(this.$router.options.routes, path);
-      //   // debugger;
-      //   this.$router.push({path: this.urlArrTemp.join('/')});
-      //   this.defaultActive = this.urlArrTemp.join('/');
-      // }
+      if (path === '/product') {
+        this.menus = this.getSecondPath(this.$store.getters.roles.length ? this.$store.getters.roles : ls.getObject('roles'), path);
+        // debugger;
+        this.$router.push({path: this.urlArrTemp.join('/')});
+        this.defaultActive = this.urlArrTemp.join('/');
+      } else {
         this.menus = this.getSecondPath(this.$router.options.routes, path);
         // debugger;
         this.$router.push({path: this.urlArrTemp.join('/')});
         this.defaultActive = this.urlArrTemp.join('/');
+      }
+        // this.menus = this.getSecondPath(this.$router.options.routes, path);
+        // // debugger;
+        // this.$router.push({path: this.urlArrTemp.join('/')});
+        // this.defaultActive = this.urlArrTemp.join('/');
     }
   },
   mounted() {

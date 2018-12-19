@@ -44,6 +44,8 @@ export default {
     // 获取4a登录信息
     this.$store.dispatch('get4AUserInfo').then((res) => {
       this.userInfo = res.result;
+      this.$store.dispatch('getMeauAuthed', {uid: this.userInfo.account}).then(res => {
+      });
     });
   }
 };
