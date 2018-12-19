@@ -43,7 +43,8 @@
         <!-- 表格部分 -->
         <div class="table-account" v-loading="loading">
           <el-table :data="tableData" style="width: 100%"  class='table'>
-            <el-table-column prop="uid" label="用户id" align="center"></el-table-column>
+            <!-- <el-table-column prop="uid" label="用户id" align="center"></el-table-column> -->
+            <el-table-column prop="index" width="50" align="center" :render-header="renderIndex"></el-table-column>
             <el-table-column prop="nickName" label="用户昵称" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="account" label="用户手机号" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="realName" label="用户姓名" align="center" show-overflow-tooltip></el-table-column>
@@ -192,7 +193,7 @@ export default {
         this.loading = false;
         if (res.code === 0) {
           this.total = res.result ? res.result.total : 0;
-          this.tableData = res.result ? res.result.data : [];
+          this.tableData = res.result ? this.initTableData(res.result.data) : [];
         } else {
           this.tableData = [];
           this.total = 0;
@@ -203,6 +204,17 @@ export default {
           this.total = 0;
           this.loading = false;
       });
+    },
+    renderIndex(h, { column, $index }) {
+      return h('span', [h('span', '序号')]);
+    },
+    // 给请求回来的表格数据新增index属性（序号）
+    initTableData(val) {
+      if (!val && !val.length) return [];
+      for (var i = 0; i < val.length; i++) {
+        val[i].index = (this.currentPage - 1) * this.pageSize + i + 1;
+      }
+      return val;
     },
     clear () {
       restData(this.formInline);
