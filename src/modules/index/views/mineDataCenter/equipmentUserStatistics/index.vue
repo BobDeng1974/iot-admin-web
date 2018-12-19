@@ -265,12 +265,13 @@ export default {
   .table-breadcrumb {
     margin-top: 24px;
     td {
-      .operate {
+      span{
         padding: 0 2px;
+        color: #5667FF;
       }
-      .operate:hover {
+      span:hover{
         cursor: pointer;
-        color: #5667ff;
+        // color: #5667FF;
       }
     }
   }

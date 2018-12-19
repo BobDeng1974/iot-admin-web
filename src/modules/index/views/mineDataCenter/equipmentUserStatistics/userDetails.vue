@@ -96,11 +96,13 @@ export default {
     font-size: 20px;
     font-weight: 700;
   }
-  .table-mine{
-    padding-top: 24px;
-  }
   .hasBorder {
     border-bottom: 1px solid #333333;
+  }
+  .table-mine{
+    margin-top: 35px;
+    border-top: 1px solid #ebeef5;
+    padding-top: 24px;
   }
 }
 </style>

@@ -11,7 +11,7 @@
     </div>
 
     <div class="table-mine">
-      <div style="text-align: right; margin-bottom: 24px;">
+      <div style="text-align: right; margin-bottom: 10px;">
         <el-button type="primary" @click="downLoad">导出统计结果</el-button>
       </div>
       <div>
@@ -104,6 +104,8 @@ export default {
 <style lang="less">
 .equipmentDetails-info-warp {
   .table-mine{
+    margin-top: 35px;
+    border-top: 1px solid #ebeef5;
     padding-top: 24px;
   }
   .tip-one {
