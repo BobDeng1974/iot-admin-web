@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
   // }
 
   if (getToken()) {
-    debugger;
+    // debugger;
     if (to.path === '/login') {
       // debugger;
       next({ path: '/product' });

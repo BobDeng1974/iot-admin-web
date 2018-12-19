@@ -150,11 +150,13 @@ export default {
           console.log(res, '获取详情信息');
           let licDownloadUrlFlay = true;
           const buttonFlag = ls.getObject('buttonFlag');
+            if (buttonFlag) {
                 if (buttonFlag.indexOf('b1_licDownloadTag') > -1) {
-                  licDownloadUrlFlay = true;
-                } else {
-                  licDownloadUrlFlay = false;
-                }
+                        licDownloadUrlFlay = true;
+                      } else {
+                        licDownloadUrlFlay = false;
+              }
+              }
 
           this.loading = false;
           if (res.code === 0) {

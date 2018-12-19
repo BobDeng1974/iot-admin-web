@@ -9,7 +9,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="模组厂商">
-              <el-select v-model="formInline.supplyId" placeholder="请选择" clearable>
+              <el-select  v-model="formInline.supplyId" placeholder="请选择" clearable>
                 <el-option v-for="item in applyList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -17,7 +17,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="事业部">
-              <el-select v-model="formInline.departId" placeholder="请选择" clearable>
+              <el-select filterable @change="deparmentListChange" v-model="formInline.departId" placeholder="请选择" clearable>
                 <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -25,7 +25,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="品类">
-              <el-select v-model="formInline.applianceType" placeholder="请选择" @change="applianChange" clearable>
+              <el-select filterable v-model="formInline.applianceType" placeholder="请选择" @change="applianChange" clearable>
                 <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
                 </el-option>
               </el-select>
@@ -36,7 +36,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="型号码">
-              <el-select v-model="formInline.sn8" placeholder="请选择" clearable>
+              <el-select filterable v-model="formInline.sn8" placeholder="请选择" clearable>
                 <el-option v-for="item in sn8List" :key="item.id" :label="item.sn8" :value="item.sn8">
                 </el-option>
               </el-select>
@@ -178,20 +178,39 @@ export default {
     this.getList(true);
   },
   methods: {
-    // 获取所有下拉字典
-    getDict() {
-      this.getAlldeparment();
-      this.getApplianList();
-      this.getApply();
+        // 三级联动
+    deparmentListChange(val) {
+      this.formInline.applianceType = '';
+      this.sn8List = [];
+      this.formInline.sn8 = '';
+      if (val) {
+        this.getApplianList(val);
+      } else {
+        // this.deparmentList = [];
+      }
     },
     applianChange(val) {
       this.formInline.sn8 = '';
       if (val) {
         this.getSn8List(val);
       } else {
-        this.sn8List = [];
+        // this.sn8List = [];
       }
     },
+    // 获取所有下拉字典
+    getDict() {
+      this.getAlldeparment();
+      // this.getApplianList();
+      this.getApply();
+    },
+    // applianChange(val) {
+    //   this.formInline.sn8 = '';
+    //   if (val) {
+    //     this.getSn8List(val);
+    //   } else {
+    //     this.sn8List = [];
+    //   }
+    // },
     eidtApplication() {
       this.$router.push({ name: 'eidtApplication' });
     },

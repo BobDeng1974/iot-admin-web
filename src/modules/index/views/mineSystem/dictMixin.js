@@ -43,9 +43,9 @@ export const dictMixin = {
         });
       },
     // 品类下拉
-    getApplianList () {
+    getApplianList (id) {
         const params = {
-          id: 0
+          id: id || 0
         };
         API.getApplianSelect(params)
         .then(res => {
