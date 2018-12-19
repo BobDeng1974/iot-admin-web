@@ -1,10 +1,10 @@
 <template>
     <div class="details-role-warp">
         <el-table :data="tableData" style="width: 100%" max-height="250" class='table'>
-            <el-table-column prop="mip" label="用户mip账户" align="center"></el-table-column>
+            <el-table-column prop="account" label="用户mip账户" align="center"></el-table-column>
             <el-table-column prop="realName" label="用户姓名" align="center"></el-table-column>
             <el-table-column prop="departmentName" label="所在事业部" align="center"></el-table-column>
-            <el-table-column prop="account" label="用户注册手机号" align="center"></el-table-column>
+            <!-- <el-table-column prop="account" label="用户注册手机号" align="center"></el-table-column> -->
             <el-table-column prop="rpdate" label="创建时间" align="center">
               <template slot-scope="scope">
                 <div>{{scope.row.rpdate | fomatDate('yyyy-MM-dd')}}</div>

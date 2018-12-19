@@ -4,7 +4,7 @@
             <div class="right" v-loading="autedLoading">
                 <div class="right-title">
                    <span>菜单树</span>
-                   <span class="btn-add">添加菜单</span>
+                   <span class="btn-add" @click="addMenu">添加菜单</span>
                 </div>
                 <div class="popwer-mine">
                     <el-tree
@@ -19,14 +19,33 @@
                 </div>
             </div>
         </div>
+        <mine-dialog :dialogFormVisible='flag' :width='"45%"' :modalFlag="modalFlag" @close="close"  :title="title" :showClose="showClose">
+          <add-menu  slot="option"  @close="close" v-if="addFlag" @requestTable="requestList"></add-menu>
+          <eidt-menu slot="option" :roleId='roleId' v-else></eidt-menu>
+        </mine-dialog>
     </div>
 </template>
 <script>
 import API from '@/modules/index/api/system/system.js';
 import TreeRender from './test';
+import mineDialog from '@/modules/index/components/mine-dialog';
+import addMenu from './form-menu-add';
+import eidtMenu from './form-menu-eidt';
 export default {
+  components: {
+    mineDialog,
+    addMenu,
+    eidtMenu
+  },
   data () {
     return {
+      addFlag: false,
+      // 控制弹框显影
+      flag: false,
+      // 是否显示按钮
+      showClose: true,
+      modalFlag: false,
+      title: '',
       autedLoading: false,
       roleLoading: false,
       roleList: [],
@@ -43,6 +62,9 @@ export default {
     this.getAllAuthed();
   },
   methods: {
+    close (val) {
+      this.flag = val;
+    },
     renderContent (h, {node, data, store}) {
       let that = this;
       return h(TreeRender, {
@@ -60,6 +82,13 @@ export default {
     handleEdit (s, d, n) {
       debugger;
       console.log(s, d, n)
+      this.flag = true;
+      this.title = '编辑';
+    },
+    addMenu () {
+      this.flag = true;
+      this.title = '新增';
+      this.addFlag = true;
     },
     handleDelete (s, d, n) {
       debugger;
