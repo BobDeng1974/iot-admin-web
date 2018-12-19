@@ -66,12 +66,12 @@
             <el-table-column label="操作" align="center" width='180'>
               <template slot-scope="scope">
                 <div v-if="scope.row.status === 0">
-                  <span @click="changeRole(scope.row)" v-authority="'b1_userAuthTag'">修改角色</span>
+                  <span @click="changeRole(scope.row)" v-authority="'b1_adminAuthTag'">修改角色</span>
                   <span style="color: #DEDFE5;">|</span>
-                  <span @click="forbidRole(scope.row)" v-authority="'b1_userforbidTag'">禁用</span>
+                  <span @click="forbidRole(scope.row)" v-authority="'b1_adminforbidTag'">禁用</span>
                 </div>
                 <div v-if="scope.row.status === 1">
-                  <span @click="userRecover(scope.row)" v-authority="'b1_userRecoverTag'">启用</span>
+                  <span @click="userRecover(scope.row)" v-authority="'b1_adminRecoverTag'">启用</span>
                 </div>
                 <!-- <span @click="changeRole(scope.row)">修改角色</span> -->
                 <!-- <span style="color: #DEDFE5;">|</span>
