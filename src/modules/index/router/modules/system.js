@@ -164,7 +164,7 @@ export const systemManagementRouter =
     //   meta: { title: '账户管理', icon: 'dots' }
     // },
     {
-      path: 'menu',
+      path: 'systemMenu',
       component: _import('mineSystem/systemManagement/menu/index'),
       name: '菜单管理',
       meta: { title: '菜单管理', icon: 'dots' }
@@ -337,6 +337,12 @@ export const backgroundAccountRouter =
       component: _import('mineSystem/systemManagement/role/index'),
       name: '角色管理',
       meta: { title: '角色管理', icon: 'dots' }
+    },
+    {
+      path: 'menu',
+      component: _import('mineSystem/systemManagement/menu/index'),
+      name: '角色授权',
+      meta: { title: '角色授权', icon: 'dots' }
     }
   ]
 };

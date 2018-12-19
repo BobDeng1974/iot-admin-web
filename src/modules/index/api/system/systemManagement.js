@@ -94,7 +94,7 @@ const systemManagementApi = {
     },
     allAuthed: () => {
       return request({
-        url: `${APPLICATION_NAME}/user/findMenus`,
+        url: `${APPLICATION_NAME}/admin/findMenus`,
         method: 'post'
       }).then(res => res);
     },

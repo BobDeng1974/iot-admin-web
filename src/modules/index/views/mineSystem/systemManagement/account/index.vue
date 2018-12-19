@@ -14,14 +14,15 @@
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="事业部">
-                      <el-select v-model="formInline.departmentId" placeholder="请选择" clearable>
+                      <el-input v-model="formInline.departmentName" clearable></el-input>
+                      <!-- <el-select v-model="formInline.departmentId" placeholder="请选择" clearable>
                           <el-option
                             v-for="item in deparmentList"
                             :key="item.id"
                             :label="item.name"
                             :value="item.id">
                           </el-option>
-                      </el-select>
+                      </el-select> -->
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
