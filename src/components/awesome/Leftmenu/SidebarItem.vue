@@ -1,6 +1,14 @@
 <template>
   <div v-if="!item.hidden && item.children" class="menu-wrapper">
-    <template v-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow">
+    <template v-if="hasOneShowingChild(item.children)&&onlyOneChild.path==='goHome'">
+      <a :href="onlyOneChild.path" target="_blank" @click="clickLink(onlyOneChild.path,$event)">
+        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
+          <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon" :title="onlyOneChild.meta.title" />
+        </el-menu-item>
+      </a>
+    </template>
+
+    <template v-else-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow">
       <a :href="onlyOneChild.path" target="_blank" @click="clickLink(onlyOneChild.path,$event)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
           <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon" :title="onlyOneChild.meta.title" />
@@ -61,6 +69,7 @@ export default {
   },
   methods: {
     hasOneShowingChild(children) {
+      debugger;
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false;
@@ -70,7 +79,11 @@ export default {
           return true;
         }
       });
-
+      if (children.path === 'goHome') {
+        debugger;
+        this.onlyOneChild;
+        return true;
+      }
       if (showingChildren.length === 1) {
         return true;
       }

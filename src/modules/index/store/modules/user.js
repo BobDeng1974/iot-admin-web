@@ -65,7 +65,7 @@ const user = {
       ls.addItem('userInfo', userInfo);
     },
     saveGetUserInfo: (state, saveGetUserInfo) => {
-      debugger;
+      // debugger;
       state.saveGetUserInfo = saveGetUserInfo;
       ls.addItem('saveGetUserInfo', saveGetUserInfo);
     }
