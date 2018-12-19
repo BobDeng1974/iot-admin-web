@@ -1,7 +1,8 @@
 import request from '@/utils/http';
 // import axios from 'axios';
 const {
-  APPLICATION_NAME
+  APPLICATION_NAME,
+  MJAPP_NAME
 } = window.environment.iotserver;
 
 // 批量下载协议文档
@@ -197,7 +198,7 @@ export const updateProfile = (params) => {
 // 同一的上传接口
 export const imgDoUpLoad = (params) => {
   return request({
-    url: `${APPLICATION_NAME}/fileUpload/doUploadOriginal`,
+    url: `${MJAPP_NAME}/fileUpload/doUploadOriginal`,
     method: 'post',
     data: params
   }).then(res => res);
