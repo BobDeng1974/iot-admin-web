@@ -34,9 +34,9 @@
             </span>
            </div>
            <div>
-            <span class="btn-select">
+            <!-- <span class="btn-select">
               <el-button type="primary" @click="eidtPreApplication" v-authority="'b1_doPreApplyTag'">新增预申请</el-button>
-            </span>
+            </span> -->
 
            </div>
 

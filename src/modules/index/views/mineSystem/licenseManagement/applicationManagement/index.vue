@@ -66,9 +66,9 @@
           </span>
         </el-row>
         <el-row>
-          <span class="btn-select">
-            <el-button type="primary" @click="eidtApplication" v-authority="'b1_doApplyTag'">新增申请</el-button>
-          </span>
+          <!-- <span class="btn-select"> -->
+            <!-- <el-button type="primary" @click="eidtApplication" v-authority="'b1_doApplyTag'">新增申请</el-button> -->
+          <!-- </span> -->
         </el-row>
 
       </div>
