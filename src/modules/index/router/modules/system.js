@@ -216,6 +216,42 @@ export const sconfigurationManagementRouter =
       component: _import('mineSystem/configurationManagement/macManagement/index'),
       name: 'mac地址管理',
       meta: { title: 'mac地址管理' }
+    },
+    {
+      path: 'documentManagement',
+      component: _import('mineSystem/configurationManagement/documentManagement/index'),
+      name: '文档管理',
+      meta: { title: '文档管理' }
+    },
+    {
+      path: 'addDevDoc',
+      component: _import('mineSystem/configurationManagement/documentManagement/addDoc'),
+      name: 'addDevDoc',
+      meta: { title: '文档管理' }
+    },
+    {
+      path: 'editDevDoc',
+      component: _import('mineSystem/configurationManagement/documentManagement/editDoc'),
+      name: 'editDevDoc',
+      meta: { title: '文档管理' }
+    },
+    {
+      path: 'downSdkManagement',
+      component: _import('mineSystem/configurationManagement/downSdkManagement/index'),
+      name: 'downSdkManagement',
+      meta: { title: 'sdk文档管理' }
+    },
+    {
+      path: 'addSdkDoc',
+      component: _import('mineSystem/configurationManagement/downSdkManagement/addSdk'),
+      name: 'addSdkDoc',
+      meta: { title: 'sdk文档管理' }
+    },
+    {
+      path: 'editSdkDoc',
+      component: _import('mineSystem/configurationManagement/downSdkManagement/editSdk'),
+      name: 'editSdkDoc',
+      meta: { title: 'sdk文档管理' }
     }
   ]
 };
