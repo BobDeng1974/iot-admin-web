@@ -79,7 +79,7 @@
         <el-table-column prop="cName" width="150" label="上传人" align="center"></el-table-column>
         <el-table-column label="操作" align="center" fixed='right'>
           <template slot-scope="scope">
-            <span @click="changeRole(scope.row)" >下载</span>
+            <span @click="downLoad(scope.row.luaId)" >下载</span>
           </template>
         </el-table-column>
       </el-table>
@@ -126,6 +126,9 @@ export default {
     this.getList(true);
   },
   methods: {
+    // 下载功能
+    downLoad(val) {
+    },
     // 获取所有下拉字典
     getDict() {
       this.getAlldeparment();

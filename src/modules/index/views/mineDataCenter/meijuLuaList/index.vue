@@ -129,41 +129,6 @@ export default {
   methods: {
     // 下载功能
     downLoad(val) {
-      let params = { id: val, accessToken: getToken() };
-      // let paramFormData = new FormData();
-      // for (const key in params) {
-      //   paramFormData.append(key, params[key]);
-      // }
-      API.downLoadAppLua(params).then(response => {
-        console.log(response, 'responseresponseresponseresponse');
-        // let tempNameStr = response.headers['content-disposition'].split(';')[1];
-        // let fileName = tempNameStr.split('=')[1];
-        let blob = new Blob([response.data]);
-        let objectUrl = URL.createObjectURL(blob);
-        let link = document.createElement('a');
-        link.style.display = 'none';
-        link.href = objectUrl;
-        // link.setAttribute('download', fileName);
-        document.body.appendChild(link);
-        link.click();
-        // if (response.headers && response.headers['content-disposition']) {
-        //   let tempNameStr = response.headers['content-disposition'].split(
-        //     ';'
-        //   )[1];
-        //   let fileName = tempNameStr.split('=')[1];
-        //   let blob = new Blob([response.data]);
-        //   let objectUrl = URL.createObjectURL(blob);
-        //   let link = document.createElement('a');
-        //   link.style.display = 'none';
-        //   link.href = objectUrl;
-        //   link.setAttribute('download', fileName);
-        //   document.body.appendChild(link);
-        //   link.click();
-        //   this.hardwareDetail.licDownloadTimes++;
-        // } else {
-        //   this.$message('license非法下载异常');
-        // }
-      });
     },
     // 获取所有下拉字典
     getDict() {
