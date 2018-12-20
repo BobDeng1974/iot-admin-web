@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import ls from '@/utils/storage/local_storage';
 import mineDialog from '@/modules/index/components/mine-dialog';
 import conHeader from '@/components/awesome/con-header/con-header';
 import mineTable from '@/modules/index/components/mine-table';
@@ -68,6 +69,8 @@ export default {
   },
   mixins: [ dictMixin ],
   created () {
+    this.$store.dispatch('getProtos', { id: 0 });
+    this.$store.dispatch('getNetwork', { id: 0 });
     this.getInfo();
   },
   data () {
@@ -99,14 +102,14 @@ export default {
       if (this.$store.getters.networkArr.length > 0) {
         return this.$store.getters.networkArr;
       } else {
-        return JSON.parse(localStorage.getItem('network'));
+        return JSON.parse(ls.getItem('network'));
       }
     },
     protoArr() {
       if (this.$store.getters.protoArr.length > 0) {
         return this.$store.getters.protoArr;
       } else {
-        return JSON.parse(localStorage.getItem('proto'));
+        return JSON.parse(ls.getItem('proto'));
       }
     }
   },

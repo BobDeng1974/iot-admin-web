@@ -1,6 +1,7 @@
 import request from '@/utils/http';
 const {
-  APPLICATION_NAME
+  APPLICATION_NAME,
+  MJAPP_NAME
 } = window.environment.iotserver;
 
 const API = {
@@ -15,7 +16,7 @@ const API = {
   // 获取联网方式
   getNetwork: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/hardware/getNetwork`,
+      url: `${MJAPP_NAME}/hardware/getNetwork`,
       method: 'post',
       data: query
     });
@@ -23,7 +24,7 @@ const API = {
   // 获取支持协议
   getProtos: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/hardware/getProtos`,
+      url: `${MJAPP_NAME}/hardware/getProtos`,
       method: 'post',
       data: query
     });

@@ -59,6 +59,23 @@ export const dictMixin = {
             this.applianList = [];
         });
       },
+      // 三级联动品类下拉
+      getApplianListAsDpartId (id) {
+        const params = {
+          deparId: id || 0
+        };
+        API.getApplianSelect(params)
+        .then(res => {
+          if (res.code === 0) {
+            this.applianList = res.result;
+          } else {
+            this.applianList = [];
+          }
+        })
+        .catch(() => {
+            this.applianList = [];
+        });
+      },
     // 子类下拉
     getSn8List (val) {
         const params = {

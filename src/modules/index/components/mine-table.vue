@@ -38,7 +38,7 @@ export default {
     this.tableData;
     this.ignoreDatas;
     this.tableLabel;
-    // debugger;
+    debugger;
     let that = this;
     let obj = this.tableLabel;
     return (

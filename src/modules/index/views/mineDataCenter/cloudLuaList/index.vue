@@ -9,7 +9,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="事业部">
-              <el-select v-model="formInline.departId" placeholder="请选择" clearable>
+              <el-select v-model="formInline.deparId" placeholder="请选择" @change="departMentChange" clearable>
                 <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -17,14 +17,15 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="品类">
-              <el-select v-model="formInline.applianceType" placeholder="请选择" @change="applianChange" clearable>
-                <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
+              <el-select v-model="formInline.typeCode" placeholder="请选择" @change="applianChange" clearable>
+                <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.type">
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="型号码">
+              <!-- <el-input v-model="formInline.sn8"></el-input> -->
               <el-select v-model="formInline.sn8" placeholder="请选择" clearable>
                 <el-option v-for="item in sn8List" :key="item.id" :label="item.sn8" :value="item.sn8">
                 </el-option>
@@ -34,12 +35,12 @@
         </el-row>
 
         <el-row>        
-           <el-col :span="8">
-            <el-form-item label="model-number">
-              <el-input v-model="formInline.modelNumber"></el-input>
+           <el-col :span="10">
+            <el-form-item label="model-number" label-width="120">
+              <el-input v-model="formInline.modelNo"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="10">
             <el-form-item label="更新时间">
               <el-date-picker v-model="formInline.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
@@ -59,22 +60,26 @@
     <div class="table-breadcrumb" v-loading="loading">
       <el-table :data="tableData" style="width: 100%" class='table'>
         <el-table-column prop="index" width="50" align="center" :render-header="renderIndex"></el-table-column>
-        <el-table-column prop="supplyName" width="150" label="名称" align="center"></el-table-column>
-        <el-table-column prop="preApplyId" width="150" label="开发组" align="center"></el-table-column>
-        <el-table-column prop="departName" width="150" label="品类" align="center"></el-table-column>
-        <el-table-column prop="applianceType" width="150" label="型号码" align="center"></el-table-column>
-        <el-table-column prop="sn8" width="150" label="model-number" align="center"></el-table-column>
-        <el-table-column prop="nums" width="150" label="版本号" align="center"></el-table-column>
-        <el-table-column prop="nums" width="150" label="状态" align="center"></el-table-column>
-        <el-table-column prop="applyTime" width="150" label="生效时间" align="center">
+        <el-table-column prop="luaName" width="150" label="名称" align="center"></el-table-column>
+        <el-table-column prop="departmentName" width="150" label="开发组" align="center"></el-table-column>
+        <el-table-column prop="typeName" width="150" label="品类" align="center"></el-table-column>
+        <el-table-column prop="sn8" width="150" label="型号码" align="center"></el-table-column>
+        <el-table-column prop="modelNo" width="150" label="model-number" align="center"></el-table-column>
+        <el-table-column prop="version" width="150" label="版本号" align="center"></el-table-column>
+        <el-table-column prop="release" width="150" label="状态" align="center">
           <template slot-scope="scope">
-            <div>{{scope.row.applyTime | fomatDate('yyyy-MM-dd HH:mm')}}</div>
+              <span>{{scope.row.release === 0 ? '未发布' : '已发布'}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="applyUserName" width="150" label="上传人" align="center"></el-table-column>
+        <el-table-column prop="cdate" width="150" label="生效时间" align="center">
+          <template slot-scope="scope">
+            <div>{{scope.row.cdate | fomatDate('yyyy-MM-dd HH:mm')}}</div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="cName" width="150" label="上传人" align="center"></el-table-column>
         <el-table-column label="操作" align="center" fixed='right'>
           <template slot-scope="scope">
-              <span @click="changeRole(scope.row)" >下载</span>
+            <span @click="changeRole(scope.row)" >下载</span>
           </template>
         </el-table-column>
       </el-table>
@@ -88,7 +93,7 @@
 <script>
 import { restData, format } from '@/modules/index/api/system/common.js';
 import conHeader from '@/components/awesome/con-header/con-header';
-import API from '@/modules/index/api/system/system.js';
+import API from '@/modules/index/api/dataCenter/dataCenter.js';
 import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 import moment from 'moment';
 export default {
@@ -102,12 +107,12 @@ export default {
       addProductsIcon: '/static/img/title_05@2x.png',
       formInline: {
         sn8: '',
-        modelNumber: '',
-        departId: '',
-        applianceType: '',
+        modelNo: '',
+        deparId: '',
+        typeCode: '',
         time: [],
-        applyEndTime: '',
-        applyStartTime: ''
+        endDate: '',
+        beginDate: ''
       },
       tableData: [],
       currentPage: 1,
@@ -124,16 +129,37 @@ export default {
     // 获取所有下拉字典
     getDict() {
       this.getAlldeparment();
-      this.getApplianList();
-      this.getApply();
+      // this.getApplianList();
+      // this.getApply();
+    },
+    // 三级联动
+    departMentChange (val) {
+      this.formInline.sn8 = '';
+      this.formInline.typeCode = '';
+      if (val) {
+        this.getApplianListAsDpartId(val);
+      } else {
+        this.applianList = [];
+      }
     },
     applianChange(val) {
       this.formInline.sn8 = '';
       if (val) {
-        this.getSn8List(val);
+        let id = this.getApplianId(val);
+        this.getSn8List(id);
       } else {
         this.sn8List = [];
       }
+    },
+    // 通过品类type属性找到对应的品类id
+    getApplianId (val) {
+      let str = '';
+      for (var i = 0; i < this.applianList.length; i++) {
+        if (val === this.applianList[i].type) {
+          str = this.applianList[i].id;
+        }
+      }
+      return str;
     },
     eidtApplication() {
       this.$router.push({ name: 'eidtApplication' });
@@ -144,22 +170,11 @@ export default {
     handleCurrentChange(val) {
       this.getList(false);
     },
-    // 翻译芯片厂商
-    fetchChipBrand(val) {
-      var str = '';
-      for (var i = 0; i < this.chipBrandList.length; i++) {
-        if (Number(val) === this.chipBrandList[i].id) {
-          str = this.chipBrandList[i].name;
-        }
-      }
-      return str;
-    },
     // 给请求回来的表格数据新增index属性（序号）
     initTableData(val) {
       if (!val && !val.length) return [];
       for (var i = 0; i < val.length; i++) {
         val[i].index = (this.currentPage - 1) * this.pageSize + i + 1;
-        val[i].chipShow = this.fetchChipBrand(val[i].chip);
       }
       return val;
     },
@@ -173,16 +188,16 @@ export default {
     },
     getList(flag) {
       if (this.formInline.time && this.formInline.time.length) {
-        this.formInline.applyStartTime = format(
+        this.formInline.beginDate = format(
           this.formInline.time[0],
           'yyyy-MM-dd HH:mm:ss'
         );
-        this.formInline.applyEndTime = moment(this.formInline.time[1]).format(
+        this.formInline.endDate = moment(this.formInline.time[1]).format(
           'YYYY-MM-DD 23:59:59'
         );
       } else {
-        this.formInline.applyStartTime = '';
-        this.formInline.applyEndTime = '';
+        this.formInline.beginDate = '';
+        this.formInline.endDate = '';
       }
       if (flag) {
         this.currentPage = 1;
@@ -193,7 +208,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize
       };
-      API.getLicApplyList(params)
+      API.getCloudLuaList(params)
         .then(res => {
           console.log(res, '获取列表');
           this.loading = false;

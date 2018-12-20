@@ -51,6 +51,38 @@ const recordCheckApi = {
         data: query,
         method: 'post'
       }).then(res => res);
+    },
+    // 美居lua列表
+    getAppLuaList: (query) => {
+      return request({
+        url: `${MJAPP_NAME}/lua/getAppLuaList`,
+        data: query,
+        method: 'post'
+      }).then(res => res);
+    },
+    downLoadAppLua: (params) => {
+      return request({
+        url: `${MJAPP_NAME}/lua/downloadAppLua`,
+        params: params,
+        method: 'get',
+        responseType: 'blob'
+      }).then(res => res);
+    },
+    // 云端lua列表
+    getCloudLuaList: (query) => {
+      return request({
+        url: `${MJAPP_NAME}/lua/getCloudLuaList`,
+        data: query,
+        method: 'post'
+      }).then(res => res);
+    },
+    downLoadCloudLua: (params) => {
+      return request({
+        url: `${MJAPP_NAME}/lua/downloadCloudLua`,
+        params: params,
+        method: 'get',
+        responseType: 'blob'
+      }).then(res => res);
     }
 };
 export default recordCheckApi;
