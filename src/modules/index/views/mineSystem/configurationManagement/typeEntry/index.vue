@@ -21,7 +21,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="品类">
-                    <el-select v-model="formInline.applianceType" placeholder="请选择" clearable>
+                    <el-select v-model="formInline.applianId" placeholder="请选择" clearable>
                       <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
                       </el-option>
                     </el-select>
@@ -42,11 +42,11 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="型号名称">
-                    <el-input v-model="formInline.typeName"></el-input>
+                    <el-input v-model="formInline.model"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item label="修改时间" label-width="90">
+                  <el-form-item label="创建时间" label-width="90">
                     <el-date-picker v-model="formInline.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -65,20 +65,20 @@
           </div>
           <el-table :data="tableData" style="width: 100%"  class='table'>
             <el-table-column prop="index" width="50" align="center" :render-header="renderIndex"></el-table-column>
-            <el-table-column label="年份" align="center" show-overflow-tooltip>
-              <template slot-scope="scope">
-                <div>{{scope.row.urdate | fomatDate('yyyy')}}</div>
-              </template>
+            <el-table-column prop="year" label="年份" align="center" show-overflow-tooltip>
+              <!-- <template slot-scope="scope">
+                <div>{{scope.row.year | fomatDate('yyyy')}}</div>
+              </template> -->
             </el-table-column>
-            <el-table-column prop="account" label="所属事业部" align="center" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="realName" label="品类" align="center" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="departmentName" label="型号码" align="center" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="showName" label="model-number" align="center" width="150" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="discription" label="型号名称" align="center" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="creator" label="物料编码" align="center" show-overflow-tooltip></el-table-column>
-            <el-table-column label="修改时间" align="center" show-overflow-tooltip width="150">
+            <el-table-column prop="departmentName" label="所属事业部" align="center" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="typeCode" label="品类" align="center" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="sn8" label="型号码" align="center" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="modelNumber" label="model-number" align="center" width="150" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="model" label="型号名称" align="center" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="materielCode" label="物料编码" align="center" show-overflow-tooltip></el-table-column>
+            <el-table-column label="创建时间" align="center" show-overflow-tooltip width="150">
               <template slot-scope="scope">
-                <div>{{scope.row.urdate | fomatDate('yyyy-MM-dd HH:mm')}}</div>
+                <div>{{scope.row.cdate | fomatDate('yyyy-MM-dd HH:mm')}}</div>
               </template>
             </el-table-column>
             <el-table-column label="操作" align="center" fixed="right" width="150">
@@ -146,12 +146,15 @@ export default {
       title: '',
       addProductsIcon: '/static/img/title_05@2x.png',
       formInline: {
-        account: '',
-        departmentName: '',
-        roleName: '',
+        applianId: '',
+        departmentId: '',
+        sn8: '',
+        modelNumber: '',
+        modelName: '',
+        sn8: '',
         time: [],
-        startTime: '',
-        endTime: ''
+        mdateBegin: '',
+        mdateEnd: ''
       },
       tableData: [],
       currentPage: 1,
@@ -190,11 +193,11 @@ export default {
     },
     selectSerch (flag) {
       if (this.formInline.time && this.formInline.time.length) {
-        this.formInline.startTime = format(this.formInline.time[0], 'yyyy-MM-dd');
-        this.formInline.endTime = format(this.formInline.time[1], 'yyyy-MM-dd');
+        this.formInline.mdateBegin = format(this.formInline.time[0], 'yyyy-MM-dd');
+        this.formInline.mdateEnd = format(this.formInline.time[1], 'yyyy-MM-dd');
       } else {
-        this.formInline.startTime = '';
-        this.formInline.endTime = '';
+        this.formInline.mdateBegin = '';
+        this.formInline.mdateEnd = '';
       }
       if (flag) {
         this.currentPage = 1;
@@ -205,7 +208,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize
       };
-      API.getUserList(params)
+      API.getTypeEnterList(params)
       .then(res => {
         console.log(res, '获取用户列表');
         this.loading = false;

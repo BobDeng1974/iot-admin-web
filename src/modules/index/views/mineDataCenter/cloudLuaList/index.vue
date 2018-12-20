@@ -41,7 +41,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="更新时间">
+            <el-form-item label="生效时间">
               <el-date-picker v-model="formInline.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>

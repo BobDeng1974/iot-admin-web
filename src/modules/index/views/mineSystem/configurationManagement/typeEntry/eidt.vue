@@ -1,20 +1,20 @@
 <template>
     <div class="eidt-type-enter-warp">
        <el-form label-width="120px" :model="eidtInfo" ref="form" :rules="rules">
-            <el-row>
+          <el-row>
             <el-col :span="8">
               <el-form-item label="年份">
-               <p>{{eidtInfo.sn8}}</p>
+               <p>{{eidtInfo.year}}</p>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="所属事业部">
-                <p>{{eidtInfo.sn8}}</p>
+                <p>{{eidtInfo.departmentName}}</p>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="品类">
-               <p>{{eidtInfo.sn8}}</p>
+               <p>{{eidtInfo.typeCode}}</p>
               </el-form-item>
             </el-col>
           </el-row>
@@ -26,7 +26,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="model-number">
-                <p>{{eidtInfo.sn8}}</p>
+                <p>{{eidtInfo.modelNumber}}</p>
               </el-form-item>
             </el-col>
           </el-row>
@@ -34,38 +34,44 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="产品名称">
-                <el-input v-model="eidtInfo.sn8"></el-input>
+                <el-input v-model="eidtInfo.productName"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="型号名称">
-                <el-input v-model="eidtInfo.sn8"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="24">
-              <el-form-item label="物料编码">
-                <el-radio-group v-model="eidtInfo.sn8">
-                    <el-radio label="选项1">美的</el-radio>
-                    <el-radio label="选项2">华为</el-radio>
-                </el-radio-group>
+                <el-input v-model="eidtInfo.model"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="24">
               <el-form-item label="物联云平台">
-                <el-input v-model="eidtInfo.sn8"></el-input>
+                  <el-radio-group v-model="eidtInfo.protos">
+                  <el-radio :label="item.value" v-for="(item, index) in protosList" :key="index">{{item.label}}</el-radio>
+                  <el-radio :label="6">备选项</el-radio>
+                  <el-radio :label="9">备选项</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="物料编码">
+                <el-input v-model="eidtInfo.materielCode"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="上市时间">
+                <el-input v-model="eidtInfo.marketTime"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
               <el-form-item label="销售渠道">
-                <el-select v-model="eidtInfo.sn8" placeholder="请选择">
+                <el-select v-model="eidtInfo.saleChannel" placeholder="请选择">
                     <el-option
-                    v-for="item in options"
+                    v-for="item in saleChannelList"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value">
@@ -75,9 +81,9 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="销售状态">
-                <el-select v-model="eidtInfo.sn8" placeholder="请选择">
+                <el-select v-model="eidtInfo.saleStatus" placeholder="请选择">
                     <el-option
-                    v-for="item in options"
+                    v-for="item in saleStatusList"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value">
@@ -86,34 +92,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="创建人">
-                <el-input v-model="eidtInfo.sn8"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="创建时间">
-                <el-input v-model="eidtInfo.sn8"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-            <!-- <el-form-item label="上级菜单" prop="pid">
-              <el-select v-model="eidtInfo.pid" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item> -->
-            <!-- <el-form-item label="是否显示" prop="hidden">
-                <el-radio-group v-model="eidtInfo.hidden">
-                    <el-radio :label="false">是</el-radio>
-                    <el-radio :label="true">否</el-radio>
-                </el-radio-group>
-            </el-form-item> -->
         </el-form>
         <div class="dialog-footer">
             <el-button type="primary" @click="save">保 存</el-button>
@@ -135,22 +113,57 @@ export default {
   },
   data () {
     return {
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
+      protosList: [
+        { value: 0, label: '其他' },
+        { value: 1, label: '双云-京东' },
+        { value: 2, label: '双云-阿里' },
+        { value: 3, label: '美的' },
+        { value: 4, label: '京东单云' },
+        { value: 5, label: '单云-阿里' },
+        { value: 6, label: '三网通' },
+        { value: 7, label: '华为' },
+        { value: 8, label: '苏宁-双云' }
+      ],
+      saleChannelList: [
+        {
+          value: 0,
+          label: '线上'
+        },
+        {
+          value: 1,
+          label: '线下'
+        },
+        {
+          value: 2,
+          label: '全网通'
+        },
+        {
+          value: 3,
+          label: '其他'
+        }
+      ],
+      saleStatusList: [
+        {
+          value: 0,
+          label: '在售'
+        },
+        {
+          value: 1,
+          label: '退市'
+        },
+        {
+          value: 2,
+          label: '续销'
+        },
+        {
+          value: 3,
+          label: '未上市'
+        },
+        {
+          value: 4,
+          label: '停产'
+        }
+      ],
       rules: {
         pid: { required: true, validator: this.checkRoleName, trigger: 'blur' },
         name: { required: true, message: '请输入说明', trigger: 'blur' },
@@ -184,6 +197,11 @@ export default {
 .eidt-type-enter-warp{
     .el-input{
       width: 90%;
+    }
+    .el-radio-group{
+      label{
+        line-height: 40px;
+      }
     }
     .el-textarea{
       width: 90%;

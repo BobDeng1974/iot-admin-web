@@ -4,6 +4,42 @@ const {
   MJAPP_NAME
 } = window.environment.iotserver;
 const configurationManagementApi = {
+  // 型号录入管理api
+  getTypeEnterList: (query) => {
+    return request({
+      url: `${MJAPP_NAME}/applian/getSn8List`,
+      method: 'post',
+      data: query
+    }).then(res => res);
+  },
+  getTypeEnterInfo: (query) => {
+    return request({
+      url: `${MJAPP_NAME}/applian/finSn8`,
+      method: 'post',
+      data: query
+    }).then(res => res);
+  },
+  updateTypeEnterInfo: (query) => {
+    return request({
+      url: `${MJAPP_NAME}/applian/updateSn8`,
+      method: 'post',
+      data: query
+    }).then(res => res);
+  },
+  addTypeEnterInfo: (query) => {
+    return request({
+      url: `${MJAPP_NAME}/applian/addSn8`,
+      method: 'post',
+      data: query
+    }).then(res => res);
+  },
+  delTypeEnterInfo: (query) => {
+    return request({
+      url: `${MJAPP_NAME}/applian/delSn8`,
+      method: 'post',
+      data: query
+    }).then(res => res);
+  },
   // 文档管理api
   getDocList: () => {
     return request({
