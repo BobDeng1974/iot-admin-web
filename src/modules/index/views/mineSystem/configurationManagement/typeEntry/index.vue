@@ -1,7 +1,7 @@
 <template>
     <div class="type-enter-warp">
         <div class="title-account">
-            <con-header :title-icon="addProductsIcon" title="账户管理" :hasBottomBorder="true"></con-header>
+            <con-header :title-icon="addProductsIcon" title="产品型号管理" :hasBottomBorder="true"></con-header>
         </div>
         <!-- 查询部分 -->
         <div class="account-check">
@@ -102,12 +102,10 @@
         </div>
         
         <!-- 弹框 -->
-        <!-- <mine-dialog :dialogFormVisible='flag' :width='"40%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
-          <div slot="option">
-            <account-info :info='info' :isAdd="isAdd" @close='close' @requesTab="selectSerch(false)"></account-info>
-          </div>
-        </mine-dialog> -->
-        <!-- <mine-echarts></mine-echarts> -->
+        <mine-dialog :dialogFormVisible='flag' :width='"60%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
+          <eidt-type slot="option"  @close="close" :eidtInfo='eidtInfo' v-if="eidtFlag" @requestTable="selectSerch(false)"></eidt-type>
+          <type-info slot="option" @close="close" :info='info' v-else></type-info>
+        </mine-dialog>
     </div>
 </template>
 <script>
@@ -115,8 +113,8 @@ import { restData, format } from '@/modules/index/api/system/common.js';
 import mineDialog from '@/modules/index/components/mine-dialog';
 import conHeader from '@/components/awesome/con-header/con-header';
 // 详情
-import TypeInfo from './info';
-import eidtType from './info';
+import typeInfo from './info';
+import eidtType from './eidt';
 import API from '@/modules/index/api/system/system.js';
 import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 import _ from 'lodash';
@@ -127,7 +125,7 @@ export default {
     conHeader,
     mineDialog,
     eidtType,
-    TypeInfo,
+    typeInfo,
     minePagination
   },
   mixins: [ dictMixin, accountMixin ],
@@ -137,12 +135,13 @@ export default {
         // account: { required: true, validator: this.checkAccount, trigger: 'change' }
       },
       loading: false,
-      isAdd: false,
+      eidtFlag: false,
       info: {},
+      eidtInfo: {},
       // 控制弹框显影
       flag: false,
       // 是否显示按钮
-      showClose: false,
+      showClose: true,
       modalFlag: false,
       title: '',
       addProductsIcon: '/static/img/title_05@2x.png',
@@ -237,9 +236,19 @@ export default {
       this.$router.push({name: '新增型号'});
     },
     // 型号详情
-    toInfo (val) {},
+    toInfo (val) {
+      this.eidtFlag = false;
+      this.info = val;
+      this.flag = true;
+      this.title = '详情';
+    },
     // 型号编辑
-    toEidtType (val) {},
+    toEidtType (val) {
+      this.eidtFlag = true;
+      this.flag = true;
+      this.title = '编辑';
+      this.eidtInfo = {...val};
+    },
     clear () {
       restData(this.formInline);
       this.selectSerch(true);
