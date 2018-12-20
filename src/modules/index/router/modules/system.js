@@ -260,8 +260,8 @@ export const sconfigurationManagementRouter =
     {
       path: 'addTypeEnter',
       component: _import('mineSystem/configurationManagement/typeEntry/addTypeEnter'),
-      name: '新增型号',
-      meta: { title: '新增型号', icon: 'dots' }
+      name: '产品型号信息录入',
+      meta: { title: '产品型号信息录入', icon: 'dots' }
     }
   ]
 };

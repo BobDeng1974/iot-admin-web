@@ -236,7 +236,7 @@ export default {
     },
     // 新增型号
     addTypeEnter () {
-      this.$router.push({name: '新增型号'});
+      this.$router.push({name: '产品型号信息录入'});
     },
     // 型号详情
     toInfo (val) {
