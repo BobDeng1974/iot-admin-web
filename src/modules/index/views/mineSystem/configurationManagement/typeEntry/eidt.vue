@@ -33,19 +33,19 @@
           <!-- 编辑部分 -->
           <el-row>
             <el-col :span="12">
-              <el-form-item label="产品名称">
+              <el-form-item label="产品名称" prop="productName">
                 <el-input v-model="eidtInfo.productName"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="型号名称">
+              <el-form-item label="型号名称" prop="model">
                 <el-input v-model="eidtInfo.model"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="24">
-              <el-form-item label="物联云平台">
+              <el-form-item label="物联云平台" prop="protos">
                   <el-radio-group v-model="eidtInfo.protos">
                   <el-radio :label="item.value" v-for="(item, index) in protosList" :key="index">{{item.label}}</el-radio>
                   <el-radio :label="6">备选项</el-radio>
@@ -56,19 +56,24 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="物料编码">
+              <el-form-item label="物料编码" prop="materielCode">
                 <el-input v-model="eidtInfo.materielCode"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="上市时间">
-                <el-input v-model="eidtInfo.marketTime"></el-input>
+              <el-form-item label="上市时间" prop="marketTime">
+                <!-- <el-input v-model="eidtInfo.marketTime"></el-input> -->
+                <el-date-picker
+                  v-model="eidtInfo.marketTime"
+                  type="datetime"
+                  placeholder="选择日期时间">
+                </el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="销售渠道">
+              <el-form-item label="销售渠道" prop="saleChannel">
                 <el-select v-model="eidtInfo.saleChannel" placeholder="请选择">
                     <el-option
                     v-for="item in saleChannelList"
@@ -80,7 +85,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="销售状态">
+              <el-form-item label="销售状态" prop="saleStatus">
                 <el-select v-model="eidtInfo.saleStatus" placeholder="请选择">
                     <el-option
                     v-for="item in saleStatusList"
@@ -102,13 +107,18 @@
 
 <script>
 import API from '@/modules/index/api/system/system.js';
-import { doSubmit, restData } from '@/modules/index/api/system/common.js';
+import { doSubmit, restData, format } from '@/modules/index/api/system/common.js';
 import { roleMixin } from '@/modules/index/views/mineSystem/mixin';
 export default {
   props: {
-    eidtInfo: {
+    eidtInfos: {
       type: Object,
       default: {}
+    }
+  },
+  computed: {
+    eidtInfo () {
+      return this.eidtInfos;
     }
   },
   data () {
@@ -165,11 +175,12 @@ export default {
         }
       ],
       rules: {
-        pid: { required: true, validator: this.checkRoleName, trigger: 'blur' },
-        name: { required: true, message: '请输入说明', trigger: 'blur' },
-        path: { required: true, message: '请输入说明', trigger: 'blur' },
-        order: { required: true, message: '请输入说明', trigger: 'blur' },
-        hidden: { required: true, message: '请输入说明', trigger: 'blur' }
+        productName: { required: false, message: '请选择', trigger: 'change' },
+        model: { required: false, message: '请选择', trigger: 'change' },
+        // protos: { required: false, message: '请选择', trigger: 'change' },
+        materielCode: { required: true, message: '请选择', trigger: 'change' }
+        // saleChannel: { required: false, message: '请选择', trigger: 'change' },
+        // saleStatus: { required: false, message: '请选择', trigger: 'change' }
       }
     };
   },
@@ -178,13 +189,24 @@ export default {
     save () {
       if (!doSubmit('form', this)) return;
       this.addSubmit();
-      this.$emit('close', false);
     },
     addSubmit () {
-      const params = this.form;
-      API.addRole(params)
+      const params = {
+        id: this.eidtInfo.id,
+        model: this.eidtInfo.model,
+        marketTime: this.eidtInfo.marketTime ? format(this.eidtInfo.marketTime, 'yyyy-MM-dd') : '',
+        productName: this.eidtInfo.productName,
+        materielCode: this.eidtInfo.materielCode,
+        saleChannel: this.eidtInfo.saleChannel,
+        protos: this.eidtInfo.protos,
+        saleStatus: this.eidtInfo.saleStatus
+      };
+      API.updateTypeEnterInfo(params)
          .then(res => {
-           this.$emit('requestTable');
+            if (res.code === 0) {
+              this.$emit('requestTable');
+              this.$emit('close', false);
+            }
          });
     },
     cencle () {

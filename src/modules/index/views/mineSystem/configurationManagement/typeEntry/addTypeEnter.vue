@@ -7,53 +7,69 @@
 
     <div class="mine-r-table">
       <div class="tip-one">基本信息录入</div>
-      <div class="eidt-type-enter-warp">
+      <div class="mine-add">
         <el-form label-width="120px" :model="addInfo" ref="form" :rules="rules">
             <el-row>
-              <el-col :span="8">
-                <el-form-item label="年份">
-                <p>{{addInfo.year}}</p>
+              <el-col :span="12">
+                <el-form-item label="年份" prop="year">
+                  <el-date-picker
+                    v-model="addInfo.year"
+                    type="year"
+                    placeholder="选择年">
+                  </el-date-picker>
                 </el-form-item>
               </el-col>
-              <el-col :span="8">
-                <el-form-item label="所属事业部">
-                  <p>{{addInfo.departmentName}}</p>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item label="品类">
-                <p>{{addInfo.typeCode}}</p>
+              <el-col :span="12">
+                <el-form-item label="事业部" prop="departmentId">
+                  <el-select v-model="addInfo.departmentId" placeholder="请选择" clearable>
+                    <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="型号码">
-                  <p>{{addInfo.sn8}}</p>
+                <el-form-item label="品类" prop="applianId">
+                  <el-select v-model="addInfo.applianId" placeholder="请选择" clearable>
+                    <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="model-number">
-                  <p>{{addInfo.modelNumber}}</p>
+                <el-form-item label="型号码" prop="sn8">
+                  <el-input v-model="addInfo.sn8"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
-            <!-- 编辑部分 -->
             <el-row>
               <el-col :span="12">
-                <el-form-item label="产品名称">
+                <el-form-item label="model-number" prop="modelNumber">
+                  <el-input v-model="addInfo.modelNumber"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="产品名称" prop="productName">
                   <el-input v-model="addInfo.productName"></el-input>
                 </el-form-item>
               </el-col>
+            </el-row>
+            <el-row>
               <el-col :span="12">
-                <el-form-item label="型号名称">
+                <el-form-item label="型号名称" prop="model">
                   <el-input v-model="addInfo.model"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="物料编码" prop="materielCode">
+                  <el-input v-model="addInfo.materielCode"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
-                <el-form-item label="物联云平台">
+                <el-form-item label="物联云平台" prop="protos">
                     <el-radio-group v-model="addInfo.protos">
                     <el-radio :label="item.value" v-for="(item, index) in protosList" :key="index">{{item.label}}</el-radio>
                     <el-radio :label="6">备选项</el-radio>
@@ -64,19 +80,7 @@
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="物料编码">
-                  <el-input v-model="addInfo.materielCode"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="上市时间">
-                  <el-input v-model="addInfo.marketTime"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="销售渠道">
+                <el-form-item label="销售渠道" prop="saleChannel">
                   <el-select v-model="addInfo.saleChannel" placeholder="请选择">
                       <el-option
                       v-for="item in saleChannelList"
@@ -88,7 +92,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="销售状态">
+                <el-form-item label="销售状态" prop="saleStatus">
                   <el-select v-model="addInfo.saleStatus" placeholder="请选择">
                       <el-option
                       v-for="item in saleStatusList"
@@ -97,6 +101,17 @@
                       :value="item.value">
                       </el-option>
                   </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="上市时间" prop="marketTime">
+                  <el-date-picker
+                    v-model="addInfo.marketTime"
+                    type="datetime"
+                    placeholder="选择日期时间">
+                  </el-date-picker>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -113,29 +128,120 @@
 <script>
 import conHeader from '@/components/awesome/con-header/con-header';
 import { checkInfo } from '@/modules/index/views/mineDataCenter/mixin';
-import { doSubmit } from '@/modules/index/api/system/common.js';
-import API from '@/modules/index/api/dataCenter/dataCenter.js';
-import { restData } from '@/modules/index/api/system/common.js';
+import API from '@/modules/index/api/system/system.js';
+import { doSubmit, restData, format } from '@/modules/index/api/system/common.js';
+import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 export default {
   components: {
     conHeader
   },
-  mixins: [checkInfo],
+  mixins: [checkInfo, dictMixin],
+  created () {
+    this.getDict();
+  },
   data() {
     return {
-      addProductsIcon: '/static/img/title_05@2x.png',
-      addInfo: {},
-      rules: {
-        userId: {
-          required: true,
-          validator: this.checkUserId,
-          trigger: 'blur'
+      protosList: [
+        { value: 0, label: '其他' },
+        { value: 1, label: '双云-京东' },
+        { value: 2, label: '双云-阿里' },
+        { value: 3, label: '美的' },
+        { value: 4, label: '京东单云' },
+        { value: 5, label: '单云-阿里' },
+        { value: 6, label: '三网通' },
+        { value: 7, label: '华为' },
+        { value: 8, label: '苏宁-双云' }
+      ],
+      saleChannelList: [
+        {
+          value: 0,
+          label: '线上'
         },
-        mobile: { required: true, validator: this.checkMobile, trigger: 'blur' }
+        {
+          value: 1,
+          label: '线下'
+        },
+        {
+          value: 2,
+          label: '全网通'
+        },
+        {
+          value: 3,
+          label: '其他'
+        }
+      ],
+      saleStatusList: [
+        {
+          value: 0,
+          label: '在售'
+        },
+        {
+          value: 1,
+          label: '退市'
+        },
+        {
+          value: 2,
+          label: '续销'
+        },
+        {
+          value: 3,
+          label: '未上市'
+        },
+        {
+          value: 4,
+          label: '停产'
+        }
+      ],
+      addProductsIcon: '/static/img/title_05@2x.png',
+      addInfo: {
+        year: '',
+        departmentId: '',
+        applianId: '',
+        sn8: '',
+        modelNumber: '',
+        productName: '',
+        model: '',
+        protos: '',
+        materielCode: '',
+        marketTime: '',
+        saleChannel: '',
+        saleStatus: ''
+      },
+      rules: {
+        departmentId: { required: true, message: '请选择', trigger: 'change' },
+        applianId: { required: true, message: '请选择', trigger: 'change' },
+        sn8: { required: false, message: '请选择', trigger: 'change' },
+        modelNumber: { required: false, message: '请选择', trigger: 'change' },
+        productName: { required: false, message: '请选择', trigger: 'change' },
+        model: { required: false, message: '请选择', trigger: 'change' },
+        // protos: { required: false, message: '请选择', trigger: 'change' },
+        materielCode: { required: true, message: '请选择', trigger: 'change' }
+        // saleChannel: { required: false, message: '请选择', trigger: 'change' },
+        // saleStatus: { required: false, message: '请选择', trigger: 'change' }
       }
     };
   },
   methods: {
+    getDict() {
+      this.getAlldeparment();
+      this.getApplianList();
+    },
+    save () {
+      if (!doSubmit('form', this)) return;
+      this.addSubmit();
+    },
+    addSubmit () {
+      debugger;
+      this.addInfo.marketTime = this.addInfo.marketTime ? format(this.addInfo.marketTime, 'yyyy-MM-dd') : '';
+      this.addInfo.year = this.addInfo.year ? format(this.addInfo.year, 'yyyy') : '';
+      const params = this.addInfo;
+      API.addTypeEnterInfo(params)
+         .then(res => {
+            if (res.code === 0) {
+              this.$router.push({name: '产品型号管理'});
+            }
+         });
+    },
     cencle () {
       this.$router.push({name: '产品型号管理'});
     }
@@ -149,14 +255,22 @@ export default {
     margin-top: 24px;
     border-bottom: 1px solid #eeeeee;
   }
+  .el-radio-group{
+    label{
+      line-height: 40px;
+    }
+  }
   .dialog-footer{
     text-align: center;
     margin-top: 20px;
   }
-  .is-required {
-    .el-form-item__label:before {
-      content: '' !important;
-    }
+  // .is-required {
+  //   .el-form-item__label:before {
+  //     content: '' !important;
+  //   }
+  // }
+  .mine-add{
+    margin-top: 24px;
   }
   .el-input {
     width: 230px !important;

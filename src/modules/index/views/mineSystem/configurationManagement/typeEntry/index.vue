@@ -103,7 +103,7 @@
         
         <!-- 弹框 -->
         <mine-dialog :dialogFormVisible='flag' :width='"60%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
-          <eidt-type slot="option"  @close="close" :eidtInfo='eidtInfo' v-if="eidtFlag" @requestTable="selectSerch(false)"></eidt-type>
+          <eidt-type slot="option"  @close="close" :eidtInfos='eidtInfos' v-if="eidtFlag" @requestTable="selectSerch(false)"></eidt-type>
           <type-info slot="option" @close="close" :info='info' v-else></type-info>
         </mine-dialog>
     </div>
@@ -137,7 +137,7 @@ export default {
       loading: false,
       eidtFlag: false,
       info: {},
-      eidtInfo: {},
+      eidtInfos: {},
       // 控制弹框显影
       flag: false,
       // 是否显示按钮
@@ -250,7 +250,7 @@ export default {
       this.eidtFlag = true;
       this.flag = true;
       this.title = '编辑';
-      this.eidtInfo = {...val};
+      this.eidtInfos = {...val};
     },
     clear () {
       restData(this.formInline);

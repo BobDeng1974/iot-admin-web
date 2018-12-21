@@ -14,6 +14,7 @@
                     ref="tree"
                     :props="defaultProps"
                     :default-expanded-keys="[1]"
+                    @node-click="handleNodeClick"
                     >
                     </el-tree>
                 </div>
@@ -65,6 +66,9 @@ export default {
     requestList () {},
     close (val) {
       this.flag = val;
+    },
+    handleNodeClick (d, n, s) {
+      // d.isEdit = false;
     },
     renderContent (h, {node, data, store}) {
       let that = this;
