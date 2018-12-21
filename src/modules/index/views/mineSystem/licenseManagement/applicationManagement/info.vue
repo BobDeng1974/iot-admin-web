@@ -17,8 +17,10 @@
                 <!-- <span v-if="hardwareDetail[key]==='文件包正在生成中，请在提交时间半个小时后打开本页面下载'" v-authority="'b1_licDownloadTag'" > {{hardwareDetail[key]}}</span> -->
                 <!-- <span v-else> -->
                   <span :class="[hardwareDetail[key]==='文件包正在生成中，请在提交时间半个小时后打开本页面下载' ?'liceseLoadName':'']">{{hardwareDetail[key]}}</span>
-                  <span v-show="hardwareDetail[key]!=='文件包正在生成中，请在提交时间半个小时后打开本页面下载'" @click="downLoad(hardwareDetail['id'])" class="clickBtn" v-if="hardwareDetail[key]"> 下载 </span>
-                  <span v-show="hardwareDetail[key]!=='文件包正在生成中，请在提交时间半个小时后打开本页面下载'" class="clickTime" v-if="hardwareDetail[key]"> {{'(' + hardwareDetail['licDownloadTimes'] + ')'}} </span>
+                  <!-- <span v-show="hardwareDetail[key]!=='文件包正在生成中，请在提交时间半个小时后打开本页面下载'" @click="downLoad(hardwareDetail['id'])" class="clickBtn" v-if="hardwareDetail[key]"> 下载 </span> -->
+
+                  <!-- <span v-show="hardwareDetail[key]!=='文件包正在生成中，请在提交时间半个小时后打开本页面下载'" @click="downLoad(hardwareDetail['id'])" class="clickBtn" v-if="hardwareDetail[key]"> 下载 </span> -->
+                  <!-- <span v-show="hardwareDetail[key]!=='文件包正在生成中，请在提交时间半个小时后打开本页面下载'" class="clickTime" v-if="hardwareDetail[key]"> {{'(' + hardwareDetail['licDownloadTimes'] + ')'}} </span> -->
                 <!-- </span> -->
                 <!-- <span :class="[hardwareDetail[key]==='文件包正在生成中，请在提交时间半个小时后打开本页面下载' ?'liceseLoadName':'']">{{hardwareDetail[key]}}</span>
                 <span v-show="hardwareDetail[key]!=='文件包正在生成中，请在提交时间半个小时后打开本页面下载'" @click="downLoad(hardwareDetail['id'])" class="clickBtn" v-if="hardwareDetail[key]"> 下载 </span>
