@@ -5,9 +5,28 @@
               <p>{{addInfo.name}}</p>
             </el-form-item>
             <el-form-item label="分类" prop="model">
-              <el-select v-model="form.model" placeholder="请选择" @change="modelChange">
+              <!-- 点击选择的节点是页面的话选用这个下拉 -->
+              <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-if="this.checkFlag === 9">
                 <el-option
-                  v-for="item in options"
+                  v-for="item in options1"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+              <!-- 点击选择的节点是按钮的话选用这个下拉 -->
+              <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-else-if="this.checkFlag === 10">
+                <el-option
+                  v-for="item in options2"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+              <!-- 点击选择的节点是标题的话选用这个下拉 -->
+              <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-else>
+                <el-option
+                  v-for="item in options3"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
@@ -27,7 +46,7 @@
                 <el-input v-model="form.order"></el-input>
             </el-form-item>
             <el-form-item label="是否显示" prop="show">
-                <el-radio-group v-model="form.show" :disabled='form.model === 1'>
+                <el-radio-group v-model="form.show" :disabled='form.model === 10'>
                     <el-radio :label="0">是</el-radio>
                     <el-radio :label="1">否</el-radio>
                 </el-radio-group>
@@ -51,14 +70,21 @@ export default {
       default: {}
     }
   },
+  computed: {
+    checkFlag () {
+      return this.addInfo.type;
+    }
+  },
   data () {
     return {
-      options: [{label: '非按钮', value: 0}, {label: '按钮', value: 1}],
+      options1: [{label: '按钮', value: 10}],
+      options2: [],
+      options3: [{label: '页面', value: 9}, {label: '菜单', value: 99999}],
       form: {
         name: '',
         permissionTag: '',
         permissionUrl: '',
-        model: 0,
+        model: '',
         order: '',
         show: ''
       },
@@ -74,7 +100,7 @@ export default {
   mixins: [ roleMixin ],
   methods: {
     modelChange (val) {
-      if (val === 1) {
+      if (val === 10) {
         this.form.show = 0;
       }
     },
@@ -85,9 +111,12 @@ export default {
     },
     addSubmit () {
       this.form.order = Number(this.form.order);
+      if (this.form.model === 99999) {
+        this.form.model = this.addInfo.type + 1;
+      }
       const params = {
         ...this.form,
-        pid: this.addInfo.pid
+        pid: this.addInfo.id
       }
       API.addPermissionMenu(params)
          .then(res => {

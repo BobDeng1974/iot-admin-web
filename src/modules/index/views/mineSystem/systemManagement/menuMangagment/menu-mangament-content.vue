@@ -96,6 +96,12 @@ export default {
       debugger;
       console.log(s, d, n)
       this.addFlag = false;
+      // if (d.type !== 9 && d.type !== 10) {
+      //   this.info = d;
+      //   this.info.type === 99999;
+      // } else {
+      //   this.info = d;
+      // }
       this.info = d;
       this.titleInfo = n.parent;
       this.flag = true;
@@ -108,31 +114,26 @@ export default {
     },
     handleDelete (s, d, n) {
       debugger;
-      // let that = this;
-      // let delNode = () => {
-      //   let list = n.parent.data.children || n.parent.data;
-      //   let _index = 99999;
-      //   list.map((c, i) => {
-      //     if (d.id === c.id) {
-      //       _index = i;
-      //     }
-      //   })
-      //   let k = list.splice(_index, 1);
-      //   console.log(k)
-      //   this.$message.success('删除成功！')
-      // };
-      // let isDel = () => {
-      //   that.$confirm('是否删除此节点？', '提示', {
-      //     confirmButtonText: '确认',
-      //     cancelButtonText: '取消',
-      //     type: 'warning'
-      //   }).then(() => {
-      //     delNode()
-      //   }).catch(() => {
-      //     return false;
-      //   })
-      // }
-      // d.id > this.non_maxexpandId ? delNode() : isDel()
+      this.$confirm('此操作将删除该节点, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+      const params = {id: d.id};
+      API.deletePermissionMenu(params)
+      .then(res => {
+        this.$message({
+          type: 'success',
+          message: res.message
+        });
+        this.requestList();
+      });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     },
     // 获取所有权限
     getAllAuthed () {

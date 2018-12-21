@@ -13,6 +13,33 @@
                   :value="item.value">
                 </el-option>
               </el-select>
+              <!-- 点击选择的节点是页面的话选用这个下拉 -->
+              <!-- <el-select v-model="info.type" disabled placeholder="请选择" v-if="this.checkFlag === 9">
+                <el-option
+                  v-for="item in options1"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select> -->
+              <!-- 点击选择的节点是按钮的话选用这个下拉 -->
+              <!-- <el-select v-model="info.type" placeholder="请选择" disabled v-else-if="this.checkFlag === 10">
+                <el-option
+                  v-for="item in options2"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select> -->
+              <!-- 点击选择的节点是标题的话选用这个下拉 -->
+              <!-- <el-select v-model="info.type" placeholder="请选择" disabled v-else>
+                <el-option
+                  v-for="item in options3"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select> -->
             </el-form-item>
             <el-form-item label="权限标识" prop="permissionTag">
                 <el-input v-model="info.permissionTag"></el-input>
@@ -55,9 +82,17 @@ export default {
       default: {}
     }
   },
+  computed: {
+    checkFlag () {
+      return this.info.type;
+    }
+  },
   data () {
     return {
-      options: [{label: '非按钮', value: 0}, {label: '按钮', value: 10}, {label: '非按钮', value: 1}, {label: '非按钮', value: 2}, {label: '非按钮', value: 3}],
+      options1: [{label: '按钮', value: 10}],
+      options2: [],
+      options3: [{label: '页面', value: 9}, {label: '菜单', value: 99999}],
+      options: [{label: '页面', value: 9}, {label: '菜单', value: 99999}, {label: '按钮', value: 10}],
       rules: {
         // permissionTag: { required: true, validator: this.checkRoleName, trigger: 'blur' },
         permissionTag: { required: true, message: '请输入说明', trigger: 'blur' },
@@ -82,8 +117,8 @@ export default {
         permissionUrl: this.info.permissionUrl,
         order: Number(this.info.order),
         permissionId: this.info.id,
-        show: this.info.hidden ? 1 : 0,
-        model: this.info.type === 10 ? 1 : 0
+        show: this.info.hidden ? 1 : 0
+        // model: this.info.type === 10 ? 1 : 0
       }
       API.updatePermissionMenu(params)
          .then(res => {
