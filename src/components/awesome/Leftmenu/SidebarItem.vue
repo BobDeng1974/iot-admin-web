@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     hasOneShowingChild(children) {
-      debugger;
+      // debugger;
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false;
@@ -80,7 +80,7 @@ export default {
         }
       });
       if (children.path === 'goHome') {
-        debugger;
+        // debugger;
         this.onlyOneChild;
         return true;
       }
