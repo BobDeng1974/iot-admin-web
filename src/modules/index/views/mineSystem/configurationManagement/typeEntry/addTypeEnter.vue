@@ -159,7 +159,7 @@ export default {
     }
   }
   .el-input {
-    width: 230px;
+    width: 230px !important;
   }
   .btn-select {
     text-align: right;

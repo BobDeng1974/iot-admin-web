@@ -196,7 +196,7 @@ export default {
 <style lang="less">
 .eidt-type-enter-warp{
     .el-input{
-      width: 90%;
+      width: 230px;
     }
     .el-radio-group{
       label{
