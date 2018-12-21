@@ -4,6 +4,28 @@ const {
   MJAPP_NAME
 } = window.environment.iotserver;
 const systemManagementApi = {
+  // 菜单管理api
+  addPermissionMenu: (query) => {
+    return request({
+        url: `${APPLICATION_NAME}/permission/add`,
+        method: 'post',
+        data: query
+    }).then(res => res);
+  },
+  updatePermissionMenu: (query) => {
+    return request({
+        url: `${APPLICATION_NAME}/permission/update`,
+        method: 'post',
+        data: query
+    }).then(res => res);
+  },
+  deletePermissionMenu: (query) => {
+    return request({
+        url: `${APPLICATION_NAME}/permission/delete`,
+        method: 'post',
+        data: query
+    }).then(res => res);
+  },
   // 用户管理api
   getUserListUcenter: (query) => {
     return request({

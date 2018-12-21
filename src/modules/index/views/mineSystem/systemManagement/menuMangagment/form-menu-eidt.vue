@@ -1,6 +1,6 @@
 <template>
     <div class="eidt-menu-warp">
-       <el-form label-width="120px" :model="info" ref="form" :rules="rules">
+       <el-form label-width="200px" :model="info" ref="form" :rules="rules">
             <el-form-item label="上级菜单">
               <p>{{titleInfo.label}}</p>
             </el-form-item>
@@ -27,7 +27,7 @@
               <el-input v-model="info.order"></el-input>
             </el-form-item>
             <el-form-item label="是否显示" prop="hidden">
-                <el-radio-group v-model="info.hidden">
+                <el-radio-group v-model="info.hidden" :disabled='info.type === 10'>
                     <el-radio :label="false">是</el-radio>
                     <el-radio :label="true">否</el-radio>
                 </el-radio-group>
@@ -80,12 +80,12 @@ export default {
         name: this.info.name,
         permissionTag: this.info.permissionTag,
         permissionUrl: this.info.permissionUrl,
-        order: this.info.order,
+        order: Number(this.info.order),
         permissionId: this.info.id,
         show: this.info.hidden ? 1 : 0,
         model: this.info.type === 10 ? 1 : 0
       }
-      API.addRole(params)
+      API.updatePermissionMenu(params)
          .then(res => {
            this.$emit('requestTable');
            this.$emit('close', false);
@@ -100,7 +100,7 @@ export default {
 <style lang="less">
 .eidt-menu-warp{
     .el-input{
-      width: 90%;
+      width: 250px;
     }
     .el-textarea{
       width: 90%;
