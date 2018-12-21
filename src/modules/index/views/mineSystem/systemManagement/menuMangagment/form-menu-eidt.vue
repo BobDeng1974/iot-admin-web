@@ -1,8 +1,11 @@
 <template>
     <div class="eidt-menu-warp">
        <el-form label-width="120px" :model="info" ref="form" :rules="rules">
-            <el-form-item label="上级菜单" prop="pid">
-              <el-select v-model="info.pid" placeholder="请选择">
+            <el-form-item label="上级菜单">
+              <p>{{titleInfo.label}}</p>
+            </el-form-item>
+            <el-form-item label="分类" prop="type" >
+              <el-select v-model="info.type" disabled placeholder="请选择">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -11,14 +14,17 @@
                 </el-option>
               </el-select>
             </el-form-item>
+            <el-form-item label="权限标识" prop="permissionTag">
+                <el-input v-model="info.permissionTag"></el-input>
+            </el-form-item>
             <el-form-item label="菜单名称" prop="name">
                 <el-input v-model="info.name"></el-input>
             </el-form-item>
-            <el-form-item label="接口url" prop="path">
-                <el-input v-model="info.path"></el-input>
+            <el-form-item label="接口url" prop="permissionUrl">
+                <el-input v-model="info.permissionUrl"></el-input>
             </el-form-item>
             <el-form-item label="排序" prop="order">
-                <el-input v-model="info.order"></el-input>
+              <el-input v-model="info.order"></el-input>
             </el-form-item>
             <el-form-item label="是否显示" prop="hidden">
                 <el-radio-group v-model="info.hidden">
@@ -43,32 +49,23 @@ export default {
     info: {
       type: Object,
       default: {}
+    },
+    titleInfo: {
+      type: Object,
+      default: {}
     }
   },
   data () {
     return {
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
+      options: [{label: '非按钮', value: 0}, {label: '按钮', value: 10}, {label: '非按钮', value: 1}, {label: '非按钮', value: 2}, {label: '非按钮', value: 3}],
       rules: {
-        pid: { required: true, validator: this.checkRoleName, trigger: 'blur' },
+        // permissionTag: { required: true, validator: this.checkRoleName, trigger: 'blur' },
+        permissionTag: { required: true, message: '请输入说明', trigger: 'blur' },
         name: { required: true, message: '请输入说明', trigger: 'blur' },
-        path: { required: true, message: '请输入说明', trigger: 'blur' },
+        permissionUrl: { required: true, message: '请输入说明', trigger: 'blur' },
         order: { required: true, message: '请输入说明', trigger: 'blur' },
-        hidden: { required: true, message: '请输入说明', trigger: 'blur' }
+        show: { required: true, message: '请输入说明', trigger: 'blur' },
+        type: { required: true, message: '请输入说明', trigger: 'blur' }
       }
     };
   },
@@ -77,13 +74,21 @@ export default {
     save () {
       if (!doSubmit('form', this)) return;
       this.addSubmit();
-      this.$emit('close', false);
     },
     addSubmit () {
-      const params = this.form;
+      const params = {
+        name: this.info.name,
+        permissionTag: this.info.permissionTag,
+        permissionUrl: this.info.permissionUrl,
+        order: this.info.order,
+        permissionId: this.info.id,
+        show: this.info.hidden ? 1 : 0,
+        model: this.info.type === 10 ? 1 : 0
+      }
       API.addRole(params)
          .then(res => {
            this.$emit('requestTable');
+           this.$emit('close', false);
          });
     },
     cencle () {

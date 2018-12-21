@@ -21,8 +21,8 @@
             </div>
         </div>
         <mine-dialog :dialogFormVisible='flag' :width='"45%"' :modalFlag="modalFlag" @close="close"  :title="title" :showClose="showClose">
-          <add-menu  slot="option"  @close="close" v-if="addFlag" @requestTable="requestList"></add-menu>
-          <eidt-menu slot="option" @close="close" :info='info' @requestTable="requestList" v-else></eidt-menu>
+          <add-menu  slot="option"  @close="close" v-if="addFlag" @requestTable="requestList" :addInfo='addInfo'></add-menu>
+          <eidt-menu slot="option" @close="close" :titleInfo='titleInfo' :info='info' @requestTable="requestList" v-else></eidt-menu>
         </mine-dialog>
     </div>
 </template>
@@ -32,6 +32,7 @@ import TreeRender from './test';
 import mineDialog from '@/modules/index/components/mine-dialog';
 import addMenu from './form-menu-add';
 import eidtMenu from './form-menu-eidt';
+import ls from '@/utils/storage/local_storage';
 export default {
   components: {
     mineDialog,
@@ -56,6 +57,8 @@ export default {
         label: 'name'
       },
       info: {},
+      addInfo: {},
+      titleInfo: {},
       menuSaveParams: null
     };
   },
@@ -63,12 +66,17 @@ export default {
     this.getAllAuthed();
   },
   methods: {
-    requestList () {},
+    requestList () {
+      this.getAllAuthed();
+      // 出发左侧菜单重新加载
+      this.$store.dispatch('getMeauAuthed', {uid: this.$store.getters.saveGetUserInfo.uid ||
+          JSON.parse(ls.getItem('saveGetUserInfo')).uid});
+    },
     close (val) {
       this.flag = val;
     },
     handleNodeClick (d, n, s) {
-      // d.isEdit = false;
+      this.addInfo = d;
     },
     renderContent (h, {node, data, store}) {
       let that = this;
@@ -89,6 +97,7 @@ export default {
       console.log(s, d, n)
       this.addFlag = false;
       this.info = d;
+      this.titleInfo = n.parent;
       this.flag = true;
       this.title = '编辑';
     },

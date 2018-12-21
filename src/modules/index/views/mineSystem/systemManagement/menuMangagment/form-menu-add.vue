@@ -2,14 +2,20 @@
     <div class="add-menu-warp">
        <el-form label-width="120px" :model="form" ref="form" :rules="rules">
             <el-form-item label="上级菜单" prop="pid">
+              <p>{{addInfo.name}}</p>
+            </el-form-item>
+            <el-form-item label="分类" prop="model">
               <el-select v-model="form.pid" placeholder="请选择">
                 <el-option
-                  v-for="item in options"
+                  v-for="item in model"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
                 </el-option>
               </el-select>
+            </el-form-item>
+            <el-form-item label="权限标识" prop="name">
+                <el-input v-model="form.name"></el-input>
             </el-form-item>
             <el-form-item label="菜单名称" prop="name">
                 <el-input v-model="form.name"></el-input>
@@ -40,24 +46,15 @@ import { doSubmit, restData } from '@/modules/index/api/system/common.js';
 import { roleMixin } from '@/modules/index/views/mineSystem/mixin';
 import commonFun from '@/common/js/func';
 export default {
+  props: {
+    addInfo: {
+      type: Object,
+      default: {}
+    }
+  },
   data () {
     return {
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
+      options: [{label: '非按钮', value: 0}, {label: '按钮', value: 1}],
       form: {
         pid: '',
         name: '',

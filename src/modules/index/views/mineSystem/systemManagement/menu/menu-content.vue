@@ -40,6 +40,7 @@
 </template>
 <script>
 import API from '@/modules/index/api/system/system.js';
+import ls from '@/utils/storage/local_storage';
 export default {
   data () {
     return {
@@ -103,7 +104,7 @@ export default {
         });
           // this.$store.dispatch('getUserInfo', '');
           this.$store.dispatch('getMeauAuthed', {uid: this.$store.getters.saveGetUserInfo.uid ||
-          JSON.parse(localStorage.getItem('saveGetUserInfo')).uid});
+          JSON.parse(ls.getItem('saveGetUserInfo')).uid});
         }
         // this.$message({
         //   type: 'info',
