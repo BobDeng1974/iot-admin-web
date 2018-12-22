@@ -60,7 +60,7 @@ export default {
       return this.info.type;
     },
     typeShow () {
-      return this.info.type === 9 ? 0 : (this.info.type === 10 ? 1 : 2);
+      return this.info.type === 9 ? 1 : (this.info.type === 10 ? 2 : 0);
     }
   },
   data () {
