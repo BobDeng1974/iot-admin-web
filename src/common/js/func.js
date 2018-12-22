@@ -109,7 +109,9 @@ const commonFun = {
           }
           // form[key1] = [];
         } else if (typeof form[key1] === 'object') {
-          form[key1] = {};
+          if (form[key1] instanceof Date) { form[key1] = ''; } else {
+            form[key1] = {};
+          }
         } else {
           form[key1] = '';
         };

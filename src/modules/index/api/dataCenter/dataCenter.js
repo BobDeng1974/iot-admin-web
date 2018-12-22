@@ -1,5 +1,7 @@
 import recordCheckApi from './recordCheck';
+import dataStatisticsApi from './dataStatistics';
 const API = {
-    ...recordCheckApi
+    ...recordCheckApi,
+    ...dataStatisticsApi
 };
 export default API;

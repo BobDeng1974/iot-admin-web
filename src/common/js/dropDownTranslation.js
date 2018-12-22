@@ -1,4 +1,5 @@
 import API from '@/modules/index/api/myProductsData/index';
+import dataCenterAPI from '@/modules/index/api/dataCenter/dataCenter';
 // import { getSn8Select } from '@/modules/index/api/myAgreement/index';
 export const dropDownTranslation = {
   data() {
@@ -14,10 +15,45 @@ export const dropDownTranslation = {
       optionsFirst1: [], // 三级联动2
       optionsFirst2: [], // 三级联动3
       networkArr: [], // 联网下拉
-      protoArr: [] // proto下拉
+      protoArr: [], // proto下拉
+
+      // 产品数据统计
+      provincesList: [], // 省
+      userInfo: {},
+      citiesList: [], // 市
+      applianceTypeList: [] // 品类
     };
   },
   methods: {
+    // 数据统计开始
+    getQueryinfo() {
+      dataCenterAPI.queryinfo().then((res) => {
+        if (res.code === 0) {
+          // debugger;
+          this.provincesList = res.result.provinces;
+          this.userInfo = res.result.userInfo;
+          this.applianceTypeList = res.result.applianceTypes;
+          this.queryFormData.groupId = this.userInfo.departMentName;
+        } else {
+          this.provincesList = [];
+          this.applianceTypeList = [];
+          this.userInfo = {};
+        }
+      });
+    },
+    getQuerycity(val) {
+      let params = {
+        provinceId: val
+      };
+      dataCenterAPI.querycity(params).then((res) => {
+        if (res.code === 0) {
+          this.citiesList = res.result;
+        } else {
+          this.citiesList = [];
+        }
+      });
+    },
+    // 数据统计结束
     // 芯片CPU架构 下拉
     getCpuJson() {
       API.getCpuJson()
@@ -161,27 +197,27 @@ export const dropDownTranslation = {
     // network
     async getNetwork() {
       try {
-        await this.$store.dispatch('getNetwork', {'id': 0}).then((result) => {
+        await this.$store.dispatch('getNetwork', { 'id': 0 }).then((result) => {
           this.networkArr = result.result;
         });
-      } catch (e) {}
+      } catch (e) { }
     },
     async getProtos() {
-      await this.$store.dispatch('getProtos', {'id': 0}).then((result) => {
+      await this.$store.dispatch('getProtos', { 'id': 0 }).then((result) => {
         this.protoArr = result.result;
       });
     }
-        // // 子品类
-        // luaGetSn8Select(id) {
-        //   let param = {
-        //     id: id
-        //   };
-        //   getSn8Select(param).then(res => {
-        //     if (res.code === 0) {
-        //       this.sn8Opts = res.result;
-        //     }
-        //   });
-        // }
+    // // 子品类
+    // luaGetSn8Select(id) {
+    //   let param = {
+    //     id: id
+    //   };
+    //   getSn8Select(param).then(res => {
+    //     if (res.code === 0) {
+    //       this.sn8Opts = res.result;
+    //     }
+    //   });
+    // }
   },
   watch: {
     // 'ruleForm.electrical'(e) {
