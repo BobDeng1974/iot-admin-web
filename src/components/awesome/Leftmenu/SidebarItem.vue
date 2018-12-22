@@ -89,7 +89,9 @@ export default {
     hasOneShowingChild(children) {
       // debugger;
       const showingChildren = children.filter(item => {
-        if (item.show === 1 || item.hidden) {
+        if (item.show === 1) {
+          return false;
+        } else if (item.hidden) {
           return false;
         } else {
           // temp set(will be used if only has one showing child )
