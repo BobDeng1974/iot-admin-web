@@ -75,7 +75,7 @@ export const dataCenterRouter =
             meta: { title: '设备用户统计', icon: 'dots' }
           },
           {
-            path: 'equipmentDetails/:groupId/:endTime',
+            path: 'equipmentDetails/:endTime',
             name: '设备明细',
             hidden: true,
             component: _import('mineDataCenter/equipmentUserStatistics/equipmentDetails'),

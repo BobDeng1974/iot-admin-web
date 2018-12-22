@@ -9,7 +9,11 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="开发组">
-                  <el-input disabled v-model.trim="queryFormData.groupId" clearable></el-input>
+                  <el-select  v-model.trim="queryFormData.groupId" clearable>
+                    <el-option v-for="item  in userInfo" :key="item.id" :label="item.name" :value="item.id">
+                    </el-option>
+                  </el-select>
+                  <!-- <el-input disabled v-model.trim="queryFormData.groupId" clearable></el-input> -->
                 </el-form-item>
               </el-col>
               <el-col :span="8">
@@ -22,7 +26,7 @@
               </el-col>
               <el-col :span="8">
                <el-form-item label="时间">
-                  <el-date-picker v-model="dateTimeRange" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" @change="handleChangeRange">
+                  <el-date-picker :picker-options="pickerOptions" v-model="dateTimeRange" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" @change="handleChangeRange">
                   </el-date-picker>
                 </el-form-item>
               </el-col>
@@ -53,7 +57,7 @@
               <el-col :span="8">
                 <el-form-item label="市">
                   <el-select v-model.trim="queryFormData.cities" clearable>
-                    <el-option v-for="item  in citiesList" :key="item.id" :label="item.name" :value="item.id">
+                    <el-option v-for="item  in citiesList" :key="item.id" :label="item.cityName" :value="item.id">
                     </el-option>
                   </el-select>
                 </el-form-item>
@@ -106,6 +110,16 @@ export default {
   },
   data() {
     return {
+      pickerOptions: {
+        disabledDate (time) {
+            let curDate = (new Date()).getTime();
+            let three = 365 * 24 * 3600 * 1000;
+            let threeMonths = curDate - three;
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            return time.getTime() > Date.now() || time.getTime() < threeMonths;
+        }
+      },
       // provincesList: [], // 省
       // citiesList: [], // 市
       // applianceTypeList: [], // 品类
@@ -130,22 +144,22 @@ export default {
       },
       dateTimeRange: [],
       dataList: [
-        {
-          id: 1,
-          date: '2018-08-09',
-          newUsers: 11,
-          networkedDevices: 22,
-          newNetworkedDevices: 33,
-          newActives: 44
-        },
-        {
-          id: 2,
-          date: '2018-08-09',
-          newUsers: 11,
-          networkedDevices: 22,
-          newNetworkedDevices: 33,
-          newActives: 44
-        }
+        // {
+        //   id: 1,
+        //   date: '2018-08-09',
+        //   newUsers: 11,
+        //   activeDevices: 22,
+        //   newDevices: 33,
+        //   newActives: 44
+        // },
+        // {
+        //   id: 2,
+        //   date: '2018-08-09',
+        //   newUsers: 11,
+        //   activeDevices: 22,
+        //   newDevices: 33,
+        //   newActives: 44
+        // }
       ]
     };
   },
@@ -165,24 +179,42 @@ export default {
       this.getQuerycity(val);
       }
     },
+    // applianceTypeChange(val) {
+    //   // this.typeCode = [];
+    //   if (val) {
+    //     this.getSn8Select({ id: val });
+    //   } else {
+    //     this.sn8Opts = [];
+    //   }
+    // },
     // 设备明细
     goDevicelist(val) {
-      this.$router.push({name: '设备明细', params: {groupId: this.userInfo.departMentId, endTime: val.date}});
+      console.log({groupId: this.queryFormData.groupId, endTime: val.date});
+      debugger;
+      //  query: {applianceType: this.queryFormData.applianceType, provinces: this.queryFormData.provinces, cities: this.queryFormData.cities},
+      this.$router.push(
+        {name: '设备明细',
+       params: {endTime: val.date}});
     },
+    // 用户明细
+    // goUserlist(val) {
+    //   this.$router.push({name: '用户明细', query: {id: val}});
+    // },
+
     // 查询Lua协议列表数据
     getStatisticsListData() {
       console.log(format(this.dateTimeRange, 'yyyy-MM-dd'));
 
       let params = {
         groupId: Number(this.userInfo.departMentId),
-        applianceType: this.queryFormData.applianceType || [],
+        applianceType: this.queryFormData.applianceType ? [this.queryFormData.applianceType] : [],
         // typeCode: this.typeCode,
         provinces: this.queryFormData.provinces ? [this.queryFormData.provinces] : [],
         cities: this.queryFormData.cities ? [this.queryFormData.cities] : [],
 
         curPage: this.currentPage || 1,
         pageSize: this.pageSize || 5,
-        lastPage: 0,
+        // lastPage: 0,
         startTime: this.queryFormData.startTime
           ? format(this.queryFormData.startTime, 'yyyy-MM-dd')
           : '',
@@ -192,12 +224,53 @@ export default {
         )
           : ''
       };
-      console.log(params);
+        let e = new Date(params.endTime).getDate();
+      let s = new Date(params.startTime).getDate();
+      let totalPage = e - s + 1;
+      console.log(totalPage);
       API.statistics(params).then(res => {
-        // debugger;
         console.log(res);
         if (res.code === 0) {
-          this.total = res.result ? res.result.totalPage : 0;
+      let query = {
+      applianceTypeId: this.queryFormData.applianceType,
+      applianceType: commonFun.fetchWord(
+          this.queryFormData.applianceType,
+          'id',
+          this.applianceTypeList,
+          'nameZh'
+        ),
+        applianceTypeType: commonFun.fetchWord(
+          this.queryFormData.applianceType,
+          'id',
+          this.applianceTypeList,
+          'type'
+        ),
+       provincesId: this.queryFormData.provinces,
+       provinces: commonFun.fetchWord(
+          this.queryFormData.provinces,
+          'id',
+          this.provincesList,
+          'name'
+        ),
+       citiesId: this.queryFormData.cities,
+       cities: commonFun.fetchWord(
+          this.queryFormData.cities,
+          'id',
+          this.citiesList,
+          'cityName'
+        ),
+        groupId: Number(this.queryFormData.groupId),
+        groupIddepartMentName: commonFun.fetchWord(
+          this.queryFormData.groupId,
+          'id',
+          this.userInfo,
+          'name'
+        )
+       };
+      this.$store.commit('equipmentUserStatisticsList', query);
+          // this.dataList = res.result.data || [];
+          // this.pageObj.total = res.result.total;
+          this.total = res.result.totalPage ? res.result.totalPage : totalPage;
           this.dataList = res.result ? res.result : [];
           // this.dataList = res.result ? this.initTableData(res.result.data) : [];
         } else {
@@ -226,11 +299,23 @@ export default {
       } else {
       this.getStatisticsListData();
       }
+      // if (!this.queryFormData.applianceType &&
+      // !this.queryFormData.provinces &&
+      // !this.queryFormData.cities &&
+      // this.dateTimeRange.length === 0) {
+      //   this.$message({
+      //     type: 'info',
+      //     message: '至少输入一个查询条件'
+      //   });
+      // } else {
+      // this.getStatisticsListData();
+      // }
     },
     clear() {
       commonFun.restData(this.queryFormData);
       this.dateTimeRange = [];
       this.dataList = [];
+      this.citiesList = [];
       this.total = 0;
       this.getQueryinfo();// 查询的下拉信息
     },
@@ -243,7 +328,7 @@ export default {
       // 改变currentPage
     handleCurrentChange(val) {
       // this.pageObj.pageNo = val;
-      // this.getStatisticsListData();
+      this.getStatisticsListData();
     }
   }
 };
@@ -346,7 +431,6 @@ export default {
   height: 20px;
   line-height: 20px;
 }
-
 
 </style>
 

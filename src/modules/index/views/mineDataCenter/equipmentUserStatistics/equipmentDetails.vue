@@ -18,7 +18,7 @@
           </table>
         </div>
         <div class="export">
-          <el-button size="medium" @click="devicesExport" type="primary">导出统计结果</el-button>
+          <el-button size="medium" type="primary"><a :href="ExportUrl">导出统计结果</a></el-button>
         </div>
         <!--profile属性列表-->
         <div class="table-wrapper">
@@ -47,6 +47,11 @@
 <script>
 import conHeader from '@/components/awesome/con-header/con-header';
 import API from '@/modules/index/api/dataCenter/dataCenter';
+import ls from '@/utils/storage/local_storage';
+  import { getToken } from '@/utils/auth';
+const {
+  MJAPP_NAME
+} = window.environment.iotserver;
 export default {
   components: {
     'con-header': conHeader
@@ -60,30 +65,43 @@ export default {
 
       titleIcon1: '/static/img/title_05@2x.png',
       tableLabel: {
-        name: '开发组',
+        groupIddepartMentName: '开发组',
         applianceType: '品类',
-        sn8: '型号码',
-        province: '省',
-        boundTime: '首次绑定时间'
+        // sn8: '型号码',
+        provinces: '省',
+        endTime: '首次绑定时间'
       },
       tableData1: {},
       tableData2: [],
       status: ''
+      // ExportUrl: ''
     };
   },
   methods: {
-    devicesExport() {
-        let params = {
-          groupId: this.$route.params.groupId,
-          endTime: this.$route.params.endTime,
-          applianceType: this.tableData1.applianceType,
-          provinces: this.tableData1.province
-          // cities: this.tableLabel.citie
-        };
-      API.devicesexport(params).then((res) => {
-
-      });
-    },
+    // devicesExport() {
+    //     let params = {
+    //       groupId: this.$route.params.groupId,
+    //       endTime: this.$route.params.endTime,
+    //       applianceType: this.tableData1.applianceTypeId,
+    //       provinces: this.tableData1.provincesId,
+    //       cities: this.tableLabel.citiesId
+    //     };
+    //     // this.ExportUrl = API.devicesexport ? 'groupId' = this.$route.params.groupId&'endTime'= this.$route.params.endTime;
+    //   API.devicesexport(params).then((response) => {
+    //     debugger;
+    //     console.log(response.headers['Content-disposition']);
+    //     let tempNameStr = response.headers['Content-disposition'].split(';')[1];
+    //     let fileName = tempNameStr.split('=')[1];
+    //     let blob = new Blob([response.data]);
+    //     let objectUrl = URL.createObjectURL(blob);
+    //     let link = document.createElement('a');
+    //     link.style.display = 'none';
+    //     link.href = objectUrl;
+    //     link.setAttribute('download', fileName);
+    //     document.body.appendChild(link);
+    //     link.click();
+    //   });
+    // },
           // 改变currentPage
     handleCurrentChange(val) {
       // this.pageObj.pageNo = val;
@@ -104,13 +122,13 @@ export default {
         API.devicelist(params).then(res => {
           console.log(res);
           if (res.code === 0 && res.result) {
-            this.total = res.result ? res.result.totalPage : 0;
+            this.total = res.result ? res.result.totalCount : 0;
 
             this.status = res.result.status;
             this.tableData2 = res.result.data || [];
-            this.tableData1 = res.result;
+            // this.tableData1 = res.result;
           } else {
-            this.tableData1 = {};
+            // this.tableData1 = {};
             this.tableData2 = [];
             this.total = 0;
           }
@@ -118,9 +136,26 @@ export default {
       }
     }
   },
+  computed: {
+    ExportUrl() {
+      return `${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
+    }
+  },
   mounted() {
+        //       groupId: this.$route.params.groupId,
+    //       endTime: this.$route.params.endTime,
+    //       applianceType: this.tableData1.applianceTypeId,
+    //       provinces: this.tableData1.provincesId,
+    //       cities: this.tableLabel.citiesId
     this.$route.params;
-    debugger;
+    console.log(ls.getObject('equipmentUserStatistics'));
+        debugger;
+    this.tableData1 = {
+      ...ls.getObject('equipmentUserStatistics'),
+      endTime: this.$route.params.endTime
+    };
+
+    // this.ExportUrl = `${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
     // this.getProfileDetail();
     this.getDevicelistDetail();
   }

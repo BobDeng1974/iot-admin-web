@@ -13,6 +13,7 @@ const getters = {
   saveGetUserInfo: state => state.user.saveGetUserInfo,
   roles: state => state.user.roles,
   // productsList: state => state.products.productsList
-  myAgreemenLuaDocList: state => state.myAgreement.luaDocList
+  myAgreemenLuaDocList: state => state.myAgreement.luaDocList,
+  equipmentUserStatistics: state => state.user.equipmentUserStatistics
 };
 export default getters;

@@ -42,7 +42,8 @@ const dataStatistics = {
     return request({
       url: `${MJAPP_NAME}/statistics/devicesexport`,
       params: params,
-      method: 'get'
+      method: 'get',
+      responseType: 'blob'
     }).then(res => res);
   },
   // 用户明细

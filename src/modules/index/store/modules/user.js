@@ -68,6 +68,10 @@ const user = {
       // debugger;
       state.saveGetUserInfo = saveGetUserInfo;
       ls.addItem('saveGetUserInfo', saveGetUserInfo);
+    },
+    equipmentUserStatisticsList(state, msg) {
+      state.equipmentUserStatistics = msg;
+      ls.addItem('equipmentUserStatistics', msg);
     }
   },
 
