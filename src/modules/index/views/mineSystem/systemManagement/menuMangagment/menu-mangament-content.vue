@@ -22,7 +22,7 @@
         </div>
         <mine-dialog :dialogFormVisible='flag' :width='"45%"' :modalFlag="modalFlag" @close="close"  :title="title" :showClose="showClose">
           <add-menu  slot="option"  @close="close" v-if="addFlag" @requestTable="requestList" :addInfo='addInfo'></add-menu>
-          <eidt-menu slot="option" @close="close" :titleInfo='titleInfo' :info='info' @requestTable="requestList" v-else></eidt-menu>
+          <eidt-menu slot="option" @close="close" :titleInfo='titleInfo' :eidtInfo='info' @requestTable="requestList" v-else></eidt-menu>
         </mine-dialog>
     </div>
 </template>
@@ -96,7 +96,9 @@ export default {
       // debugger;
       console.log(s, d, n)
       this.addFlag = false;
-      this.info = d;
+      this.info = {
+        ...d
+      };
       this.titleInfo = n.parent;
       this.flag = true;
       this.title = '编辑';
