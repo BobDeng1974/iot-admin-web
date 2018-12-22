@@ -96,12 +96,6 @@ export default {
       debugger;
       console.log(s, d, n)
       this.addFlag = false;
-      // if (d.type !== 9 && d.type !== 10) {
-      //   this.info = d;
-      //   this.info.type === 99999;
-      // } else {
-      //   this.info = d;
-      // }
       this.info = d;
       this.titleInfo = n.parent;
       this.flag = true;

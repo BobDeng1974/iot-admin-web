@@ -549,7 +549,7 @@ export default {
       debugger;
       API.examineHard(params)
       .then(res => {
-        this.$router.push({name: '审核者消息'});
+        this.$router.push({name: '硬件审核'});
       });
     }
   }

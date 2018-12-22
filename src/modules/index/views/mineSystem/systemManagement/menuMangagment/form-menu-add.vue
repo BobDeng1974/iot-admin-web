@@ -77,9 +77,9 @@ export default {
   },
   data () {
     return {
-      options1: [{label: '按钮', value: 10}],
+      options1: [{label: '按钮', value: 1}],
       options2: [],
-      options3: [{label: '页面', value: 9}, {label: '菜单', value: 99999}],
+      options3: [{label: '页面', value: 0}, {label: '菜单', value: 2}],
       form: {
         name: '',
         permissionTag: '',
@@ -111,9 +111,9 @@ export default {
     },
     addSubmit () {
       this.form.order = Number(this.form.order);
-      if (this.form.model === 99999) {
-        this.form.model = this.addInfo.type + 1;
-      }
+      // if (this.form.model === 99999) {
+      //   this.form.model = this.addInfo.type + 1;
+      // }
       const params = {
         ...this.form,
         pid: this.addInfo.id

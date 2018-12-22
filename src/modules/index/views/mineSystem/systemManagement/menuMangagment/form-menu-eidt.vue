@@ -4,8 +4,8 @@
             <el-form-item label="上级菜单">
               <p>{{titleInfo.label}}</p>
             </el-form-item>
-            <el-form-item label="分类" prop="type" >
-              <el-select v-model="info.type" disabled placeholder="请选择">
+            <el-form-item label="分类">
+              <el-select v-model="typeShow" disabled placeholder="请选择">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -13,33 +13,6 @@
                   :value="item.value">
                 </el-option>
               </el-select>
-              <!-- 点击选择的节点是页面的话选用这个下拉 -->
-              <!-- <el-select v-model="info.type" disabled placeholder="请选择" v-if="this.checkFlag === 9">
-                <el-option
-                  v-for="item in options1"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select> -->
-              <!-- 点击选择的节点是按钮的话选用这个下拉 -->
-              <!-- <el-select v-model="info.type" placeholder="请选择" disabled v-else-if="this.checkFlag === 10">
-                <el-option
-                  v-for="item in options2"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select> -->
-              <!-- 点击选择的节点是标题的话选用这个下拉 -->
-              <!-- <el-select v-model="info.type" placeholder="请选择" disabled v-else>
-                <el-option
-                  v-for="item in options3"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select> -->
             </el-form-item>
             <el-form-item label="权限标识" prop="permissionTag">
                 <el-input v-model="info.permissionTag"></el-input>
@@ -85,14 +58,17 @@ export default {
   computed: {
     checkFlag () {
       return this.info.type;
+    },
+    typeShow () {
+      return this.info.type === 9 ? 0 : (this.info.type === 10 ? 1 : 2);
     }
   },
   data () {
     return {
-      options1: [{label: '按钮', value: 10}],
-      options2: [],
-      options3: [{label: '页面', value: 9}, {label: '菜单', value: 99999}],
-      options: [{label: '页面', value: 9}, {label: '菜单', value: 99999}, {label: '按钮', value: 10}],
+      // options1: [{label: '按钮', value: 10}],
+      // options2: [],
+      // options3: [{label: '页面', value: 9}, {label: '菜单', value: 99999}],
+      options: [{label: '页面', value: 0}, {label: '菜单', value: 2}, {label: '按钮', value: 1}],
       rules: {
         // permissionTag: { required: true, validator: this.checkRoleName, trigger: 'blur' },
         permissionTag: { required: true, message: '请输入说明', trigger: 'blur' },
