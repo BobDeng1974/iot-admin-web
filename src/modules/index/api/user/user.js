@@ -58,7 +58,7 @@ const API = {
   },
   getUser: (params) => {
     return request({
-      url: `${APPLICATION_NAME}/user/get`,
+      url: `${APPLICATION_NAME}/admin/get`,
       method: 'post',
       data: params
     });
