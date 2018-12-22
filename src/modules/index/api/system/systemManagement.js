@@ -109,7 +109,7 @@ const systemManagementApi = {
     // 菜单管理API
     allRole: (query) => {
       return request({
-          url: `${APPLICATION_NAME}/role/get`,
+          url: `${APPLICATION_NAME}/role/all`,
           method: 'post',
           data: query
       }).then(res => res);

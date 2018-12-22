@@ -55,7 +55,7 @@ const auditsManagementApi = {
   },
   distributionKey: (query) => {
     return request({
-      url: `${MJAPP_NAME}/hardware/distributionKey`,
+      url: `${MJAPP_NAME}/audit/distributionKey`,
       method: 'post',
       data: query
     }).then(res => res);

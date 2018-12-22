@@ -1,15 +1,15 @@
 <template>
   <div v-if="!item.hidden && item.children" class="menu-wrapper">
-    <template v-if="hasOneShowingChild(item.children)&&onlyOneChild.path==='goHome'">
+    <!-- <template v-if="hasOneShowingChild(item.children)&&onlyOneChild.path==='goHome'">
       <a :href="onlyOneChild.path" target="_blank" @click="clickLink(onlyOneChild.path,$event)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
           <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon" :title="onlyOneChild.meta.title" />
         </el-menu-item>
       </a>
-    </template>
-
-    <template v-else-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow">
-      <a :href="onlyOneChild.path" target="_blank" @click="clickLink(onlyOneChild.path,$event)">
+    </template> -->
+<div v-if="item.children.length">
+    <template v-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow">
+      <a :href="onlyOneChild.path" target="_blank" @click="clickLink(onlyOneChild.path,$event)" >
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
           <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon" :title="onlyOneChild.meta.title" />
         </el-menu-item>
@@ -37,6 +37,24 @@
         </a>
       </template>
     </el-submenu>
+</div>
+<div v-else>
+  <div v-if="item.type === 9">
+    <a :href="item.path" :key="item.name" target="_blank" @click="clickLink(item.path,$event)">
+      <el-menu-item :index="resolvePath(item.path)">
+        <item v-if="item.meta" :icon="item.meta.icon" :title="item.meta.title" />
+      </el-menu-item>
+    </a>
+  </div>
+  <div v-else>
+    <el-submenu :index="item.name||item.path">
+      <template slot="title">
+        <item v-if="item.meta" :icon="item.meta.icon" :title="item.meta.title" />
+      </template>
+    </el-submenu>
+  </div>
+</div>
+    
   </div>
 </template>
 
@@ -96,10 +114,18 @@ export default {
       return validateURL(routePath);
     },
     clickLink(routePath, e) {
+      debugger;
       if (!this.isExternalLink(routePath)) {
         e.preventDefault();
         const path = this.resolvePath(routePath);
-        this.$router.push(path);
+        this.basePath;
+        if (this.item.type === 9) {
+          this.$router.push(this.basePath);
+        } else {
+          this.$router.push(path);
+        }
+      } else {
+        // e.preventDefault();
       }
     }
   }
