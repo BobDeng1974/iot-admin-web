@@ -64,7 +64,8 @@ const recordCheckApi = {
       return request({
         url: `${MJAPP_NAME}/lua/downloadAppLua`,
         params: params,
-        method: 'get'
+        method: 'get',
+        responseType: 'blob'
       }).then(res => res);
     },
     // 云端lua列表
@@ -79,7 +80,8 @@ const recordCheckApi = {
       return request({
         url: `${MJAPP_NAME}/lua/downloadCloudLua`,
         params: params,
-        method: 'get'
+        method: 'get',
+        responseType: 'blob'
       }).then(res => res);
     }
 };

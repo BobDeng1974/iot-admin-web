@@ -80,7 +80,7 @@
         <el-table-column prop="cName" width="150" label="上传人" align="center"></el-table-column>
         <el-table-column label="操作" align="center" fixed='right'>
           <template slot-scope="scope">
-            <a :href="scope.row.url" :download="scope.row.luaName + '.lua'" >下载</a>
+            <span class="mine-down" @click="downLoad(scope.row)">下载</span>
           </template>
         </el-table-column>
       </el-table>
@@ -130,8 +130,17 @@ export default {
   methods: {
     // 下载功能
     downLoad(val) {
-      // const params = {}
-      // API.downLoadAppLua()
+      let params = { id: val.luaId };
+      API.downLoadAppLua(params).then(response => {
+        let blob = new Blob([response]);
+        let objectUrl = URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = objectUrl;
+        link.setAttribute('download', val.luaName+'.lua');
+        document.body.appendChild(link);
+        link.click();
+      });
     },
     // 获取所有下拉字典
     getDict() {
@@ -229,10 +238,10 @@ export default {
     border-radius: 50%;
     margin-bottom: 2px;
   }
-  a{
+  .mine-down{
     color: blue;
   }
-  a:hover{
+  .mine-down:hover{
     cursor: pointer;
   }
   .fenye {

@@ -4,7 +4,7 @@
             <el-form-item label="上级菜单">
               <p>{{titleInfo.label}}</p>
             </el-form-item>
-            <el-form-item label="分类">
+            <el-form-item label="分类" prop="permissionTag">
               <el-select v-model="typeShow" disabled placeholder="请选择">
                 <el-option
                   v-for="item in options"
@@ -26,10 +26,10 @@
             <el-form-item label="排序" prop="order">
               <el-input v-model="info.order"></el-input>
             </el-form-item>
-            <el-form-item label="是否显示" prop="hidden">
-                <el-radio-group v-model="info.hidden" :disabled='info.type === 10'>
-                    <el-radio :label="false">是</el-radio>
-                    <el-radio :label="true">否</el-radio>
+            <el-form-item label="是否显示" prop="show">
+                <el-radio-group v-model="info.show" :disabled='info.type === 10'>
+                    <el-radio :label="0">是</el-radio>
+                    <el-radio :label="1">否</el-radio>
                 </el-radio-group>
             </el-form-item>
         </el-form>
@@ -46,7 +46,7 @@ import { doSubmit, restData } from '@/modules/index/api/system/common.js';
 import { roleMixin } from '@/modules/index/views/mineSystem/mixin';
 export default {
   props: {
-    info: {
+    eidtInfo: {
       type: Object,
       default: {}
     },
@@ -57,10 +57,13 @@ export default {
   },
   computed: {
     checkFlag () {
-      return this.info.type;
+      return this.eidtInfo.type;
+    },
+    info () {
+      return this.eidtInfo;
     },
     typeShow () {
-      return this.info.type === 9 ? 1 : (this.info.type === 10 ? 2 : 0);
+      return this.eidtInfo.type === 9 ? 1 : (this.eidtInfo.type === 10 ? 2 : 0);
     }
   },
   data () {
@@ -76,7 +79,8 @@ export default {
         permissionUrl: { required: true, message: '请输入说明', trigger: 'blur' },
         order: { required: true, message: '请输入说明', trigger: 'blur' },
         show: { required: true, message: '请输入说明', trigger: 'blur' },
-        type: { required: true, message: '请输入说明', trigger: 'blur' }
+        type: { required: true, message: '请输入说明', trigger: 'blur' },
+
       }
     };
   },
@@ -93,7 +97,7 @@ export default {
         permissionUrl: this.info.permissionUrl,
         order: Number(this.info.order),
         permissionId: this.info.id,
-        show: this.info.hidden ? 1 : 0
+        show: this.info.show
         // model: this.info.type === 10 ? 1 : 0
       }
       API.updatePermissionMenu(params)
