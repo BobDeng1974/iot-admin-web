@@ -71,6 +71,7 @@
               <span>{{scope.row.release === 0 ? '未发布' : '已发布'}}</span>
           </template>
         </el-table-column>
+
         <el-table-column prop="cdate" width="150" label="生效时间" align="center">
           <template slot-scope="scope">
             <div>{{scope.row.cdate | fomatDate('yyyy-MM-dd HH:mm')}}</div>
@@ -79,7 +80,7 @@
         <el-table-column prop="cName" width="150" label="上传人" align="center"></el-table-column>
         <el-table-column label="操作" align="center" fixed='right'>
           <template slot-scope="scope">
-            <span @click="downLoad(scope.row.luaId)" >下载</span>
+            <a :href="scope.row.url" :download="scope.row.luaName + '.lua'" >下载</a>
           </template>
         </el-table-column>
       </el-table>
@@ -129,6 +130,8 @@ export default {
   methods: {
     // 下载功能
     downLoad(val) {
+      // const params = {}
+      // API.downLoadAppLua()
     },
     // 获取所有下拉字典
     getDict() {
@@ -225,6 +228,12 @@ export default {
     height: 8px;
     border-radius: 50%;
     margin-bottom: 2px;
+  }
+  a{
+    color: blue;
+  }
+  a:hover{
+    cursor: pointer;
   }
   .fenye {
     text-align: right;

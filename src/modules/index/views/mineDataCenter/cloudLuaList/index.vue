@@ -79,7 +79,7 @@
         <el-table-column prop="cName" width="150" label="上传人" align="center"></el-table-column>
         <el-table-column label="操作" align="center" fixed='right'>
           <template slot-scope="scope">
-            <span @click="downLoad(scope.row.luaId)" >下载</span>
+            <a :href="scope.row.url" :download="scope.row.luaName + '.lua'" >下载</a>
           </template>
         </el-table-column>
       </el-table>
@@ -249,6 +249,12 @@ export default {
 .cloud-lua-list-warp {
   .mip-check {
     margin-top: 24px;
+  }
+    a{
+    color: blue;
+  }
+  a:hover{
+    cursor: pointer;
   }
   .commerStyle {
     display: inline-block;
