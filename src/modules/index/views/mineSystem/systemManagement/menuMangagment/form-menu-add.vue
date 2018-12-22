@@ -97,11 +97,12 @@ export default {
         show: ''
       },
       rules: {
-        pid: { required: true, validator: this.checkRoleName, trigger: 'blur' },
+        permissionTag: { required: true, message: '请输入说明', trigger: 'blur' },
         name: { required: true, message: '请输入说明', trigger: 'blur' },
-        path: { required: true, message: '请输入说明', trigger: 'blur' },
-        order: { required: true, message: '请输入说明', trigger: 'blur' },
-        hidden: { required: true, message: '请输入说明', trigger: 'blur' }
+        permissionUrl: { required: true, message: '请输入说明', trigger: 'blur' },
+        model: { required: true, message: '请输入说明', trigger: 'blur' },
+        show: { required: true, message: '请输入说明', trigger: 'blur' },
+        order: { required: true, message: '请输入说明', trigger: 'blur' }
       }
     };
   },

@@ -4,7 +4,7 @@
             <el-form-item label="上级菜单">
               <p>{{titleInfo.label}}</p>
             </el-form-item>
-            <el-form-item label="分类">
+            <el-form-item label="分类" prop="permissionTag">
               <el-select v-model="typeShow" disabled placeholder="请选择">
                 <el-option
                   v-for="item in options"
@@ -76,7 +76,8 @@ export default {
         permissionUrl: { required: true, message: '请输入说明', trigger: 'blur' },
         order: { required: true, message: '请输入说明', trigger: 'blur' },
         show: { required: true, message: '请输入说明', trigger: 'blur' },
-        type: { required: true, message: '请输入说明', trigger: 'blur' }
+        type: { required: true, message: '请输入说明', trigger: 'blur' },
+
       }
     };
   },
