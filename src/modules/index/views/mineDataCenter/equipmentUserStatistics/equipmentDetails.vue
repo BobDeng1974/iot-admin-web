@@ -18,7 +18,7 @@
           </table>
         </div>
         <div class="export">
-          <el-button size="medium" type="primary"><a :href="ExportUrl">导出统计结果</a></el-button>
+          <el-button size="medium" type="primary"><a target="_blank" :href="ExportUrl">导出统计结果</a></el-button>
         </div>
         <!--profile属性列表-->
         <div class="table-wrapper">
@@ -138,7 +138,9 @@ export default {
   },
   computed: {
     ExportUrl() {
-      return `${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
+      // return `${MJAPP_NAME}/statistics/devicesexport?endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
+
+      return `${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId ? this.tableData1.groupId : ''}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
     }
   },
   mounted() {
