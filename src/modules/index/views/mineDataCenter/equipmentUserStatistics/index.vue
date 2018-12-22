@@ -167,7 +167,7 @@ export default {
     },
     // 设备明细
     goDevicelist(val) {
-      this.$router.push({name: '设备明细', params: {groupId: this.userInfo.departMentId || 1, endTime: val.date}});
+      this.$router.push({name: '设备明细', params: {groupId: this.userInfo.departMentId, endTime: val.date}});
     },
     // 查询Lua协议列表数据
     getStatisticsListData() {

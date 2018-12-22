@@ -95,7 +95,8 @@
             <div>{{scope.row.applyTime | fomatDate('yyyy-MM-dd HH:mm')}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="applyUserName" width="150" label="处理人" align="center"></el-table-column>
+        <el-table-column prop="auditTime" width="150" label="处理时间" align="center"></el-table-column>
+        <el-table-column prop="auditUser" width="150" label="处理人" align="center"></el-table-column>
         <el-table-column label="状态" width="150" align="left">
           <template slot-scope="scope">
             <div>
