@@ -68,7 +68,7 @@ export default {
       // options1: [{label: '按钮', value: 10}],
       // options2: [],
       // options3: [{label: '页面', value: 9}, {label: '菜单', value: 99999}],
-      options: [{label: '页面', value: 0}, {label: '菜单', value: 2}, {label: '按钮', value: 1}],
+      options: [{label: '页面', value: 1}, {label: '菜单', value: 0}, {label: '按钮', value: 2}],
       rules: {
         // permissionTag: { required: true, validator: this.checkRoleName, trigger: 'blur' },
         permissionTag: { required: true, message: '请输入说明', trigger: 'blur' },

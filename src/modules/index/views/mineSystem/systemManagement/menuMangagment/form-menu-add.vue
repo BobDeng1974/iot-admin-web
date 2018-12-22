@@ -5,33 +5,41 @@
               <p>{{addInfo.name}}</p>
             </el-form-item>
             <el-form-item label="分类" prop="model">
+              <el-select v-model="form.model" placeholder="请选择" @change="modelChange">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
               <!-- 点击选择的节点是页面的话选用这个下拉 -->
-              <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-if="this.checkFlag === 9">
+              <!-- <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-if="this.checkFlag === 9">
                 <el-option
                   v-for="item in options1"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
                 </el-option>
-              </el-select>
+              </el-select> -->
               <!-- 点击选择的节点是按钮的话选用这个下拉 -->
-              <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-else-if="this.checkFlag === 10">
+              <!-- <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-else-if="this.checkFlag === 10">
                 <el-option
                   v-for="item in options2"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
                 </el-option>
-              </el-select>
+              </el-select> -->
               <!-- 点击选择的节点是标题的话选用这个下拉 -->
-              <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-else>
+              <!-- <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-else>
                 <el-option
                   v-for="item in options3"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
                 </el-option>
-              </el-select>
+              </el-select> -->
             </el-form-item>
             <el-form-item label="权限标识" prop="permissionTag">
                 <el-input v-model="form.permissionTag"></el-input>
@@ -46,7 +54,7 @@
                 <el-input v-model="form.order"></el-input>
             </el-form-item>
             <el-form-item label="是否显示" prop="show">
-                <el-radio-group v-model="form.show" :disabled='form.model === 10'>
+                <el-radio-group v-model="form.show" :disabled='form.model === 2'>
                     <el-radio :label="0">是</el-radio>
                     <el-radio :label="1">否</el-radio>
                 </el-radio-group>
@@ -71,15 +79,15 @@ export default {
     }
   },
   computed: {
-    checkFlag () {
-      return this.addInfo.type;
+    options () {
+      return this.addInfo.type === 9 ? [{label: '按钮', value: 2}] : (this.addInfo.type === 10 ? [] : [{label: '页面', value: 1}, {label: '菜单', value: 0}])
     }
   },
   data () {
     return {
-      options1: [{label: '按钮', value: 1}],
+      options1: [{label: '按钮', value: 2}],
       options2: [],
-      options3: [{label: '页面', value: 0}, {label: '菜单', value: 2}],
+      options3: [{label: '页面', value: 1}, {label: '菜单', value: 0}],
       form: {
         name: '',
         permissionTag: '',
@@ -100,7 +108,8 @@ export default {
   mixins: [ roleMixin ],
   methods: {
     modelChange (val) {
-      if (val === 10) {
+      debugger;
+      if (val === 2) {
         this.form.show = 0;
       }
     },
@@ -111,13 +120,11 @@ export default {
     },
     addSubmit () {
       this.form.order = Number(this.form.order);
-      // if (this.form.model === 99999) {
-      //   this.form.model = this.addInfo.type + 1;
-      // }
       const params = {
         ...this.form,
         pid: this.addInfo.id
       }
+      debugger;
       API.addPermissionMenu(params)
          .then(res => {
            restData(this.form);

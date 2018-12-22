@@ -93,7 +93,7 @@ export default {
       });
     },
     handleEdit (s, d, n) {
-      debugger;
+      // debugger;
       console.log(s, d, n)
       this.addFlag = false;
       this.info = d;
@@ -107,7 +107,7 @@ export default {
       this.addFlag = true;
     },
     handleDelete (s, d, n) {
-      debugger;
+      // debugger;
       this.$confirm('此操作将删除该节点, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
