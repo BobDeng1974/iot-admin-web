@@ -97,53 +97,53 @@ export default {
   data () {
     return {
       protosList: [
-        { value: 0, label: '其他' },
-        { value: 1, label: '双云-京东' },
-        { value: 2, label: '双云-阿里' },
-        { value: 3, label: '美的' },
-        { value: 4, label: '京东单云' },
-        { value: 5, label: '单云-阿里' },
-        { value: 6, label: '三网通' },
-        { value: 7, label: '华为' },
-        { value: 8, label: '苏宁-双云' }
+        { value: 1, label: '其他' },
+        { value: 2, label: '双云-京东' },
+        { value: 3, label: '双云-阿里' },
+        { value: 4, label: '美的' },
+        { value: 5, label: '京东单云' },
+        { value: 6, label: '单云-阿里' },
+        { value: 7, label: '三网通' },
+        { value: 8, label: '华为' },
+        { value: 9, label: '苏宁-双云' }
       ],
       saleChannelList: [
         {
-          value: 0,
+          value: 1,
           label: '线上'
         },
         {
-          value: 1,
+          value: 2,
           label: '线下'
         },
         {
-          value: 2,
+          value: 3,
           label: '全网通'
         },
         {
-          value: 3,
+          value: 4,
           label: '其他'
         }
       ],
       saleStatusList: [
         {
-          value: 0,
+          value: 1,
           label: '在售'
         },
         {
-          value: 1,
+          value: 2,
           label: '退市'
         },
         {
-          value: 2,
+          value: 3,
           label: '续销'
         },
         {
-          value: 3,
+          value: 4,
           label: '未上市'
         },
         {
-          value: 4,
+          value: 5,
           label: '停产'
         }
       ]

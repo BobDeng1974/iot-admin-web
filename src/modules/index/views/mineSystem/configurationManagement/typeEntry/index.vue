@@ -200,8 +200,8 @@ export default {
     },
     selectSerch (flag) {
       if (this.formInline.time && this.formInline.time.length) {
-        this.formInline.mdateBegin = format(this.formInline.time[0], 'yyyy-MM-dd');
-        this.formInline.mdateEnd = format(this.formInline.time[1], 'yyyy-MM-dd');
+        this.formInline.mdateBegin = format(this.formInline.time[0], 'yyyy-MM-dd HH:mm:ss');
+        this.formInline.mdateEnd = format(this.formInline.time[1], 'yyyy-MM-dd HH:mm:ss');
       } else {
         this.formInline.mdateBegin = '';
         this.formInline.mdateEnd = '';
@@ -257,6 +257,9 @@ export default {
       this.eidtFlag = true;
       this.flag = true;
       this.title = '编辑';
+      val.protos = val.protos === 0 ? '' : val.protos;
+      val.saleChannel = val.saleChannel === 0 ? '' : val.saleChannel;
+      val.saleStatus = val.saleStatus === 0 ? '' : val.saleStatus;
       this.eidtInfos = {...val};
     },
     clear () {
