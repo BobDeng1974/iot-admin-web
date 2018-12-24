@@ -106,7 +106,7 @@
 <script>
 import API from '@/modules/index/api/system/system.js';
 import { doSubmit, restData, format } from '@/modules/index/api/system/common.js';
-import { roleMixin } from '@/modules/index/views/mineSystem/mixin';
+import { typeEnter } from '@/modules/index/views/mineDataCenter/mixin';
 export default {
   props: {
     eidtInfos: {
@@ -173,16 +173,16 @@ export default {
         }
       ],
       rules: {
-        productName: { required: false, message: '请选择', trigger: 'change' },
-        model: { required: false, message: '请选择', trigger: 'change' },
+        productName: { required: false, validator: this.checkPoductName, trigger: 'change' },
+        model: { required: false, validator: this.checkModel, trigger: 'change' },
         // protos: { required: false, message: '请选择', trigger: 'change' },
-        materielCode: { required: true, message: '请选择', trigger: 'change' }
+        materielCode: { required: true, validator: this.checkMaterielCode, trigger: 'change' }
         // saleChannel: { required: false, message: '请选择', trigger: 'change' },
         // saleStatus: { required: false, message: '请选择', trigger: 'change' }
       }
     };
   },
-  mixins: [ roleMixin ],
+  mixins: [ typeEnter ],
   methods: {
     save () {
       if (!doSubmit('form', this)) return;

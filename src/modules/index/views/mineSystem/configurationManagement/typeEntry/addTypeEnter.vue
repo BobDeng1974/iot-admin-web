@@ -70,7 +70,7 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="物联云平台" prop="protos">
-                    <el-radio-group v-model="addInfo.protos">
+                  <el-radio-group v-model="addInfo.protos">
                     <el-radio :label="item.value" v-for="(item, index) in protosList" :key="index">{{item.label}}</el-radio>
                   </el-radio-group>
                 </el-form-item>
@@ -125,7 +125,7 @@
 
 <script>
 import conHeader from '@/components/awesome/con-header/con-header';
-import { checkInfo } from '@/modules/index/views/mineDataCenter/mixin';
+import { typeEnter } from '@/modules/index/views/mineDataCenter/mixin';
 import API from '@/modules/index/api/system/system.js';
 import { doSubmit, restData, format } from '@/modules/index/api/system/common.js';
 import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
@@ -133,7 +133,7 @@ export default {
   components: {
     conHeader
   },
-  mixins: [checkInfo, dictMixin],
+  mixins: [typeEnter, dictMixin],
   created () {
     this.getDict();
   },
@@ -208,12 +208,12 @@ export default {
       rules: {
         departmentId: { required: true, message: '请选择', trigger: 'change' },
         applianId: { required: true, message: '请选择', trigger: 'change' },
-        sn8: { required: true, message: '请选择', trigger: 'change' },
-        modelNumber: { required: false, message: '请选择', trigger: 'change' },
-        productName: { required: false, message: '请选择', trigger: 'change' },
-        model: { required: true, message: '请选择', trigger: 'change' },
+        sn8: { required: true,  validator: this.checkSn8, trigger: 'change' },
+        modelNumber: { required: false, validator: this.checkModelNumber, trigger: 'change' },
+        productName: { required: false, validator: this.checkPoductName, trigger: 'change' },
+        model: { required: true, validator: this.checkModel, trigger: 'change' },
         // protos: { required: false, message: '请选择', trigger: 'change' },
-        materielCode: { required: true, message: '请选择', trigger: 'change' }
+        materielCode: { required: true, validator: this.checkMaterielCode, trigger: 'change' }
         // saleChannel: { required: false, message: '请选择', trigger: 'change' },
         // saleStatus: { required: false, message: '请选择', trigger: 'change' }
       }
