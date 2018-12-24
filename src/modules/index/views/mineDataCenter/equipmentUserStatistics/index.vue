@@ -227,6 +227,14 @@ export default {
         let e = new Date(params.endTime).getDate();
       let s = new Date(params.startTime).getDate();
       let totalPage = e - s + 1;
+      let lastPage = Math.ceil(totalPage / this.pageSize);
+      let lastPageSize = totalPage % this.pageSize;
+      // debugger;
+      if (lastPageSize !== 0 && totalPage !== 0) {
+        if (lastPage === params.curPage) {
+          params.pageSize = lastPageSize;
+        }
+      }
       console.log(totalPage);
       API.statistics(params).then(res => {
         console.log(res);

@@ -18,7 +18,7 @@
           </table>
         </div>
         <div class="export">
-          <el-button size="medium" type="primary"><a target="_blank" :href="ExportUrl">导出统计结果</a></el-button>
+          <el-button size="medium" type="primary"><a style="color:#fff" target="_blank" :href="ExportUrl">导出统计结果</a></el-button>
         </div>
         <!--profile属性列表-->
         <div class="table-wrapper">
