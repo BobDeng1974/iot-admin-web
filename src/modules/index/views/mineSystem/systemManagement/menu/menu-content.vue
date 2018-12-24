@@ -62,15 +62,15 @@ export default {
   },
   methods: {
     // 获取所有角色
-    initAllrole () {
+    async initAllrole () {
       this.roleLoading = true;
       const params = {roleId: ''};
+      await this.getAllAuthed();
       API.allRole(params)
       .then(res => {
         this.roleList = this.initData(res.result);
         this.selectRole(0, this.roleList[0].id);
         this.roleLoading = false;
-        this.getAllAuthed();
       });
     },
     // 获取所有权限
@@ -132,6 +132,15 @@ export default {
       // .catch(() => {
       // });
     },
+    checkChlidren (val, flag) {
+      var index = 0;
+      val.forEach(item => {
+        if(item.pid === flag){
+          index++;
+        }
+      });
+      return index;
+    },
     // 获取角色对应权限
     getPermission (val) {
       const params = {roleId: val};
@@ -140,41 +149,12 @@ export default {
         if (res.result) {
           const arr = [];
           for (var i = 0; i < res.result.length; i++) {
-            // if (
-            //   res.result[i].id === 1 ||
-            //   res.result[i].id === 10 ||
-            //   res.result[i].id === 20 ||
-            //   res.result[i].id === 66 ||
-            //   res.result[i].id === 69 ||
-            //   res.result[i].id === 30 ||
-            //   res.result[i].id === 40 ||
-            //   res.result[i].id === 100 ||
-            //   res.result[i].id === 102 ||
-            //   res.result[i].id === 104
-            // ) {
-            // } else {
-            //   arr.push(res.result[i].id);
-            // }
             if (res.result[i].type === 10) {
               arr.push(res.result[i].id);
-            } else if (
-              res.result[i].id === 307 ||
-              res.result[i].id === 309 ||
-              res.result[i].id === 1001 ||
-              res.result[i].id === 1002 ||
-              res.result[i].id === 1003 ||
-              res.result[i].id === 1004 ||
-              res.result[i].id === 1005 ||
-              res.result[i].id === 1020 ||
-              res.result[i].id === 1040 ||
-              res.result[i].id === 7110 ||
-              res.result[i].id === 7112 ||
-              res.result[i].id === 7114 ||
-              res.result[i].id === 11 ||
-              res.result[i].id === 40
-              ) {
+              // 这里是判断页面 若返回结果页面下面没有返回对应的子集则需要奖id push 若有子集则不push
+            } else if (res.result[i].type === 9 && this.checkChlidren(res.result, res.result[i].id) === 0) {
               arr.push(res.result[i].id);
-            } else {}
+            }
           }
           console.log(arr, 'arrarrarr');
           // 这里先写死处理权限回显问题
