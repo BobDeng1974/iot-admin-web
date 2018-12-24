@@ -2,7 +2,7 @@
     <div class="account-info-warp">
         <div v-if="isAdd" key="1">
             <el-form label-width="120px" :model="form" ref="addForm" :rules="rules" >
-                <el-form-item label="账号" prop="mip">
+                <el-form-item label="用户mip账户" prop="mip">
                     <el-input v-model="form.mip"></el-input>
                 </el-form-item>
                 <el-form-item label="说明" prop="discription">
@@ -22,7 +22,7 @@
         </div>
         <div v-else key="2">
             <el-form label-width="120px" :model="info" ref="eidtForm" :rules="rules" >
-                <el-form-item label="账号">
+                <el-form-item label="用户mip账户">
                     <p>{{info.account}}</p>
                 </el-form-item>
                 <el-form-item label="说明" prop="discription">
@@ -52,6 +52,7 @@ import { doSubmit, restData } from '@/modules/index/api/system/common.js';
 import API from '@/modules/index/api/system/system.js';
 import { accountMixin } from '@/modules/index/views/mineSystem/mixin';
 import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
+import ls from '@/utils/storage/local_storage';
 export default {
   mixins: [ accountMixin, dictMixin ],
   props: {
@@ -108,7 +109,7 @@ export default {
         .then(res => {
           this.$store.dispatch('getUserInfo', '');
           this.$store.dispatch('getMeauAuthed', {uid: this.$store.getters.saveGetUserInfo.uid ||
-          JSON.parse(localStorage.getItem('saveGetUserInfo')).uid});
+          JSON.parse(ls.getItem('saveGetUserInfo')).uid});
           console.log(res, '修改角色');
           restData(this.info);
           this.$emit('requesTab');

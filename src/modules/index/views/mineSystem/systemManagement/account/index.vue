@@ -8,7 +8,7 @@
            <el-form :inline="true" :model="formInline" class="demo-form-inline" label-width="100px" :rules="rules">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item label="用户账户" prop="account">
+                  <el-form-item label="用户mip账户" prop="account">
                     <el-input v-model="formInline.account" clearable></el-input>
                   </el-form-item>
                 </el-col>
@@ -52,7 +52,7 @@
         <div class="table-account" v-loading="loading">
           <el-table :data="tableData" style="width: 100%"  class='table'>
             <!-- <el-table-column prop="account" label="用户id" align="center"></el-table-column> -->
-            <el-table-column prop="account" label="账户" align="center" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="account" label="用户mip账户" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="realName" label="用户姓名" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="departmentName" label="所在事业部" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="showName" label="角色" align="center" show-overflow-tooltip></el-table-column>
@@ -160,7 +160,7 @@ export default {
   },
   mounted () {
     this.getAllrole();
-    this.getAlldeparment();
+    // this.getAlldeparment();
     this.selectSerch(true);
   },
   methods: {
