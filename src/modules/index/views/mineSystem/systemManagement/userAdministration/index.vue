@@ -54,7 +54,7 @@
                 <div>{{scope.row.isMipAuth ? '已认证' : '未认证'}}</div>
               </template>
             </el-table-column>
-            <el-table-column label="创建时间" align="center" show-overflow-tooltip width="150">
+            <el-table-column label="授权时间" align="center" show-overflow-tooltip width="150">
               <template slot-scope="scope">
                 <div>{{scope.row.registerTime | fomatDate('yyyy-MM-dd HH:mm')}}</div>
               </template>
