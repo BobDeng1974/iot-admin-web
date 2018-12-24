@@ -12,6 +12,7 @@
       </div>
       <div class="user-info-wrapper pull-right">
         <div class="user-info-content">
+          <span class="user-info">欢迎您，</span>
           <span v-if="nickName">
             <span class="user-info">{{nickName}}</span>
             <span class="user-info" v-if="roleName">({{roleName}})</span>
@@ -21,7 +22,7 @@
             <span class="user-info" v-if="roleName">({{roleName}})</span>
           </span>
           <span class="list-item mylog-out" @click="handleLogout">
-                <a href="javascript:void(0)">退出</a>
+                <a class="user-info" href="javascript:void(0)">退出</a>
           </span>
           <!-- <span class="icon-down" :class="{rotate: isShow}"></span> -->
         </div>
@@ -127,9 +128,9 @@ export default {
       this.$router.push({ path: '/info' });
     },
 
-    // 跳转介绍页
+    // 跳转首页
     gotHome() {
-      // this.$router.push({ path: '/platformIntroduction' });
+      this.$router.push({ name: 'goHome' });
     },
     // 退出登陆
     async handleLogout() {
