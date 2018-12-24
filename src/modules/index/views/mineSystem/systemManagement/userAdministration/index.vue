@@ -8,12 +8,12 @@
            <el-form :inline="true" :model="formInline" class="demo-form-inline" label-width="100px" :rules="rules">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item label="用户昵称">
+                  <el-form-item label="用户昵称" clearable>
                     <el-input v-model="formInline.nickName"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                    <el-form-item label="用户手机号" prop="account">
+                    <el-form-item label="用户手机号" prop="account" clearable>
                       <el-input v-model="formInline.account"></el-input>
                   </el-form-item>
                 </el-col>
