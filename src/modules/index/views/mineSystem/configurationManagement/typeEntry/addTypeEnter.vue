@@ -21,7 +21,7 @@
               </el-col>
               <el-col :span="12">
                 <el-form-item label="事业部" prop="departmentId">
-                  <el-select v-model="addInfo.departmentId" placeholder="请选择" clearable>
+                  <el-select v-model="addInfo.departmentId" placeholder="请选择" @change="departMentChange" clearable>
                     <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                     </el-option>
                   </el-select>
@@ -72,8 +72,6 @@
                 <el-form-item label="物联云平台" prop="protos">
                     <el-radio-group v-model="addInfo.protos">
                     <el-radio :label="item.value" v-for="(item, index) in protosList" :key="index">{{item.label}}</el-radio>
-                    <el-radio :label="6">备选项</el-radio>
-                    <el-radio :label="9">备选项</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </el-col>
@@ -222,9 +220,17 @@ export default {
     };
   },
   methods: {
+    departMentChange (val) {
+      this.addInfo.applianId = '';
+      if (val) {
+        this.getApplianListAsDpartId(val);
+      } else {
+        this.applianList = [];
+      }
+    },
     getDict() {
       this.getAlldeparment();
-      this.getApplianList();
+      // this.getApplianList();
     },
     save () {
       if (!doSubmit('form', this)) return;

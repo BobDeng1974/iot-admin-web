@@ -9,7 +9,7 @@
               <el-row>
                 <el-col :span="8">
                     <el-form-item label="事业部">
-                      <el-select v-model="formInline.departmentId" placeholder="请选择" clearable>
+                      <el-select v-model="formInline.departmentId" placeholder="请选择" @change="departMentChange" clearable>
                           <el-option
                             v-for="item in deparmentList"
                             :key="item.id"
@@ -167,9 +167,16 @@ export default {
     this.selectSerch(true);
   },
   methods: {
+    departMentChange (val) {
+      this.formInline.applianId = '';
+      if (val) {
+        this.getApplianListAsDpartId(val);
+      } else {
+        this.applianList = [];
+      }
+    },
     getDict() {
       this.getAlldeparment();
-      this.getApplianList();
     },
     renderIndex(h, { column, $index }) {
       return h('span', [h('span', '编号')]);
