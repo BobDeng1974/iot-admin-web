@@ -21,7 +21,7 @@
         <item v-if="item.meta" :icon="item.meta.icon" :title="item.meta.title" />
       </template>
 
-      <template v-for="child in item.children" v-if="child.show === 0 && !item.hidden">
+      <template v-for="child in item.children" v-if="child.show === 0 && !child.hidden">
         <sidebar-item
           v-if="child.children&&child.children.length>0"
           :is-nest="true"
