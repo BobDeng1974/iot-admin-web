@@ -132,15 +132,28 @@ export default {
     downLoad(val) {
       let params = { id: val.luaId };
       API.downLoadAppLua(params).then(response => {
-        let blob = new Blob([response]);
+        console.log(response.headers['content-disposition']);
+        let tempNameStr = response.headers['content-disposition'].split(';')[1];
+        let fileName = tempNameStr.split('=')[1];
+        let blob = new Blob([response.data]);
         let objectUrl = URL.createObjectURL(blob);
         let link = document.createElement('a');
         link.style.display = 'none';
         link.href = objectUrl;
-        link.setAttribute('download', val.luaName+'.lua');
+        link.setAttribute('download', fileName);
         document.body.appendChild(link);
         link.click();
       });
+      // API.downLoadAppLua(params).then(response => {
+      //   let blob = new Blob([response]);
+      //   let objectUrl = URL.createObjectURL(blob);
+      //   let link = document.createElement('a');
+      //   link.style.display = 'none';
+      //   link.href = objectUrl;
+      //   link.setAttribute('download', val.luaName+'.lua');
+      //   document.body.appendChild(link);
+      //   link.click();
+      // });
     },
     // 获取所有下拉字典
     getDict() {
