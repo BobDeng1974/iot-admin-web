@@ -5,7 +5,7 @@
             <el-table-column prop="realName" label="用户姓名" align="center"></el-table-column>
             <el-table-column prop="departmentName" label="所在事业部" align="center"></el-table-column>
             <!-- <el-table-column prop="account" label="用户注册手机号" align="center"></el-table-column> -->
-            <el-table-column prop="rpdate" label="创建时间" align="center">
+            <el-table-column prop="rpdate" label="授权时间" align="center">
               <template slot-scope="scope">
                 <div>{{scope.row.rpdate | fomatDate('yyyy-MM-dd')}}</div>
               </template>

@@ -9,7 +9,7 @@
         <div class="table-role">
             <el-table :data="tableData" style="width: 100%" class='table' v-loading="loading">
                 <el-table-column prop="id" label="角色id" align="center"></el-table-column>
-                <el-table-column prop="name" label="角色姓名" align="center"></el-table-column>
+                <el-table-column prop="name" label="角色名称" align="center"></el-table-column>
                 <el-table-column prop="discription" label="角色说明" align="center"></el-table-column>
                 <el-table-column label="创建时间" width="150" align="center">
                   <template slot-scope="scope">

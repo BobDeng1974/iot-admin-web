@@ -4,7 +4,7 @@
             <el-form-item label="角色名称" prop="roleName">
                 <el-input v-model="form.roleName"></el-input>
             </el-form-item>
-            <el-form-item label="说明" prop="discription">
+            <el-form-item label="角色说明" prop="discription">
                 <el-input v-model="form.discription" type="textarea"></el-input>
             </el-form-item>
         </el-form>
