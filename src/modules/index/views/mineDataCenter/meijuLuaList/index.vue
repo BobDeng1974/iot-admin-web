@@ -9,7 +9,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="事业部">
-              <el-select v-model="formInline.deparId" placeholder="请选择" clearable>
+              <el-select v-model="formInline.deparId" placeholder="请选择" @change="departMentChange" clearable>
                 <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -128,6 +128,14 @@ export default {
     this.getList(true);
   },
   methods: {
+    departMentChange (val) {
+      this.formInline.typeCode = '';
+      if (val) {
+        this.getApplianListAsDpartId(val);
+      } else {
+        this.applianList = [];
+      }
+    },
     // 下载功能
     downLoad(val) {
       let params = { id: val.luaId };
