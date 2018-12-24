@@ -185,7 +185,7 @@ export default {
       this.sn8List = [];
       this.formInline.sn8 = '';
       if (val) {
-        this.getApplianList(val);
+        this.getApplianListAsDpartId(val);
       } else {
         // this.deparmentList = [];
       }
