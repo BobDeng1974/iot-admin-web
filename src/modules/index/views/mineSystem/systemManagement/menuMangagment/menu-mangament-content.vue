@@ -57,7 +57,7 @@ export default {
         label: 'name'
       },
       info: {},
-      addInfo: {},
+      addInfo: null,
       titleInfo: {},
       menuSaveParams: null
     };
@@ -104,6 +104,13 @@ export default {
       this.title = '编辑';
     },
     addMenu () {
+      if (!this.addInfo) {
+        this.$message({
+          type: 'warning',
+          message: '请先选择一个节点进行新增'
+        });
+        return;
+      };
       this.flag = true;
       this.title = '新增';
       this.addFlag = true;
