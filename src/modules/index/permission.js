@@ -43,6 +43,7 @@ router.beforeEach((to, from, next) => {
   if (getToken() === '10063004') {
     MessageBox.confirm('账号已被禁用，请换账号重新登录', '确定登出', {
       confirmButtonText: '重新登录',
+      showCancelButton: false,
       // cancelButtonText: '取消',
       type: 'warning',
       showClose: false
@@ -53,7 +54,7 @@ router.beforeEach((to, from, next) => {
           for (var i = keys.length; i--;) { document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString(); };
       }
       location.href = `${APPLICATION_NAME}/login`;
-
+      NProgress.done();
       // store.dispatch('FedLogOut').then(() => {
       //   // debugger;
       //   location.reload(); // 为了重新实例化vue-router对象 避免bug
