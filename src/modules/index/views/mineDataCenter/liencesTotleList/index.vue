@@ -128,9 +128,10 @@ export default {
   methods: {
     // 获取所有下拉字典
     getDict() {
-      this.getAlldeparment();
+      this.getAlldeparment({name: '全部', id: ''});
       // this.getApplianList();
-      this.getApply();
+      this.getApply({name: '全部', id: ''});
+      // this.applyList.push([]);
     },
     // 三级联动
     departMentChange (val) {

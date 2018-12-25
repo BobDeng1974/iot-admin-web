@@ -15,11 +15,16 @@ export const dictMixin = {
     },
     methods: {
     // 获取模组厂商下拉列表
-    getApply () {
+    getApply (val) {
         API.getSupplyList()
         .then(res => {
           if (res.code === 0) {
-            this.applyList = res.result;
+            if (val) {
+              let arr = res.result.concat(val);
+              this.applyList = arr;
+            } else {
+              this.applyList = res.result;
+            }
           } else {
             this.applyList = [];
           }
@@ -29,12 +34,17 @@ export const dictMixin = {
         });
       },
     // 事业部
-    getAlldeparment () {
+    getAlldeparment (val) {
         API.getDepartment({})
           .then(res => {
             if (res.code === 0) {
-                this.deparmentList = res.result;
+              if (val) {
+                let arr = res.result.concat(val);
+                this.deparmentList = arr;
               } else {
+                this.deparmentList = res.result;
+              }
+            } else {
                 this.deparmentList = [];
             }
         })
