@@ -30,7 +30,7 @@
             <el-table-column prop="id" label="用户id" align="center"></el-table-column>
             <el-table-column prop="mobile" label="用户手机号" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="departmentName" label="所在事业部" align="center" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="mip" label="mip" align="center" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="mip" label="mip账户" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column label="截图" align="center">
               <template slot-scope="scope">
                 <el-popover

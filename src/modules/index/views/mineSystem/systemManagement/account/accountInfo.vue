@@ -87,32 +87,42 @@ export default {
       if (this.isAdd) {
         if (!doSubmit('addForm', this)) return;
         console.log(this.form, 'form');
-        this.$emit('close', false);
         const ids = this.concantId(this.form.name);
         const params = {ids: ids, account: this.form.mip, discription: this.form.discription};
         API.addUser(params)
         .then(res => {
-          console.log('新增用户');
-          restData(this.form);
-          this.$emit('requesTab');
+          if (res.code === 0) {
+            this.$message({
+              message: '新增角色成功',
+              type: 'success'
+            });
+            this.$emit('close', false);
+            restData(this.form);
+            this.$emit('requesTab');
+          }
         })
         .catch(() => {
           restData(this.form);
         });
       } else {
         if (!doSubmit('eidtForm', this)) return;
-        this.$emit('close', false);
         console.log(this.info, 'info');
         const ids = this.concantId(this.info.name);
         const params = {ids: ids, account: this.info.account, discription: this.info.discription ? this.info.discription : ''};
         API.authChange(params)
         .then(res => {
-          this.$store.dispatch('getUserInfo', '');
-          this.$store.dispatch('getMeauAuthed', {uid: this.$store.getters.saveGetUserInfo.uid ||
-          JSON.parse(ls.getItem('saveGetUserInfo')).uid});
-          console.log(res, '修改角色');
-          restData(this.info);
-          this.$emit('requesTab');
+          if (res.code === 0) {
+            this.$message({
+              message: '修改角色成功',
+              type: 'success'
+            });
+            this.$emit('close', false);
+            this.$store.dispatch('getUserInfo', '');
+            this.$store.dispatch('getMeauAuthed', {uid: this.$store.getters.saveGetUserInfo.uid ||
+            JSON.parse(ls.getItem('saveGetUserInfo')).uid});
+            restData(this.info);
+            this.$emit('requesTab');
+          }
         });
       };
     },
