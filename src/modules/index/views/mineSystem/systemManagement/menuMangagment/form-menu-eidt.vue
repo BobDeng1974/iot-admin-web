@@ -68,19 +68,14 @@ export default {
   },
   data () {
     return {
-      // options1: [{label: '按钮', value: 10}],
-      // options2: [],
-      // options3: [{label: '页面', value: 9}, {label: '菜单', value: 99999}],
       options: [{label: '页面', value: 1}, {label: '菜单', value: 0}, {label: '按钮', value: 2}],
       rules: {
-        // permissionTag: { required: true, validator: this.checkRoleName, trigger: 'blur' },
-        permissionTag: { required: true, message: '请输入说明', trigger: 'blur' },
-        name: { required: true, message: '请输入说明', trigger: 'blur' },
-        permissionUrl: { required: true, message: '请输入说明', trigger: 'blur' },
-        order: { required: true, message: '请输入说明', trigger: 'blur' },
-        show: { required: true, message: '请输入说明', trigger: 'blur' },
-        type: { required: true, message: '请输入说明', trigger: 'blur' },
-
+        permissionTag: { required: true, validator: this.checkPermissionTag, trigger: 'change' },
+        name: { required: true, validator: this.checkName, trigger: 'change' },
+        permissionUrl: { required: true, validator: this.checkPermissionUrl, trigger: 'change' },
+        model: { required: true, message: '请选择', trigger: 'change' },
+        show: { required: true, message: '请选择', trigger: 'change' },
+        order: { required: true, validator: this.checkOrder, trigger: 'change' }
       }
     };
   },

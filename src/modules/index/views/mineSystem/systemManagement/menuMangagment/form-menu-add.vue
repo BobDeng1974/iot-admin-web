@@ -13,33 +13,6 @@
                   :value="item.value">
                 </el-option>
               </el-select>
-              <!-- 点击选择的节点是页面的话选用这个下拉 -->
-              <!-- <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-if="this.checkFlag === 9">
-                <el-option
-                  v-for="item in options1"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select> -->
-              <!-- 点击选择的节点是按钮的话选用这个下拉 -->
-              <!-- <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-else-if="this.checkFlag === 10">
-                <el-option
-                  v-for="item in options2"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select> -->
-              <!-- 点击选择的节点是标题的话选用这个下拉 -->
-              <!-- <el-select v-model="form.model" placeholder="请选择" @change="modelChange" v-else>
-                <el-option
-                  v-for="item in options3"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select> -->
             </el-form-item>
             <el-form-item label="权限标识" prop="permissionTag">
                 <el-input v-model="form.permissionTag"></el-input>
@@ -97,12 +70,12 @@ export default {
         show: ''
       },
       rules: {
-        permissionTag: { required: true, message: '请输入说明', trigger: 'change' },
-        // name: { required: true, message: '请输入说明', trigger: 'blur' },
-        permissionUrl: { required: true, message: '请输入说明', trigger: 'change' },
-        model: { required: true, message: '请输入说明', trigger: 'change' },
-        show: { required: true, message: '请输入说明', trigger: 'change' },
-        order: { required: true, message: '请输入说明', trigger: 'change' }
+        permissionTag: { required: true, validator: this.checkPermissionTag, trigger: 'change' },
+        name: { required: true, validator: this.checkName, trigger: 'change' },
+        permissionUrl: { required: true, validator: this.checkPermissionUrl, trigger: 'change' },
+        model: { required: true, message: '请选择', trigger: 'change' },
+        show: { required: true, message: '请选择', trigger: 'change' },
+        order: { required: true, validator: this.checkOrder, trigger: 'change' }
       }
     };
   },
