@@ -29,7 +29,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="型号码">
-                    <el-input v-model="formInline.sn8"></el-input>
+                    <el-input v-model="formInline.sn8" clearable></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -37,12 +37,12 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item label="model-numbe" label-width="105">
-                      <el-input v-model="formInline.modelNumber"></el-input>
+                      <el-input v-model="formInline.modelNumber" clearable></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="型号名称">
-                    <el-input v-model="formInline.model"></el-input>
+                    <el-input v-model="formInline.model" clearable></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
