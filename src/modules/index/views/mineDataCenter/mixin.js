@@ -99,7 +99,10 @@ export const typeEnter = {
       if (!value) {
         callback();
       } else {
-        if (value.length > 50) {
+        // 不能输入特殊字符/[^u4e00-u9fa5w]/g但会包含@
+        if (/[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im.test(value) || /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im.test(value)) {
+          callback(new Error('不允许输入特殊字符'));
+        } else if (value.length > 50) {
           callback(new Error('不允许输入超过50个字符'));
         } else {
           callback();
@@ -110,7 +113,10 @@ export const typeEnter = {
       if (!value) {
         callback(new Error('请输入'));
       } else {
-        if (value.length > 50) {
+        // 不能输入特殊字符/[^u4e00-u9fa5w]/g但会包含@
+        if (/[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im.test(value) || /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im.test(value)) {
+          callback(new Error('不允许输入特殊字符'));
+        } else if (value.length > 50) {
           callback(new Error('不允许输入超过50个字符'));
         } else {
           callback();
