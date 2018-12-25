@@ -88,14 +88,13 @@ export default {
           .then(res => {
             if (res.code === 0) {
               this.$message({
-              type: 'success',
-              message: res.message
-            });
+                type: 'success',
+                message: res.message
+              });
+              restData(this.info);
+              this.$emit('requestTable');
+              this.$emit('close', false);
             }
-            console.log(res, '模组厂商修改');
-            restData(this.info);
-            this.$emit('requestTable');
-            this.$emit('close', false);
           });
     },
     cencle() {
