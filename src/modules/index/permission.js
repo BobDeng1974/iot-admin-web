@@ -2,7 +2,7 @@ import router from './router';
 // import store from './store';
 import NProgress from 'nprogress'; // Progress 进度条
 import 'nprogress/nprogress.css';// Progress 进度条样式
-// import { Message } from 'element-ui';
+import { MessageBox } from 'element-ui';
 import { getToken } from '@/utils/auth'; // 验权
 import commonFun from '@/common/js/func';
 const {
@@ -40,6 +40,29 @@ router.beforeEach((to, from, next) => {
   //   }
   // }
   console.log(getToken(), 'token');
+  if (getToken() === '10063004') {
+    MessageBox.confirm('账号已被禁用，请换账号重新登录', '确定登出', {
+      confirmButtonText: '重新登录',
+      // cancelButtonText: '取消',
+      type: 'warning',
+      showClose: false
+    }).then(() => {
+      sessionStorage.clear();
+      let keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+      if (keys) {
+          for (var i = keys.length; i--;) { document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString(); };
+      }
+      location.href = `${APPLICATION_NAME}/login`;
+
+      // store.dispatch('FedLogOut').then(() => {
+      //   // debugger;
+      //   location.reload(); // 为了重新实例化vue-router对象 避免bug
+      // });
+    });
+    // location.href = `${APPLICATION_NAME}/login`;
+    // next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
+    // NProgress.done();
+  } else {
   if (getToken()) {
     // debugger;
     if (to.path === '/login') {
@@ -49,17 +72,17 @@ router.beforeEach((to, from, next) => {
     } else {
       // debugger;
       // if (store.getters.roles.length === 0) {
-        // store.dispatch('GetInfo').then(res => { // 拉取用户信息
-        // console.log(store.getters.roles, 'store.getters.rolesstore.getters.roles');
-        next();
-        // }).catch((err) => {
-        // store.dispatch('FedLogOut').then(() => {
-        //   Message.error(err || 'Verification failed, please login again');
-        //   next({ path: '/' });
-        // });
-        // });
+      // store.dispatch('GetInfo').then(res => { // 拉取用户信息
+      // console.log(store.getters.roles, 'store.getters.rolesstore.getters.roles');
+      next();
+      // }).catch((err) => {
+      // store.dispatch('FedLogOut').then(() => {
+      //   Message.error(err || 'Verification failed, please login again');
+      //   next({ path: '/' });
+      // });
+      // });
       // } else {
-        // next();
+      // next();
       // }
     }
   } else {
@@ -97,6 +120,7 @@ router.beforeEach((to, from, next) => {
       NProgress.done();
     }
   }
+}
 });
 
 router.afterEach(() => {
