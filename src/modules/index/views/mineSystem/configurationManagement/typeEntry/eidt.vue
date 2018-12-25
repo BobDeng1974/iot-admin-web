@@ -174,7 +174,7 @@ export default {
       ],
       rules: {
         productName: { required: false, validator: this.checkPoductName, trigger: 'change' },
-        model: { required: false, validator: this.checkModel, trigger: 'change' },
+        model: { required: true, validator: this.checkModel, trigger: 'change' },
         // protos: { required: false, message: '请选择', trigger: 'change' },
         materielCode: { required: true, validator: this.checkMaterielCode, trigger: 'change' }
         // saleChannel: { required: false, message: '请选择', trigger: 'change' },
