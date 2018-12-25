@@ -17,7 +17,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="事业部">
-              <el-select v-model="formInline.departId" placeholder="请选择" clearable>
+              <el-select v-model="formInline.departId" placeholder="请选择" clearable @change="departMentChange">
                 <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -129,8 +129,19 @@ export default {
     // 获取所有下拉字典
     getDict() {
       this.getAlldeparment();
-      this.getApplianList();
+      // this.getApplianList();
       this.getApply();
+    },
+    // 三级联动
+    departMentChange (val) {
+      this.formInline.sn8 = '';
+      this.formInline.applianceType = '';
+      if (val) {
+        this.getApplianListAsDpartId(val);
+      } else {
+        this.applianList = [];
+        this.sn8List = [];
+      }
     },
     applianChange(val) {
       this.formInline.sn8 = '';
@@ -209,6 +220,8 @@ export default {
     },
     clear() {
       restData(this.formInline, ['status']);
+      this.applianList = [];
+      this.sn8List = [];
       // this.formInline.status = 9999;
       this.getList(true);
     }
