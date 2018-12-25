@@ -219,7 +219,7 @@ export default {
       console.log(format(this.dateTimeRange, 'yyyy-MM-dd'));
 
       let params = {
-        groupId: Number(this.queryFormData.groupId),
+        groupId: this.queryFormData.groupId || 0,
         applianceType: this.queryFormData.applianceType ? [this.queryFormData.applianceType] : [],
         // typeCode: this.typeCode,
         provinces: this.queryFormData.provinces ? [this.queryFormData.provinces] : [],
@@ -280,7 +280,7 @@ export default {
           this.citiesList,
           'cityName'
         ),
-        groupId: Number(this.queryFormData.groupId),
+        groupId: this.queryFormData.groupId || 0,
         groupIddepartMentName: commonFun.fetchWord(
           this.queryFormData.groupId,
           'id',

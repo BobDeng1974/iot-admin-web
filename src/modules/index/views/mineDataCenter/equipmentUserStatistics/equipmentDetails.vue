@@ -18,7 +18,9 @@
           </table>
         </div>
         <div class="export">
-          <el-button size="medium" type="primary"><a style="color:#fff" target="_blank" :href="ExportUrl">导出统计结果</a></el-button>
+          <el-button @click="checkTokenClick" size="medium" type="primary">导出统计结果</el-button>
+          <!-- <el-button @click="checkTokenClick" size="medium" type="primary"><a :disabled="disabled" style="color:#fff" :target="_blank" :href="ExportUrl">导出统计结果</a></el-button> -->
+
         </div>
         <!--profile属性列表-->
         <div class="table-wrapper">
@@ -73,11 +75,42 @@ export default {
       },
       tableData1: {},
       tableData2: [],
-      status: ''
-      // ExportUrl: ''
+      status: '',
+
+      isAccessToken: true,
+      ExportUrl: '',
+      _blank: '',
+      disabled: true
     };
   },
   methods: {
+    checkTokenClick() {
+      let params = {
+        accesstoken: getToken()
+      };
+      debugger;
+      API.checktoken(params).then((res) => {
+        debugger;
+
+        if (res.code === 0) {
+          let link = document.createElement('a');
+          link.style.height = '0px';
+          link.target = '_blank';
+          link.href = `${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId ? this.tableData1.groupId : ''}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
+          // link.setAttribute('download', link.href);
+          document.body.appendChild(link);
+          link.click();
+          link.parentNode.removeChild(link);
+          // this.isAccessToken = true;
+        } else {
+        this.$message({
+          type: 'warning',
+          message: 'accesstoken失效'
+        });
+          // this.isAccessToken = false;
+        }
+      });
+    },
     // devicesExport() {
     //     let params = {
     //       groupId: this.$route.params.groupId,
@@ -116,7 +149,7 @@ export default {
           applianceType: this.tableData1.applianceTypeType ? [this.tableData1.applianceTypeType] : [],
         // typeCode: this.typeCode,
           provinces: this.tableData1.provincesId ? [this.tableData1.provincesId] : [],
-          groupId: Number(this.$route.params.groupId),
+          groupId: this.tableData1.groupId || 0,
           endTime: this.$route.params.endTime,
           curPage: this.currentPage || 1,
           pageSize: this.pageSize || 5
@@ -139,13 +172,24 @@ export default {
       }
     }
   },
-  computed: {
-    ExportUrl() {
-      // return `${MJAPP_NAME}/statistics/devicesexport?endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
+ watch: {
+  //   isAccessToken: {
+  //   deep: true,
+  //   // immediate: true,
+  //   handler: function (val, oldVal) {
+  //     debugger;
+  //     this._blank = '_blank';
+  //     this.ExportUrl = `${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId ? this.tableData1.groupId : ''}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
+  //   }
+  // }
+ },
+  // computed: {
+  //   ExportUrl() {
+  //     // return `${MJAPP_NAME}/statistics/devicesexport?endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
 
-      return `${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId ? this.tableData1.groupId : ''}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
-    }
-  },
+  //     return `${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId ? this.tableData1.groupId : ''}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableLabel.citiesId ? this.tableLabel.citiesId : ''}&accessToken=${getToken()}`;
+  //   }
+  // },
   mounted() {
         //       groupId: this.$route.params.groupId,
     //       endTime: this.$route.params.endTime,

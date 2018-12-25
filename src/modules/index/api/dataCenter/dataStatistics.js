@@ -46,6 +46,14 @@ const dataStatistics = {
       responseType: 'blob'
     }).then(res => res);
   },
+  // v1/iotserver/statistics/checktoken 检查token
+  checktoken: (query) => {
+    return request({
+      url: `${MJAPP_NAME}/statistics/checktoken`,
+      data: query,
+      method: 'post'
+    }).then(res => res);
+  },
   // 用户明细
   userlist: (query) => {
     return request({
