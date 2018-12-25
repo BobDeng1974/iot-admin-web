@@ -103,9 +103,9 @@ import { format } from '@/modules/index/api/system/common.js';
 import commonFun from '@/common/js/func';
 import moment from 'moment';
 import { dropDownTranslation } from '@/common/js/dropDownTranslation';
-import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
+// import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 export default {
-  mixins: [dropDownTranslation, dictMixin],
+  mixins: [dropDownTranslation],
   components: {
     'con-header': conHeader
   },
@@ -161,19 +161,51 @@ export default {
         //   newDevices: 33,
         //   newActives: 44
         // }
-      ]
+      ],
+      deparmentList: [{id: 0, name: '全部'}],
+      provincesList: [{id: 0, name: '全部'}]
     };
   },
+  watch: {
+      deparmentListArr: {
+      deep: true,
+      immediate: true,
+      handler: function (val, oldVal) {
+        if (val && val.length > 0) {
+         this.deparmentList = [].concat(this.deparmentList, val);
+        }
+      }
+    },
+    provincesListArr: {
+      deep: true,
+      immediate: true,
+      handler: function (val, oldVal) {
+        if (val && val.length > 0) {
+         this.provincesList = [].concat(this.provincesList, val);
+        }
+      }
+    }
+  },
+  // computed: {
+  //   deparmentList() {
+  //     return this.deparmentListArr.push({id: 0, name: '全部'});
+  //   }
+  // },
   created() {
     // 加载下来
     // this.getLogListData();
-    this.initData();
+    this.initData().then((res) => {
+      // debugger;
+      // this.deparmentList;
+      // this.deparmentList.push({id: 0, name: '全部'});
+    });
   },
   methods: {
-    initData() {
+   async initData() {
       // this.getApplianSelect();// 品类
-      this.getAlldeparment();
-      this.getQueryinfo();// 查询的下拉信息
+     this.getAlldeparment();
+     this.getQueryinfo();// 查询的下拉信息
+    return '完成';
     },
     // 三级联动
     deparmentListChange(val) {

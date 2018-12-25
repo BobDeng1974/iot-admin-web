@@ -1,5 +1,6 @@
 import API from '@/modules/index/api/myProductsData/index';
 import dataCenterAPI from '@/modules/index/api/dataCenter/dataCenter';
+import systemAPI from '@/modules/index/api/system/system.js';
 // import { getSn8Select } from '@/modules/index/api/myAgreement/index';
 export const dropDownTranslation = {
   data() {
@@ -18,10 +19,12 @@ export const dropDownTranslation = {
       protoArr: [], // proto下拉
 
       // 产品数据统计
-      provincesList: [], // 省
+      provincesListArr: [], // 省
       userInfo: {},
       citiesList: [], // 市
-      applianceTypeList: [] // 品类
+      applianceTypeList: [], // 品类
+      deparmentListArr: [],
+      applianList: []
     };
   },
   methods: {
@@ -30,12 +33,12 @@ export const dropDownTranslation = {
       dataCenterAPI.queryinfo().then((res) => {
         if (res.code === 0) {
           // debugger;
-          this.provincesList = res.result.provinces;
+          this.provincesListArr = res.result.provinces;
           this.userInfo = res.result.userInfo;
           this.applianceTypeList = res.result.applianceTypes;
           this.queryFormData.groupId = this.userInfo.departMentName;
         } else {
-          this.provincesList = [];
+          this.provincesListArr = [];
           this.applianceTypeList = [];
           this.userInfo = {};
         }
@@ -52,6 +55,40 @@ export const dropDownTranslation = {
           this.citiesList = [];
         }
       });
+    },
+    // 事业部开发组
+    getAlldeparment() {
+      systemAPI.getDepartment({})
+        .then(res => {
+          if (res.code === 0) {
+            debugger;
+            this.deparmentListArr = res.result;
+            // this.deparmentListArr.push({id: 0, name: '全部'});
+            // this.deparmentListArr = this.initTableData(res.result, {id: 0, name: '全部'});
+          } else {
+            this.deparmentListArr = [];
+          }
+        })
+        .catch(() => {
+          this.deparmentListArr = [];
+        });
+    },
+    // 三级联动品类下拉
+    getApplianListAsDpartId(id) {
+      const params = {
+        deparId: id || 0
+      };
+      systemAPI.getApplianSelect(params)
+        .then(res => {
+          if (res.code === 0) {
+            this.applianList = res.result;
+          } else {
+            this.applianList = [];
+          }
+        })
+        .catch(() => {
+          this.applianList = [];
+        });
     },
     // 数据统计结束
     // 芯片CPU架构 下拉
@@ -206,6 +243,15 @@ export const dropDownTranslation = {
       await this.$store.dispatch('getProtos', { 'id': 0 }).then((result) => {
         this.protoArr = result.result;
       });
+    },
+    // 给请求回来的数组数据新增全部属性（序号）
+    // arr 数组， obj要增加的字段
+    initTableData(arr, obj) {
+      // debugger
+      if (!arr && !arr.length) return [];
+          arr.push(obj);
+          debugger;
+      return arr;
     }
     // // 子品类
     // luaGetSn8Select(id) {
