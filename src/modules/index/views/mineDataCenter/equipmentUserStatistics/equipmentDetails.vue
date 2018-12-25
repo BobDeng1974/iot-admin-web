@@ -113,6 +113,9 @@ export default {
       // debugger;
       if (typeof id !== 'undefined') {
         let params = {
+          applianceType: this.tableData1.applianceTypeType ? [this.tableData1.applianceTypeType] : [],
+        // typeCode: this.typeCode,
+          provinces: this.tableData1.provincesId ? [this.tableData1.provincesId] : [],
           groupId: Number(this.$route.params.groupId),
           endTime: this.$route.params.endTime,
           curPage: this.currentPage || 1,
