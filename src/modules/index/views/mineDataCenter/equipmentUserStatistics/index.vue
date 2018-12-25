@@ -9,8 +9,8 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="开发组">
-                  <el-select  v-model.trim="queryFormData.groupId" clearable>
-                    <el-option v-for="item  in userInfo" :key="item.id" :label="item.name" :value="item.id">
+                  <el-select filterable @change="deparmentListChange"  v-model.trim="queryFormData.groupId" clearable>
+                    <el-option v-for="item  in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                     </el-option>
                   </el-select>
                   <!-- <el-input disabled v-model.trim="queryFormData.groupId" clearable></el-input> -->
@@ -18,8 +18,8 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="品类">
-                  <el-select  v-model.trim="queryFormData.applianceType" clearable>
-                    <el-option v-for="item  in applianceTypeList" :key="item.id" :label="item.nameZh" :value="item.id">
+                  <el-select filterable  v-model.trim="queryFormData.applianceType" clearable>
+                    <el-option v-for="item  in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
                     </el-option>
                   </el-select>
                 </el-form-item>
@@ -48,7 +48,7 @@
               </el-col> -->
               <el-col :span="8">
                 <el-form-item label="省">
-                  <el-select @change="provincesChange" v-model.trim="queryFormData.provinces" clearable>
+                  <el-select filterable @change="provincesChange" v-model.trim="queryFormData.provinces" clearable>
                     <el-option v-for="item  in provincesList" :key="item.id" :label="item.name" :value="item.id">
                     </el-option>
                   </el-select>
@@ -56,7 +56,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="市">
-                  <el-select v-model.trim="queryFormData.cities" clearable>
+                  <el-select filterable v-model.trim="queryFormData.cities" clearable>
                     <el-option v-for="item  in citiesList" :key="item.id" :label="item.cityName" :value="item.id">
                     </el-option>
                   </el-select>
@@ -103,8 +103,9 @@ import { format } from '@/modules/index/api/system/common.js';
 import commonFun from '@/common/js/func';
 import moment from 'moment';
 import { dropDownTranslation } from '@/common/js/dropDownTranslation';
+import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 export default {
-  mixins: [dropDownTranslation],
+  mixins: [dropDownTranslation, dictMixin],
   components: {
     'con-header': conHeader
   },
@@ -171,7 +172,19 @@ export default {
   methods: {
     initData() {
       // this.getApplianSelect();// 品类
+      this.getAlldeparment();
       this.getQueryinfo();// 查询的下拉信息
+    },
+    // 三级联动
+    deparmentListChange(val) {
+      this.queryFormData.applianceType = '';
+      // this.applianceTypeList = [];
+      this.applianList = [];
+      if (val) {
+        this.getApplianListAsDpartId(val);
+      } else {
+        // this.deparmentList = [];
+      }
     },
     provincesChange(val) {
       this.queryFormData.cities = '';
@@ -206,7 +219,7 @@ export default {
       console.log(format(this.dateTimeRange, 'yyyy-MM-dd'));
 
       let params = {
-        groupId: Number(this.userInfo.departMentId),
+        groupId: Number(this.queryFormData.groupId),
         applianceType: this.queryFormData.applianceType ? [this.queryFormData.applianceType] : [],
         // typeCode: this.typeCode,
         provinces: this.queryFormData.provinces ? [this.queryFormData.provinces] : [],
@@ -244,13 +257,13 @@ export default {
       applianceType: commonFun.fetchWord(
           this.queryFormData.applianceType,
           'id',
-          this.applianceTypeList,
+          this.applianList,
           'nameZh'
         ),
         applianceTypeType: commonFun.fetchWord(
           this.queryFormData.applianceType,
           'id',
-          this.applianceTypeList,
+          this.applianList,
           'type'
         ),
        provincesId: this.queryFormData.provinces,
@@ -271,7 +284,7 @@ export default {
         groupIddepartMentName: commonFun.fetchWord(
           this.queryFormData.groupId,
           'id',
-          this.userInfo,
+          this.deparmentList,
           'name'
         )
        };
