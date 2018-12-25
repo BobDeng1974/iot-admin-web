@@ -11,7 +11,7 @@
         <el-form label-width="120px" :model="addInfo" ref="form" :rules="rules">
             <el-row>
               <el-col :span="12">
-                <el-form-item label="年份" prop="year">
+                <el-form-item label="型号年份" prop="year">
                   <el-date-picker
                     v-model="addInfo.year"
                     type="year"
@@ -20,7 +20,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="事业部" prop="departmentId">
+                <el-form-item label="对应事业部" prop="departmentId">
                   <el-select v-model="addInfo.departmentId" placeholder="请选择" @change="departMentChange" clearable>
                     <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                     </el-option>
@@ -30,7 +30,7 @@
             </el-row>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="品类" prop="applianId">
+                <el-form-item label="选择品类" prop="applianId">
                   <el-select v-model="addInfo.applianId" placeholder="请选择" clearable>
                     <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
                     </el-option>

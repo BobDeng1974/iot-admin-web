@@ -8,7 +8,7 @@
            <el-form :inline="true" :model="formInline" class="demo-form-inline" label-width="100px" :rules="rules">
               <el-row>
                 <el-col :span="8">
-                    <el-form-item label="事业部">
+                    <el-form-item label="所属事业部">
                       <el-select v-model="formInline.departmentId" placeholder="请选择" @change="departMentChange" clearable>
                           <el-option
                             v-for="item in deparmentList"
@@ -36,7 +36,7 @@
 
               <el-row>
                 <el-col :span="8">
-                  <el-form-item label="model-numbe" label-width="105">
+                  <el-form-item label="model-number" label-width="105">
                       <el-input v-model="formInline.modelNumber" clearable></el-input>
                   </el-form-item>
                 </el-col>
