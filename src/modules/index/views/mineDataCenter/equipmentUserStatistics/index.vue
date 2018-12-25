@@ -75,7 +75,7 @@
         <div class="table-wrapper">
           <el-table class="table" :data="dataList" style="width: 100%">
             <el-table-column prop="date" label="日期" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="newUsers" label="新增用户（人）" show-overflow-tooltip></el-table-column>
+            <!-- <el-table-column prop="newUsers" label="新增用户（人）" show-overflow-tooltip></el-table-column> -->
             <el-table-column prop="networkedDevices" label="联网总数" show-overflow-tooltip></el-table-column>
             <el-table-column prop="newNetworkedDevices" label="新增联网" show-overflow-tooltip></el-table-column>
             <el-table-column prop="newActives" label="新增激活"  show-overflow-tooltip></el-table-column>
