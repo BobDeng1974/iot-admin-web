@@ -235,6 +235,7 @@ export default {
     },
     clear() {
       restData(this.formInline);
+      this.applianList = [];
       this.getList(true);
     }
   },

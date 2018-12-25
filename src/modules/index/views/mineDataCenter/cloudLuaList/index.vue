@@ -258,6 +258,8 @@ export default {
     },
     clear() {
       restData(this.formInline);
+      this.applianList = [];
+      this.sn8List = [];
       this.getList(true);
     }
   },
