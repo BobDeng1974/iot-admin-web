@@ -2,7 +2,7 @@
 <template>
     <div class="preApplicationManagement-warp">
         <div class="title-mip">
-            <con-header :title-icon="addProductsIcon" title="liences预申请列表" :hasBottomBorder="true"></con-header>
+            <con-header :title-icon="addProductsIcon" title="license预申请列表" :hasBottomBorder="true"></con-header>
         </div>
         <!-- 查询部分 -->
         <div class="mip-check">
