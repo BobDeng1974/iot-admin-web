@@ -27,7 +27,7 @@
         <!-- 表格部分 -->
         <div class="table-mip" v-loading="loading">
           <el-table :data="tableData" style="width: 100%"  class='table'>
-            <el-table-column prop="id" label="id" align="center"></el-table-column>
+            <el-table-column prop="id" label="用户id" align="center"></el-table-column>
             <el-table-column prop="mobile" label="用户手机号" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="departmentName" label="所在事业部" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="mip" label="mip" align="center" show-overflow-tooltip></el-table-column>
