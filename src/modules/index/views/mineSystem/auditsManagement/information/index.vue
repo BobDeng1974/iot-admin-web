@@ -211,6 +211,7 @@ export default {
     },
     clear () {
       restData(this.formInline);
+      this.sn8List = [];
       this.selectSerch(true);
     },
     operateClick (val) {

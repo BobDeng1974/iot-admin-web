@@ -264,6 +264,7 @@ export default {
     },
     clear () {
       restData(this.formInline);
+      this.applianList = [];
       this.selectSerch(true);
     }
   },
