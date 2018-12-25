@@ -166,7 +166,7 @@ export default {
     // 获取所有下拉字典
     getDict() {
       this.getAlldeparment();
-      this.getApplianList();
+      // this.getApplianList();
       // this.getApply();
     },
     requestList() {
