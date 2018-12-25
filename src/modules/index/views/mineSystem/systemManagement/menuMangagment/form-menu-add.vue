@@ -97,19 +97,18 @@ export default {
         show: ''
       },
       rules: {
-        permissionTag: { required: true, message: '请输入说明', trigger: 'blur' },
-        name: { required: true, message: '请输入说明', trigger: 'blur' },
-        permissionUrl: { required: true, message: '请输入说明', trigger: 'blur' },
-        model: { required: true, message: '请输入说明', trigger: 'blur' },
-        show: { required: true, message: '请输入说明', trigger: 'blur' },
-        order: { required: true, message: '请输入说明', trigger: 'blur' }
+        permissionTag: { required: true, message: '请输入说明', trigger: 'change' },
+        // name: { required: true, message: '请输入说明', trigger: 'blur' },
+        permissionUrl: { required: true, message: '请输入说明', trigger: 'change' },
+        model: { required: true, message: '请输入说明', trigger: 'change' },
+        show: { required: true, message: '请输入说明', trigger: 'change' },
+        order: { required: true, message: '请输入说明', trigger: 'change' }
       }
     };
   },
   mixins: [ roleMixin ],
   methods: {
     modelChange (val) {
-      debugger;
       if (val === 2) {
         this.form.show = 0;
       }
@@ -117,7 +116,6 @@ export default {
     save () {
       if (!doSubmit('form', this)) return;
       this.addSubmit();
-      this.$emit('close', false);
     },
     addSubmit () {
       this.form.order = Number(this.form.order);
@@ -130,6 +128,7 @@ export default {
          .then(res => {
            restData(this.form);
            this.$emit('requestTable');
+           this.$emit('close', false);
          });
     },
     cencle () {

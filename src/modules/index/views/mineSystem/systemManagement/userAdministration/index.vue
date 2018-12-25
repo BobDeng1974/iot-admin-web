@@ -31,7 +31,7 @@
                 </el-col>
               </el-row>
 
-              <el-form-item label="授权时间">
+              <el-form-item label="创建时间">
                 <el-date-picker v-model="formInline.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
               </el-form-item>
            </el-form>
@@ -54,7 +54,7 @@
                 <div>{{scope.row.isMipAuth ? '已认证' : '未认证'}}</div>
               </template>
             </el-table-column>
-            <el-table-column label="授权时间" align="center" show-overflow-tooltip width="150">
+            <el-table-column label="创建时间" align="center" show-overflow-tooltip width="150">
               <template slot-scope="scope">
                 <div>{{scope.row.registerTime | fomatDate('yyyy-MM-dd HH:mm')}}</div>
               </template>

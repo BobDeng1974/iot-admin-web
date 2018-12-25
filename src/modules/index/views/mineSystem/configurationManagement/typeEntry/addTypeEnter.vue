@@ -237,7 +237,6 @@ export default {
       this.addSubmit();
     },
     addSubmit () {
-      debugger;
       this.addInfo.marketTime = this.addInfo.marketTime ? format(this.addInfo.marketTime, 'yyyy-MM-dd') : '';
       this.addInfo.year = this.addInfo.year ? format(this.addInfo.year, 'yyyy') : '';
       const params = this.addInfo;
