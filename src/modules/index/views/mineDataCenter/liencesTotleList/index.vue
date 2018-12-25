@@ -208,7 +208,8 @@ export default {
         });
     },
     clear() {
-      restData(this.formInline);
+      restData(this.formInline, ['status']);
+      // this.formInline.status = 9999;
       this.getList(true);
     }
   },
