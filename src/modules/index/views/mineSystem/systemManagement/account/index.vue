@@ -51,7 +51,7 @@
         <!-- 表格部分 -->
         <div class="table-account" v-loading="loading">
           <el-table :data="tableData" style="width: 100%"  class='table'>
-            <!-- <el-table-column prop="account" label="用户id" align="center"></el-table-column> -->
+            <el-table-column prop="index" width="50" align="center" :render-header="renderIndex"></el-table-column>
             <el-table-column prop="account" label="用户mip账户" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="realName" label="用户姓名" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="departmentName" label="所在事业部" align="center" show-overflow-tooltip></el-table-column>
@@ -167,6 +167,9 @@ export default {
     close (val) {
       this.flag = val;
     },
+    renderIndex(h, { column, $index }) {
+      return h('span', [h('span', '序号')]);
+    },
     numberChange (val) {
       switch (val.flag) {
         case 'pageSize':
@@ -226,6 +229,7 @@ export default {
         let roleList = _.cloneDeep(val[i].name);
         let fectchList = this.fetchRole(roleList);
         val[i].showName = fectchList.join('-');
+        val[i].index = (this.currentPage - 1) * this.pageSize + i + 1;
         // 处理角色数组为空的时候后段返回会把null筛入数组中
         if (val[i].name.indexOf(null) > -1) {
           val[i].name = [];

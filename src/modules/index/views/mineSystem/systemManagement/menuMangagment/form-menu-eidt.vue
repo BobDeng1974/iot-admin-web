@@ -43,7 +43,7 @@
 <script>
 import API from '@/modules/index/api/system/system.js';
 import { doSubmit, restData } from '@/modules/index/api/system/common.js';
-import { roleMixin } from '@/modules/index/views/mineSystem/mixin';
+import { menuCtor } from '@/modules/index/views/mineDataCenter/mixin';
 export default {
   props: {
     eidtInfo: {
@@ -84,7 +84,7 @@ export default {
       }
     };
   },
-  mixins: [ roleMixin ],
+  mixins: [ menuCtor ],
   methods: {
     save () {
       if (!doSubmit('form', this)) return;
