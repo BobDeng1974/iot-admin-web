@@ -167,6 +167,7 @@ export default {
         this.getApplianListAsDpartId(val);
       } else {
         this.applianList = [];
+        this.sn8List = [];
       }
     },
     applianChange(val) {
