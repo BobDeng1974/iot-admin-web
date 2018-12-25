@@ -62,33 +62,53 @@ export const dataCenterRouter =
       },
       // 设备统计
       {
-        path: 'deviceStatistics',
-        name: '设备统计',
-        component: _import('mineDataCenter/index'),
-        meta: { title: '设备统计' },
-        redirect: '/product/dataCenter/deviceStatistics/equipmentUserStatistics',
-        children: [
-          {
-            path: 'equipmentUserStatistics',
-            name: '设备用户统计',
-            component: _import('mineDataCenter/equipmentUserStatistics/index'),
-            meta: { title: '设备用户统计', icon: 'dots' }
-          },
-          {
-            path: 'equipmentDetails/:endTime',
-            name: '设备明细',
-            hidden: true,
-            component: _import('mineDataCenter/equipmentUserStatistics/equipmentDetails'),
-            meta: { title: '设备明细' }
-          },
-          {
-            path: 'userDetails',
-            name: '用户明细',
-            hidden: true,
-            component: _import('mineDataCenter/equipmentUserStatistics/userDetails'),
-            meta: { title: '用户明细' }
-          }
-        ]
+        path: 'equipmentUserStatistics',
+        name: '设备用户统计',
+        component: _import('mineDataCenter/equipmentUserStatistics/index'),
+        meta: { title: '设备用户统计', icon: 'dots' }
+      },
+      {
+        path: 'equipmentDetails/:endTime',
+        name: '设备明细',
+        hidden: true,
+        component: _import('mineDataCenter/equipmentUserStatistics/equipmentDetails'),
+        meta: { title: '设备明细' }
+      },
+      {
+        path: 'userDetails',
+        name: '用户明细',
+        hidden: true,
+        component: _import('mineDataCenter/equipmentUserStatistics/userDetails'),
+        meta: { title: '用户明细' }
       }
+      // {
+      //   path: 'deviceStatistics',
+      //   name: '设备统计',
+      //   component: _import('mineDataCenter/index'),
+      //   meta: { title: '设备统计' },
+      //   redirect: '/product/dataCenter/deviceStatistics/equipmentUserStatistics',
+      //   children: [
+      //     {
+      //       path: 'equipmentUserStatistics',
+      //       name: '设备用户统计',
+      //       component: _import('mineDataCenter/equipmentUserStatistics/index'),
+      //       meta: { title: '设备用户统计', icon: 'dots' }
+      //     },
+      //     {
+      //       path: 'equipmentDetails/:endTime',
+      //       name: '设备明细',
+      //       hidden: true,
+      //       component: _import('mineDataCenter/equipmentUserStatistics/equipmentDetails'),
+      //       meta: { title: '设备明细' }
+      //     },
+      //     {
+      //       path: 'userDetails',
+      //       name: '用户明细',
+      //       hidden: true,
+      //       component: _import('mineDataCenter/equipmentUserStatistics/userDetails'),
+      //       meta: { title: '用户明细' }
+      //     }
+      //   ]
+      // }
     ]
   };
