@@ -13,7 +13,7 @@ export default {
     if (window.location.search) {
       window.location.search.split('=')[1];
       console.log(window.location.search);
-      alert(window.location.search);
+      // alert(window.location.search);
       setToken(window.location.search.split('=')[1]);
       window.location.href = '/';
     }
