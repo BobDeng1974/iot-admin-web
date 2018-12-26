@@ -50,8 +50,8 @@
         <div class="table-breadcrumb" v-loading="loading">
           <el-table :data="tableData" style="width: 100%"   class='table'>
             <el-table-column prop="index" width="50" align="center" :render-header="renderIndex"></el-table-column>
-            <el-table-column prop="supplyName" label="申请厂商" align="center"></el-table-column>
-            <el-table-column prop="departName" label="所属事业部" align="center"></el-table-column>
+            <el-table-column prop="supplyName" width="150" label="申请厂商" align="center"></el-table-column>
+            <el-table-column prop="departName" width="150" label="所属事业部" align="center"></el-table-column>
             <el-table-column prop="nums" label="数量" align="center"></el-table-column>
              <el-table-column width="150" prop="applyStartDateStr" label="申请时间" align="center">
                <!-- <template slot-scope="scope">
@@ -64,9 +64,9 @@
                   <div>{{scope.row.createTime | fomatDate('yyyy-MM-dd HH:mm')}}</div>
                 </template>
             </el-table-column>
-            <el-table-column prop="acount" label="申请人手机号" align="center"></el-table-column>
-            <el-table-column prop="auditTime" label="处理时间" align="center"></el-table-column>
-            <el-table-column  label="状态" align="left">
+            <el-table-column prop="acount" width="150px" label="申请人手机号" align="center"></el-table-column>
+            <el-table-column prop="auditTime" width="150" label="处理时间" align="center"></el-table-column>
+            <el-table-column  label="状态" align="left" width="150">
               <template slot-scope="scope">
                 <div>
                     <span :class="[{darkgray: scope.row.status === 0},{green: scope.row.status === 1},{yellow: scope.row.status === 2}, 'commerStyle']">
@@ -77,7 +77,7 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="操作" align="center" width="150">
+            <el-table-column label="操作" align="center" width="100"  fixed="right" >
               <template slot-scope="scope">
                 <span class="operate" @click="toInfo(scope.row)" v-authority="'b1_preApplyGetTag'">详情</span>
               </template>
