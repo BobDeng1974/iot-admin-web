@@ -59,6 +59,8 @@
                   <div>{{scope.row.createTime | fomatDate('yyyy-MM-dd HH:mm')}}</div>
                 </template>
             </el-table-column>
+            <el-table-column prop="applyUserMoblie" label="申请人手机号" align="center"></el-table-column>
+            <el-table-column prop="upTime" label="处理时间" align="center"></el-table-column>
             <el-table-column  label="状态" align="left">
               <template slot-scope="scope">
                 <div>
