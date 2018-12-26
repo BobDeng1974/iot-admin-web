@@ -207,6 +207,30 @@ const user = {
         });
       });
     },
+    // 没有token或是失效的退出
+    noTokenGet({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        API.noTokenGet().then((response) => {
+          // commit('SET_TOKEN', '');
+          // commit('SET_ROLES', []);
+          commit('SET_USERINFO', '');
+          removeToken();
+          ls.removeItem('userInfo');
+          ls.removeItem('roles');
+          ls.removeItem('userInfoNickName');
+          ls.removeItem('buttonFlag');
+          commit('saveGetUserInfo', null);
+          ls.removeItem('saveGetUserInfo');
+
+          ls.removeItem('proto');
+          ls.removeItem('network');
+          ls.removeAll();
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
     adminWeb4Alogin2({ commit }, userInfo) {
       debugger;
       // userInfo.account.trim();

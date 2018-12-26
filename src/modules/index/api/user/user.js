@@ -85,6 +85,14 @@ const API = {
       method: 'post',
       data: params
     });
+  },
+  // token 失效后调用
+  noTokenGet: (params) => {
+    return request({
+      url: `${APPLICATION_NAME}/get`,
+      method: 'post',
+      data: params
+    });
   }
   // /user/ update
   // // wifiSdk信息列表

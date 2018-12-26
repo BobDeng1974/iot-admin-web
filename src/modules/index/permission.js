@@ -1,5 +1,5 @@
 import router from './router';
-// import store from './store';
+import store from './store';
 import NProgress from 'nprogress'; // Progress 进度条
 import 'nprogress/nprogress.css';// Progress 进度条样式
 import { MessageBox } from 'element-ui';
@@ -48,12 +48,19 @@ router.beforeEach((to, from, next) => {
       type: 'warning',
       showClose: false
     }).then(() => {
-      sessionStorage.clear();
-      let keys = document.cookie.match(/[^ =;]+(?=\=)/g);
-      if (keys) {
-          for (var i = keys.length; i--;) { document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString(); };
-      }
-      location.href = `${APPLICATION_NAME}/login`;
+      store.dispatch('noTokenGet').then((res) => {
+        if (res.code === 0) {
+          sessionStorage.clear();
+          let keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+          if (keys) {
+              for (var i = keys.length; i--;) { document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString(); };
+          }
+          location.href = res.result;
+        }
+        // debugger;
+        // location.reload(); // 为了重新实例化vue-router对象 避免bug
+      });
+      // location.href = `${APPLICATION_NAME}/login`;
       NProgress.done();
       // store.dispatch('FedLogOut').then(() => {
       //   // debugger;

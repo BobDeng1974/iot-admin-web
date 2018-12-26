@@ -48,12 +48,17 @@ service.interceptors.response.use(
         if (res.code === 12010003) {
           MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
             confirmButtonText: '重新登录',
-            cancelButtonText: '取消',
-            type: 'warning'
+            showCancelButton: false,
+            // cancelButtonText: '取消',
+            type: 'warning',
+            showClose: false
           }).then(() => {
-            store.dispatch('FedLogOut').then(() => {
+            store.dispatch('noTokenGet').then((res) => {
+              if (res.code === 0) {
+                location.href = res.result;
+              }
               // debugger;
-              location.reload(); // 为了重新实例化vue-router对象 避免bug
+              // location.reload(); // 为了重新实例化vue-router对象 避免bug
             });
           });
         } else if (res.code === 10060025) {
