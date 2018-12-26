@@ -77,7 +77,8 @@ export default {
         .then(res => {
           this.loading = false;
           if (res.code === 0) {
-            this.hardwareDetail = res.result ? res.result : [];
+             res.result ? this.handlerData(res.result) : {};
+            // this.hardwareDetail = res.result ? res.result : [];
           } else {
             this.hardwareDetail = {};
           }
@@ -86,6 +87,18 @@ export default {
           this.hardwareDetail = {};
           this.loading = false;
         });
+    },
+    handlerData(data) {
+      // this.editData = _.cloneDeep(data);
+      for (const detailKey in data) {
+        if (
+          detailKey === 'applyEndDateStr'
+        ) {
+          data.applyStartDateStr = data.applyStartDateStr + '\xa0' + '-' + '\xa0' + data.applyEndDateStr;
+          console.log(data.applyStartDateStr);
+        }
+      }
+      this.hardwareDetail = data || {};
     },
     // init (val) {
     //   for (var key in val) {

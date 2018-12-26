@@ -53,11 +53,16 @@
             <el-table-column prop="supplyName" width="150" label="申请厂商" align="center"></el-table-column>
             <el-table-column prop="departName" width="150" label="所属事业部" align="center"></el-table-column>
             <el-table-column prop="nums" label="数量" align="center"></el-table-column>
-             <el-table-column width="150" prop="applyStartDateStr" label="申请时间" align="center">
+            <el-table-column   width="150" label="申请时间" align="center">
+                <template slot-scope="scope">
+                  <div>{{scope.row.applyStartDateStr}} - {{scope.row.applyEndDateStr}}</div>
+                </template>
+            </el-table-column>
+             <!-- <el-table-column width="150" prop="applyStartDateStr" label="申请时间" align="center"> -->
                <!-- <template slot-scope="scope">
                   <div>{{scope.row.applyStartDateStr | fomatDate('yyyy-MM-dd HH:mm')}}</div>
                 </template> -->
-             </el-table-column>
+             <!-- </el-table-column> -->
             <el-table-column prop="applyUserName" label="申请人" align="center"></el-table-column>
             <el-table-column prop="createTime"  width="150" label="创建时间" align="center">
                 <template slot-scope="scope">
