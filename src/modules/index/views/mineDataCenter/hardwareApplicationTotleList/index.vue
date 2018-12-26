@@ -58,12 +58,27 @@
         <el-table-column  label="状态" align="center">
           <template slot-scope="scope">
             <div>
-                <span :class="[{green: scope.row.publicStatus === 10},{darkgray: scope.row.publicStatus === 20},{blue: scope.row.publicStatus === 31},{yellow: scope.row.publicStatus === 41}, 'commerStyle']">
+                <span :class="[
+                {green: scope.row.publicStatus === 10},
+                {red: scope.row.publicStatus === 11},
+                {darkgray: scope.row.publicStatus === 20},
+                {color1: scope.row.publicStatus === 30},
+                {blue: scope.row.publicStatus === 31},
+                {color2: scope.row.publicStatus === 40},
+                {yellow: scope.row.publicStatus === 41},
+                {yellowgreen: scope.row.publicStatus === 50},
+                {color3: scope.row.publicStatus === 60},
+                'commerStyle']">
                 </span>
                 <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 10">{{'待审核'}}</span>
+                <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 11">{{'审核失败'}}</span>
                 <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 20">{{'待开发'}}</span>
+                <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 30">{{'开发中'}}</span>
                 <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 31">{{'申请试产中'}}</span>
+                <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 40">{{'试产中'}}</span>
                 <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 41">{{'申请上线中'}}</span>
+                <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 50">{{'开发完成'}}</span>
+                <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 60">{{'项目终止'}}</span>
                 <!-- <span style="margin-left: 3px;" v-if="scope.row.publicStatus === 5">{{'开发完成'}}</span> -->
             </div>
           </template>
@@ -244,8 +259,23 @@ export default {
   .blue {
     background-color: blue;
   }
+  .red {
+    background-color: red;
+  }
+  .color1 {
+    background-color: #00DB00;
+  }
   .yellow {
     background-color: yellow;
+  }
+  .yellowgreen {
+    background-color: yellowgreen;
+  }
+  .color2 {
+    background-color: #616130;
+  }
+  .color3 {
+    background-color: #336666;
   }
   .el-input {
     width: 230px;
