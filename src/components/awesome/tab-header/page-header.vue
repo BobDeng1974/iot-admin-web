@@ -47,6 +47,7 @@
 
 <script>
 // import { logout } from '@/common/api/main';
+import ls from '@/utils/storage/local_storage';
 export default {
   props: {
     active: {
@@ -93,7 +94,7 @@ export default {
   methods: {
     handleName() {
       let tempUserInfo = this.$store.getters.saveGetUserInfo;
-      let lsUserInfo = JSON.parse(localStorage.getItem('saveGetUserInfo'));
+      let lsUserInfo = JSON.parse(ls.getItem('saveGetUserInfo'));
       // debugger;
       if (
         (tempUserInfo && tempUserInfo.account) ||
@@ -154,7 +155,7 @@ export default {
   computed: {},
   mounted() {
     // let tempUserInfo = this.$store.getters.saveGetUserInfo;
-    // let lsUserInfo = JSON.parse(localStorage.getItem('saveGetUserInfo'));
+    // let lsUserInfo = JSON.parse(ls.getItem('saveGetUserInfo'));
     // debugger;
     // if (
     //   (tempUserInfo && tempUserInfo.account) ||
@@ -178,7 +179,7 @@ export default {
     //   // debugger;
     // }
     // let lsUserInfoNickName = JSON.parse(
-    //   localStorage.getItem('userInfoNickName')
+    //   ls.getItem('userInfoNickName')
     // );
     // if (lsUserInfoNickName && lsUserInfoNickName.userInfoNickName) {
     //   this.userInfoNickName = lsUserInfoNickName.userInfoNickName;
