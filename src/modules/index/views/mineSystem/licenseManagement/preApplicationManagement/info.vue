@@ -51,7 +51,7 @@ export default {
         departName: '所属事业部',
         nums: '数量',
         applyStartDateStr: '申请时间',
-        departOrderUrl: '事业部下单截图'
+        departOrderUrl: '事业部截图'
       },
       hardwareDetail: {
         supplyName: '申请厂商',
