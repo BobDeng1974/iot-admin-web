@@ -146,9 +146,10 @@ export default {
       // debugger;
       if (typeof id !== 'undefined') {
         let params = {
-          applianceType: this.tableData1.applianceTypeType ? [this.tableData1.applianceTypeType] : [],
+          applianceType: this.tableData1.applianceTypeType ? [this.tableData1.applianceTypeType] : [0],
         // typeCode: this.typeCode,
-          provinces: this.tableData1.provincesId ? [this.tableData1.provincesId] : [],
+          provinces: this.tableData1.provincesId ? [this.tableData1.provincesId] : [0],
+          cities: this.tableData1.citiesId ? [this.tableData1.citiesId] : [0],
           groupId: this.tableData1.groupId || 0,
           endTime: this.$route.params.endTime,
           curPage: this.currentPage || 1,

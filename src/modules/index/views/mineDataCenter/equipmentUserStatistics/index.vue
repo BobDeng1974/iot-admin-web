@@ -9,7 +9,7 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="开发组">
-                  <el-select filterable @change="deparmentListChange"  v-model.trim="queryFormData.groupId" clearable>
+                  <el-select filterable @change="deparmentListChange"  v-model.trim="queryFormData.groupId" clearable placeholder="全部">
                     <el-option v-for="item  in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                     </el-option>
                   </el-select>
@@ -18,7 +18,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="品类">
-                  <el-select filterable  v-model.trim="queryFormData.applianceType" clearable>
+                  <el-select filterable  v-model.trim="queryFormData.applianceType" clearable >
                     <el-option v-for="item  in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
                     </el-option>
                   </el-select>
@@ -48,7 +48,7 @@
               </el-col> -->
               <el-col :span="8">
                 <el-form-item label="省">
-                  <el-select filterable @change="provincesChange" v-model.trim="queryFormData.provinces" clearable>
+                  <el-select filterable @change="provincesChange" v-model.trim="queryFormData.provinces" clearable placeholder="全部">
                     <el-option v-for="item  in provincesList" :key="item.id" :label="item.name" :value="item.id">
                     </el-option>
                   </el-select>
@@ -56,7 +56,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item label="市">
-                  <el-select filterable v-model.trim="queryFormData.cities" clearable>
+                  <el-select filterable v-model.trim="queryFormData.cities" clearable placeholder="全部">
                     <el-option v-for="item  in citiesList" :key="item.id" :label="item.cityName" :value="item.id">
                     </el-option>
                   </el-select>
@@ -162,8 +162,8 @@ export default {
         //   newActives: 44
         // }
       ],
-      deparmentList: [{id: 0, name: '全部'}],
-      provincesList: [{id: 0, name: '全部'}]
+      deparmentList: [],
+      provincesList: []
     };
   },
   watch: {
@@ -252,10 +252,10 @@ export default {
 
       let params = {
         groupId: this.queryFormData.groupId || 0,
-        applianceType: this.queryFormData.applianceType ? [this.queryFormData.applianceType] : [],
+        applianceType: this.queryFormData.applianceType ? [this.queryFormData.applianceType] : [0],
         // typeCode: this.typeCode,
-        provinces: this.queryFormData.provinces ? [this.queryFormData.provinces] : [],
-        cities: this.queryFormData.cities ? [this.queryFormData.cities] : [],
+        provinces: this.queryFormData.provinces ? [this.queryFormData.provinces] : [0],
+        cities: this.queryFormData.cities ? [this.queryFormData.cities] : [0],
 
         curPage: this.currentPage || 1,
         pageSize: this.pageSize || 5,
