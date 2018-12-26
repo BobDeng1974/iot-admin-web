@@ -73,6 +73,8 @@ export default {
           JSON.parse(ls.getItem('saveGetUserInfo')).uid});
     },
     close (val) {
+      debugger;
+      this.addInfo = {},
       this.flag = val;
     },
     handleNodeClick (d, n, s) {
@@ -104,13 +106,20 @@ export default {
       this.title = '编辑';
     },
     addMenu () {
-      if (!this.addInfo) {
+      if (!this.addInfo || !this.addInfo.id) {
         this.$message({
           type: 'warning',
           message: '请先选择一个节点进行新增'
         });
         return;
       };
+      if (this.addInfo.type === 10) {
+        this.$message({
+          type: 'warning',
+          message: '此节点为按钮节点，不可新增下级节点'
+        });
+        return;
+      }
       this.flag = true;
       this.title = '新增';
       this.addFlag = true;

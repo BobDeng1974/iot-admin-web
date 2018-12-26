@@ -24,7 +24,8 @@
                 <el-input v-model="info.permissionUrl"></el-input>
             </el-form-item>
             <el-form-item label="排序" prop="order">
-              <el-input v-model="info.order" type="number" min="1" max="1000"></el-input>
+              <input type="number" v-model="info.order" min="1" max="1000">
+              <!-- <el-input v-model="info.order" type="number" min="1" max="1000"></el-input> -->
             </el-form-item>
             <el-form-item label="是否显示" prop="show">
                 <el-radio-group v-model="info.show" :disabled='info.type === 10'>
