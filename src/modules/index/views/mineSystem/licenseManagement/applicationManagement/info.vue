@@ -80,7 +80,7 @@ export default {
         supplyName: '申请厂商',
         type: '申请类型',
         nums: '申请数量',
-        departName: '所属事业部',
+        departName: '事业部',
         applianceTypeSn8: '品类及型号码',
         // licDownloadUrl: 'license文件包',
         licDownloadName: 'license文件包',
@@ -94,7 +94,7 @@ export default {
         supplyName: '申请厂商',
         type: '申请类型',
         nums: '申请数量',
-        departName: '所属事业部',
+        departName: '事业部',
         applianceTypeSn8: '品类及型号码',
         licDownloadUrl: [
           { downUrl: '/static/img/title_01@2x.png', name: '附件1' },
