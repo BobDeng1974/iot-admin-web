@@ -39,14 +39,14 @@
     </el-submenu>
 </div>
 <div v-else>
-  <div v-if="item.type === 9">
+  <div v-if="item.type === 9 && item.show === 0 && !item.hidden">
     <a :href="item.path" :key="item.name" target="_blank" @click="clickLink(item.path,$event)">
       <el-menu-item :index="resolvePath(item.path)">
         <item v-if="item.meta" :icon="item.meta.icon" :title="item.meta.title" />
       </el-menu-item>
     </a>
   </div>
-  <div v-else>
+  <div v-if="item.type !== 9 && item.show === 0 && !item.hidden">
     <el-submenu :index="item.name||item.path">
       <template slot="title">
         <item v-if="item.meta" :icon="item.meta.icon" :title="item.meta.title" />
