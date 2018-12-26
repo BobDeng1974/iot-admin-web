@@ -112,7 +112,7 @@ export default {
         time: [],
         applyEndTime: '',
         applyStartTime: '',
-        status: 3
+        status: 1
       },
       tableData: [],
       currentPage: 1,
