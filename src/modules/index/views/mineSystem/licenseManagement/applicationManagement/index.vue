@@ -184,6 +184,7 @@ export default {
     deparmentListChange(val) {
       this.formInline.applianceType = '';
       this.sn8List = [];
+      this.applianList = [];
       this.formInline.sn8 = '';
       if (val) {
         this.getApplianListAsDpartId(val);
@@ -193,6 +194,7 @@ export default {
     },
     applianChange(val) {
       this.formInline.sn8 = '';
+      this.sn8List = [];
       if (val) {
         this.getSn8List(val);
       } else {
@@ -303,6 +305,8 @@ export default {
     clear() {
       restData(this.formInline);
       this.getList(true);
+      this.sn8List = [];
+      this.applianList = [];
     }
   },
   filters: {

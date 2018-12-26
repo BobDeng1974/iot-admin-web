@@ -19,11 +19,11 @@ export const dropDownTranslation = {
       protoArr: [], // proto下拉
 
       // 产品数据统计
-      provincesListArr: [], // 省
+      provincesList: [], // 省
       userInfo: {},
       citiesList: [], // 市
       applianceTypeList: [], // 品类
-      deparmentListArr: [],
+      deparmentList: [],
       applianList: []
     };
   },
@@ -33,12 +33,12 @@ export const dropDownTranslation = {
       dataCenterAPI.queryinfo().then((res) => {
         if (res.code === 0) {
           // debugger;
-          this.provincesListArr = res.result.provinces;
+          this.provincesList = res.result.provinces;
           this.userInfo = res.result.userInfo;
           this.applianceTypeList = res.result.applianceTypes;
           this.queryFormData.groupId = this.userInfo.departMentName;
         } else {
-          this.provincesListArr = [];
+          this.provincesList = [];
           this.applianceTypeList = [];
           this.userInfo = {};
         }
@@ -57,24 +57,24 @@ export const dropDownTranslation = {
       });
     },
     // 事业部开发组
-    getAlldeparment() {
+    dropGetAlldeparment() {
       systemAPI.getDepartment({})
         .then(res => {
           if (res.code === 0) {
             debugger;
-            this.deparmentListArr = res.result;
-            // this.deparmentListArr.push({id: 0, name: '全部'});
-            // this.deparmentListArr = this.initTableData(res.result, {id: 0, name: '全部'});
+            this.deparmentList = res.result;
+            // this.deparmentList.push({id: 0, name: '全部'});
+            // this.deparmentList = this.initTableData(res.result, {id: 0, name: '全部'});
           } else {
-            this.deparmentListArr = [];
+            this.deparmentList = [];
           }
         })
         .catch(() => {
-          this.deparmentListArr = [];
+          this.deparmentList = [];
         });
     },
     // 三级联动品类下拉
-    getApplianListAsDpartId(id) {
+    dropGetApplianListAsDpartId(id) {
       const params = {
         deparId: id || 0
       };

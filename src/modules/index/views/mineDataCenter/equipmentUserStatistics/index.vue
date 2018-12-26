@@ -167,24 +167,24 @@ export default {
     };
   },
   watch: {
-      deparmentListArr: {
-      deep: true,
-      immediate: true,
-      handler: function (val, oldVal) {
-        if (val && val.length > 0) {
-         this.deparmentList = [].concat(this.deparmentList, val);
-        }
-      }
-    },
-    provincesListArr: {
-      deep: true,
-      immediate: true,
-      handler: function (val, oldVal) {
-        if (val && val.length > 0) {
-         this.provincesList = [].concat(this.provincesList, val);
-        }
-      }
-    }
+    //   deparmentListArr: {
+    //   deep: true,
+    //   immediate: true,
+    //   handler: function (val, oldVal) {
+    //     if (val && val.length > 0) {
+    //      this.deparmentList = [].concat(this.deparmentList, val);
+    //     }
+    //   }
+    // },
+    // provincesListArr: {
+    //   deep: true,
+    //   immediate: true,
+    //   handler: function (val, oldVal) {
+    //     if (val && val.length > 0) {
+    //      this.provincesList = [].concat(this.provincesList, val);
+    //     }
+    //   }
+    // }
   },
   // computed: {
   //   deparmentList() {
@@ -203,7 +203,7 @@ export default {
   methods: {
    async initData() {
       // this.getApplianSelect();// 品类
-     this.getAlldeparment();
+     this.dropGetAlldeparment();
      this.getQueryinfo();// 查询的下拉信息
     return '完成';
     },
@@ -213,13 +213,14 @@ export default {
       // this.applianceTypeList = [];
       this.applianList = [];
       if (val) {
-        this.getApplianListAsDpartId(val);
+        this.dropGetApplianListAsDpartId(val);
       } else {
         // this.deparmentList = [];
       }
     },
     provincesChange(val) {
       this.queryFormData.cities = '';
+      this.citiesList = [];
       if (val) {
       this.getQuerycity(val);
       }
@@ -371,6 +372,7 @@ export default {
       this.citiesList = [];
       this.total = 0;
       this.getQueryinfo();// 查询的下拉信息
+      this.applianList = [];
     },
         // 选择更新时间
     handleChangeRange(val) {
