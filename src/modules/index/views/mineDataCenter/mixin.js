@@ -149,8 +149,8 @@ export const menuCtor = {
         // 不能输入中文以及特殊字符只能输入数字以及英文字母不包含小数点/[^\w\/]/ig
         if (/[^\w\.\/]/ig.test(value)) {
           callback(new Error('请输入正确的格式不允许输入特殊字符及中文'));
-        } else if (value.length > 20) {
-          callback(new Error('不允许输入超过20个字符'));
+        } else if (value.length > 30) {
+          callback(new Error('不允许输入超过30个字符'));
         } else {
           callback();
         }
