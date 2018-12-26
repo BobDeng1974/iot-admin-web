@@ -18,7 +18,7 @@ export default {
       height: '803px',
       rootPath: '',
       menus: [],
-      openedsArr: ['产品', '我的产品', '硬件产品', '我的协议', '审核管理', '配置管理', '系统设置', '开发者管理', '数据中心', '后台账户管理', '管理首页', '设备统计'],
+      // openedsArr: ['产品', '我的产品', '硬件产品', '我的协议', '审核管理', '配置管理', '系统设置', '开发者管理', '数据中心', '后台账户管理', '管理首页', '数据统计'],
       defaultActive: '/product/myAgreement/elecManagement',
       urlArrTemp: []
     };
@@ -33,7 +33,12 @@ export default {
   //   }
   // },
   computed: {
-    ...mapGetters(['roles'])
+    ...mapGetters(['roles']),
+    openedsArr () {
+      let arr = [];
+      this.initBtnAuthed(this.menus, arr);
+      return arr;
+    }
   },
   watch: {
     '$route.path': function() {
@@ -44,6 +49,20 @@ export default {
     }
   },
   methods: {
+    // 用来抽取要默认展开的数据
+    initBtnAuthed(source, json) {
+      if (source && source.length) {
+        for (let i = 0; i < source.length; i++) {
+          // debugger;
+          if (source[i].show === 0 && !source[i].hidden && source[i].type !== 9) {
+            json.push(source[i].name);
+          }
+         if (source[i].children && source[i].children.length) {
+            this.initBtnAuthed(source[i].children, json);
+          }
+        }
+      };
+    },
     getHeight() {
       let clientHeight =
         document.documentElement.clientHeight || document.body.clientHeight;

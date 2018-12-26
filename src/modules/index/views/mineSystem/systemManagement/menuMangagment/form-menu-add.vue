@@ -99,9 +99,15 @@ export default {
       debugger;
       API.addPermissionMenu(params)
          .then(res => {
-           restData(this.form);
-           this.$emit('requestTable');
-           this.$emit('close', false);
+           if (res.code === 0) {
+            this.$message({
+              type: 'success',
+              message: res.message
+            });
+            restData(this.form);
+            this.$emit('requestTable');
+            this.$emit('close', false);
+           }
          });
     },
     cencle () {

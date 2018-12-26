@@ -83,9 +83,9 @@ export const dataCenterRouter =
       },
       {
         path: 'deviceStatistics',
-        name: '设备统计',
+        name: '数据统计',
         component: _import('mineDataCenter/index'),
-        meta: { title: '设备统计' },
+        meta: { title: '数据统计' },
         redirect: '/product/dataCenter/deviceStatistics/equipmentUserStatistics',
         children: [
           {

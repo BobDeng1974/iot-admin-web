@@ -97,8 +97,14 @@ export default {
       }
       API.updatePermissionMenu(params)
          .then(res => {
-           this.$emit('requestTable');
-           this.$emit('close', false);
+           if (res.code === 0) {
+            this.$message({
+              type: 'success',
+              message: res.message
+            });
+            this.$emit('requestTable');
+            this.$emit('close', false);
+           }
          });
     },
     cencle () {
