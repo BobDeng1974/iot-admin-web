@@ -71,7 +71,7 @@ export default {
         applianceType: '品类',
         // sn8: '型号码',
         provinces: '省',
-        endTime: '首次绑定时间'
+        endTime: '统计时间'
       },
       tableData1: {},
       tableData2: [],
