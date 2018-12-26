@@ -87,7 +87,7 @@ export default {
         applyUserNameAcount: '申请人及联系方式',
         tabelList: '',
         applyTime: '提交时间',
-        departOrderUrl: '事业部下单截图'
+        departOrderUrl: '事业部截图 '
       },
       hardwareDetail: {
         status: '状态',
