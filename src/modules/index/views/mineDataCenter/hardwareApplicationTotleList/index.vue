@@ -49,7 +49,7 @@
         <el-table-column prop="applianceType"  label="品类" align="center"></el-table-column>
         <el-table-column prop="sn8"  label="型号码" align="center"></el-table-column>
         <el-table-column prop="departmentName"  label="所属事业部" align="center"></el-table-column>
-        <el-table-column prop="cName"  label="创建人" align="center"></el-table-column>
+        <el-table-column prop="createName"  label="创建人" align="center"></el-table-column>
         <el-table-column prop="applyTime"  label="创建时间" align="center">
           <template slot-scope="scope">
             <div>{{scope.row.applyTime | fomatDate('yyyy-MM-dd HH:mm')}}</div>
