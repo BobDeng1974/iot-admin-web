@@ -42,14 +42,14 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <!-- <el-col :span="8">
             <el-form-item label="状态">
               <el-select v-model="formInline.status1" placeholder="请选择" clearable>
                 <el-option v-for="item in statusList" :key="item.status" :label="item.statusLabel" :value="item.status">
                 </el-option>
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col :span="8">
             <el-form-item label="申请时间">
               <el-date-picker v-model="formInline.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
