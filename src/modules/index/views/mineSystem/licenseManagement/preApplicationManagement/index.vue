@@ -6,9 +6,9 @@
         </div>
         <!-- 查询部分 -->
         <div class="mip-check">
-           <el-form :inline="true" :model="formInline"  label-width="180px" class="demo-form-inline" >
+           <el-form :inline="true" :model="formInline"  label-width="80px" class="demo-form-inline" >
             <el-row>
-                <el-col :span="12">
+                <el-col :span="8">
                   <el-form-item label="模组厂商">
                       <el-select v-model="formInline.supplyId" placeholder="请选择" clearable>
                         <el-option
@@ -20,7 +20,12 @@
                       </el-select>
                   </el-form-item>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="8" >
+                  <el-form-item label="申请人">
+                    <el-input v-model="formInline.applyUserName"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item label="创建时间">
                     <el-date-picker v-model="formInline.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                   </el-form-item>
@@ -121,7 +126,8 @@ export default {
         supplyId: '',
         time: [],
         applyStartTime: '',
-        applyEndTime: ''
+        applyEndTime: '',
+        applyUserName: ''
       },
       tableData: [],
       currentPage: 1,
