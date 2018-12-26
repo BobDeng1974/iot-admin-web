@@ -71,7 +71,7 @@ const API = {
   // /硬件详情列表
   getWifiSdkLib: (query) => {
     return request({
-      url: `${APPLICATION_NAME}/hardware/getWifiSdkLib`,
+      url: `${MJAPP_NAME}/hardware/getWifiSdkLib`,
       method: 'post',
       data: query
     });
