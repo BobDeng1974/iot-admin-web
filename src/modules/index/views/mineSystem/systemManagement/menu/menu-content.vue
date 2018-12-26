@@ -139,6 +139,7 @@ export default {
           index++;
         }
       });
+      debugger;
       return index;
     },
     // 获取角色对应权限
@@ -153,6 +154,8 @@ export default {
               arr.push(res.result[i].id);
               // 这里是判断页面 若返回结果页面下面没有返回对应的子集则需要奖id push 若有子集则不push
             } else if (res.result[i].type === 9 && this.checkChlidren(res.result, res.result[i].id) === 0) {
+              arr.push(res.result[i].id);
+            } else if (this.checkChlidren(res.result, res.result[i].id) === 0) {
               arr.push(res.result[i].id);
             }
           }
