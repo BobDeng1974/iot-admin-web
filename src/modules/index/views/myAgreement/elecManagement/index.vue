@@ -19,7 +19,7 @@
             <!--Lua协议列表-->
         <div class="table-wrapper">
           <el-table  class="table" :data="userInfo.loginRecords" style="width: 100%">
-            <el-table-column prop="id" label="ID" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="id" label="id" show-overflow-tooltip></el-table-column>
             <el-table-column prop="loginTime" label="登录时间" show-overflow-tooltip></el-table-column>
             <el-table-column prop="loginIp" label="登录ip"  show-overflow-tooltip></el-table-column>
           </el-table>
