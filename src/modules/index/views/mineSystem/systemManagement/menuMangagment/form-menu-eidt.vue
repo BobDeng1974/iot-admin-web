@@ -21,7 +21,7 @@
                 <el-input v-model="info.name"></el-input>
             </el-form-item>
             <el-form-item label="接口url" prop="permissionUrl">
-                <el-input v-model="info.permissionUrl"></el-input>
+                <el-input v-model="info.permissionUrl"  type="textarea" class='mine-input'></el-input>
             </el-form-item>
             <el-form-item label="排序" prop="order">
               <!-- <input type="number" v-model="info.order" min="1" max="1000"> -->
@@ -118,6 +118,12 @@ export default {
 .eidt-menu-warp{
     .el-input{
       width: 250px;
+    }
+    .mine-input{
+      .el-textarea__inner{
+        height: 50px;
+        width: 250px;
+      }
     }
     .el-textarea{
       width: 90%;

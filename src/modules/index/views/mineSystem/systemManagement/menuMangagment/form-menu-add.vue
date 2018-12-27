@@ -21,7 +21,7 @@
                 <el-input v-model="form.name"></el-input>
             </el-form-item>
             <el-form-item label="接口url" prop="permissionUrl">
-              <el-input v-model="form.permissionUrl"></el-input>
+              <el-input v-model="form.permissionUrl" type="textarea" class='mine-input'></el-input>
             </el-form-item>
             <el-form-item label="排序" prop="order">
                <!-- <input type="number" v-model="form.order" min="1" max="1000"> -->
@@ -122,6 +122,12 @@ export default {
 .add-menu-warp{
     .el-input{
       width: 250px;
+    }
+    .mine-input{
+      .el-textarea__inner{
+        height: 50px;
+        width: 250px;
+      }
     }
   .dialog-footer{
     text-align: right;
