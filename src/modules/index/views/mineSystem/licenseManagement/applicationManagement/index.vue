@@ -280,7 +280,7 @@ export default {
         status:
           this.formInline.status1 || this.formInline.status1 === 0
             ? this.formInline.status1
-            : 9999
+            : 3
       };
       API.getLicApplyList(params)
         .then(res => {
