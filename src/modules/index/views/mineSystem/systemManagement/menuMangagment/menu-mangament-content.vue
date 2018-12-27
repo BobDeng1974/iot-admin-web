@@ -134,11 +134,18 @@ export default {
       const params = {id: d.id};
       API.deletePermissionMenu(params)
       .then(res => {
-        this.$message({
-          type: 'success',
-          message: res.message
-        });
-        this.requestList();
+        if (res.code === 0) {
+          this.$message({
+            type: 'success',
+            message: res.message
+          });
+          this.requestList();
+        } else {
+          this.$message({
+            type: 'error',
+            message: res.message
+          });
+        }
       });
       }).catch(() => {
         this.$message({
