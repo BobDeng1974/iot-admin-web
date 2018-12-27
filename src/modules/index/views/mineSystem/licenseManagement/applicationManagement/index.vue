@@ -1,7 +1,7 @@
 <template>
   <div class="applicationManagement-warp">
     <div class="title-mip">
-      <con-header :title-icon="addProductsIcon" title="liences列表" :hasBottomBorder="true"></con-header>
+      <con-header :title-icon="addProductsIcon" title="license列表" :hasBottomBorder="true"></con-header>
     </div>
     <!-- 查询部分 -->
     <div class="mip-check">

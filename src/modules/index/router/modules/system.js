@@ -117,7 +117,7 @@ export const auditsManagementRouter =
       path: 'applicationManagement',
       component: _import('mineSystem/licenseManagement/applicationManagement/index'),
       name: 'applicationManagement',
-      meta: { title: 'liences审核', icon: 'dots' }
+      meta: { title: 'license审核', icon: 'dots' }
     },
     {
       path: 'eidtApplication',
@@ -130,7 +130,7 @@ export const auditsManagementRouter =
       path: 'preApplicationManagement',
       component: _import('mineSystem/licenseManagement/preApplicationManagement/index'),
       name: 'preApplicationManagement',
-      meta: { title: 'liences预审核', icon: 'dots' }
+      meta: { title: 'license预审核', icon: 'dots' }
     },
     {
       path: 'eidtPreApplication',
