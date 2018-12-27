@@ -116,6 +116,15 @@ export default {
 </script>
 <style lang="less">
 .eidt-menu-warp{
+  // #5667FF
+  .el-radio-group{
+    .el-radio__label, .is-checked{
+      color: black;
+    }
+    .el-radio__input, .is-checked {
+      color: #5667FF;
+    }
+  }
     .el-input{
       width: 90%;
     }
