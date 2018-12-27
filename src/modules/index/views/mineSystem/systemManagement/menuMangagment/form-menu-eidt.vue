@@ -1,6 +1,6 @@
 <template>
     <div class="eidt-menu-warp">
-       <el-form label-width="200px" :model="info" ref="form" :rules="rules">
+       <el-form label-width="100px" :model="info" ref="form" :rules="rules">
             <el-form-item label="上级菜单">
               <p>{{titleInfo.label}}</p>
             </el-form-item>
@@ -117,16 +117,19 @@ export default {
 <style lang="less">
 .eidt-menu-warp{
     .el-input{
-      width: 250px;
+      width: 90%;
     }
     .mine-input{
       .el-textarea__inner{
         height: 50px;
-        width: 250px;
+        width: 90%;
       }
     }
-    .el-textarea{
-      width: 90%;
+    .el-select{
+      width: 100%;
+      .el-input__inner{
+        width: 100%;
+      }
     }
   .dialog-footer{
     text-align: right;

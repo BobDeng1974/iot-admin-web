@@ -1,6 +1,6 @@
 <template>
     <div class="add-menu-warp">
-       <el-form label-width="200px" :model="form" ref="form" :rules="rules">
+       <el-form label-width="100px" :model="form" ref="form" :rules="rules">
             <el-form-item label="上级菜单">
               <p>{{addInfo.name}}</p>
             </el-form-item>
@@ -125,12 +125,18 @@ export default {
 <style lang="less">
 .add-menu-warp{
     .el-input{
-      width: 250px;
+      width: 90%;
     }
     .mine-input{
       .el-textarea__inner{
         height: 50px;
-        width: 250px;
+        width: 90%;
+      }
+    }
+    .el-select{
+      width: 100%;
+      .el-input__inner{
+        width: 100%;
       }
     }
   .dialog-footer{
