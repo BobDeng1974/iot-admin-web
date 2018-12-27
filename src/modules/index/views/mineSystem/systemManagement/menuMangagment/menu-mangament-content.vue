@@ -140,6 +140,7 @@ export default {
             message: res.message
           });
           this.requestList();
+          this.addInfo = {};
         } else {
           this.$message({
             type: 'error',
