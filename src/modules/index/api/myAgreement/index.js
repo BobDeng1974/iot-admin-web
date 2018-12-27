@@ -215,7 +215,7 @@ export const downloadLua = (params) => {
 // 芯片信息下载其它芯片资料
 export const downloadOtherInfo = (params) => {
   return request({
-    url: `${APPLICATION_NAME}/Agreement/downloadLibDoc`,
+    url: `${MJAPP_NAME}/Agreement/downloadLibDoc`,
     params: params,
     method: 'get',
     responseType: 'blob'
