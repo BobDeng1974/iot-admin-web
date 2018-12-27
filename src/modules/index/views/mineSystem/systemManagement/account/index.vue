@@ -57,7 +57,7 @@
             <el-table-column prop="departmentName" label="所在事业部" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="showName" label="角色" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="discription" label="说明" align="center" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="creator" label="创建人" align="center" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="creator" label="授权人" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column label="授权时间" align="center" show-overflow-tooltip width="150">
               <template slot-scope="scope">
                 <div>{{scope.row.urdate | fomatDate('yyyy-MM-dd HH:mm')}}</div>
