@@ -57,6 +57,11 @@ export default {
       return this.addInfo.type === 9 ? [{label: '按钮', value: 2}] : (this.addInfo.type === 10 ? [] : [{label: '页面', value: 1}, {label: '菜单', value: 0}])
     }
   },
+  watch: {
+    'addInfo' () {
+      restData(this.form);
+    }
+  },
   data () {
     return {
       options1: [{label: '按钮', value: 2}],
@@ -97,7 +102,6 @@ export default {
         ...this.form,
         pid: this.addInfo.id
       }
-      debugger;
       API.addPermissionMenu(params)
          .then(res => {
            if (res.code === 0) {
