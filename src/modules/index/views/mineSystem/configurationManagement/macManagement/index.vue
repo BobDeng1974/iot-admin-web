@@ -48,7 +48,7 @@
             <el-table-column prop="index" width="150" align="center" :render-header="renderIndex"></el-table-column>
             <el-table-column prop="startMac" label="起始mac" align="center"></el-table-column>
             <el-table-column prop="endMac" label="结束mac" align="center"></el-table-column>
-            <el-table-column prop="nums" label="对应lices数量" align="center"></el-table-column>
+            <el-table-column prop="nums" label="对应license数量" align="center"></el-table-column>
             <el-table-column label="分配厂商" align="center">
               <template slot-scope="scope">
                  <a style="cursor:initial" @click="btnClick">{{scope.row.supplyName}}</a>
