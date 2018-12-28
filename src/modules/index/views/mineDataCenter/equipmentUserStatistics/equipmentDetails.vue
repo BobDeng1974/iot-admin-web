@@ -32,7 +32,13 @@
             <el-table-column prop="code" label="设备一维码" show-overflow-tooltip></el-table-column>
             <el-table-column prop="province" label="所在省" show-overflow-tooltip></el-table-column>
             <el-table-column prop="city" label="所在市" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="status" label="绑定状态" show-overflow-tooltip></el-table-column>
+            <!-- <el-table-column prop="status" label="绑定状态" show-overflow-tooltip></el-table-column> -->
+            <el-table-column label="绑定状态" show-overflow-tooltip>
+              <template slot-scope="scope">
+                <span>{{scope.row.status===1?'绑定':'没有绑定'}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="registerTime" label="注册时间" show-overflow-tooltip></el-table-column>
             <el-table-column prop="boundTime" label="绑定时间" show-overflow-tooltip></el-table-column>
             <el-table-column prop="activeTime" label="激活时间" show-overflow-tooltip></el-table-column>
           </el-table>
