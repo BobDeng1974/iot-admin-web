@@ -248,7 +248,7 @@ export default {
     // },
 
     // 查询Lua协议列表数据
-    getStatisticsListData() {
+    getStatisticsListData(flag) {
       console.log(format(this.dateTimeRange, 'yyyy-MM-dd'));
 
       let params = {
@@ -270,6 +270,9 @@ export default {
         )
           : ''
       };
+      if (flag) {
+        this.currentPage = 1;
+      }
         let e = new Date(params.endTime).getDate();
       let s = new Date(params.startTime).getDate();
       let totalPage = e - s + 1;
@@ -353,7 +356,7 @@ export default {
           message: '请输入查询时间段'
         });
       } else {
-      this.getStatisticsListData();
+      this.getStatisticsListData(true);
       }
       // if (!this.queryFormData.applianceType &&
       // !this.queryFormData.provinces &&
@@ -385,7 +388,7 @@ export default {
       // 改变currentPage
     handleCurrentChange(val) {
       // this.pageObj.pageNo = val;
-      this.getStatisticsListData();
+      this.getStatisticsListData(false);
     }
   }
 };
