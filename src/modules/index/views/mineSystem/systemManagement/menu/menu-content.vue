@@ -96,25 +96,29 @@ export default {
     },
     // 保存触发
     menuSave() {
-      API.updateAuth(this.menuSaveParams).then((res) => {
-        if (res.code === 0) {
-           this.$message({
-          type: 'info',
-          message: '角色权限更新成功'
+      this.$confirm('此操作将对该角色授权, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        API.updateAuth(this.menuSaveParams).then((res) => {
+          if (res.code === 0) {
+            this.$message({
+            type: 'info',
+            message: '角色权限更新成功'
+          });
+            this.$store.dispatch('getMeauAuthed', {uid: this.$store.getters.saveGetUserInfo.uid ||
+            JSON.parse(ls.getItem('saveGetUserInfo')).uid});
+          }
+        })
+        .catch(() => {
         });
-          // this.$store.dispatch('getUserInfo', '');
-          this.$store.dispatch('getMeauAuthed', {uid: this.$store.getters.saveGetUserInfo.uid ||
-          JSON.parse(ls.getItem('saveGetUserInfo')).uid});
-        }
-        // this.$message({
-        //   type: 'info',
-        //   message: '角色权限更新成功'
-        // });
-        //   // this.$store.dispatch('getUserInfo', '');
-        //   this.$store.dispatch('getMeauAuthed', {uid: this.$store.getters.saveGetUserInfo.uid ||
-        //   JSON.parse(localStorage.getItem('saveGetUserInfo')).uid});
-      })
-      .catch(() => {
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消授权'
+        });
+        this.getPermission(this.roleId);
       });
     },
     // 选取某个树节点触发
