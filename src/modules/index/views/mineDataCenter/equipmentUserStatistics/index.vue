@@ -65,8 +65,8 @@
             </el-row>
             <el-row class="show-line" v-authority="'b1_overviewTag'">
               <el-col :span="24">
+                 <el-button class="pull-right query-btn"  size="medium" @click="clear">清除</el-button>
                  <el-button class="pull-right query-btn" type="primary" size="medium" @click="handleQuery">查询</el-button>
-                 <el-button class="pull-right query-btn" type="primary" size="medium" @click="clear">清除</el-button>
               </el-col>
             </el-row>
           </el-form>

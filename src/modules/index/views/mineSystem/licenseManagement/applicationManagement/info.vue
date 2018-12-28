@@ -2,7 +2,7 @@
   <div class="applicationManagement-warp">
     <div class="details-table">
       <div class="" border="1" bordercolor="#ebeef5">
-        <tr class="tr-row" v-for="(val, key) in tableLabel" :key="key">
+        <tr :class="['tr-row',key]" v-for="(val, key) in tableLabel" :key="key">
           <div v-if="key !== 'tabelList'">
             <td class="column-th">
               <span>{{val}}</span>
@@ -292,7 +292,7 @@ export default {
   .details-table {
     border: 1px solid #eeeeee;
     width: 100%;
-    margin-top: 22px;
+    // margin-top: 22px;
   }
   .clickBtn {
     color: blue;
@@ -320,8 +320,15 @@ export default {
     &:hover > th {
       background-color: #f5f7fa;
     }
+    &:hover >div{
+      background-color: #f5f7fa;
+      width: 100%;
+    }
     &:last-child {
       // border-bottom: none;
+    }
+    &.tabelList{
+      border-bottom: none;
     }
   }
   .column {

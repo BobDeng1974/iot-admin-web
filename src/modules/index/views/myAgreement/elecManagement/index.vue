@@ -9,6 +9,7 @@
               <img :src="userInfo.profilePicUrl" alt="">
               <div class="user-name">{{userInfo.roleName}}</div>
             </div>
+            <div class="line"></div>
             <div class="home-top-right">
               <div ><span>姓名</span>{{userInfo.realName}}</div>
               <div ><span>mip账号</span>{{userInfo.account}}</div>
@@ -60,6 +61,12 @@ font-weight: 700;
     line-height: 44px;
 }
 .home-top{
+  .line{
+    width: 1px;
+    height: 80px;
+    background-color: #DEDFE5;
+    margin-right: 31px;
+  }
   display: flex;
     /* justify-content: space-between; */
     align-items: center;
@@ -77,7 +84,8 @@ font-weight: 700;
     }
     .user-name{
     text-align: center;
-    padding-top: 10px;
+    padding-top: 12px;
+    font-weight: 700;
     }
   }
   .home-top-right{
