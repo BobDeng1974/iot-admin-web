@@ -35,7 +35,7 @@
                 <el-date-picker v-model="formInline.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
               </el-form-item>
            </el-form>
-           <div class="btn-select" >
+           <div class="btn-select" v-authority="'b1_userListTag'">
               <el-button type="primary" @click="selectSerch(true)">筛 选</el-button>
               <el-button @click="clear">清 除</el-button>
            </div>
@@ -62,13 +62,13 @@
             <el-table-column label="操作" align="center" width='180'>
               <template slot-scope="scope">
                 <div v-if="scope.row.status === 0">
-                  <span @click="forbidRole(scope.row)" >禁用</span>
+                  <span @click="forbidRole(scope.row)" v-authority="'b1_userForbidTag'">禁用</span>
                   <span style="color: #DEDFE5;">|</span>
-                  <span @click="authorizedAccess(scope.row)" v-if="!scope.row.isContacter">授权对接人</span>
-                  <span @click="forbidden(scope.row)" v-if="scope.row.isContacter">取消对接人</span>
+                  <span @click="authorizedAccess(scope.row)" v-if="!scope.row.isContacter" v-authority="'b1_userSetContactsTag'">授权对接人</span>
+                  <span @click="forbidden(scope.row)" v-if="scope.row.isContacter" v-authority="'b1_userDisContactsTag'">取消对接人</span>
                 </div>
                 <div v-if="scope.row.status === 1">
-                  <span @click="userRecover(scope.row)">启用</span>
+                  <span @click="userRecover(scope.row)" v-authority="'b1_userRecoverTag'">启用</span>
                 </div>
               </template>
             </el-table-column>

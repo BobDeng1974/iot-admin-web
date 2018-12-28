@@ -4,7 +4,7 @@
             <div class="right" v-loading="autedLoading">
                 <div class="right-title">
                    <span>菜单树</span>
-                   <span class="btn-add" @click="addMenu">添加菜单</span>
+                   <span class="btn-add" @click="addMenu" v-authority="'b1_menuAddTag'">添加菜单</span>
                 </div>
                 <div class="popwer-mine">
                     <el-tree

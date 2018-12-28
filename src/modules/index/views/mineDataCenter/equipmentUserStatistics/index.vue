@@ -63,7 +63,7 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row class="show-line">
+            <el-row class="show-line" v-authority="'b1_overviewTag'">
               <el-col :span="24">
                  <el-button class="pull-right query-btn" type="primary" size="medium" @click="handleQuery">查询</el-button>
                  <el-button class="pull-right query-btn" type="primary" size="medium" @click="clear">清除</el-button>
@@ -82,7 +82,7 @@
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <!-- <el-button type="text" size="small" @click="goUserlist(scope.row)">用户明细</el-button> -->
-                <el-button  type="text" size="small" @click="goDevicelist(scope.row)">设备明细</el-button>
+                <el-button v-authority="'b1_staticDevicelistTag'" type="text" size="small" @click="goDevicelist(scope.row)">设备明细</el-button>
               </template>
             </el-table-column>
           </el-table>

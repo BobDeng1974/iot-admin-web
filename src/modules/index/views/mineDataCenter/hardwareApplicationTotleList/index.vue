@@ -33,7 +33,7 @@
           </el-col>
         </el-row>
       </el-form>
-      <div>
+      <div v-authority="'m4_hwListTag'">
         <el-row class="applicationManagement-row" style="display: flex; justify-content: flex-end;">
           <span class="btn-select-right">
             <el-button type="primary" @click="getList(true)">查 找</el-button>

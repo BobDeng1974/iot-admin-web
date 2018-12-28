@@ -19,7 +19,7 @@
             <div class="right" v-loading="autedLoading">
                 <div class="right-title">
                    <span>系统权限</span>
-                   <span><el-button  @click="menuSave">保 存</el-button></span>
+                   <span v-authority="'b1_menuRoleAuthTag'"><el-button  @click="menuSave" >保 存</el-button></span>
                 </div>
                 <div class="popwer-mine">
                     <el-tree

@@ -35,19 +35,19 @@
         </el-row>
 
         <el-row>        
-           <el-col :span="10">
-            <el-form-item label="model-number" label-width="120">
+           <el-col :span="8" class="other-label">
+            <el-form-item label="model-number">
               <el-input v-model="formInline.modelNo"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+          <el-col :span="8">
             <el-form-item label="生效时间">
               <el-date-picker v-model="formInline.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-      <div>
+      <div v-authority="'b1_cloudLuaListTag'">
         <el-row class="applicationManagement-row" style="display: flex; justify-content: flex-end;">
           <span class="btn-select-right">
             <el-button type="primary" @click="getList(true)">查 找</el-button>
@@ -79,7 +79,7 @@
         <el-table-column prop="cName" width="150" label="上传人" align="center"></el-table-column>
         <el-table-column label="操作" align="center" fixed='right'>
           <template slot-scope="scope">
-            <span class="mine-down" @click="downLoad(scope.row)">下载</span>
+            <span v-authority="'b1_cloudLuaDownTag'"  class="mine-down" @click="downLoad(scope.row)">下载</span>
           </template>
         </el-table-column>
       </el-table>
@@ -276,6 +276,13 @@ export default {
 .cloud-lua-list-warp {
   .mip-check {
     margin-top: 24px;
+  }
+  .other-label{
+    .el-form-item{
+      .el-form-item__label{
+        line-height: 20px !important;
+      }
+    } 
   }
   .mine-down{
     color: blue;

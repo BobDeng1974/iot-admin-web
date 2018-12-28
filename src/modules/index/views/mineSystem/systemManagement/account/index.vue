@@ -43,7 +43,7 @@
                 <el-date-picker v-model="formInline.time" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
               </el-form-item>
            </el-form>
-           <div class="btn-select" v-authority="'b1_userListTag'">
+           <div class="btn-select" v-authority="'b1_adminListTag'">
               <el-button type="primary" @click="selectSerch(true)">筛 选</el-button>
               <el-button @click="clear">清 除</el-button>
            </div>

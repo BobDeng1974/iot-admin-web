@@ -53,7 +53,7 @@
               </el-row>
 
            </el-form>
-           <div class="btn-select">
+           <div class="btn-select" v-authority="'b1_applianceSn8ListTag'">
               <el-button type="primary" @click="selectSerch(true)">筛 选</el-button>
               <el-button @click="clear">清 除</el-button>
            </div>
@@ -61,7 +61,7 @@
         <!-- 表格部分 -->
         <div class="table-account" v-loading="loading">
           <div style="margin-bottom: 10px;text-align: right;">
-            <el-button type="primary" @click="addTypeEnter">新增型号</el-button>
+            <el-button type="primary" @click="addTypeEnter" v-authority="'b1_applianceSn8AddTag'">新增型号</el-button>
           </div>
           <el-table :data="tableData" style="width: 100%"  class='table'>
             <el-table-column prop="index" width="50" align="center" :render-header="renderIndex"></el-table-column>
@@ -83,9 +83,9 @@
             </el-table-column>
             <el-table-column label="操作" align="center" fixed="right" width="150">
               <template slot-scope="scope">
-                <span @click="toInfo(scope.row)">详情</span>
+                <span @click="toInfo(scope.row)" v-authority="'b1_applianceSn8DetailTag'">详情</span>
                 <span style="color: #DEDFE5;">|</span>
-                <span @click="toEidtType(scope.row)">编辑</span>
+                <span @click="toEidtType(scope.row)" v-authority="'b1_applianceSn8UpdateTag'">编辑</span>
               </template>
             </el-table-column>
           </el-table>
