@@ -248,18 +248,18 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less" >
 .meiju-lua-list-warp {
   .mip-check {
     margin-top: 24px;
   }
-  .other-label{
-    .el-form-item{
-      .el-form-item__label{
-        line-height: 20px !important;
+      .other-label{
+        .el-form-item{
+          .el-form-item__label{
+            line-height: 20px !important;
+          }
+        } 
       }
-    } 
-  }
   .commerStyle {
     display: inline-block;
     width: 8px;
