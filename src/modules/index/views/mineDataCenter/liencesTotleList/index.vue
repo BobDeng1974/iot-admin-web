@@ -199,7 +199,7 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize
       };
-      API.getLicApplyList(params)
+      API.getLicApplyListNew(params)
         .then(res => {
           console.log(res, '获取列表');
           this.loading = false;

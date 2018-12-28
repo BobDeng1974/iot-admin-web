@@ -9,6 +9,13 @@ const licenseManagementApi = {
   */
   getLicApplyList: (query) => {
     return request({
+      url: `${MJAPP_NAME}/licApply/auditList`,
+      method: 'post',
+      data: query
+    }).then(res => res);
+  },
+  getLicApplyListNew: (query) => {
+    return request({
       url: `${MJAPP_NAME}/licApply/list`,
       method: 'post',
       data: query
