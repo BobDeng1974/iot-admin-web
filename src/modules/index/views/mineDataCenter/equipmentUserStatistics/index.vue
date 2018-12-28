@@ -324,8 +324,10 @@ export default {
       this.$store.commit('equipmentUserStatisticsList', query);
           // this.dataList = res.result.data || [];
           // this.pageObj.total = res.result.total;
-          this.total = res.result.totalPage ? res.result.totalPage : totalPage;
-          this.dataList = res.result ? res.result : [];
+          // this.total = res.result.totalPage ? res.result.totalPage : totalPage;
+          this.total = res.result.totalCount ? res.result.totalCount : 0;
+          // this.dataList = res.result ? res.result : [];
+          this.dataList = res.result.data ? res.result.data : [];
           // this.dataList = res.result ? this.initTableData(res.result.data) : [];
         } else {
           this.dataList = [];
