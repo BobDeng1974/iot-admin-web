@@ -69,9 +69,10 @@ export default {
   },
   mixins: [ dictMixin ],
   created () {
-    this.$store.dispatch('getProtos', { id: 0 });
-    this.$store.dispatch('getNetwork', { id: 0 });
-    this.getInfo();
+    this.initDataFrist();
+    // this.$store.dispatch('getProtos', { id: 0 });
+    // this.$store.dispatch('getNetwork', { id: 0 });
+    // this.getInfo();
   },
   data () {
     return {
@@ -114,6 +115,11 @@ export default {
     }
   },
   methods: {
+    async initDataFrist () {
+      await this.$store.dispatch('getProtos', { id: 0 });
+      await this.$store.dispatch('getNetwork', { id: 0 });
+      this.getInfo();
+    },
     // 上线文件下载
     downLoadUpFile (file) {
       API.downFileUp({ids: file})
