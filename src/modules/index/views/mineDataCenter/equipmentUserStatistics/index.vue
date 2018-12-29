@@ -253,7 +253,17 @@ export default {
 
       let params = {
         groupId: this.queryFormData.groupId || 0,
-        applianceType: this.queryFormData.applianceType ? [this.queryFormData.applianceType] : [0],
+        applianceType: commonFun.fetchWord(
+          this.queryFormData.applianceType,
+          'id',
+          this.applianList,
+          'type'
+        ) ? [commonFun.fetchWord(
+          this.queryFormData.applianceType,
+          'id',
+          this.applianList,
+          'type'
+        )] : [0],
         // typeCode: this.typeCode,
         provinces: this.queryFormData.provinces ? [this.queryFormData.provinces] : [0],
         cities: this.queryFormData.cities ? [this.queryFormData.cities] : [0],
