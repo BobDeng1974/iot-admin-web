@@ -246,7 +246,7 @@ export default {
     color: #fff;
     letter-spacing: 0;
     vertical-align: middle;
-    cursor: pointer;
+    cursor: text;
   }
   .icon-down {
     width: 20px;
