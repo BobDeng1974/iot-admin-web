@@ -46,7 +46,7 @@ service.interceptors.response.use(
       // debugger;
       if (res.code !== 0) {
         if (res.code === 12010003) {
-          MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
+          MessageBox.confirm('您已被登出，请重新登录', {
             confirmButtonText: '重新登录',
             showCancelButton: false,
             // cancelButtonText: '取消',
