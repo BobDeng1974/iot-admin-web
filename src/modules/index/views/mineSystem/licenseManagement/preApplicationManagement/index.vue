@@ -293,7 +293,7 @@ export default {
   //   .yellow{
   //     background-color:yellow;
   //   }
-  // .el-input{
+  .el-input{
     width: 230px;
   }
   .btn-select{
