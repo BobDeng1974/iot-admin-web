@@ -27,7 +27,7 @@
           <el-table class="table" :data="tableData2" style="width: 100%">
             <el-table-column prop="applianceId" label="设备id" align="center" show-overflow-tooltip width="70"></el-table-column>
             <el-table-column prop="applianceType" label="品类" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="propertyName" label="型号码" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="sn8" label="型号码" show-overflow-tooltip></el-table-column>
             <el-table-column prop="sn" label="设备SN" show-overflow-tooltip></el-table-column>
             <el-table-column prop="code" label="设备一维码" show-overflow-tooltip></el-table-column>
             <el-table-column prop="province" label="所在省" show-overflow-tooltip></el-table-column>
