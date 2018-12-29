@@ -37,14 +37,16 @@ export default {
     save () {
       if (!doSubmit('form', this)) return;
       this.addSubmit();
-      this.$emit('close', false);
     },
     addSubmit () {
       const params = {...this.form, account: 'me'};
       API.addValidMac(params)
          .then(res => {
-           restData(this.form);
-           this.$emit('requestTable');
+           if (res.code === 0) {
+             restData(this.form);
+             this.$emit('requestTable');
+             this.$emit('close', false);
+           }
          });
     },
     cencle () {
