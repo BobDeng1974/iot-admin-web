@@ -18,7 +18,7 @@
           </table>
         </div>
         <div class="export">
-          <el-button @click="checkTokenClick" size="medium" type="primary">导出统计结果</el-button>
+          <el-button @click="checkTokenClick" size="medium" v-authority="'b1_staticDeviceExportTag'" type="primary">导出统计结果</el-button>
           <!-- <el-button @click="checkTokenClick" size="medium" type="primary"><a :disabled="disabled" style="color:#fff" :target="_blank" :href="ExportUrl">导出统计结果</a></el-button> -->
 
         </div>
