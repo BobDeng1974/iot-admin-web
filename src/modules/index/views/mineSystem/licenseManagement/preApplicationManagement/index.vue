@@ -268,20 +268,32 @@ export default {
     text-align: right;
     margin-top: 16px;
    }
-    .green{
-      // background-color:green;
-      background-color: #3DC930;
-    }
-    .darkgray{
-      background-color:darkgray;
-    }
-    .blue{
-      background-color:blue;
-    }
-    .yellow{
-      background-color:yellow;
-    }
-  .el-input{
+  .green {
+    background-color: #3DC903;
+  }
+  .darkgray {
+    background-color: #ff5656;
+  }
+  .blue {
+    background-color: #5667ff;
+  }
+  .yellow {
+    background-color: #FFD244;
+  }
+  //   .green{
+  //     // background-color:green;
+  //     background-color: #3DC930;
+  //   }
+  //   .darkgray{
+  //     background-color:darkgray;
+  //   }
+  //   .blue{
+  //     background-color:blue;
+  //   }
+  //   .yellow{
+  //     background-color:yellow;
+  //   }
+  // .el-input{
     width: 230px;
   }
   .btn-select{
