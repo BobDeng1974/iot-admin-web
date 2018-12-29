@@ -8,7 +8,7 @@
                 <el-input v-model="form.code"></el-input>
             </el-form-item>
             <el-form-item label="机构地址" prop="address">
-              <v-distpicker class="addModule-adderess" @province='one' @city="two" @area="three"></v-distpicker>
+              <v-distpicker class="addModule-adderess" :province="select.province" :city="select.city" :area="select.area" @province='one' @city="two" @area="three"></v-distpicker>
               <el-input v-model="form.addressInput" class="addressInput" @input="addressInput"></el-input>
               <el-input style="display:none" v-model="form.address" type="hidden"></el-input>
             </el-form-item>
@@ -147,22 +147,23 @@ export default {
     },
     save () {
       if (!doSubmit('form', this)) return;
-      this.$emit('close', false);
       const params = {
         ...this.form
       };
       API.supplyAdd(params)
           .then(res => {
-            console.log(res, '模组厂商新增');
-            restData(this.form);
-            restData(this.select);
-            this.$emit('requestTable');
+            if (res.code === 0) {
+              restData(this.form);
+              restData(this.select);
+              this.$emit('close', false);
+              this.$emit('requestTable');
+            }
           });
     },
     cencle () {
-      this.$emit('close', false);
       restData(this.form);
       restData(this.select);
+      this.$emit('close', false);
     }
   }
 };
