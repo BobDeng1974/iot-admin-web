@@ -38,8 +38,8 @@
                 <span>{{scope.row.status===1?'已绑定':'未绑定'}}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="registerTime" label="注册时间" show-overflow-tooltip></el-table-column>
-            <el-table-column prop="boundTime" label="绑定时间" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="boundTime" label="注册时间" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="activeTime" label="绑定时间" show-overflow-tooltip></el-table-column>
             <el-table-column prop="activeTime" label="激活时间" show-overflow-tooltip></el-table-column>
           </el-table>
         </div>
