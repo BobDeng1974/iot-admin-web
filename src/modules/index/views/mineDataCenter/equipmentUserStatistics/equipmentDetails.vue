@@ -35,7 +35,7 @@
             <!-- <el-table-column prop="status" label="绑定状态" show-overflow-tooltip></el-table-column> -->
             <el-table-column label="绑定状态" show-overflow-tooltip>
               <template slot-scope="scope">
-                <span>{{scope.row.status===1?'已绑定':'未绑定'}}</span>
+                <span>{{scope.row.status==='1'?'已绑定':'未绑定'}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="boundTime" label="注册时间" show-overflow-tooltip></el-table-column>
