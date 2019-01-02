@@ -88,7 +88,7 @@ export default {
       title: '',
       roleId: '',
       currentPage: 1,
-      total: 35,
+      total: 0,
       pageSize: 5
     };
   },
