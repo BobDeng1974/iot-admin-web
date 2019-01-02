@@ -250,7 +250,9 @@ export default {
     // 查询Lua协议列表数据
     getStatisticsListData(flag) {
       console.log(format(this.dateTimeRange, 'yyyy-MM-dd'));
-
+            if (flag) {
+        this.currentPage = 1;
+      }
       let params = {
         groupId: this.queryFormData.groupId || 0,
         applianceType: commonFun.fetchWord(
@@ -280,9 +282,7 @@ export default {
         )
           : ''
       };
-      if (flag) {
-        this.currentPage = 1;
-      }
+
         let e = new Date(params.endTime).getDate();
       let s = new Date(params.startTime).getDate();
       let totalPage = e - s + 1;
