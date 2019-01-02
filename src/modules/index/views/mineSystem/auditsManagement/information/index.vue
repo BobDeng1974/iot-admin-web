@@ -268,19 +268,19 @@ export default {
       margin-top: 16px;
     }
     .green{
-      background-color:green;
+      background-color:#3DC903;
     }
     .red{
-       background-color:red;
+       background-color:#ff5656;
     }
     .darkgray{
       background-color:darkgray;
     }
     .blue{
-      background-color:blue;
+      background-color:#5667ff;
     }
     .yellow{
-      background-color:yellow;
+      background-color:#FFD244;
     }
   .auditsManagement-check{
     margin-top: 24px;

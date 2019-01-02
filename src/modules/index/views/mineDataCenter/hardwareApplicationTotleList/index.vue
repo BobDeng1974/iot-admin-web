@@ -251,22 +251,22 @@ export default {
     margin-top: 16px;
   }
   .green {
-    background-color: green;
+    background-color: #3DC903;
   }
   .darkgray {
     background-color: darkgray;
   }
   .blue {
-    background-color: blue;
+    background-color: #5667ff;
   }
   .red {
-    background-color: red;
+    background-color: #ff5656;
   }
   .color1 {
     background-color: #00DB00;
   }
   .yellow {
-    background-color: yellow;
+    background-color: #FFD244;
   }
   .yellowgreen {
     background-color: yellowgreen;
