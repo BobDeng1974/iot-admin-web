@@ -11,7 +11,7 @@
           <!-- <p v-if="publicStatus === 42">当前状态：申请上线中</p> -->
         </div>
         <div style="position: relative;">
-          <div>
+          <div v-if="tableData.network">
             <mine-table :tableData="tableData" :ignoreDatas="ignoreDatas" :tableLabel="tableLabel" :clickData="clickData" @detailTableClick="detailTableClick"></mine-table>
           </div>
           <div class="one" v-if="publicStatus === 20">
@@ -28,7 +28,7 @@
           </div> -->
         </div>
         <!-- 底部按钮 -->
-        <div class="btn-select">
+        <div class="btn-select" v-if="tableData.network">
           <div v-if="publicStatus === 20">
             <el-button type="primary" @click="passClick(0)">保存进入开发中</el-button>
           </div>
@@ -287,8 +287,8 @@ export default {
       };
       API.getHardware(params)
       .then(res => {
-        this.publicStatus = res.result.publicStatus;
         this.$nextTick(() => {
+          this.publicStatus = res.result.publicStatus;
           this.creadData(res.result);
         });
         this.loading = false;
