@@ -165,8 +165,13 @@ export default {
       };
       API.allocatedMacList(params)
           .then(res => {
-            this.allocatedMacList = this.initTableData(res.result.data ? res.result.data : [], this.allocatedCurrentPage, this.allocatedPageSize);
-            this.allocatedTotal = res.result.total;
+            if (res.code === 0) {
+              this.allocatedMacList = this.initTableData(res.result.data ? res.result.data : [], this.allocatedCurrentPage, this.allocatedPageSize);
+              this.allocatedTotal = res.result.total;
+            }
+            this.allocatedLoading = false;
+          })
+          .catch(() => {
             this.allocatedLoading = false;
           });
     },
@@ -178,8 +183,13 @@ export default {
       };
       API.validMacList(params)
           .then(res => {
-            this.validMacList = this.initTableData(res.result.data ? res.result.data : [], this.validCurrentPage, this.validPageSize);
-            this.validTotal = res.result.total;
+            if (res.code === 0) {
+              this.validMacList = this.initTableData(res.result.data ? res.result.data : [], this.validCurrentPage, this.validPageSize);
+              this.validTotal = res.result.total;
+            }
+            this.validLoading = false;
+          })
+          .catch(() => {
             this.validLoading = false;
           });
     },
