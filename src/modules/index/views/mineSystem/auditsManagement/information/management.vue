@@ -1,5 +1,5 @@
 <template>
-    <div class="management-mine-warp" v-loading="loading">
+    <div class="management-mine-warp" v-loading="loading" v-if="tableData.network">
         <div class="title-management">
             <con-header :title-icon="addProductsIcon" title="审核管理" :hasBottomBorder="true"></con-header>
         </div>
@@ -11,7 +11,7 @@
           <!-- <p v-if="publicStatus === 42">当前状态：申请上线中</p> -->
         </div>
         <div style="position: relative;">
-          <div v-if="tableData.network">
+          <div>
             <mine-table :tableData="tableData" :ignoreDatas="ignoreDatas" :tableLabel="tableLabel" :clickData="clickData" @detailTableClick="detailTableClick"></mine-table>
           </div>
           <div class="one" v-if="publicStatus === 20">
@@ -28,7 +28,7 @@
           </div> -->
         </div>
         <!-- 底部按钮 -->
-        <div class="btn-select" v-if="tableData.network">
+        <div class="btn-select">
           <div v-if="publicStatus === 20">
             <el-button type="primary" @click="passClick(0)">保存进入开发中</el-button>
           </div>
