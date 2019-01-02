@@ -101,8 +101,13 @@ export default {
       };
       API.roleList(params)
           .then(res => {
-            this.tableData = res.result.data;
-            this.total = res.result.total;
+            if (res.code === 0) {
+              this.tableData = res.result.data;
+              this.total = res.result.total;
+            }
+            this.loading = false;
+          })
+          .catch(() => {
             this.loading = false;
           });
     },

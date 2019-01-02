@@ -68,8 +68,10 @@ export default {
       await this.getAllAuthed();
       API.allRole(params)
       .then(res => {
-        this.roleList = this.initData(res.result);
-        this.selectRole(0, this.roleList[0].id);
+        if (res.code === 0) {
+          this.roleList = this.initData(res.result);
+          this.selectRole(0, this.roleList[0].id);
+        }
         this.roleLoading = false;
       });
     },

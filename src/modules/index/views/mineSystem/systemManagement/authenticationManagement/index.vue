@@ -162,7 +162,9 @@ export default {
       };
       API.mipAudit(params)
       .then(res => {
-        this.getList(false);
+        if (res.code === 0) {
+          this.getList(false);
+        }
       });
     },
     getList (flag) {
