@@ -265,7 +265,7 @@ export default {
           'id',
           this.applianList,
           'type'
-        )] : [0],
+        )] : '0',
         // typeCode: this.typeCode,
         provinces: this.queryFormData.provinces ? [this.queryFormData.provinces] : [0],
         cities: this.queryFormData.cities ? [this.queryFormData.cities] : [0],
