@@ -73,9 +73,9 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="applyTime" label="申请时间" align="center" width="150">
+            <el-table-column prop="cdate" label="申请时间" align="center" width="150">
               <template slot-scope="scope">
-                <div>{{scope.row.applyTime | fomatDate('yyyy-MM-dd HH:mm')}}</div>
+                <div>{{scope.row.cdate | fomatDate('yyyy-MM-dd HH:mm')}}</div>
               </template>
             </el-table-column>
             <el-table-column prop="cName" label="提交人" align="center"></el-table-column>
