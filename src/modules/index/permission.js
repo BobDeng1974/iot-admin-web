@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
   // }
   console.log(getToken(), 'token');
   if (getToken() === '10063004') {
-    MessageBox.confirm('账号已被禁用，请换账号重新登录', '确定登出', {
+    MessageBox.confirm('账号已被禁用，请换账号重新登录', '', {
       confirmButtonText: '重新登录',
       showCancelButton: false,
       // cancelButtonText: '取消',
