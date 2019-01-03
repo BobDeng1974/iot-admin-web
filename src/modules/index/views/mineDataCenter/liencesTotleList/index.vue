@@ -137,19 +137,22 @@ export default {
     departMentChange (val) {
       this.formInline.sn8 = '';
       this.formInline.applianceType = '';
+      this.applianList = [];
+      this.sn8List = [];
       if (val) {
         this.getApplianListAsDpartId(val);
       } else {
-        this.applianList = [];
-        this.sn8List = [];
+        // this.applianList = [];
+        // this.sn8List = [];
       }
     },
     applianChange(val) {
       this.formInline.sn8 = '';
+      this.sn8List = [];
       if (val) {
         this.getSn8List(val);
       } else {
-        this.sn8List = [];
+        // this.sn8List = [];
       }
     },
     eidtApplication() {

@@ -222,10 +222,11 @@ export default {
   methods: {
     departMentChange (val) {
       this.addInfo.applianId = '';
+      this.applianList = [];
       if (val) {
         this.getApplianListAsDpartId(val);
       } else {
-        this.applianList = [];
+        // this.applianList = [];
       }
     },
     getDict() {

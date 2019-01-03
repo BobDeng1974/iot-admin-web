@@ -163,20 +163,23 @@ export default {
     departMentChange (val) {
       this.formInline.sn8 = '';
       this.formInline.typeCode = '';
+      this.applianList = [];
+      this.sn8List = [];
       if (val) {
         this.getApplianListAsDpartId(val);
       } else {
-        this.applianList = [];
-        this.sn8List = [];
+        // this.applianList = [];
+        // this.sn8List = [];
       }
     },
     applianChange(val) {
       this.formInline.sn8 = '';
+      this.sn8List = [];
       if (val) {
         let id = this.getApplianId(val);
         this.getSn8List(id);
       } else {
-        this.sn8List = [];
+        // this.sn8List = [];
       }
     },
     // 通过品类type属性找到对应的品类id

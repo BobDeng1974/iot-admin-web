@@ -169,10 +169,11 @@ export default {
   methods: {
     departMentChange (val) {
       this.formInline.applianId = '';
+      this.applianList = [];
       if (val) {
         this.getApplianListAsDpartId(val);
       } else {
-        this.applianList = [];
+        // this.applianList = [];
       }
     },
     getDict() {

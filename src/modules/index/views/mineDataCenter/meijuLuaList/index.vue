@@ -130,10 +130,11 @@ export default {
   methods: {
     departMentChange (val) {
       this.formInline.typeCode = '';
+      this.applianList = [];
       if (val) {
         this.getApplianListAsDpartId(val);
       } else {
-        this.applianList = [];
+        // this.applianList = [];
       }
     },
     // 下载功能

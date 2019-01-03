@@ -136,15 +136,18 @@ export default {
     departMentChange (val) {
       this.formInline.sn8 = '';
       this.formInline.applianTypeId = '';
+      this.applianList = [];
+      this.sn8List = [];
       if (val) {
         this.getApplianListAsDpartId(val);
       } else {
-        this.applianList = [];
-        this.sn8List = [];
+        // this.applianList = [];
+        // this.sn8List = [];
       }
     },
     applianChange(val) {
       this.formInline.sn8 = '';
+      this.sn8List = [];
       if (val) {
         this.getSn8List(val);
       } else {
