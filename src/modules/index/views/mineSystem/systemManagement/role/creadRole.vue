@@ -37,14 +37,20 @@ export default {
     save () {
       if (!doSubmit('form', this)) return;
       this.addSubmit();
-      this.$emit('close', false);
     },
     addSubmit () {
       const params = this.form;
       API.addRole(params)
          .then(res => {
-           restData(this.form);
-           this.$emit('requestTable');
+           if (res.code === 0) {
+            this.$message({
+              message: '创建角色成功',
+              type: 'success'
+            });
+            restData(this.form);
+            this.$emit('close', false);
+            this.$emit('requestTable');
+           }
          });
     },
     cencle () {
