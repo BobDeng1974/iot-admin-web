@@ -43,9 +43,13 @@ export default {
       API.addValidMac(params)
          .then(res => {
            if (res.code === 0) {
-             restData(this.form);
-             this.$emit('requestTable');
-             this.$emit('close', false);
+            this.$message({
+              message: '新增成功',
+              type: 'success'
+            });
+            restData(this.form);
+            this.$emit('requestTable');
+            this.$emit('close', false);
            }
          });
     },

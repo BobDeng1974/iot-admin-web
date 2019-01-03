@@ -153,6 +153,10 @@ export default {
       API.supplyAdd(params)
           .then(res => {
             if (res.code === 0) {
+              this.$message({
+                message: '创建模组厂商成功',
+                type: 'success'
+              });
               restData(this.form);
               restData(this.select);
               this.$emit('close', false);
