@@ -7,8 +7,10 @@
 var environment = (function () {
   // 后台接口域
   var _application = {
-    iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
-    iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+    iotserver: 'http://devadmin-prod.msmartlife.com/adminWeb/v1/iotserver',
+    iotserverUcenterAdminWeb: 'http://devadmin-prod.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+    // iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
+    // iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
     iotmj: '/mj'
   };
   //项目目录
