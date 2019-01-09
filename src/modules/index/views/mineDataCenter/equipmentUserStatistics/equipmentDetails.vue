@@ -109,6 +109,7 @@ export default {
           let link = document.createElement('a');
           link.style.height = '0px';
           link.target = '_blank';
+          console.log(`${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId ? this.tableData1.groupId : ''}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableData1.citiesId ? this.tableData1.citiesId : ''}&accessToken=${getToken()}`);
           link.href = `${MJAPP_NAME}/statistics/devicesexport?groupId=${this.tableData1.groupId ? this.tableData1.groupId : ''}&endTime=${this.$route.params.endTime}&applianceType=${this.tableData1.applianceTypeType ? this.tableData1.applianceTypeType : ''}&provinces=${this.tableData1.provincesId ? this.tableData1.provincesId : ''}&cities=${this.tableData1.citiesId ? this.tableData1.citiesId : ''}&accessToken=${getToken()}`;
           link.setAttribute('download', '');
           document.body.appendChild(link);
