@@ -32,7 +32,7 @@
                 <el-input v-model="form.mobile"></el-input>
             </el-form-item>
             <el-form-item label="公钥" prop="publicKey">
-                <el-input v-model="form.publicKey"></el-input>
+                <el-input v-model="form.publicKey" type="textarea"></el-input>
             </el-form-item>
         </el-form>
         <div class="dialog-footer">
