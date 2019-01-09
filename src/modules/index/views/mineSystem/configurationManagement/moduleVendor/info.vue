@@ -22,6 +22,9 @@
             <el-form-item label="联系方式">
               <p> {{info.mobile}}</p>
             </el-form-item>
+            <el-form-item label="公钥">
+              <p style="word-wrap: break-word"> {{info.publicKey}}</p>
+            </el-form-item>
         </el-form>
     </div>
 </template>

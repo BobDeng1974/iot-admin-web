@@ -31,6 +31,9 @@
             <el-form-item label="联系方式" prop="mobile">
                 <el-input v-model="form.mobile"></el-input>
             </el-form-item>
+            <el-form-item label="公钥" prop="publicKey">
+                <el-input v-model="form.publicKey"></el-input>
+            </el-form-item>
         </el-form>
         <div class="dialog-footer">
             <el-button type="primary" @click="save">保 存</el-button>
@@ -78,7 +81,8 @@ export default {
         address: { required: true, message: '请选择地区', trigger: 'change' },
         email: { required: true, validator: this.checkEmail, trigger: 'blur' },
         mobile: { required: true, validator: this.checkMobile, trigger: 'change' },
-        contactId: { required: true, message: '请选择对接人', trigger: 'change' }
+        contactId: { required: true, message: '请选择对接人', trigger: 'change' },
+        publicKey: { required: true, validator: this.checkPublicKey, trigger: 'change' }
       }
     };
   },
