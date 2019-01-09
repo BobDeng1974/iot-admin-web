@@ -274,7 +274,7 @@ export default {
           overflow-y: auto;
           height: 559px;
           .el-tree-node__content{
-            height: 50px !important;
+            height: 42px !important;
            .el-tree-node__label{
              font-size: 16px !important;
            }
