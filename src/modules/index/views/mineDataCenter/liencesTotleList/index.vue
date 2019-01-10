@@ -9,7 +9,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="模组厂商">
-              <el-select v-model="formInline.supplyId" placeholder="请选择" clearable>
+              <el-select v-model="formInline.supplyId" placeholder="全部" clearable>
                 <el-option v-for="item in applyList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -17,7 +17,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="事业部">
-              <el-select v-model="formInline.departId" placeholder="请选择" clearable @change="departMentChange">
+              <el-select v-model="formInline.departId" placeholder="全部" clearable @change="departMentChange">
                 <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -128,10 +128,10 @@ export default {
   methods: {
     // 获取所有下拉字典
     getDict() {
-      this.getAlldeparment({name: '全部', id: ''});
-      // this.getApplianList();
-      this.getApply({name: '全部', id: ''});
-      // this.applyList.push([]);
+      this.getAlldeparment();
+      this.getApply();
+      // this.getAlldeparment({name: '全部', id: ''});
+      // this.getApply({name: '全部', id: ''});
     },
     // 三级联动
     departMentChange (val) {
