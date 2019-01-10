@@ -9,7 +9,7 @@
               <el-row>
                 <el-col :span="8">
                     <el-form-item label="所属事业部">
-                      <el-select v-model="formInline.departmentId" placeholder="请选择" @change="departMentChange" clearable>
+                      <el-select filterable v-model="formInline.departmentId" placeholder="请选择" @change="departMentChange" clearable>
                           <el-option
                             v-for="item in deparmentList"
                             :key="item.id"
@@ -21,7 +21,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="品类">
-                    <el-select v-model="formInline.applianId" placeholder="请选择" clearable>
+                    <el-select filterable v-model="formInline.applianId" placeholder="请选择" clearable>
                       <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
                       </el-option>
                     </el-select>
@@ -29,7 +29,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="型号码">
-                    <el-input v-model="formInline.sn8" clearable></el-input>
+                    <el-input filterable v-model="formInline.sn8" clearable></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>

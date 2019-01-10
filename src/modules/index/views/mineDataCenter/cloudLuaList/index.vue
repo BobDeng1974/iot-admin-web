@@ -9,7 +9,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="开发组">
-              <el-select v-model="formInline.deparId" placeholder="请选择" @change="departMentChange" clearable>
+              <el-select filterable v-model="formInline.deparId" placeholder="请选择" @change="departMentChange" clearable>
                 <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
@@ -17,16 +17,16 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="品类">
-              <el-select v-model="formInline.typeCode" placeholder="请选择" @change="applianChange" clearable>
+              <el-select filterable v-model="formInline.typeCode" placeholder="请选择" @change="applianChange" clearable>
                 <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.type">
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="型号码">
+            <el-form-item  label="型号码">
               <!-- <el-input v-model="formInline.sn8"></el-input> -->
-              <el-select v-model="formInline.sn8" placeholder="请选择" clearable>
+              <el-select filterable v-model="formInline.sn8" placeholder="请选择" clearable>
                 <el-option v-for="item in sn8List" :key="item.id" :label="item.sn8" :value="item.sn8">
                 </el-option>
               </el-select>

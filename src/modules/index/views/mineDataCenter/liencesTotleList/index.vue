@@ -17,15 +17,15 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="事业部">
-              <el-select v-model="formInline.departId" placeholder="全部" clearable @change="departMentChange">
+              <el-select filterable v-model="formInline.departId" placeholder="全部" clearable @change="departMentChange">
                 <el-option v-for="item in deparmentList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="品类">
-              <el-select v-model="formInline.applianceType" placeholder="请选择" @change="applianChange" clearable>
+            <el-form-item   label="品类">
+              <el-select filterable v-model="formInline.applianceType" placeholder="请选择" @change="applianChange" clearable>
                 <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
                 </el-option>
               </el-select>

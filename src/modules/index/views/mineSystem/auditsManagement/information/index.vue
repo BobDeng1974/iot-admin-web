@@ -9,7 +9,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item label="品类">
-                    <el-select v-model="formInline.applianTypeId" clearable placeholder="请选择" @change="applianChange">
+                    <el-select filterable v-model="formInline.applianTypeId" clearable placeholder="请选择" @change="applianChange">
                         <el-option
                           v-for="item in applianList"
                           :key="item.id"
@@ -21,7 +21,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="型号码">
-                    <el-select v-model="formInline.sn8" clearable placeholder="请选择">
+                    <el-select filterable v-model="formInline.sn8" clearable placeholder="请选择">
                         <el-option
                           v-for="item in sn8List"
                           :key="item.id"
