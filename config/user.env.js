@@ -9,8 +9,12 @@ var environment = (function () {
   var _application = {
     // iotserver: 'http://devadmin-prod.msmartlife.com/adminWeb/v1/iotserver',
     // iotserverUcenterAdminWeb: 'http://devadmin-prod.msmartlife.com/ucenterAdminWeb/v1/iotserver',
-    iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
-    iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+    // sit 测试域名
+    // iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
+    // iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+    // 生产新域名
+    iotserver: 'http://admin.msmartlife.com/adminWeb/v1/iotserver',
+    iotserverUcenterAdminWeb: 'http://admin.msmartlife.com/ucenterAdminWeb/v1/iotserver',
     iotmj: '/mj'
   };
   //项目目录
