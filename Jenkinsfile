@@ -40,6 +40,13 @@ pipeline {
     		}
      }
     stage('Deploy sit') {
+    	   options {
+        		timeout(time: 30, unit: 'MINUTES') 
+      		}
+      		input {
+          	message "Deploy or Not?"
+          	ok "Deploy it!"
+          }		
     	   environment {    		
     			packageName = "iotdevweb-admin-${BRANCH_NAME}-${GIT_COMMIT}.zip"     		 		
     		}
