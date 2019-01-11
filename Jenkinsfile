@@ -28,6 +28,17 @@ pipeline {
     	}
     }
     }
+    stage('Deploy dev') {
+    	   environment {    		
+    			packageName = "iotdevweb-admin-${BRANCH_NAME}-${GIT_COMMIT}.zip"     		 		
+    		}
+    		agent {
+    			label "master"
+    		}
+    		steps {
+    			sh '/app/scripts/deploy-iotdevweb-admin-dev.sh'
+    		}
+     }
     stage('Deploy sit') {
     	   environment {    		
     			packageName = "iotdevweb-admin-${BRANCH_NAME}-${GIT_COMMIT}.zip"     		 		
