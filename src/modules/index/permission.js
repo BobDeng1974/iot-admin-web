@@ -123,8 +123,8 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       // 4a 登录
-      location.href = `${APPLICATION_NAME}/login`;
-      // next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
+      // location.href = `${APPLICATION_NAME}/login`;
+      next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页
       NProgress.done();
     }
   }
