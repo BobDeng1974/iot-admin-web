@@ -6,11 +6,11 @@
  */
 var environment = (function () {
   var _application;
-  if (window.location.host === 'admin.msmartlife.com') {
+  if (window.location.host === 'devadmin-prod.msmartlife.com') {
     // 生产环境域名
     _application = {
-      iotserver: 'http://admin.msmartlife.com/adminWeb/v1/iotserver',
-      iotserverUcenterAdminWeb: 'http://admin.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+      iotserver: 'http://devadmin-prod.msmartlife.com/adminWeb/v1/iotserver',
+      iotserverUcenterAdminWeb: 'http://devadmin-prod.msmartlife.com/ucenterAdminWeb/v1/iotserver',
       iotmj: '/mj'
     }
   } else if (window.location.host === 'devadmin-sit.msmartlife.com') {
