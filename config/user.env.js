@@ -23,10 +23,10 @@ var environment = (function () {
   } else {
     // 开发环境环境域名
     _application = {
-      iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
-      iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
-      // iotserver: 'http://devadmin-dev.msmartlife.com/adminWeb/v1/iotserver',
-      // iotserverUcenterAdminWeb: 'http://devadmin-dev.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+      // iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
+      // iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+      iotserver: 'http://devadmin-dev.msmartlife.com/adminWeb/v1/iotserver',
+      iotserverUcenterAdminWeb: 'http://devadmin-dev.msmartlife.com/ucenterAdminWeb/v1/iotserver',
       iotmj: '/mj'
     }
   }
