@@ -58,7 +58,6 @@
         </el-row>
       </el-form>
       <div>
-
         <el-row class="applicationManagement-row" style="display: flex; justify-content: flex-end;">
           <span class="btn-select-right" v-authority="'b1_applyListTag'">
             <el-button type="primary" @click="getList(true)">筛 选</el-button>
