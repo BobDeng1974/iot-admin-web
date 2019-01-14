@@ -24,7 +24,7 @@
         </div>
         <!--profile属性列表-->
         <div class="table-wrapper">
-          <el-table class="table" :data="tableData2" style="width: 100%">
+          <el-table class="table" :data="tableData2" style="width: 100%" v-loading="loading">
             <el-table-column prop="applianceId" label="设备id" align="center" show-overflow-tooltip width="70"></el-table-column>
             <el-table-column prop="applianceType" label="品类" show-overflow-tooltip></el-table-column>
             <el-table-column prop="sn8" label="型号码" show-overflow-tooltip></el-table-column>
@@ -44,7 +44,7 @@
           </el-table>
         </div>
         <div class="myPagination">
-          <el-pagination @current-change="handleCurrentChange" :page-size="pageSize" :current-page.sync="currentPage" layout="total, prev, pager, next" :total="total">
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="[10, 20, 30, 40]" layout="total, sizes, prev, pager, next, jumper" :total="total">
           </el-pagination>
         </div>
       </div>
@@ -69,7 +69,8 @@ export default {
             // 分页
       currentPage: 1,
       total: 0,
-      pageSize: 5,
+      pageSize: 10,
+      loading: false,
 
       titleIcon1: '/static/img/title_05@2x.png',
       tableLabel: {
@@ -154,11 +155,16 @@ export default {
       // this.pageObj.pageNo = val;
       this.getDevicelistDetail();
     },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.getDevicelistDetail();
+    },
     // 获取详情数据
     getDevicelistDetail() {
       let id = this.$route.params.endTime;
       // debugger;
       if (typeof id !== 'undefined') {
+        this.loading = true;
         let params = {
           applianceType: this.tableData1.applianceTypeType ? [this.tableData1.applianceTypeType] : ['0'],
         // typeCode: this.typeCode,
@@ -171,6 +177,7 @@ export default {
         };
         console.log(params);
         API.devicelist(params).then(res => {
+          this.loading = false;
           console.log(res);
           if (res.code === 0 && res.result) {
             this.total = res.result ? res.result.totalCount : 0;

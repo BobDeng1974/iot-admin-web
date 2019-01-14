@@ -73,7 +73,7 @@
         </div>
         <!--列表-->
         <div class="table-wrapper">
-          <el-table class="table" :data="dataList" style="width: 100%">
+          <el-table class="table" :data="dataList" style="width: 100%" v-loading="loading">
             <el-table-column prop="date" label="日期" show-overflow-tooltip></el-table-column>
             <!-- <el-table-column prop="newUsers" label="新增用户（人）" show-overflow-tooltip></el-table-column> -->
             <el-table-column prop="networkedDevices" label="联网总数" show-overflow-tooltip></el-table-column>
@@ -88,7 +88,7 @@
           </el-table>
         </div>
         <div class="myPagination">
-          <el-pagination @current-change="handleCurrentChange" :page-size="pageSize" :current-page.sync="currentPage" layout="total, prev, pager, next" :total="total">
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="[10, 20, 30, 40]" layout="total,sizes, prev, pager, next, jumper" :total="total">
           </el-pagination>
         </div>
       </div>
@@ -129,7 +129,8 @@ export default {
       // 分页
       currentPage: 1,
       total: 0,
-      pageSize: 5,
+      pageSize: 10,
+      loading: false,
       titleIcon1: '/static/img/title_07@2x.png',
       //  typeCode: [],
       queryFormData: {
@@ -253,6 +254,7 @@ export default {
             if (flag) {
         this.currentPage = 1;
       }
+      this.loading = true;
       let params = {
         groupId: this.queryFormData.groupId || 0,
         applianceType: commonFun.fetchWord(
@@ -297,6 +299,7 @@ export default {
       console.log(totalPage);
       API.statistics(params).then(res => {
         console.log(res);
+        this.loading = false;
         if (res.code === 0) {
       let query = {
       applianceTypeId: this.queryFormData.applianceType,
@@ -398,6 +401,10 @@ export default {
       // 改变currentPage
     handleCurrentChange(val) {
       // this.pageObj.pageNo = val;
+      this.getStatisticsListData(false);
+    },
+    handleSizeChange(val) {
+      this.pageSize = val;
       this.getStatisticsListData(false);
     }
   }
