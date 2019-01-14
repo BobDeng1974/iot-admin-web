@@ -16,8 +16,8 @@ var environment = (function () {
   } else if (window.location.host === 'devadmin-sit.msmartlife.com') {
     // 测试环境域名
     _application = {
-      iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
-      iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+      iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver/1',
+      iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver/1',
       iotmj: '/mj'
     }
   } else {
