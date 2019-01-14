@@ -12,6 +12,7 @@ export default {
     };
   },
   created() {
+
     // 在页面加载时读取localStorage里的状态信息
     // localStorage.getItem('iotInfo') &&
     //   this.$store.replaceState(
