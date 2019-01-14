@@ -116,7 +116,7 @@
       </el-table>
     </div>
     <div class="fenye">
-      <el-pagination @current-change="handleCurrentChange" :page-size="pageSize" :current-page.sync="currentPage" layout="total, prev, pager, next" :total="total">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="pageSize" :current-page.sync="currentPage" :page-sizes="[10, 20, 30, 40]" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
     <mine-dialog :dialogFormVisible='flag' :width='width' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
@@ -169,7 +169,7 @@ export default {
       tableData: [],
       currentPage: 1,
       total: 0,
-      pageSize: 5,
+      pageSize: 10,
       applyInfoId: 1
     };
   },
@@ -218,6 +218,10 @@ export default {
       this.$router.push({ name: 'eidtApplication' });
     },
     requestList() {
+      this.getList(false);
+    },
+    handleSizeChange(val) {
+      this.pageSize = val;
       this.getList(false);
     },
     handleCurrentChange(val) {
