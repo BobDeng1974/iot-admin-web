@@ -5,18 +5,31 @@
  * 2.带有私密性内容写在环境变量中
  */
 var environment = (function () {
-  // 后台接口域
-  var _application = {
-    // iotserver: 'http://devadmin-prod.msmartlife.com/adminWeb/v1/iotserver',
-    // iotserverUcenterAdminWeb: 'http://devadmin-prod.msmartlife.com/ucenterAdminWeb/v1/iotserver',
-    // sit 测试域名
-    // iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
-    // iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
-    // 生产新域名
-    iotserver: 'http://admin.msmartlife.com/adminWeb/v1/iotserver',
-    iotserverUcenterAdminWeb: 'http://admin.msmartlife.com/ucenterAdminWeb/v1/iotserver',
-    iotmj: '/mj'
-  };
+  var _application;
+  if (window.location.host === 'admin.msmartlife.com') {
+    // 生产环境域名
+    _application = {
+      iotserver: 'http://admin.msmartlife.com/adminWeb/v1/iotserver',
+      iotserverUcenterAdminWeb: 'http://admin.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+      iotmj: '/mj'
+    }
+  } else if (window.location.host === 'devadmin-sit.msmartlife.com') {
+    // 测试环境域名
+    _application = {
+      iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
+      iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+      iotmj: '/mj'
+    }
+  } else {
+    // 开发环境环境域名
+    _application = {
+      iotserver: 'http://devadmin-sit.msmartlife.com/adminWeb/v1/iotserver',
+      iotserverUcenterAdminWeb: 'http://devadmin-sit.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+      // iotserver: 'http://devadmin-dev.msmartlife.com/adminWeb/v1/iotserver',
+      // iotserverUcenterAdminWeb: 'http://devadmin-dev.msmartlife.com/ucenterAdminWeb/v1/iotserver',
+      iotmj: '/mj'
+    }
+  }
   //项目目录
   var _pathName = '/';
 
