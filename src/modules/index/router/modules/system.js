@@ -138,6 +138,13 @@ export const auditsManagementRouter =
       name: 'eidtPreApplication',
       meta: { title: 'license预申请' },
       hidden: true
+    },
+    // lua审核管理
+    {
+      path: 'luaAuditManagement',
+      component: _import('mineSystem/auditsManagement/luaAuditManagement/index'),
+      name: 'lua审核管理',
+      meta: { title: 'lua审核管理', icon: 'dots' }
     }
   ]
 };
