@@ -45,6 +45,7 @@ pipeline {
       		}
       		input {
           	message "Deploy or Not?"
+          	submitter "liangyb,lipingliang,dengyx2"
           	ok "Deploy it!"
           }		
     	   environment {    		
