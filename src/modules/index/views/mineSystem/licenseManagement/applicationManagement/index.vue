@@ -222,7 +222,7 @@ export default {
     },
     handleSizeChange(val) {
       this.pageSize = val;
-      this.getList(false);
+      this.getList(true);
     },
     handleCurrentChange(val) {
       this.getList(false);

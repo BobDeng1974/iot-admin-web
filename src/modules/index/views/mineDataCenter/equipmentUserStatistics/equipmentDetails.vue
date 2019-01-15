@@ -157,12 +157,15 @@ export default {
     },
     handleSizeChange(val) {
       this.pageSize = val;
-      this.getDevicelistDetail();
+      this.getDevicelistDetail(true);
     },
     // 获取详情数据
-    getDevicelistDetail() {
+    getDevicelistDetail(flag) {
       let id = this.$route.params.endTime;
       // debugger;
+      if (flag) {
+        this.currentPage = 1;
+      }
       if (typeof id !== 'undefined') {
         this.loading = true;
         let params = {

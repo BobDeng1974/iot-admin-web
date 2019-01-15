@@ -405,7 +405,7 @@ export default {
     },
     handleSizeChange(val) {
       this.pageSize = val;
-      this.getStatisticsListData(false);
+      this.getStatisticsListData(true);
     }
   }
 };
