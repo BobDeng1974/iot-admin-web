@@ -68,10 +68,10 @@
            <mine-pagination
            @numberChange="numberChange"
            :total="total"
-           :pageSizes="[5, 10, 20, 50]"
+           :pageSizes="[10, 20, 30]"
            :page-size="pageSize"
            :current-page="currentPage"
-           :layout="'total, prev, pager, next'">
+           >
            </mine-pagination>
         </div>
     </div>
@@ -104,21 +104,18 @@ export default {
       tableData: [],
       currentPage: 1,
       total: 0,
-      pageSize: 5
+      pageSize: 10
     };
   },
   created () {
     this.getList(true);
   },
   methods: {
-    // handleCurrentChange(val) {
-    //   this.getList(false);
-    // },
     numberChange (val) {
       switch (val.flag) {
         case 'pageSize':
           this.pageSize = val.pageSize;
-          this.getList(false);
+          this.getList(true);
           break;
         case 'currentPage':
           this.currentPage = val.currentPage;
@@ -229,14 +226,15 @@ export default {
         content: '' !important;
       }
     }
+    .el-input{
+      width: 230px;
+    }
   }
-   .fenye{
+  .fenye{
     text-align: right;
     margin-top: 16px;
    }
-  .el-input{
-    width: 230px;
-  }
+
   .dialog-footer{
     text-align: right;
   }

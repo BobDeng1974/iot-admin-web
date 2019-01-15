@@ -31,7 +31,7 @@
         </div>
         <mine-dialog :dialogFormVisible='flag' :width='"45%"' :modalFlag="modalFlag" @close="close"  :title="title" :showClose="showClose">
             <!-- <div slot="option" v-if="!showClose"> -->
-              <cread-role  slot="option"  @close="close" v-if="!showClose" @requestTable="requestList"></cread-role>
+              <cread-role  slot="option"  @close="close" v-if="!showClose" @requestTable="requestList(true)"></cread-role>
             <!-- </div> -->
             <!-- <div slot="option" v-else> -->
               <role-details slot="option" :roleId='roleId' v-else></role-details>
@@ -48,10 +48,10 @@
            <mine-pagination 
            @numberChange="numberChange" 
            :total="total" 
-           :pageSizes="[5, 10, 20, 50]" 
+           :pageSizes="[10, 20, 30]" 
            :page-size="pageSize" 
            :current-page="currentPage" 
-           :layout="'total, prev, pager, next'">
+           >
            </mine-pagination>
         </div>
     </div>
@@ -73,7 +73,7 @@ export default {
     minePagination
   },
   created () {
-    this.requestList();
+    this.requestList(true);
   },
   data () {
     return {
@@ -89,12 +89,15 @@ export default {
       roleId: '',
       currentPage: 1,
       total: 0,
-      pageSize: 5
+      pageSize: 10
     };
   },
   methods: {
-    requestList () {
+    requestList (flag) {
       this.loading = true;
+      if (flag) {
+        this.currentPage = 1;
+      }
       const params = {
         pageNo: this.currentPage,
         pageSize: this.pageSize
@@ -115,11 +118,11 @@ export default {
       switch (val.flag) {
         case 'pageSize':
           this.pageSize = val.pageSize;
-          this.requestList();
+          this.requestList(true);
           break;
         case 'currentPage':
           this.currentPage = val.currentPage;
-          this.requestList();
+          this.requestList(false);
           break;
         default:
           break;
@@ -136,8 +139,8 @@ export default {
         };
         API.delRole(params)
             .then(res => {
-              this.currentPage = 1;
-              this.requestList();
+              // this.currentPage = 1;
+              this.requestList(true);
             });
         this.$message({
           type: 'success',

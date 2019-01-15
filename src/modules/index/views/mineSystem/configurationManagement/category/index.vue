@@ -37,7 +37,7 @@
            </div>
         </div>
         <!-- 表格部分 -->
-        <div class="table-category">
+        <div class="table-category" v-loading="loading">
             <div class="add-category">
               <!-- <el-button type="primary" icon="el-icon-plus" @click="creadCategory">{{'新建'}}</el-button> -->
             </div>
@@ -74,10 +74,10 @@
           <mine-pagination
            @numberChange="numberChange"
            :total="total"
-           :pageSizes="[5, 10, 20, 50]"
+           :pageSizes="[10, 20, 30]"
            :page-size="pageSize"
            :current-page="currentPage"
-           :layout="'total, prev, pager, next'">
+           >
            </mine-pagination>
         </div>
         <!-- 弹框 -->
@@ -111,8 +111,9 @@ export default {
   },
   data () {
     return {
+      loading: false,
       isAdd: false,
-      pageSize: 5,
+      pageSize: 10,
       currentPage: 1,
       total: 0,
       // 控制弹框显影
@@ -144,7 +145,7 @@ export default {
       switch (val.flag) {
         case 'pageSize':
           this.pageSize = val.pageSize;
-          this.getList(false);
+          this.getList(true);
           break;
         case 'currentPage':
           this.currentPage = val.currentPage;
@@ -165,6 +166,7 @@ export default {
       if (flag) {
         this.currentPage = 1;
       }
+      this.loading = true;
       const params = {
         pageNo: this.currentPage,
         pageSize: this.pageSize,
@@ -173,6 +175,7 @@ export default {
       API.applianList(params)
         .then(res => {
           console.log(res, '查询列表');
+          this.loading = false;
           if (res.code === 0) {
             this.total = res.result ? res.result.total : 0;
             this.tableData = res.result ? this.initTableData(res.result.data) : [];
@@ -182,6 +185,7 @@ export default {
           }
         })
         .catch(() => {
+          this.loading = false;
           this.tableData = [];
           this.total = 0;
         });

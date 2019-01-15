@@ -35,18 +35,18 @@
            <mine-pagination
            @numberChange="numberChange"
            :total="total"
-           :pageSizes="[5, 10, 20, 50]"
+           :pageSizes="[10, 20, 30]"
            :page-size="pageSize"
            :current-page="currentPage"
-           :layout="'total, prev, pager, next'">
+           >
            </mine-pagination>
           </div>
         </div>
         <!-- 弹框 -->
         <mine-dialog :dialogFormVisible='flag' :width='"40%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
-          <add-module slot="option" @close="close" :userList="userList" v-if="type === 'creadModuleVendor'" @requestTable="handleCurrentChange"></add-module>
-          <take-over slot="option" @close="close" :userList="userList"  :info="info" v-if="type === 'takeOver'" @requestTable="handleCurrentChange"></take-over>
-          <module-info slot="option" @close="close"  :info="info" v-if="type === 'info'" @requestTable="handleCurrentChange"></module-info>
+          <add-module slot="option" @close="close" :userList="userList" v-if="type === 'creadModuleVendor'" @requestTable="handleCurrentChange('creadModuleVendor')"></add-module>
+          <take-over slot="option" @close="close" :userList="userList"  :info="info" v-if="type === 'takeOver'" @requestTable="handleCurrentChange('takeOver')"></take-over>
+          <module-info slot="option" @close="close"  :info="info" v-if="type === 'info'" @requestTable="handleCurrentChange('info')"></module-info>
         </mine-dialog>
     </div>
 </template>
@@ -70,12 +70,12 @@ export default {
   },
   mixins: [ dictMixin ],
   created () {
-    this.getList();
+    this.getList(true);
     this.getAlluser();
   },
   data () {
     return {
-      pageSize: 5,
+      pageSize: 10,
       currentPage: 1,
       addProductsIcon: '',
       total: 0,
@@ -96,8 +96,11 @@ export default {
     creadModuleVendor () {
       this.initDialog('新增模组厂商', 'creadModuleVendor', {});
     },
-    getList () {
+    getList (flag) {
       this.loading = true;
+      if (flag) {
+        this.currentPage = 1;
+      }
       const params = {
         pageNo: this.currentPage,
         pageSize: this.pageSize
@@ -141,18 +144,30 @@ export default {
     close (val) {
       this.flag = val;
     },
-    handleCurrentChange () {
-      this.getList();
+    handleCurrentChange (val) {
+      switch (val) {
+        case 'creadModuleVendor':
+          this.getList(true);
+          break;
+        case 'takeOver':
+          this.getList(false);
+          break;
+        case 'info':
+          this.getList(false);
+          break;
+        default:
+          break;
+      }
     },
     numberChange (val) {
       switch (val.flag) {
         case 'pageSize':
           this.pageSize = val.pageSize;
-          this.getList();
+          this.getList(true);
           break;
         case 'currentPage':
           this.currentPage = val.currentPage;
-          this.getList();
+          this.getList(false);
           break;
         default:
           break;
