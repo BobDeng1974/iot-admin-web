@@ -138,6 +138,14 @@ export const auditsManagementRouter =
       name: 'eidtPreApplication',
       meta: { title: 'license预申请' },
       hidden: true
+    },
+    // 模块SDK发布管理
+    {
+      path: 'moduleSDKManagement',
+      component: _import('mineSystem/licenseManagement/moduleSDKManagement/moduleSDKManagement'),
+      name: 'moduleSDKManagement',
+      meta: { title: '模块SDK发布管理' },
+      hidden: true
     }
   ]
 };
