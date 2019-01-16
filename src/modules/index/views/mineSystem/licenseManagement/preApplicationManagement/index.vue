@@ -91,10 +91,12 @@
         </div>
         <div class="fenye">
             <el-pagination
+            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :page-size="pageSize"
             :current-page.sync="currentPage"
-            layout="total, prev, pager, next"
+            :page-sizes="[10, 20, 30, 40]"
+            layout="total, sizes, prev, pager, next, jumper"
             :total="total">
             </el-pagination>
         </div>
@@ -137,7 +139,7 @@ export default {
       tableData: [],
       currentPage: 1,
       total: 0,
-      pageSize: 5,
+      pageSize: 10,
       preApplyInfoId: '',
       applyList: []
     };
@@ -163,6 +165,10 @@ export default {
     },
     eidtPreApplication () {
       this.$router.push({name: 'eidtPreApplication'});
+    },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.getList(true);
     },
     handleCurrentChange(val) {
       this.getList(false);
