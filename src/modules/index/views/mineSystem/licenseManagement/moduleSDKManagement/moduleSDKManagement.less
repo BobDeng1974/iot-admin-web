@@ -31,3 +31,51 @@
     }
   }
 }
+.sdk-add-btn{
+  display: flex;
+  justify-content: flex-start;
+  border-top: 1px solid #dedfe5;
+  align-items: center;
+  margin-top: 24px;
+  .btn-select{
+    margin-top: 10px;
+  }
+}
+.dialog-footer{
+  margin-top: 24px;
+  text-align: right;
+  padding-right: 32px;
+}
+.dialog-body{
+  padding-right: 32px;
+}
+@deep: ~">>>";
+.upload-wrapper {
+//   width: 100%;
+//   @{deep}.el-upload{
+//     width: 100%;
+//   }
+//   @{deep}.el-upload-dragger {
+//     width: 100%;
+//   }
+  @{deep}.el-upload__tip{
+    padding-left: 10px;
+    // height: 10px;
+
+  }
+}
+.tool {
+  @{deep} .el-form-item__label {
+    line-height: inherit;
+  }
+}
+.upload-tip {
+  margin-left: 16px;
+  font-size: 14px;
+  color: #999;
+}
+.upload-liubtn{
+  display: flex;
+  height: 40px;
+  width: 100%;
+}
