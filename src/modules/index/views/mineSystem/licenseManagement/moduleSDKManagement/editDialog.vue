@@ -85,8 +85,8 @@
       </el-form>
     </div>
     <div class="dialog-footer">
-      <el-button type="primary" @click="handleSave">保存</el-button>
-      <el-button @click="handleCancel">取消</el-button>
+      <el-button type="primary" @click="handleSave">审核失败</el-button>
+      <el-button @click="handleCancel">审核通过</el-button>
     </div>
   </div>
 

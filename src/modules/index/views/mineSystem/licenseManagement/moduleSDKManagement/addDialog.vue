@@ -3,7 +3,7 @@
     <div class="dialog-body">
       <el-form ref="form" :model="formData" :rules="luaFormRules" label-width="128px">
         <el-form-item label="状态" prop="status">
-          <el-input v-model.trim="formData.status"></el-input>
+          <el-input v-model.trim="formData.status" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="SDK名称" prop="name">
           <el-input v-model.trim="formData.name"></el-input>
@@ -77,7 +77,7 @@
     </div>
     <div class="dialog-footer">
       <el-button type="primary" @click="handleSave">保存</el-button>
-      <el-button @click="handleCancel">取消</el-button>
+      <el-button type="primary" @click="handleSubmitTestAudit">提交测试审核</el-button>
     </div>
   </div>
 
@@ -85,7 +85,10 @@
 </template>
 <script>
 import commonFun from '@/common/js/func';
+import { moduleSdkMixin } from '@/common/js/validation';
+import moduleSdkApi from '@/modules/index/api/myProductsData/moduleSdk';
 export default {
+  mixins: [moduleSdkMixin],
   data() {
     return {
       // 上传的参数开始
@@ -95,7 +98,7 @@ export default {
       fileReportList: [],
       // 上传的参数结束
       formData: {
-        status: '',
+        status: '新建',
         name: '',
         version: '',
         chip: '',
@@ -110,29 +113,74 @@ export default {
       ],
       luaFormRules: {
         status: {required: true, message: '请输入', trigger: 'blur'},
-        name: {required: true, message: '请输入', trigger: 'blur'},
-        version: {required: true, message: '请输入', trigger: 'blur'},
+        name: {required: true, validator: this.checkName, trigger: 'blur'},
+        version: {required: true, validator: this.checkName, trigger: 'blur'},
         chip: {required: true, message: '请选择', trigger: 'change'},
-        tool: {required: true, message: '请输入', trigger: 'blur'},
-        fileSdkPackage: {required: true, message: '请上传SDK文件', trigger: 'blur'},
-        fileReport: {required: true, message: '请上传测试报告文件', trigger: 'blur'},
-        desc: {required: true, message: '请输入', trigger: 'change'},
+        tool: {required: true, validator: this.checkTool, trigger: 'blur'},
+        fileSdkPackage: {required: true, message: '请上传SDK文件', trigger: 'change'},
+        fileReport: {required: true, message: '请上传测试报告文件', trigger: 'change'},
+        desc: {required: true, validator: this.checkDesc, trigger: 'change'},
         noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'}
       }
     };
   },
   methods: {
-    handleCancel() {
-      this.$emit('close', false);
+    handleSubmitTestAudit() {
+      // this.$emit('close', false);
+      if (!commonFun.doSubmit('form', this)) return;
+      this.create(true);
     },
     handleSave() {
+      console.log(this.formData);
       if (!commonFun.doSubmit('form', this)) return;
-      this.$emit('close', false);
+      this.create(false);
+      // this.$emit('close', false);
+    },
+    // 创建模块SDK信息
+    create(submit) {
+      let params = {
+        ...this.formData,
+        submit: submit
+      };
+      console.log(params, '参数');
+      moduleSdkApi.sdkpackageinfoCreate(params).then((res) => {
+        if (res.code === 0) {
+          this.$message({
+            showClose: true,
+            message: '新增成功',
+            type: 'success',
+            onClose: () => {
+              this.$emit('handleSave', false);
+              commonFun.restData(this.formData);
+              this.fileList = [];
+            }
+          });
+        }
+      }).catch(() => {
+        debugger;
+      });
     },
     // sdk上传调用的接口开始
     uploadImgApi(item) {
-      // let param = { uploadFile: item.file };
-      // this.getUpAddHardware(param);
+      let param = { uploadFile: item.file };
+      this.getUpFile(param, {fileSdkPackage: 'fileSdkPackage', fileOrginalName: 'sdkFileOrginalName'});
+    },
+        // 上传的接口
+    async getUpFile(param, parameter) {
+      try {
+        await this.$store.dispatch('imgDoUpLoad', param).then(result => {
+          if (result.code === 0) {
+             debugger;
+            this.formData[parameter.fileSdkPackage] = result.result.url;
+            console.log(this.formData[parameter.fileSdkPackage]);
+            this.formData[parameter.fileOrginalName] = result.result.originalFileName;
+            this.$message({
+              message: result.message,
+              type: 'success'
+            });
+          }
+        });
+      } catch (e) {}
     },
     beforeUpload(file) {
       return (
@@ -142,7 +190,8 @@ export default {
     },
     // 上传成功
     uploadSuccess(res, file, fileList) {
-      this.fileSdkPackage = '';
+      debugger;
+      this.formData.fileSdkPackage = '';
       this.fileList = fileList;
     },
     // 上传失败
@@ -162,8 +211,8 @@ export default {
     // sdk上传调用的接口
     // 测试报告上传调用的接口开始
     uploadImgReportApi(item) {
-      // let param = { uploadFile: item.file };
-      // this.getUpAddHardware(param);
+      let param = { uploadFile: item.file };
+      this.getUpFile(param, {fileSdkPackage: 'fileReport', fileOrginalName: 'reportFileOrginalName'});
     },
     reportBeforeUpload(file) {
       return (
@@ -173,7 +222,7 @@ export default {
     },
     // 上传成功
     reportUploadSuccess(res, file, fileList) {
-      this.fileReport = '';
+      this.formData.fileReport = '';
       this.fileReportList = fileList;
     },
     // 上传失败

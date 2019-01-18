@@ -6,14 +6,16 @@
     ></con-header>
     <div class="query-wrapper clearfix">
       <el-form
-        class="query-form"
+        class="query-form demo-ruleForm"
         ref="query-form"
+        ide-required-asterisk="true"
         :model="queryFormData"
         :inline="true"
+        :rules="rules"
       >
         <el-row>
           <el-col :span="8">
-            <el-form-item label="SDK版本">
+            <el-form-item label="SDK版本" prop="version" >
               <el-input v-model.trim="queryFormData.version"></el-input>
             </el-form-item>
           </el-col>
@@ -118,7 +120,7 @@
           <edit-dialog :flag="flag" :isDetails="isDetails" @close="close" :editDataId="editDataId" @handleSave="handleSaveEdit"></edit-dialog>
         </div>
         <div slot="option" v-else>
-          <issue-dialog @close="close" @handleSave="issueHandleSave"></issue-dialog>
+          <issue-dialog :sdkId="sdkId" @close="close" @handleSave="issueHandleSave"></issue-dialog>
         </div>
       </mine-dialog>
     </div>
@@ -130,7 +132,11 @@ import mineDialog from '@/modules/index/components/mine-dialog';
 import addDialog from './addDialog';
 import editDialog from './editDialog';
 import issueDialog from './issueDialog';
+import moduleSdkApi from '@/modules/index/api/myProductsData/moduleSdk';
+// import commonFun from '@/common/js/func';
+import { moduleSdkMixin } from '@/common/js/validation';
 export default {
+  mixins: [moduleSdkMixin],
   components: {conHeader, mineDialog, addDialog, editDialog, issueDialog},
   data() {
     return {
@@ -146,7 +152,7 @@ export default {
       modalFlag: false,
       title: '',
       // 弹框的参数结束
-
+      sdkId: '',
       titleIcon1: '/static/img/title_07@2x.png',
       queryFormData: {
         version: '',
@@ -156,41 +162,96 @@ export default {
       userInfoList: [{ value: 1, id: 1 }],
       statusList: [{ value: 1, id: 1 }],
       dataList: [
-        {name: 0, status: 0},
-        {name: 1, status: 1},
-        {name: 2, status: 2},
-        {name: 3, status: 3},
-        {name: 4, status: 4}
+        {id: 1, name: 0, status: 0},
+        {id: 2, name: 1, status: 1},
+        {id: 3, name: 2, status: 2},
+        {id: 4, name: 3, status: 3},
+        {id: 5, name: 4, status: 4}
       ],
             // 分页
       currentPage: 1,
       total: 0,
       pageSize: 10,
-      loading: false
+      loading: false,
+      rules: {
+        version: { required: true, validator: this.checkVersion, trigger: 'blur' }
+      }
     };
   },
+  created() {
+    this.initListData(true);
+  },
   methods: {
+    initListData(flag) {
+      let params = {
+        ...this.queryFormData
+      };
+      if (flag) {
+        this.currentPage = 1;
+      }
+      console.log(params, '参数');
+
+      this.loading = true;
+      moduleSdkApi.sdkpackageinfoList(params).then((res) => {
+        debugger;
+        this.loading = false;
+        if (res.code === 0) {
+          this.total = res.result ? res.result.total : 0;
+          this.dataList = res.result ? this.initTableData(res.result.data) : [];
+        } else {
+          this.dataList = [];
+          this.total = 0;
+        }
+      }).catch(() => {
+          this.initTableData(this.dataList);
+          // this.dataList = [];
+          this.total = 0;
+          this.loading = false;
+      });
+    },
     // 弹框函数开始
     close(val) {
       this.flag = val;
     },
-    addHandleSave() {},
-    handleSaveEdit() {},
-    issueHandleSave() {},
+    addHandleSave(val) {
+      this.flag = val;
+      this.initListData(true);
+    },
+    handleSaveEdit(val) {
+      this.flag = val;
+      this.initListData(true);
+    },
+    issueHandleSave(val) {
+      this.flag = val;
+      this.initListData(true);
+    },
     // 弹框的函数结束
     renderIndex(h, { column, $index }) {
       return h('span', [h('span', '编号')]);
     },
+        // 给请求回来的表格数据新增index属性（序号）
+    initTableData (val) {
+      if (!val && !val.length) return [];
+      for (var i = 0; i < val.length; i++) {
+        val[i].index = ((this.currentPage - 1) * this.pageSize) + i + 1;
+      }
+      return val;
+    },
         // 改变pageSize
     handleSizeChange(val) {
       this.pageSize = val;
+      this.initListData(true);
     },
     // 改变currentPage
     handleCurrentChange(val) {
-
+      this.initListData(false);
     },
-    handleQuery() {},
-    clear() {},
+    handleQuery() {
+      this.initListData(true);
+    },
+    clear() {
+      this.initListData(true);
+    },
     addSdk() {
       this.isAdd = true;
       this.isEdit = false;
@@ -204,7 +265,8 @@ export default {
       this.title = '编辑SDK';
     },
     detailSdk() {},
-    issueSdk() {
+    issueSdk(val) {
+      this.sdkId = val.id;
       this.isAdd = false;
       this.isEdit = false;
       this.flag = true;
