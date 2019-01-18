@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="dialog-body">
-      <el-form ref="form" :model="formData" :rules="luaFormRules" label-width="128px">
+      <el-form ref="form" :model="formData" :disabled="isDetails" :rules="luaFormRules" label-width="128px">
         <el-form-item label="状态" prop="status">
-          <el-input v-model.trim="formData.status" :disabled="true"></el-input>
+          <el-input v-model.trim="formData.status"></el-input>
         </el-form-item>
         <el-form-item label="SDK名称" prop="name">
           <el-input v-model.trim="formData.name"></el-input>
@@ -23,7 +23,7 @@
           <el-input type="hidden" style="display:none" v-model="formData.fileSdkPackage"></el-input>
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
-              <el-upload
+              <el-upload class="upload-demo"
                 :accept="accept"
                 :http-request="uploadImgApi"
                 :action="'dddd'"
@@ -43,7 +43,7 @@
           </div>
           <!-- <div class="file-upload" v-if="editfileSdkPackage">{{editfileSdkPackage}}</div> -->
         </el-form-item>
-        <el-form-item label="测试报告" prop="fileReport" >
+        <el-form-item label="测试报告" prop="fileReport">
           <el-input type="hidden" style="display:none" v-model="formData.fileReport"></el-input>
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
@@ -73,11 +73,20 @@
         <el-form-item label="发布周知人" prop="noticeMipAccounts">
           <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccounts"></el-input>
         </el-form-item>
+        <el-form-item v-if="isDetails" label="提交人" prop="publisherName">
+          <el-input  v-model.trim="formData.publisherName"></el-input>
+        </el-form-item>
+        <el-form-item v-if="isDetails" label="生效时间" prop="activeTime">
+          <el-input  v-model.trim="formData.activeTime"></el-input>
+        </el-form-item>
+        <el-form-item v-if="isDetails" label="审核人" prop="auditorName">
+          <el-input  v-model.trim="formData.auditorName"></el-input>
+        </el-form-item>
       </el-form>
     </div>
-    <div class="dialog-footer">
-      <el-button type="primary" @click="handleSave">保存</el-button>
-      <el-button type="primary" @click="handleSubmitTestAudit">提交测试审核</el-button>
+    <div class="dialog-footer" v-if="editDetailData.status===3">
+      <el-button type="primary" @click="handleSave">审核通过</el-button>
+      <el-button @click="handleCancel">审核失败</el-button>
     </div>
   </div>
 </template>
@@ -86,7 +95,7 @@ import commonFun from '@/common/js/func';
 import { moduleSdkMixin } from '@/common/js/validation';
 import moduleSdkApi from '@/modules/index/api/myProductsData/moduleSdk';
 export default {
-    props: {
+  props: {
     sdkId: {
       type: Number
     },
@@ -96,6 +105,18 @@ export default {
     editDetailData: {
       type: Object
     }
+  },
+  watch: {
+    // sdkId: {
+    //   immediate: true,
+    //   deep: true,
+    //   handler(nowVal, oldVal) {
+    //     // if (nowVal === true) {
+    //      this.editDetailData;
+    //      debugger;
+    //   // }
+    //  }
+    // }
   },
   mixins: [moduleSdkMixin],
   data() {
@@ -107,7 +128,7 @@ export default {
       fileReportList: [],
       // 上传的参数结束
       formData: {
-        status: '新建',
+        status: '',
         name: '',
         version: '',
         chip: '',
@@ -115,7 +136,10 @@ export default {
         fileSdkPackage: '',
         fileReport: '',
         desc: '',
-        noticeMipAccounts: ''
+        noticeMipAccounts: '',
+        publisherName: '',
+        activeTime: '',
+        auditorName: ''
       },
       useInfoList: [
           {id: 1, name: '1'}
@@ -153,39 +177,32 @@ export default {
       this.formData.activeTime = this.editDetailData.activeTime;
       this.formData.auditorName = this.editDetailData.auditorName;
     },
-    handleSubmitTestAudit() {
-      // this.$emit('close', false);
+    handleCancel() {
       if (!commonFun.doSubmit('form', this)) return;
-      this.create(true);
+      this.handleAudit(3);
     },
     handleSave() {
-      console.log(this.formData);
       if (!commonFun.doSubmit('form', this)) return;
-      this.create(false);
-      // this.$emit('close', false);
+      this.handleAudit(2);
     },
-    // 创建模块SDK信息
-    create(submit) {
+    // 审批
+    handleAudit(status) {
       let params = {
-        ...this.formData,
-        submit: submit
+        status: status,
+        id: this.sdkId
       };
       console.log(params, '参数');
-      moduleSdkApi.sdkpackageinfoCreate(params).then((res) => {
+      this.$emit('handleSave', false);
+      moduleSdkApi.sdkpackageinfoAudit(params).then((res) => {
         if (res.code === 0) {
           this.$message({
             showClose: true,
-            message: '新增成功',
+            message: res.message,
             type: 'success',
             onClose: () => {
-              this.$emit('handleSave', false);
-              commonFun.restData(this.formData);
-              this.fileList = [];
             }
           });
         }
-      }).catch(() => {
-        debugger;
       });
     },
     // sdk上传调用的接口开始
@@ -273,5 +290,6 @@ export default {
 </script>
 <style lang="less" scoped>
 @import "./moduleSDKManagement.less";
+
 </style>
 

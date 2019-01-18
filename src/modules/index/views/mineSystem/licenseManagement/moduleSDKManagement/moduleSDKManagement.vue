@@ -117,7 +117,12 @@
           <add-dialog @close="close" @handleSave="addHandleSave"></add-dialog>
         </div>
         <div slot="option" v-else-if="isEdit">
-          <edit-dialog :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close"  @handleSave="handleSaveEdit"></edit-dialog>
+          <div v-if="!isDetails">
+            <edit-dialog :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close"  @handleSave="handleSaveEdit"></edit-dialog>
+          </div>
+          <div v-else >
+            <detail-dialog  :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close" @handleSave="addHandleSave"></detail-dialog>
+          </div>
         </div>
         <div slot="option" v-else>
           <issue-dialog :sdkId="sdkId" @close="close" @handleSave="issueHandleSave"></issue-dialog>
@@ -131,13 +136,14 @@ import conHeader from '@/components/awesome/con-header/con-header';
 import mineDialog from '@/modules/index/components/mine-dialog';
 import addDialog from './addDialog';
 import editDialog from './editDialog';
+import detailDialog from './detailDialog';
 import issueDialog from './issueDialog';
 import moduleSdkApi from '@/modules/index/api/myProductsData/moduleSdk';
 // import commonFun from '@/common/js/func';
 import { moduleSdkMixin } from '@/common/js/validation';
 export default {
   mixins: [moduleSdkMixin],
-  components: {conHeader, mineDialog, addDialog, editDialog, issueDialog},
+  components: {conHeader, mineDialog, addDialog, editDialog, issueDialog, detailDialog},
   data() {
     return {
       // 弹框的参数开始
@@ -161,10 +167,13 @@ export default {
       userInfoList: [{ value: 1, id: 1 }],
       statusList: [{ value: 1, id: 1 }],
       dataList: [
-        {id: 1, name: '0', status: 0},
-        {id: 2, name: '1', status: 1},
+        {id: 1, name: '0', version: '0.0', chip: '0', description: '0', compileChain: 'compileChain', activeTime: '2019-12-11', sdkUrl: 'sdkUrl', reportUrl: 'reportUrl', auditMipAccounts: 'auditMipAccounts', noticeMipAccounts: 'noticeMipAccounts', publisherName: 'publisherName', auditorName: 'auditorName', status: 0},
+        // {id: 2, name: '1', status: 1},
+        {id: 2, name: '1', version: '0.0', chip: '0', description: '0', compileChain: 'compileChain', activeTime: '2019-12-11', sdkUrl: 'sdkUrl', reportUrl: 'reportUrl', auditMipAccounts: 'auditMipAccounts', noticeMipAccounts: 'noticeMipAccounts', publisherName: 'publisherName', auditorName: 'auditorName', status: 1},
+
         {id: 3, name: '2', status: 2},
         {id: 4, name: '3', status: 3},
+        {id: 4, name: '3', version: '0.0', chip: '0', description: '0', compileChain: 'compileChain', activeTime: '2019-12-11', sdkUrl: 'sdkUrl', reportUrl: 'reportUrl', auditMipAccounts: 'auditMipAccounts', noticeMipAccounts: 'noticeMipAccounts', publisherName: 'publisherName', auditorName: 'auditorName', status: 3},
         {id: 5, name: '4', status: 4}
       ],
             // 分页
@@ -268,6 +277,7 @@ export default {
       this.editDetailData = val;
     },
     detailSdk(val) {
+      debugger;
       this.sdkId = val.id;
       this.isAdd = false;
       this.isEdit = true;
