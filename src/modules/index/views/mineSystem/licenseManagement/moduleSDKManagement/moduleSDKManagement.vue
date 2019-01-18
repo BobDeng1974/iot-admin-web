@@ -100,7 +100,7 @@
             <!-- v-authority="" -->
             <el-button  type="text" size="small" @click="detailSdk(scope.row)">详情</el-button>
             <el-button  v-if="scope.row.status===2" type="text" size="small" class="opt-btn"  @click="issueSdk(scope.row)">发布</el-button>
-            <el-button  v-if="scope.row.status===1" class="opt-btn" type="text" size="small" @click="editSdk(scope.row)">编辑</el-button>
+            <el-button  v-if="scope.row.status===3" class="opt-btn" type="text" size="small" @click="editSdk(scope.row)">编辑</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -117,7 +117,7 @@
           <add-dialog @close="close" @handleSave="addHandleSave"></add-dialog>
         </div>
         <div slot="option" v-else-if="isEdit">
-          <edit-dialog :flag="flag" :isDetails="isDetails" @close="close" :editDataId="editDataId" @handleSave="handleSaveEdit"></edit-dialog>
+          <edit-dialog :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close"  @handleSave="handleSaveEdit"></edit-dialog>
         </div>
         <div slot="option" v-else>
           <issue-dialog :sdkId="sdkId" @close="close" @handleSave="issueHandleSave"></issue-dialog>
@@ -145,7 +145,6 @@ export default {
       isDetails: false,
       isAdd: false,
       isEdit: false,
-      editDataId: '',
       flag: false,
       // 是否显示按钮
       showClose: true,
@@ -162,11 +161,11 @@ export default {
       userInfoList: [{ value: 1, id: 1 }],
       statusList: [{ value: 1, id: 1 }],
       dataList: [
-        {id: 1, name: 0, status: 0},
-        {id: 2, name: 1, status: 1},
-        {id: 3, name: 2, status: 2},
-        {id: 4, name: 3, status: 3},
-        {id: 5, name: 4, status: 4}
+        {id: 1, name: '0', status: 0},
+        {id: 2, name: '1', status: 1},
+        {id: 3, name: '2', status: 2},
+        {id: 4, name: '3', status: 3},
+        {id: 5, name: '4', status: 4}
       ],
             // 分页
       currentPage: 1,
@@ -175,7 +174,8 @@ export default {
       loading: false,
       rules: {
         version: { required: true, validator: this.checkVersion, trigger: 'blur' }
-      }
+      },
+      editDetailData: {}
     };
   },
   created() {
@@ -258,13 +258,24 @@ export default {
       this.flag = true;
       this.title = '上传SDK';
     },
-    editSdk() {
+    editSdk(val) {
+      this.sdkId = val.id;
       this.isAdd = false;
       this.isEdit = true;
+      this.isDetails = false;
       this.flag = true;
-      this.title = '编辑SDK';
+      this.title = val.name + '名称';
+      this.editDetailData = val;
     },
-    detailSdk() {},
+    detailSdk(val) {
+      this.sdkId = val.id;
+      this.isAdd = false;
+      this.isEdit = true;
+      this.isDetails = true;
+      this.flag = true;
+      this.title = val.name + '名称';
+      this.editDetailData = val;
+    },
     issueSdk(val) {
       this.sdkId = val.id;
       this.isAdd = false;
