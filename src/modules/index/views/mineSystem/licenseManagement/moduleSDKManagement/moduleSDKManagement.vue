@@ -79,7 +79,7 @@
         <el-table-column prop="name" label="SDK名称" show-overflow-tooltip></el-table-column>
         <el-table-column prop="version" label="版本号" show-overflow-tooltip></el-table-column>
         <el-table-column prop="chip" label="芯片信息" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="desc" label="功能描述" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="description" label="功能描述" show-overflow-tooltip></el-table-column>
         <el-table-column label="状态" show-overflow-tooltip align="left">
           <template slot-scope="scope">
             <div>

@@ -140,6 +140,7 @@ export default {
   },
   methods: {
     handleData() {
+      debugger;
       this.formData.status = this.editDetailData.status;
       this.formData.name = this.editDetailData.name;
       this.formData.version = this.editDetailData.version;
