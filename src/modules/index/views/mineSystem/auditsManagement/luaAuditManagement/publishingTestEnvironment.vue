@@ -2,7 +2,7 @@
     <div class="pub-lua-warp" v-loading="loading">
 
         <div class="title-pub title-other">
-            正式环境 
+            测试环境 
         </div>
         <div>
             <ul>
@@ -56,7 +56,7 @@
         </div>
 
         <div class="dialog-footer" v-if="show">
-          <el-button type="primary" @click="enter">发布成功</el-button>
+          <el-button type="primary" @click="enter">发布测试成功</el-button>
         </div>
     </div>
 </template>
@@ -124,7 +124,7 @@ export default {
       const params = {
         luaId: this.info.id
       };
-    //   API.luaPdatePro(params)
+    //   API.luaUpdateTest(params)
       API.getSupplyListIndex(params)
           .then(res => {
             if (res.code === 0) {
@@ -165,7 +165,7 @@ export default {
         luaId: this.info.id,
         LuaEvn: val.LuaEvn
       };
-    //   API.luaPublishPro(params)
+    //   API.luaPublishTest(params)
       API.getSupplyListIndex(params)
           .then(res => {
             if (res.code === 0) {
@@ -185,7 +185,7 @@ export default {
         luaId: this.info.id,
         LuaEvn: val.LuaEvn
       };
-    //   API.luaPublishPro(params)
+    //   API.luaPublishTest(params)
       API.getSupplyListIndex(params)
           .then(res => {
             if (res.code === 0) {

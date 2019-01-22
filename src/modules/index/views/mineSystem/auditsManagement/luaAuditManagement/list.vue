@@ -2,13 +2,37 @@
  <div class="lua-list-mine-warp" v-loading="loading">
     <el-table :data="tableData" style="width: 100%"  class='table'>
         <el-table-column prop="index" align="center" :render-header="renderIndex"></el-table-column>
-        <el-table-column prop="type" label="状态" align="center"></el-table-column>
-        <el-table-column prop="name" label="处理人" align="center"></el-table-column>
-        <el-table-column prop="time" label="时间" align="center"></el-table-column>
+        <el-table-column prop="publicStatus" label="状态" align="center">
+            <template slot-scope="scope">
+                <span v-if="scope.row.publicStatus === 0">编辑中</span>
+                <span v-if="scope.row.publicStatus === 10">提交测试审核</span>
+                <span v-if="scope.row.publicStatus === 20">测试审核成功</span>
+                <span v-if="scope.row.publicStatus === 5">测试审核失败</span>
+                <span v-if="scope.row.publicStatus === 30">提交发布审核</span>
+                <span v-if="scope.row.publicStatus === 40">发布审核成功</span>
+                <span v-if="scope.row.publicStatus === 25">发布审核失败</span>
+                <span v-if="scope.row.publicStatus === 23">发布测试环境成功</span>
+                <span v-if="scope.row.publicStatus === 50">发布成功</span>
+            </template>
+        </el-table-column>
+        <el-table-column prop="auditor" label="处理人" align="center"></el-table-column>
+        <el-table-column prop="auditTime" label="时间" align="center"></el-table-column>
     </el-table>
+    <div class="fenye">
+        <mine-pagination
+        @numberChange="numberChange"
+        :total="total"
+        :pageSizes="[10, 20, 30]"
+        :page-size="pageSize"
+        :current-page="currentPage"
+        >
+        </mine-pagination>
+    </div>
  </div>
 </template>
 <script>
+import API from '@/modules/index/api/system/system.js';
+import minePagination from '@/modules/index/components/mine-pagination';
 export default {
   props: {
     id: {
@@ -18,6 +42,9 @@ export default {
     flag: {
       type: Boolean
     }
+  },
+  components: {
+    minePagination
   },
   data () {
     return {
@@ -34,7 +61,8 @@ export default {
     flag: {
       handler(nowVal, oldVal) {
         if (nowVal === true) {
-          this.initTab(this.tableData, this.currentPage, this.pageSize);
+          this.getList(true);
+        //   this.initTab(this.tableData, this.currentPage, this.pageSize);
         }
       },
       deep: true,
@@ -44,6 +72,40 @@ export default {
   methods: {
     renderIndex (h, { column, $index }) {
       return h('span', [h('span', '编号')]);
+    },
+    numberChange (val) {
+      switch (val.flag) {
+        case 'pageSize':
+          this.pageSize = val.pageSize;
+          this.getList(true);
+          break;
+        case 'currentPage':
+          this.currentPage = val.currentPage;
+          this.getList(false);
+          break;
+        default:
+          break;
+      }
+    },
+    getList (flag) {
+      this.loading = true;
+      if (flag) {
+        this.currentPage = 1;
+      }
+      const params = {
+        pageNo: this.currentPage,
+        pageSize: this.pageSize
+      };
+    //   API.getLuaaudit(params)
+      API.getSupplyListIndex(params)
+          .then(res => {
+            this.tableData = res.result ? this.initTab(res.result.data, this.currentPage, this.pageSize) : [];
+            this.total = res.result.total;
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+          });
     },
     initTab (val, currentPage, pageSize) {
       if (!val && !val.length) return [];

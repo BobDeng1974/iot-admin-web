@@ -1,7 +1,16 @@
 <template>
     <div class="info-lua-warp">
         <div class="title">
-            状态：{{info.mineType === 1 ? '提交测试审核' : '提交发布审核'}}
+            <span>状态:</span>
+            <span v-if="info.publicStatus === 0">编辑中</span>
+            <span v-if="info.publicStatus === 10">提交测试审核</span>
+            <span v-if="info.publicStatus === 20">测试审核成功</span>
+            <span v-if="info.publicStatus === 5">测试审核失败</span>
+            <span v-if="info.publicStatus === 30">提交发布审核</span>
+            <span v-if="info.publicStatus === 40">发布审核成功</span>
+            <span v-if="info.publicStatus === 25">发布审核失败</span>
+            <span v-if="info.publicStatus === 23">发布测试环境成功</span>
+            <span v-if="info.publicStatus === 50">发布成功</span>
             <i class="el-icon-d-arrow-right" @click="showList"></i>
         </div>
        <el-form label-width="120px" :model="info" label-position="left">
@@ -9,48 +18,48 @@
                 <p> {{info.name}}</p>
             </el-form-item>
             <el-form-item label="品类">
-                <p> {{info.code}}</p>
+                <p> {{info.applianceType}}</p>
             </el-form-item>
             <el-form-item label="型号码">
-                <p> {{info.address}}</p>
+                <p> {{info.sn8}}</p>
             </el-form-item>
             <el-form-item label="model-number">
-                <p> {{info.email}}</p>
+                <p> {{info.modelNumber}}</p>
             </el-form-item>
             <el-form-item label="对应profile文件">
-                <p> {{info.telephone}}</p>
+                <p> {{info.fileName}}</p>
             </el-form-item>
             <el-form-item label="对应电控协议">
-                <p> {{info.contactName}}</p>
+              <p> {{info.docName}}</p>
             </el-form-item>
             <el-form-item label="lua文件">
-              <p class="click-download"> {{info.mobile}}</p>
+              <p class="click-download" @click="downLoadLuaFile(info.id)"> {{info.fileOrginalName}}</p>
             </el-form-item>
             <el-form-item label="自测文件">
-              <p class="click-download"> {{info.publicKey}}</p>
+              <p class="click-download" @click="downLoadTestFile(info.id)"> {{info.testFileName}}</p>
             </el-form-item>
             <!-- 这里需要判断状态显示不显示 -->
-            <el-form-item label="测试报告" v-if="info.mineType === 2">
-              <p class="click-download"> {{info.publicKey}}</p>
+            <el-form-item label="测试报告" v-if="info.publicStatus === 30 || info.publicStatus === 40 || info.publicStatus === 50">
+              <p class="click-download" @click="downLoadTestReportFile(info.id)"> {{info.testReportName}}</p>
             </el-form-item>
 
             <el-form-item label="功能说明">
-              <p> {{info.mobile}}</p>
+              <p> {{info.functionDescription}}</p>
             </el-form-item>
         </el-form>
 
         <!-- 按钮 (也需要通过状态判断显示哪个)-->
 
-        <div class="dialog-footer" v-if="info.mineType === 1">
-            <el-button type="primary" @click="testSubmit">测试审核通过</el-button>
-            <el-button type="primary" @click="auditFail">审核失败</el-button>
+        <div class="dialog-footer" v-if="info.publicStatus === 10">
+            <el-button type="primary" @click="testSubmit(0)">测试审核通过</el-button>
+            <el-button type="primary" @click="auditFail(1)">审核失败</el-button>
         </div>
-        <div class="dialog-footer" v-if="info.mineType === 2">
-            <el-button type="primary" @click="publickSubmit">发布审核通过</el-button>
-            <el-button type="primary" @click="publickAuditFail">审核失败</el-button>
+        <div class="dialog-footer" v-if="info.publicStatus === 30">
+            <el-button type="primary" @click="publickSubmit(0)">发布审核通过</el-button>
+            <el-button type="primary" @click="publickAuditFail(1)">审核失败</el-button>
         </div>
 
-        <mine-dialog :dialogFormVisible='flag' :center="true" :modal="false" :width='"40%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
+        <mine-dialog :dialogFormVisible='flag' :appendToBody="true" :center="true" :modal="true" :width='"40%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
            <list-dialog slot="option" @close="close" :id="id" :flag="flag"></list-dialog>
         </mine-dialog>
     </div>
@@ -59,6 +68,7 @@
 <script>
 import mineDialog from '@/modules/index/components/mine-dialog';
 import listDialog from './list';
+import API from '@/modules/index/api/system/system.js';
 export default {
   props: {
     info: {
@@ -85,19 +95,36 @@ export default {
     showList () {
       this.title = '流程记录';
       this.flag = true;
+      this.modalFlag = true;
       this.id = this.info.id;
     },
     close (val) {
       this.flag = val;
     },
-    testSubmit () {
+    // 测试审核通过
+    testSubmit (val) {
       this.$confirm(`测试审核成功，点击确认将发布到相应测试环境`, '确认测试审核成功', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       })
       .then(() => {
-        this.$emit('close', false);
+        // this.$emit('close', false);
+        const params = {
+            luaId: this.info.id,
+            type: val
+        };
+        API.luaTestAudit(params)
+            .then(res => {
+                if (res.code === 0) {
+                    this.$message({
+                        type: 'success',
+                        message: res.message
+                    });
+                    this.$emit('requestTable');
+                    this.$emit('close', false);
+                }
+            });
       })
       .catch(() => {
         this.$message({
@@ -106,14 +133,30 @@ export default {
         });
       });
     },
-    publickSubmit () {
+    // 发布审核通过
+    publickSubmit (val) {
       this.$confirm(`发布审核成功，点击确认将发布到，相应正式环境`, '发布审核成功', {
         confirmButtonText: '确定发布',
         cancelButtonText: '取消',
         type: 'warning'
       })
       .then(() => {
-        this.$emit('close', false);
+        // this.$emit('close', false);
+        const params = {
+            luaId: this.info.id,
+            type: val
+        };
+        API.luaPublishAudit(params)
+            .then(res => {
+                if (res.code === 0) {
+                    this.$message({
+                        type: 'success',
+                        message: res.message
+                    });
+                    this.$emit('requestTable');
+                    this.$emit('close', false);
+                }
+            });
       })
       .catch(() => {
         this.$message({
@@ -122,14 +165,30 @@ export default {
         });
       });
     },
-    auditFail () {
+    // 测试审核失败
+    auditFail (val) {
       this.$confirm(`测试审核失败，将退回给开发者修改`, '审核失败', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       })
       .then(() => {
-        this.$emit('close', false);
+        // this.$emit('close', false);
+        const params = {
+            luaId: this.info.id,
+            type: val
+        };
+        API.luaTestAudit(params)
+            .then(res => {
+                if (res.code === 0) {
+                    this.$message({
+                        type: 'success',
+                        message: res.message
+                    });
+                    this.$emit('requestTable');
+                    this.$emit('close', false);
+                }
+            });
       })
       .catch(() => {
         this.$message({
@@ -138,14 +197,30 @@ export default {
         });
       });
     },
-    publickAuditFail () {
+    // 发布审核失败
+    publickAuditFail (val) {
       this.$confirm(`发布审核失败，将退回给开发者修改`, '发布审核失败', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       })
       .then(() => {
-        this.$emit('close', false);
+        // this.$emit('close', false);
+        const params = {
+            luaId: this.info.id,
+            type: val
+        };
+        API.luaPublishAudit(params)
+            .then(res => {
+                if (res.code === 0) {
+                    this.$message({
+                        type: 'success',
+                        message: res.message
+                    });
+                    this.$emit('requestTable');
+                    this.$emit('close', false);
+                }
+            });
       })
       .catch(() => {
         this.$message({
@@ -153,22 +228,55 @@ export default {
           message: '已取消操作'
         });
       });
+    },
+    // lua文件下载
+    downLoadLuaFile (file) {
+      API.downloadLua({id: file})
+      .then(response => {
+        let tempNameStr = response.headers['content-disposition'].split(';')[1];
+        let fileName = tempNameStr.split('=')[1];
+        let blob = new Blob([response.data]);
+        let objectUrl = URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = objectUrl;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+      });
+    },
+    // 自测文件下载
+    downLoadTestFile (file) {
+      API.downloadTest({id: file})
+      .then(response => {
+        let tempNameStr = response.headers['content-disposition'].split(';')[1];
+        let fileName = tempNameStr.split('=')[1];
+        let blob = new Blob([response.data]);
+        let objectUrl = URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = objectUrl;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+      });
+    },
+    // 测试报告文件下载
+    downLoadTestReportFile (file) {
+      API.downloadTestReport({id: file})
+      .then(response => {
+        let tempNameStr = response.headers['content-disposition'].split(';')[1];
+        let fileName = tempNameStr.split('=')[1];
+        let blob = new Blob([response.data]);
+        let objectUrl = URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = objectUrl;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+      });
     }
-    // downLoadUpFile (file) {
-    //   API.downFileUp({ids: file})
-    //   .then(response => {
-    //     let tempNameStr = response.headers['content-disposition'].split(';')[1];
-    //     let fileName = tempNameStr.split('=')[1];
-    //     let blob = new Blob([response.data]);
-    //     let objectUrl = URL.createObjectURL(blob);
-    //     let link = document.createElement('a');
-    //     link.style.display = 'none';
-    //     link.href = objectUrl;
-    //     link.setAttribute('download', fileName);
-    //     document.body.appendChild(link);
-    //     link.click();
-    //   });
-    // }
   }
 };
 </script>
