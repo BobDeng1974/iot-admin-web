@@ -70,8 +70,11 @@
         <el-form-item label="功能说明" prop="desc">
           <el-input type="textarea" v-model.trim="formData.desc"></el-input>
         </el-form-item>
-        <el-form-item label="发布周知人" prop="noticeMipAccounts">
+        <!-- <el-form-item label="发布周知人" prop="noticeMipAccounts">
           <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccounts"></el-input>
+        </el-form-item> -->
+        <el-form-item label="发布周知人" prop="noticeMipAccountsName">
+          <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccountsName"></el-input>
         </el-form-item>
         <el-form-item v-if="isDetails" label="提交人" prop="publisherName">
           <el-input  v-model.trim="formData.publisherName"></el-input>
@@ -158,16 +161,27 @@ export default {
       //     {id: 1, name: '1'}
       // ],
       luaFormRules: {
-        status: {required: true, message: '请输入', trigger: 'blur'},
+        // status: {required: true, message: '请输入', trigger: 'blur'},
         name: {required: true, validator: this.checkName, trigger: 'blur'},
         version: {required: true, validator: this.checkName, trigger: 'blur'},
         chip: {required: true, message: '请选择', trigger: 'change'},
-        compileChain: {required: true, validator: this.checkTool, trigger: 'blur'},
+        // compileChain: {required: true, validator: this.checkTool, trigger: 'blur'},
         sdkUrl: {required: true, message: '请上传SDK文件', trigger: 'change'},
         reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
         desc: {required: true, validator: this.checkDesc, trigger: 'change'},
-        noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'}
-      }
+        // noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
+        noticeMipAccountsName: {required: true, message: '请输入', trigger: 'blur'}
+      },
+      noticeMipAccountsList: [
+        {id: 1, name: 'test1'},
+        {id: 2, name: 'test2'},
+        {id: 3, name: 'test3'},
+        {id: 4, name: 'test4'},
+        {id: 5, name: 'test5'},
+        {id: 6, name: 'test6'},
+        {id: 7, name: 'test7'},
+        {id: 8, name: 'test8'}
+      ]
     };
   },
   created() {
@@ -211,7 +225,10 @@ export default {
       this.formData.sdkUrl = this.editDetailData.sdkUrl;
       this.formData.reportUrl = this.editDetailData.reportUrl;
       this.formData.desc = this.editDetailData.description;
-      this.formData.noticeMipAccounts = this.editDetailData.noticeMipAccounts;
+
+      // this.formData.noticeMipAccounts = this.editDetailData.noticeMipAccounts;
+      this.handleNoticeMipAccountsChange(this.editDetailData.noticeMipAccounts.split(';'));
+
       this.formData.publisherName = this.editDetailData.publisherName;
       this.formData.activeTime = this.editDetailData.activeTime;
       this.formData.auditorName = this.editDetailData.auditorName;
@@ -223,6 +240,24 @@ export default {
               name: this.editDetailData.reportOriginFileName,
               url: this.editDetailData.reportUrl
             });
+    },
+    handleNoticeMipAccountsChange(array) {
+      let tempNoticeMipAccountsArr = [];
+      for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+          tempNoticeMipAccountsArr.push(commonFun.fetchWord(
+              Number(element),
+              'id',
+              this.noticeMipAccountsList,
+              'name'
+            ));
+          // this.formData.tempNoticeMipAccounts.push(Number(element));
+      }
+      debugger;
+      console.log(tempNoticeMipAccountsArr);
+
+      this.formData.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
+      this.formData.noticeMipAccounts = array.join(';');
     },
     handleCancel() {
       if (!commonFun.doSubmit('form', this)) return;

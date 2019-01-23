@@ -67,12 +67,27 @@
           </div>
           <!-- <div class="file-upload" v-if="editLuaFileName">{{editLuaFileName}}</div> -->
         </el-form-item>
-        <el-form-item label="功能说明" prop="desc">
-          <el-input type="textarea" v-model.trim="formData.desc"></el-input>
+        <el-form-item label="功能说明" prop="description">
+          <el-input type="textarea" v-model.trim="formData.description"></el-input>
         </el-form-item>
-        <el-form-item label="发布周知人" prop="noticeMipAccounts">
+        <el-form-item label="发布周知人" prop="tempNoticeMipAccounts">
+          <el-select style="width:100%" :multiple-limit="100" v-model.trim="formData.tempNoticeMipAccounts" @change="noticeMipAccountsChange" multiple placeholder="请选择">
+            <el-option
+              v-for="(item, index) in noticeMipAccountsList"
+              :key="index"
+              :label="item.name"
+              :value="item.id"
+              >
+            </el-option>
+          </el-select>
+          <!-- <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input> -->
+        </el-form-item>
+        <el-form-item prop="noticeMipAccountsName">
+          <el-input type="textarea" disabled placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccountsName"></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="发布周知人" prop="noticeMipAccounts">
           <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccounts"></el-input>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
     </div>
     <div class="dialog-footer" v-if="editDetailData.status===0||editDetailData.status===3">
@@ -120,23 +135,38 @@ export default {
         sdkOriginFileName: '',
         reportUrl: '',
         reportOriginFileName: '',
-        desc: '',
+        description: '',
         noticeMipAccounts: '',
+        tempNoticeMipAccounts: [],
+        noticeMipAccountsName: '',
         id: ''
       },
+
       useInfoList: [
           {id: 1, name: '1'}
       ],
+      noticeMipAccountsList: [
+        {id: 1, name: 'test1'},
+        {id: 2, name: 'test2'},
+        {id: 3, name: 'test3'},
+        {id: 4, name: 'test4'},
+        {id: 5, name: 'test5'},
+        {id: 6, name: 'test6'},
+        {id: 7, name: 'test7'},
+        {id: 8, name: 'test8'}
+      ],
       luaFormRules: {
         // status: {required: true, message: '请输入', trigger: 'blur'},
-        name: {required: true, validator: this.checkName, trigger: 'blur'},
+        name: {required: true, validagittor: this.checkName, trigger: 'blur'},
         version: {required: true, validator: this.checkName, trigger: 'blur'},
         chip: {required: true, message: '请选择', trigger: 'change'},
-        compileChain: {required: true, validator: this.checkTool, trigger: 'blur'},
+        compileChain: {required: false, validator: this.checkTool, trigger: 'blur'},
         sdkUrl: {required: true, message: '请上传SDK文件', trigger: 'change'},
         reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
-        desc: {required: true, validator: this.checkDesc, trigger: 'change'},
-        noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'}
+        description: {required: true, validator: this.checkDesc, trigger: 'change'},
+        noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
+        // tempNoticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
+        noticeMipAccountsName: {required: true, message: '请输入', trigger: 'blur'}
       }
     };
   },
@@ -192,8 +222,10 @@ export default {
       this.formData.sdkOriginFileName = this.editDetailData.sdkOriginFileName;
       this.formData.reportUrl = this.editDetailData.reportUrl;
       this.formData.reportOriginFileName = this.editDetailData.reportOriginFileName;
-      this.formData.desc = this.editDetailData.description;
-      this.formData.noticeMipAccounts = this.editDetailData.noticeMipAccounts;
+      this.formData.description = this.editDetailData.description;
+       this.formData.tempNoticeMipAccounts = [];
+      // this.formData.noticeMipAccounts = this.editDetailData.noticeMipAccounts;
+     this.handleNoticeMipAccountsChange(this.editDetailData.noticeMipAccounts.split(';'));
       this.formData.publisherName = this.editDetailData.publisherName;
       this.formData.activeTime = this.editDetailData.activeTime;
       this.formData.auditorName = this.editDetailData.auditorName;
@@ -205,6 +237,39 @@ export default {
               name: this.editDetailData.reportOriginFileName,
               url: this.editDetailData.reportUrl
             });
+    },
+    noticeMipAccountsChange(array) {
+      let tempNoticeMipAccountsArr = [];
+      for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+          tempNoticeMipAccountsArr.push(commonFun.fetchWord(
+              element,
+              'id',
+              this.noticeMipAccountsList,
+              'name'
+            ));
+      }
+      this.formData.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
+
+      this.formData.noticeMipAccounts = array.join(';');
+    },
+    handleNoticeMipAccountsChange(array) {
+      let tempNoticeMipAccountsArr = [];
+      for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+          tempNoticeMipAccountsArr.push(commonFun.fetchWord(
+              Number(element),
+              'id',
+              this.noticeMipAccountsList,
+              'name'
+            ));
+          this.formData.tempNoticeMipAccounts.push(Number(element));
+      }
+      debugger;
+      console.log(tempNoticeMipAccountsArr);
+
+      this.formData.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
+      this.formData.noticeMipAccounts = array.join(';');
     },
     handleSubmitTestAudit() {
       // this.$emit('close', false);
