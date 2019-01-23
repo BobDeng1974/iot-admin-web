@@ -145,6 +145,13 @@ export const auditsManagementRouter =
       component: _import('mineSystem/auditsManagement/luaAuditManagement/index'),
       name: 'lua审核管理',
       meta: { title: 'lua审核管理', icon: 'dots' }
+    },
+    {
+      path: 'moduleSDKManagement',
+      component: _import('mineSystem/licenseManagement/moduleSDKManagement/moduleSDKManagement'),
+      name: 'moduleSDKManagement',
+      meta: { title: '模块SDK发布管理' },
+      hidden: true
     }
   ]
 };
