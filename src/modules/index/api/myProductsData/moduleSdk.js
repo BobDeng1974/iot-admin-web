@@ -11,6 +11,13 @@ const moduleSdkApi = {
       data: query
     });
   },
+  moduleSDKManagementGet: (params) => {
+    return request({
+      url: `${MJAPP_NAME}/moduleSDKManagement/get`,
+      method: 'get',
+      params: params
+    }).then(res => res);
+  },
   // 创建模块SDK信息
   sdkpackageinfoCreate: (query) => {
     return request({

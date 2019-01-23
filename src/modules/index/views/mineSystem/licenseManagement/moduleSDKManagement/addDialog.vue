@@ -3,7 +3,7 @@
     <div class="dialog-body">
       <el-form ref="form" :model="formData" :rules="luaFormRules" label-width="128px">
         <el-form-item label="状态" prop="status">
-          <el-input v-model.trim="formData.status" :disabled="true"></el-input>
+          <el-input v-model.trim="status" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="SDK名称" prop="name">
           <el-input v-model.trim="formData.name"></el-input>
@@ -12,15 +12,15 @@
           <el-input v-model.trim="formData.version"></el-input>
         </el-form-item>
         <el-form-item label="芯片信息" prop="chip">
-          <el-select v-model.trim="formData.chip" clearable style="width:100%">
-            <el-option v-for="(item, index) in useInfoList" :key="index" :label="item.name" :value="item.id"></el-option>
+          <el-select v-model.trim="formData.chip" filterable clearable style="width:100%">
+            <el-option v-for="(item, index) in chipModelList" :key="index" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="编译工具链" prop="tool">
-          <el-input v-model.trim="formData.tool"></el-input>
+        <el-form-item label="编译工具链" prop="compileChain">
+          <el-input v-model.trim="formData.compileChain"></el-input>
         </el-form-item>
-        <el-form-item label="SDK文件" prop="fileSdkPackage">
-          <el-input type="hidden" style="display:none" v-model="formData.fileSdkPackage"></el-input>
+        <el-form-item label="SDK文件" prop="sdkUrl">
+          <el-input type="hidden" style="display:none" v-model="formData.sdkUrl"></el-input>
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
               <el-upload
@@ -43,8 +43,8 @@
           </div>
           <!-- <div class="file-upload" v-if="editfileSdkPackage">{{editfileSdkPackage}}</div> -->
         </el-form-item>
-        <el-form-item label="测试报告" prop="fileReport" >
-          <el-input type="hidden" style="display:none" v-model="formData.fileReport"></el-input>
+        <el-form-item label="测试报告" prop="reportUrl" >
+          <el-input type="hidden" style="display:none" v-model="formData.reportUrl"></el-input>
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
               <el-upload class="upload-demo"
@@ -67,12 +67,32 @@
           </div>
           <!-- <div class="file-upload" v-if="editLuaFileName">{{editLuaFileName}}</div> -->
         </el-form-item>
-        <el-form-item label="功能说明" prop="desc">
-          <el-input type="textarea" v-model.trim="formData.desc"></el-input>
+        <el-form-item label="功能说明" prop="description">
+          <el-input type="textarea" v-model.trim="formData.description"></el-input>
         </el-form-item>
         <el-form-item label="发布周知人" prop="noticeMipAccounts">
-          <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccounts"></el-input>
+          <!-- <el-select style="width:100%" :multiple-limit="100" v-model.trim="formData.noticeMipAccounts" @change="noticeMipAccountsChange" multiple placeholder="请选择">
+            <el-option
+              v-for="(item, index) in noticeMipAccountsList"
+              :key="index"
+              :label="item.name"
+              :value="item.id"
+              >
+            </el-option>
+          </el-select> -->
+          <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input>
         </el-form-item>
+        <!-- <el-form-item>
+          <el-select type="textarea" style="width:100%" disabled v-model.trim="formData.noticeMipAccounts" multiple placeholder="不超过100个mip">
+            <el-option
+              v-for="(item, index) in noticeMipAccountsList"
+              :key="index"
+              :label="item.name"
+              :value="item.id"
+              >
+            </el-option>
+          </el-select>
+        </el-form-item> -->
       </el-form>
     </div>
     <div class="dialog-footer">
@@ -86,9 +106,10 @@
 <script>
 import commonFun from '@/common/js/func';
 import { moduleSdkMixin } from '@/common/js/validation';
+import { dropDownTranslation } from '@/common/js/dropDownTranslation';
 import moduleSdkApi from '@/modules/index/api/myProductsData/moduleSdk';
 export default {
-  mixins: [moduleSdkMixin],
+  mixins: [moduleSdkMixin, dropDownTranslation],
   data() {
     return {
       // 上传的参数开始
@@ -97,34 +118,54 @@ export default {
       reportAccept: '.xlsx, .xls ,.doc ,.docx',
       fileReportList: [],
       // 上传的参数结束
+      status: '新建',
       formData: {
-        status: '新建',
+        // status: '新建',
         name: '',
         version: '',
         chip: '',
-        tool: '',
-        fileSdkPackage: '',
-        fileReport: '',
-        desc: '',
+        chipName: '',
+        compileChain: '',
+        sdkUrl: '',
+        sdkOriginFileName: '',
+        reportUrl: '',
+        reportOriginFileName: '',
+        description: '',
         noticeMipAccounts: ''
       },
-      useInfoList: [
-          {id: 1, name: '1'}
+      noticeMipAccountsList: [
+        {id: 1, name: 'test1'},
+        {id: 2, name: 'test2'},
+        {id: 3, name: 'test3'},
+        {id: 4, name: 'test4'},
+        {id: 5, name: 'test5'},
+        {id: 6, name: 'test6'},
+        {id: 7, name: 'test7'},
+        {id: 8, name: 'test8'}
       ],
+      // useInfoList: [
+      //     {id: 1, name: '1'}
+      // ],
       luaFormRules: {
-        status: {required: true, message: '请输入', trigger: 'blur'},
+        // status: {required: true, message: '请输入', trigger: 'blur'},
         name: {required: true, validator: this.checkName, trigger: 'blur'},
         version: {required: true, validator: this.checkName, trigger: 'blur'},
         chip: {required: true, message: '请选择', trigger: 'change'},
-        tool: {required: true, validator: this.checkTool, trigger: 'blur'},
-        fileSdkPackage: {required: true, message: '请上传SDK文件', trigger: 'change'},
-        fileReport: {required: true, message: '请上传测试报告文件', trigger: 'change'},
-        desc: {required: true, validator: this.checkDesc, trigger: 'change'},
+        compileChain: {required: true, validator: this.checkTool, trigger: 'blur'},
+        sdkUrl: {required: true, message: '请上传SDK文件', trigger: 'change'},
+        reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
+        description: {required: true, validator: this.checkDesc, trigger: 'change'},
         noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'}
       }
     };
   },
+  created() {
+    this.getChipModelJson();
+  },
   methods: {
+    noticeMipAccountsChange(val) {
+      debugger;
+    },
     handleSubmitTestAudit() {
       // this.$emit('close', false);
       if (!commonFun.doSubmit('form', this)) return;
@@ -138,10 +179,18 @@ export default {
     },
     // 创建模块SDK信息
     create(submit) {
+      this.formData.chipName = commonFun.fetchWord(
+              this.formData.chip,
+              'id',
+              this.chipModelList,
+              'name'
+        );
+        debugger;
       let params = {
         ...this.formData,
         submit: submit
       };
+
       console.log(params, '参数');
       moduleSdkApi.sdkpackageinfoCreate(params).then((res) => {
         if (res.code === 0) {
@@ -163,7 +212,7 @@ export default {
     // sdk上传调用的接口开始
     uploadImgApi(item) {
       let param = { uploadFile: item.file };
-      this.getUpFile(param, {fileSdkPackage: 'fileSdkPackage', fileOrginalName: 'sdkFileOrginalName'});
+      this.getUpFile(param, {fileSdkPackage: 'sdkUrl', fileOrginalName: 'sdkOriginFileName'});
     },
         // 上传的接口
     async getUpFile(param, parameter) {
@@ -191,7 +240,7 @@ export default {
     // 上传成功
     uploadSuccess(res, file, fileList) {
       debugger;
-      this.formData.fileSdkPackage = '';
+      this.formData.sdkUrl = '';
       this.fileList = fileList;
     },
     // 上传失败
@@ -212,7 +261,7 @@ export default {
     // 测试报告上传调用的接口开始
     uploadImgReportApi(item) {
       let param = { uploadFile: item.file };
-      this.getUpFile(param, {fileSdkPackage: 'fileReport', fileOrginalName: 'reportFileOrginalName'});
+      this.getUpFile(param, {fileSdkPackage: 'reportUrl', fileOrginalName: 'reportOriginFileName'});
     },
     reportBeforeUpload(file) {
       return (
@@ -222,7 +271,7 @@ export default {
     },
     // 上传成功
     reportUploadSuccess(res, file, fileList) {
-      this.formData.fileReport = '';
+      this.formData.reportUrl = '';
       this.fileReportList = fileList;
     },
     // 上传失败

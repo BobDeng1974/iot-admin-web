@@ -27,9 +27,9 @@
                 v-model.trim="queryFormData.chip"
               >
                 <el-option
-                  v-for="(item, index) in userInfoList"
+                  v-for="(item, index) in chipModelList"
                   :key="index"
-                  :label="item.value"
+                  :label="item.name"
                   :value="item.id"
                 ></el-option>
               </el-select>
@@ -78,12 +78,12 @@
         <el-table-column prop="index" width="50" align="center" :render-header="renderIndex"></el-table-column>
         <el-table-column prop="name" label="SDK名称" show-overflow-tooltip></el-table-column>
         <el-table-column prop="version" label="版本号" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="chip" label="芯片信息" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="chipName" label="芯片信息" show-overflow-tooltip></el-table-column>
         <el-table-column prop="description" label="功能描述" show-overflow-tooltip></el-table-column>
         <el-table-column label="状态" show-overflow-tooltip align="left">
           <template slot-scope="scope">
             <div>
-              <span  v-if="scope.row.status === 0">草稿</span>
+              <span  v-if="scope.row.status === 0">新建</span>
               <span  v-if="scope.row.status === 1">待审核</span>
               <span  v-if="scope.row.status === 2">审核通过</span>
               <span  v-if="scope.row.status === 3">审核失败</span>
@@ -98,9 +98,9 @@
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <!-- v-authority="" -->
-            <el-button  type="text" size="small" @click="detailSdk(scope.row)">详情</el-button>
+            <el-button v-if="scope.row.status!==3" type="text" size="small" @click="detailSdk(scope.row)">详情</el-button>
             <el-button  v-if="scope.row.status===2" type="text" size="small" class="opt-btn"  @click="issueSdk(scope.row)">发布</el-button>
-            <el-button  v-if="scope.row.status===3" class="opt-btn" type="text" size="small" @click="editSdk(scope.row)">编辑</el-button>
+            <el-button  v-if="scope.row.status===3" class="" type="text" size="small" @click="editSdk(scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -117,11 +117,18 @@
           <add-dialog @close="close" @handleSave="addHandleSave"></add-dialog>
         </div>
         <div slot="option" v-else-if="isEdit">
-          <div v-if="!isDetails">
+          <div v-if="status!==1">
+          <!-- <div v-if="!isDetails"> -->
             <edit-dialog :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close"  @handleSave="handleSaveEdit"></edit-dialog>
           </div>
           <div v-else >
             <detail-dialog  :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close" @handleSave="addHandleSave"></detail-dialog>
+            <!-- <div v-if="status===1">
+              <detail-dialog  :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close" @handleSave="addHandleSave"></detail-dialog>
+            </div>
+            <div v-else>
+              <edit-dialog :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="!isDetails" @close="close"  @handleSave="handleSaveEdit"></edit-dialog>
+            </div> -->
           </div>
         </div>
         <div slot="option" v-else>
@@ -139,10 +146,11 @@ import editDialog from './editDialog';
 import detailDialog from './detailDialog';
 import issueDialog from './issueDialog';
 import moduleSdkApi from '@/modules/index/api/myProductsData/moduleSdk';
-// import commonFun from '@/common/js/func';
+import commonFun from '@/common/js/func';
 import { moduleSdkMixin } from '@/common/js/validation';
+import { dropDownTranslation } from '@/common/js/dropDownTranslation';
 export default {
-  mixins: [moduleSdkMixin],
+  mixins: [moduleSdkMixin, dropDownTranslation],
   components: {conHeader, mineDialog, addDialog, editDialog, issueDialog, detailDialog},
   data() {
     return {
@@ -164,17 +172,22 @@ export default {
         chip: '',
         status: ''
       },
-      userInfoList: [{ value: 1, id: 1 }],
-      statusList: [{ value: 1, id: 1 }],
+      // chipModelList: [{ value: 1, id: 1 }],
+      statusList: [
+        { value: '新建', id: 0 },
+        { value: '待审核', id: 1 },
+        { value: '审核通过', id: 2 },
+        { value: '已发布', id: 4 }
+        ],
       dataList: [
-        {id: 1, name: '0', version: '0.0', chip: '0', description: '0', compileChain: 'compileChain', activeTime: '2019-12-11', sdkUrl: 'sdkUrl', reportUrl: 'reportUrl', auditMipAccounts: 'auditMipAccounts', noticeMipAccounts: 'noticeMipAccounts', publisherName: 'publisherName', auditorName: 'auditorName', status: 0},
-        // {id: 2, name: '1', status: 1},
-        {id: 2, name: '1', version: '0.0', chip: '0', description: '0', compileChain: 'compileChain', activeTime: '2019-12-11', sdkUrl: 'sdkUrl', reportUrl: 'reportUrl', auditMipAccounts: 'auditMipAccounts', noticeMipAccounts: 'noticeMipAccounts', publisherName: 'publisherName', auditorName: 'auditorName', status: 1},
+        // {id: 1, name: '0', version: '0.0', chip: '0', description: '0', compileChain: 'compileChain', activeTime: '2019-12-11', sdkUrl: 'sdkUrl', reportUrl: 'reportUrl', auditMipAccounts: 'auditMipAccounts', noticeMipAccounts: 'noticeMipAccounts', publisherName: 'publisherName', auditorName: 'auditorName', status: 0},
+        // // {id: 2, name: '1', status: 1},
+        // {id: 2, name: '1', version: '0.0', chip: '0', description: '0', compileChain: 'compileChain', activeTime: '2019-12-11', sdkUrl: 'sdkUrl', reportUrl: 'reportUrl', auditMipAccounts: 'auditMipAccounts', noticeMipAccounts: 'noticeMipAccounts', publisherName: 'publisherName', auditorName: 'auditorName', status: 1},
 
-        {id: 3, name: '2', status: 2},
-        {id: 4, name: '3', status: 3},
-        {id: 4, name: '3', version: '0.0', chip: '0', description: '0', compileChain: 'compileChain', activeTime: '2019-12-11', sdkUrl: 'sdkUrl', reportUrl: 'reportUrl', auditMipAccounts: 'auditMipAccounts', noticeMipAccounts: 'noticeMipAccounts', publisherName: 'publisherName', auditorName: 'auditorName', status: 3},
-        {id: 5, name: '4', status: 4}
+        // {id: 3, name: '2', status: 2},
+        // {id: 4, name: '3', status: 3},
+        // {id: 4, name: '3', version: '0.0', chip: '0', description: '0', compileChain: 'compileChain', activeTime: '2019-12-11', sdkUrl: 'sdkUrl', reportUrl: 'reportUrl', auditMipAccounts: 'auditMipAccounts', noticeMipAccounts: 'noticeMipAccounts', publisherName: 'publisherName', auditorName: 'auditorName', status: 3},
+        // {id: 5, name: '4', status: 4}
       ],
             // 分页
       currentPage: 1,
@@ -184,16 +197,20 @@ export default {
       rules: {
         version: { required: true, validator: this.checkVersion, trigger: 'blur' }
       },
-      editDetailData: {}
+      editDetailData: {},
+      status: ''
     };
   },
   created() {
+    this.getChipModelJson();
     this.initListData(true);
   },
   methods: {
     initListData(flag) {
       let params = {
-        ...this.queryFormData
+        ...this.queryFormData,
+        pageNo: this.currentPage,
+        pageSize: this.pageSize
       };
       if (flag) {
         this.currentPage = 1;
@@ -202,7 +219,7 @@ export default {
 
       this.loading = true;
       moduleSdkApi.sdkpackageinfoList(params).then((res) => {
-        debugger;
+        // debugger;
         this.loading = false;
         if (res.code === 0) {
           this.total = res.result ? res.result.total : 0;
@@ -212,8 +229,8 @@ export default {
           this.total = 0;
         }
       }).catch(() => {
-          this.initTableData(this.dataList);
-          // this.dataList = [];
+          // this.initTableData(this.dataList);
+          this.dataList = [];
           this.total = 0;
           this.loading = false;
       });
@@ -259,6 +276,9 @@ export default {
       this.initListData(true);
     },
     clear() {
+      commonFun.restData(this.queryFormData);
+      this.chipModelList = [];
+      this.statusList = [];
       this.initListData(true);
     },
     addSdk() {
@@ -268,13 +288,15 @@ export default {
       this.title = '上传SDK';
     },
     editSdk(val) {
+      debugger;
       this.sdkId = val.id;
       this.isAdd = false;
       this.isEdit = true;
-      this.isDetails = false;
+      this.isDetails = true;
       this.flag = true;
       this.title = val.name + '名称';
       this.editDetailData = val;
+      this.status = val.status;
     },
     detailSdk(val) {
       debugger;
@@ -285,6 +307,7 @@ export default {
       this.flag = true;
       this.title = val.name + '名称';
       this.editDetailData = val;
+      this.status = val.status;
     },
     issueSdk(val) {
       this.sdkId = val.id;
