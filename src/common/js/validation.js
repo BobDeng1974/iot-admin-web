@@ -151,3 +151,58 @@ export const productsMixin = {
     }
   }
 };
+// 模块sdk
+export const moduleSdkMixin = {
+  methods: {
+    checkVersion(rule, value, callback) {
+      if (!value) {
+        callback();
+      } else {
+        if (value.length > 20) {
+          callback(new Error('输入内容在20字以下'));
+        } else if (/[\u4e00-\u9fa5]/.test(value)) {
+          callback(new Error('不能输入中文内容'));
+        } else {
+          callback();
+        }
+      }
+    },
+    checkName(rule, value, callback) {
+      if (!value) {
+        callback(new Error('请输入'));
+      } else {
+        if (value.length > 20) {
+          callback(new Error('输入内容在20字以下'));
+        } else if (/[\u4e00-\u9fa5]/.test(value)) {
+          callback(new Error('不能输入中文内容'));
+        } else {
+          callback();
+        }
+      }
+    },
+    checkTool(rule, value, callback) {
+      if (!value) {
+        callback(new Error('请输入'));
+      } else {
+        if (value.length > 200) {
+          callback(new Error('输入内容在200字以下'));
+        } else if (/[\u4e00-\u9fa5]/.test(value)) {
+          callback(new Error('不能输入中文内容'));
+        } else {
+          callback();
+        }
+      }
+    },
+    checkDesc(rule, value, callback) {
+      if (!value) {
+        callback(new Error('请输入'));
+      } else {
+        if (value.length > 100) {
+          callback(new Error('输入内容在100字以下'));
+        } else {
+          callback();
+        }
+      }
+    }
+  }
+};
