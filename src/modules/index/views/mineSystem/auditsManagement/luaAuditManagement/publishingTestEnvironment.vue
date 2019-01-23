@@ -16,7 +16,7 @@
                     </el-row>
                 </div>
                 <!-- 还差一种情况 -->
-                <div v-if="item.publicStatus === 3">
+                <div v-if="item.publicStatus === 99">
                     <el-row>
                         <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
                         <el-col :span="8"><div @click="publickOnce(item)" class="btn-submit">提交发布</div></el-col>
@@ -113,8 +113,8 @@ export default {
     //   API.getLuapub(params)
       API.getSupplyListIndex(params)
           .then(res => {
-            this.testlist = res.result ? res.result : [];
             this.loading = false;
+            this.testlist = res.result ? res.result : [];
           })
           .catch(() => {
             this.loading = false;

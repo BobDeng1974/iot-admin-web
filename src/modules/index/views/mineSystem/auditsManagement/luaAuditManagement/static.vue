@@ -64,8 +64,8 @@ export default {
     //   API.getLuapub(params)
       API.getSupplyListIndex(params)
           .then(res => {
-            this.testlist = res.result ? res.result : [];
             this.loading = false;
+            this.testlist = res.result ? res.result : [];
           })
           .catch(() => {
             this.loading = false;

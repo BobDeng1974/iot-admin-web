@@ -3,10 +3,10 @@
         <div class="title">
             <span>状态:</span>
             <span v-if="info.publicStatus === 0">编辑中</span>
-            <span v-if="info.publicStatus === 10">提交测试审核</span>
+            <span v-if="info.publicStatus === 10">等待测试审核</span>
             <span v-if="info.publicStatus === 20">测试审核成功</span>
             <span v-if="info.publicStatus === 5">测试审核失败</span>
-            <span v-if="info.publicStatus === 30">提交发布审核</span>
+            <span v-if="info.publicStatus === 30">等待发布审核</span>
             <span v-if="info.publicStatus === 40">发布审核成功</span>
             <span v-if="info.publicStatus === 25">发布审核失败</span>
             <span v-if="info.publicStatus === 23">发布测试环境成功</span>
