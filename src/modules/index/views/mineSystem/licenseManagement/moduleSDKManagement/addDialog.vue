@@ -15,6 +15,7 @@
           <el-select v-model.trim="formData.chip" filterable clearable style="width:100%">
             <el-option v-for="(item, index) in chipModelList" :key="index" :label="item.name" :value="item.id"></el-option>
           </el-select>
+
         </el-form-item>
         <el-form-item label="编译工具链" prop="compileChain">
           <el-input v-model.trim="formData.compileChain"></el-input>
