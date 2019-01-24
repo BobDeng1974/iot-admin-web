@@ -167,7 +167,7 @@ const auditsManagementApi = {
   // 确认发布
   luaPdatePro: (query) => {
     return request({
-      url: `${MJAPP_NAME}/lua/pdatePro`,
+      url: `${MJAPP_NAME}/lua/updatePro`,
       method: 'post',
       data: query
     }).then(res => res);
@@ -175,7 +175,7 @@ const auditsManagementApi = {
   // 下载lua文件(新)
   downloadLua: (params) => {
     return request({
-      url: `${MJAPP_NAME}/Agreement/downloadLua`,
+      url: `${MJAPP_NAME}/lua/downloadLua`,
       method: 'get',
       params: params,
       responseType: 'blob'
@@ -184,7 +184,7 @@ const auditsManagementApi = {
   // 下载自测文件(新)
   downloadTest: (params) => {
     return request({
-      url: `${MJAPP_NAME}/Agreement/downloadTestFile`,
+      url: `${MJAPP_NAME}/lua/downloadTestFile`,
       method: 'get',
       params: params,
       responseType: 'blob'
@@ -193,7 +193,7 @@ const auditsManagementApi = {
       // 下载测试报告(新)
   downloadTestReport: (params) => {
     return request({
-      url: `${MJAPP_NAME}/Agreement/downloadTestReport`,
+      url: `${MJAPP_NAME}/lua/downloadTestReport`,
       method: 'get',
       params: params,
       responseType: 'blob'
