@@ -38,8 +38,7 @@ import minePagination from '@/modules/index/components/mine-pagination';
 export default {
   props: {
     id: {
-      type: Number,
-      default: ''
+      type: [String, Number]
     },
     flag: {
       type: Boolean
@@ -97,13 +96,13 @@ export default {
       }
       const params = {
         pageNo: this.currentPage,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        luaId: this.id
       };
-    //   API.getLuaaudit(params)
-      API.getSupplyListIndex(params)
+      API.getLuaaudit(params)
           .then(res => {
             this.loading = false;
-            this.tableData = res.result ? this.initTab(res.result.data, this.currentPage, this.pageSize) : [];
+            this.tableData = res.result ? this.initTab(res.result, this.currentPage, this.pageSize) : [];
             this.total = res.result.total;
           })
           .catch(() => {

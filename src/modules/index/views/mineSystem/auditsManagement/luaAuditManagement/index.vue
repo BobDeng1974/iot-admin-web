@@ -50,8 +50,8 @@
         </div>
         <!-- 弹框 -->
         <mine-dialog :dialogFormVisible='flag' :width='"40%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
-          <publishing-testenvironment slot="option" @close="close" :info="info" v-if="type === 'publishingTestEnvironment'" @requestTable="handleCurrentChange('creadModuleVendor')"></publishing-testenvironment>
-          <publishing-environment slot="option" @close="close" :info="info" v-if="type === 'publishingEnvironment'" @requestTable="handleCurrentChange('creadModuleVendor')"></publishing-environment>
+          <publishing-testenvironment :flag="flag" slot="option" @close="close" :info="info" v-if="type === 'publishingTestEnvironment'" @requestTable="handleCurrentChange('creadModuleVendor')"></publishing-testenvironment>
+          <publishing-environment :flag="flag" slot="option" @close="close" :info="info" v-if="type === 'publishingEnvironment'" @requestTable="handleCurrentChange('creadModuleVendor')"></publishing-environment>
           <lua-info slot="option" @close="close"  :info="info" v-if="type === 'info'" @requestTable="handleCurrentChange('info')"></lua-info>
           <lua-static slot="option" :flag="flag" @close="close"  :info="info" v-if="type === 'static'" @requestTable="handleCurrentChange('info')"></lua-static>
         </mine-dialog>
@@ -111,8 +111,8 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize
       };
-    //   API.getLuaList(params)
-      API.getSupplyListIndex(params)
+      API.getLuaList(params)
+    //   API.getSupplyListIndex(params)
           .then(res => {
             this.loading = false;
             this.tableData = res.result ? this.initTab(res.result.data, this.currentPage, this.pageSize) : [];
@@ -140,7 +140,7 @@ export default {
     },
     publish (val) {
       console.log(val);
-      this.initDialog('发布环境', 'publishingEnvironment', val);
+      this.initDialog('发布正式环境', 'publishingEnvironment', val);
     },
     staticLua (val) {
       this.initDialog('环境查看', 'static', val);

@@ -12,7 +12,7 @@
                     <el-row>
                         <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
                         <el-col :span="8"><div>已生效</div></el-col>
-                        <el-col :span="8"><div>{{item.time}}</div></el-col>
+                        <el-col :span="8"><div>{{item.publishTime}}</div></el-col>
                     </el-row>
                 </div>
                 <!-- 还差一种情况 -->
@@ -56,7 +56,7 @@
         </div>
 
         <div class="dialog-footer" v-if="show">
-          <el-button type="primary" @click="enter">发布成功</el-button>
+          <el-button type="primary" @click="enter">发布正式环境成功</el-button>
         </div>
     </div>
 </template>
@@ -105,16 +105,24 @@ export default {
     }
   },
   methods: {
+    initData (val, flag) {
+      var arr =[];
+      for (var i = 0; i < val.length; i++) {
+        if (flag === val[i].env) {
+          arr.push(val[i]);
+        }
+      }
+      return arr;
+    },
     getList () {
       this.loading = true;
       const params = {
         luaId: this.info.id
       };
-    //   API.getLuapub(params)
-      API.getSupplyListIndex(params)
+      API.getLuapub(params)
           .then(res => {
             this.loading = false;
-            this.testlist = res.result ? res.result : [];
+            this.testlist = res.result ? this.initData(res.result, 1) : [];
           })
           .catch(() => {
             this.loading = false;
@@ -124,8 +132,7 @@ export default {
       const params = {
         luaId: this.info.id
       };
-    //   API.luaPdatePro(params)
-      API.getSupplyListIndex(params)
+      API.luaPdatePro(params)
           .then(res => {
             if (res.code === 0) {
                 this.$message({
@@ -145,8 +152,7 @@ export default {
         evn: val.evn,
         type: 0
       };
-    //   API.luaPublishPro(params)
-      API.getSupplyListIndex(params)
+      API.updateLuapub(params)
           .then(res => {
             if (res.code === 0) {
                 this.$message({
@@ -165,8 +171,7 @@ export default {
         luaId: this.info.id,
         LuaEvn: val.LuaEvn
       };
-    //   API.luaPublishPro(params)
-      API.getSupplyListIndex(params)
+      API.luaPublishPro(params)
           .then(res => {
             if (res.code === 0) {
                 this.$message({
@@ -185,8 +190,7 @@ export default {
         luaId: this.info.id,
         LuaEvn: val.LuaEvn
       };
-    //   API.luaPublishPro(params)
-      API.getSupplyListIndex(params)
+      API.luaPublishPro(params)
           .then(res => {
             if (res.code === 0) {
                 this.$message({
