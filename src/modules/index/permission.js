@@ -122,6 +122,7 @@ router.beforeEach((to, from, next) => {
     if (whiteList.indexOf(rootPath) !== -1) {
       next();
     } else {
+      debugger;
       // 4a 登录
       location.href = `${APPLICATION_NAME}/login`;
       // next(`/login?redirect=${to.path}`); // 否则全部重定向到登录页

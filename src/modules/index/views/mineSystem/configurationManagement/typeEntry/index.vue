@@ -94,10 +94,10 @@
            <mine-pagination
            @numberChange="numberChange"
            :total="total"
-           :pageSizes="[5, 10, 20, 50]"
+           :pageSizes="[10, 20, 30]"
            :page-size="pageSize"
            :current-page="currentPage"
-           :layout="'total, prev, pager, next'">
+           >
            </mine-pagination>
         </div>
         
@@ -159,7 +159,7 @@ export default {
       tableData: [],
       currentPage: 1,
       total: 0,
-      pageSize: 5
+      pageSize: 10
     };
   },
   mounted () {
@@ -189,7 +189,7 @@ export default {
       switch (val.flag) {
         case 'pageSize':
           this.pageSize = val.pageSize;
-          this.selectSerch(false);
+          this.selectSerch(true);
           break;
         case 'currentPage':
           this.currentPage = val.currentPage;

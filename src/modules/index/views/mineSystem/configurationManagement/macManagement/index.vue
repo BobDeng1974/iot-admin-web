@@ -33,8 +33,10 @@
             @current-change="handleCurrentChange('valid')"
             :page-size="validPageSize"
             :current-page.sync="validCurrentPage"
-            layout="total, prev, pager, next"
-            :total="validTotal">
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="validTotal"
+            :pageSizes="[10, 20, 30]"
+            @size-change="handleValidSizeChange">
             </el-pagination>
           </div>
         </div>
@@ -60,15 +62,17 @@
               @current-change="handleCurrentChange('allocated')"
               :page-size="allocatedPageSize"
               :current-page.sync="allocatedCurrentPage"
-              layout="total, prev, pager, next"
+              @size-change="handleAllocatedSizeChange"
+              :pageSizes="[10, 20, 30]"
+              layout="total, sizes, prev, pager, next, jumper"
               :total="allocatedTotal">
               </el-pagination>
             </div>
         </div>
         <!-- 弹框 -->
         <mine-dialog :dialogFormVisible='flag' :width='"40%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
-          <add-valid slot="option" @close="close" v-if="type === 'valid'" @requestTable="handleCurrentChange('valid')"></add-valid>
-          <add-allocated slot="option" @close="close" v-if="type === 'allocated'"  @requestTable="handleCurrentChange('allocated')"></add-allocated>
+          <add-valid slot="option" @close="close" v-if="type === 'valid'" @requestTable="handleAddSucess('valid')"></add-valid>
+          <add-allocated slot="option" @close="close" v-if="type === 'allocated'"  @requestTable="handleAddSucess('allocated')"></add-allocated>
         </mine-dialog>
     </div>
 </template>
@@ -89,7 +93,7 @@ export default {
     addValid
   },
   created () {
-    this.allocatedCurrentChange();
+    this.allocatedCurrentChange(true);
     this.validCurrentChange();
     this.getCardNumber();
   },
@@ -112,15 +116,26 @@ export default {
       validMacList: [],
       validCurrentPage: 1,
       validTotal: 0,
-      validPageSize: 5,
+      validPageSize: 10,
       allocatedCurrentPage: 1,
       allocatedTotal: 0,
-      allocatedPageSize: 5,
+      allocatedPageSize: 10,
       validLoading: false,
       allocatedLoading: false
     };
   },
   methods: {
+    btnClick () {},
+    handleValidSizeChange (val) {
+      this.validPageSize = val;
+      this.validCurrentChange(true);
+      this.getCardNumber();
+    },
+    handleAllocatedSizeChange (val) {
+      this.allocatedPageSize = val;
+      this.allocatedCurrentChange(true);
+      this.getCardNumber();
+    },
     renderIndex (h, { column, $index }) {
       return h('span', [h('span', '编号')]);
     },
@@ -144,21 +159,35 @@ export default {
         }
       }
     },
-    btnClick () {},
-    handleCurrentChange (val) {
+    handleAddSucess (val) {
       switch (val) {
         case 'allocated':
-          this.allocatedCurrentChange();
+          this.allocatedCurrentChange(true);
           this.getCardNumber();
           break;
         case 'valid':
-          this.validCurrentChange();
+          this.validCurrentChange(true);
           this.getCardNumber();
           break;
       }
     },
-    allocatedCurrentChange () {
+    handleCurrentChange (val) {
+      switch (val) {
+        case 'allocated':
+          this.allocatedCurrentChange(false);
+          this.getCardNumber();
+          break;
+        case 'valid':
+          this.validCurrentChange(false);
+          this.getCardNumber();
+          break;
+      }
+    },
+    allocatedCurrentChange (flag) {
       this.allocatedLoading = true;
+      if (flag) {
+        this.allocatedCurrentPage = 1;
+      }
       const params = {
         pageNo: this.allocatedCurrentPage,
         pageSize: this.allocatedPageSize
@@ -175,8 +204,11 @@ export default {
             this.allocatedLoading = false;
           });
     },
-    validCurrentChange () {
+    validCurrentChange (flag) {
       this.validLoading = true;
+      if (flag) {
+        this.validCurrentPage = 1;
+      }
       const params = {
         pageNo: this.validCurrentPage,
         pageSize: this.validPageSize

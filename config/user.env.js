@@ -30,7 +30,7 @@ var environment = (function () {
       iotmj: '/mj'
     }
   }
-  //项目目录
+  //项目目录..
   var _pathName = '/';
 
   return {

@@ -86,8 +86,16 @@
       </el-table>
     </div>
     <div class="fenye">
-      <el-pagination @current-change="handleCurrentChange" :page-size="pageSize" :current-page.sync="currentPage" layout="total, prev, pager, next" :total="total">
-      </el-pagination>
+      <!-- <el-pagination @current-change="handleCurrentChange" :page-size="pageSize" :current-page.sync="currentPage" layout="total, prev, pager, next" :total="total">
+      </el-pagination> -->
+      <mine-pagination
+      @numberChange="numberChange"
+      :total="total"
+      :pageSizes="[10, 20, 30]"
+      :page-size="pageSize"
+      :current-page="currentPage"
+      >
+      </mine-pagination>
     </div>
   </div>
 </template>
@@ -98,9 +106,11 @@ import API from '@/modules/index/api/dataCenter/dataCenter.js';
 import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 import moment from 'moment';
 import { getToken } from '@/utils/auth';
+import minePagination from '@/modules/index/components/mine-pagination';
 export default {
   components: {
-    conHeader
+    conHeader,
+    minePagination
   },
   mixins: [dictMixin],
   data() {
@@ -119,7 +129,7 @@ export default {
       tableData: [],
       currentPage: 1,
       total: 0,
-      pageSize: 5,
+      pageSize: 10,
       applyInfoId: 1
     };
   },
@@ -170,12 +180,26 @@ export default {
       // this.getApplianList();
       // this.getApply();
     },
-    requestList() {
-      this.getList(false);
+    numberChange (val) {
+      switch (val.flag) {
+        case 'pageSize':
+          this.pageSize = val.pageSize;
+          this.getList(true);
+          break;
+        case 'currentPage':
+          this.currentPage = val.currentPage;
+          this.getList(false);
+          break;
+        default:
+          break;
+      }
     },
-    handleCurrentChange(val) {
-      this.getList(false);
-    },
+    // requestList() {
+    //   this.getList(false);
+    // },
+    // handleCurrentChange(val) {
+    //   this.getList(false);
+    // },
     // 给请求回来的表格数据新增index属性（序号）
     initTableData(val) {
       if (!val && !val.length) return [];
@@ -253,6 +277,9 @@ export default {
 .meiju-lua-list-warp {
   .mip-check {
     margin-top: 24px;
+    .el-input {
+      width: 230px;
+    }
   }
       .other-label{
         .el-form-item{
@@ -290,9 +317,7 @@ export default {
   .yellow {
     background-color: yellow;
   }
-  .el-input {
-    width: 230px;
-  }
+
   .btn-select {
     // text-align: right;
     margin-top: 24px;

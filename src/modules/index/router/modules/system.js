@@ -139,7 +139,13 @@ export const auditsManagementRouter =
       meta: { title: 'license预申请' },
       hidden: true
     },
-    // 模块SDK发布管理
+    // lua审核管理
+    {
+      path: 'luaAuditManagement',
+      component: _import('mineSystem/auditsManagement/luaAuditManagement/index'),
+      name: 'lua审核管理',
+      meta: { title: 'lua审核管理', icon: 'dots' }
+    },
     {
       path: 'moduleSDKManagement',
       component: _import('mineSystem/licenseManagement/moduleSDKManagement/moduleSDKManagement'),

@@ -33,7 +33,7 @@ export default {
     },
     pageSizes: {
       type: [Array],
-      default: []
+      default: [10, 20, 30]
     },
     layout: {
       type: [String],
@@ -54,6 +54,9 @@ export default {
         return this.currentPage;
       },
       set (val) {
+        // if (val * this.pageSize - this.total > 10) {
+        //   return;
+        // }
         this.$emit('numberChange', {currentPage: val, flag: 'currentPage'});
       }
     }
@@ -71,10 +74,13 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
  .fenye{
     text-align: right;
-    margin-top: 16px; 
+    margin-top: 16px;
+    .el-input {
+      width: 50px;
+    } 
  }
 </style>
 

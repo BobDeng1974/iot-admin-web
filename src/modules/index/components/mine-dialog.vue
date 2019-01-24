@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-dialog class='dialog' @close="dilogClose" :title="title" :visible.sync="dialogFormVisibleFlag" :width="width" :show-close='showClose' :close-on-click-modal="modalFlag">
+      <el-dialog class='dialog' :append-to-body="appendToBody" @close="dilogClose" :center="center" :modal="modal" :title="title" :visible.sync="dialogFormVisibleFlag" :width="width" :show-close='showClose' :close-on-click-modal="modalFlag">
         <slot name="option"></slot>
       </el-dialog>
     </div>
@@ -11,6 +11,18 @@ export default {
     dialogFormVisible: {
       type: Boolean,
       default: false
+    },
+    appendToBody: {
+      type: Boolean,
+      default: false
+    },
+    center: {
+      type: Boolean,
+      default: true
+    },
+    modal: {
+      type: Boolean,
+      default: true
     },
     showClose: {
       type: Boolean,
