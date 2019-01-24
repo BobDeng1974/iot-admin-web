@@ -177,6 +177,7 @@ export default {
         { value: '新建', id: 0 },
         { value: '待审核', id: 1 },
         { value: '审核通过', id: 2 },
+        { value: '审核失败', id: 3 },
         { value: '已发布', id: 4 }
         ],
       dataList: [
@@ -202,6 +203,10 @@ export default {
     };
   },
   created() {
+    this.$router;
+    this.$route;
+    console.log(this.$route, 'moduleSDKManagement');
+    console.log(this.$router.currentRoute, 'moduleSDKManagement');
     this.getChipModelJson();
     this.initListData(true);
   },

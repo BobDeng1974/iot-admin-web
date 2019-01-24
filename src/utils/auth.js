@@ -1,25 +1,25 @@
-// import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 const TokenKey = 'accessToken';
 
 export function getToken() {
-  // return Cookies.get(TokenKey);
+  return Cookies.get(TokenKey);
   // if (this.isExist(TokenKey)) {
-    return sessionStorage.getItem(TokenKey);
+    // return sessionStorage.getItem(TokenKey);
   // } else {
   //   return null;
   // }
 }
 
 export function setToken(token) {
-  // return Cookies.set(TokenKey, token);
-  sessionStorage.setItem(TokenKey, typeof val === 'object' ? JSON.stringify(token) : token);
+  return Cookies.set(TokenKey, token);
+  // sessionStorage.setItem(TokenKey, typeof val === 'object' ? JSON.stringify(token) : token);
 }
 
 export function removeToken() {
-  // return Cookies.remove(TokenKey);
+  return Cookies.remove(TokenKey);
   // if (this.isExist(TokenKey)) {
-    sessionStorage.removeItem(TokenKey);
+    // sessionStorage.removeItem(TokenKey);
   // }
 }
 

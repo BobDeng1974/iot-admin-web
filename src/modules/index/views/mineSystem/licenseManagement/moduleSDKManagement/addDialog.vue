@@ -71,8 +71,8 @@
         <el-form-item label="功能说明" prop="description">
           <el-input type="textarea" v-model.trim="formData.description"></el-input>
         </el-form-item>
-        <el-form-item label="发布周知人" prop="noticeMipAccounts">
-          <!-- <el-select style="width:100%" :multiple-limit="100" v-model.trim="formData.noticeMipAccounts" @change="noticeMipAccountsChange" multiple placeholder="请选择">
+        <el-form-item label="发布周知人" prop="tempNoticeMipAccounts">
+          <el-select style="width:100%" :multiple-limit="100" v-model.trim="formData.tempNoticeMipAccounts" @change="noticeMipAccountsChange" multiple placeholder="请选择">
             <el-option
               v-for="(item, index) in noticeMipAccountsList"
               :key="index"
@@ -80,8 +80,13 @@
               :value="item.id"
               >
             </el-option>
-          </el-select> -->
-          <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input>
+          </el-select>
+          <!-- <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input> -->
+        </el-form-item>
+        <el-form-item>
+          <el-input type="textarea" disabled  placeholder="不超过100个mip" v-model.trim="noticeMipAccountsName"></el-input>
+          <!-- <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input> -->
+
         </el-form-item>
         <!-- <el-form-item>
           <el-select type="textarea" style="width:100%" disabled v-model.trim="formData.noticeMipAccounts" multiple placeholder="不超过100个mip">
@@ -132,8 +137,10 @@ export default {
         reportUrl: '',
         reportOriginFileName: '',
         description: '',
-        noticeMipAccounts: ''
+        noticeMipAccounts: '',
+        tempNoticeMipAccounts: ''
       },
+      noticeMipAccountsName: '',
       noticeMipAccountsList: [
         {id: 1, name: 'test1'},
         {id: 2, name: 'test2'},
@@ -152,11 +159,12 @@ export default {
         name: {required: true, validator: this.checkName, trigger: 'blur'},
         version: {required: true, validator: this.checkName, trigger: 'blur'},
         chip: {required: true, message: '请选择', trigger: 'change'},
-        compileChain: {required: true, validator: this.checkTool, trigger: 'blur'},
+        compileChain: {required: false, validator: this.checkTool, trigger: 'blur'},
         sdkUrl: {required: true, message: '请上传SDK文件', trigger: 'change'},
         reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
         description: {required: true, validator: this.checkDesc, trigger: 'change'},
-        noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'}
+        // noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
+        tempNoticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'}
       }
     };
   },
@@ -164,8 +172,20 @@ export default {
     this.getChipModelJson();
   },
   methods: {
-    noticeMipAccountsChange(val) {
-      debugger;
+    noticeMipAccountsChange(array) {
+      let tempNoticeMipAccountsArr = [];
+      for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+          tempNoticeMipAccountsArr.push(commonFun.fetchWord(
+              element,
+              'id',
+              this.noticeMipAccountsList,
+              'name'
+            ));
+      }
+      this.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
+
+      this.formData.noticeMipAccounts = array.join(';');
     },
     handleSubmitTestAudit() {
       // this.$emit('close', false);
