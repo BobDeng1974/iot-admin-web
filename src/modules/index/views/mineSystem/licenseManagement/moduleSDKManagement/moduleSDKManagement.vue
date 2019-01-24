@@ -203,6 +203,10 @@ export default {
     };
   },
   created() {
+    this.$router;
+    this.$route;
+    console.log(this.$route, 'moduleSDKManagement');
+    console.log(this.$router.currentRoute, 'moduleSDKManagement');
     this.getChipModelJson();
     this.initListData(true);
   },
