@@ -149,7 +149,7 @@ export default {
     checkSucess (val) {
       const params = {
         luaId: this.info.id,
-        evn: val.evn,
+        env: val.env,
         type: 0
       };
       API.updateLuapub(params)
@@ -185,7 +185,7 @@ export default {
           .catch(() => {
           });
     },
-    publickAgain () {
+    publickAgain (val) {
       const params = {
         luaId: this.info.id,
         LuaEvn: val.LuaEvn

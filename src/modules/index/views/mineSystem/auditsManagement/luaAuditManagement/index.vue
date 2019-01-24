@@ -14,15 +14,15 @@
             <el-table-column prop="functionDescription" label="功能说明" align="center"></el-table-column>
             <el-table-column prop="publicStatus" label="状态" align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.publicStatus === 0">编辑中</span>
-                <span v-if="scope.row.publicStatus === 10">等待测试审核</span>
-                <span v-if="scope.row.publicStatus === 20">测试审核成功</span>
-                <span v-if="scope.row.publicStatus === 5">测试审核失败</span>
-                <span v-if="scope.row.publicStatus === 30">等待发布审核</span>
-                <span v-if="scope.row.publicStatus === 40">发布审核成功</span>
-                <span v-if="scope.row.publicStatus === 25">发布审核失败</span>
-                <span v-if="scope.row.publicStatus === 23">发布测试环境成功</span>
-                <span v-if="scope.row.publicStatus === 50">发布成功</span>
+                <span v-if="scope.row.publicStatus === 0" class="other">编辑中</span>
+                <span v-if="scope.row.publicStatus === 10" class="other">等待测试审核</span>
+                <span v-if="scope.row.publicStatus === 20" class="other">测试审核成功</span>
+                <span v-if="scope.row.publicStatus === 5" class="other">测试审核失败</span>
+                <span v-if="scope.row.publicStatus === 30" class="other">等待发布审核</span>
+                <span v-if="scope.row.publicStatus === 40" class="other">发布审核成功</span>
+                <span v-if="scope.row.publicStatus === 25" class="other">发布审核失败</span>
+                <span v-if="scope.row.publicStatus === 23" class="other">发布测试环境成功</span>
+                <span v-if="scope.row.publicStatus === 50" class="other">发布成功</span>
               </template>
             </el-table-column>
             <!-- <el-table-column prop="auditDate" label="审核时间" align="center"></el-table-column> -->
@@ -79,6 +79,9 @@ export default {
   },
   mixins: [ dictMixin ],
   created () {
+    this.$route;
+    this.$router.currentRoute.query;
+    debugger;
     this.getList(true);
     // this.getAlluser();
   },
@@ -200,6 +203,9 @@ export default {
   .table-moduleVendor{
       margin-top: 24px;
     td {
+      .other {
+        color: #606266;
+      }
       span{
         padding: 0 2px;
         color: #5667FF;
