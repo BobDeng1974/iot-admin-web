@@ -81,6 +81,7 @@ export default {
   created () {
     this.$route;
     this.$router.currentRoute.query;
+    this.info;
     debugger;
     this.getList(true);
     // this.getAlluser();
@@ -100,7 +101,7 @@ export default {
       modalFlag: false,
       title: '',
       type: '',
-    //   info: {},
+      info: {},
       loading: false
     };
   },
@@ -137,6 +138,7 @@ export default {
       this.flag = true;
       this.type = type;
       this.info = {...val};
+      debugger;
     },
     toTips (val) {
       this.initDialog('详情', 'info', val);
