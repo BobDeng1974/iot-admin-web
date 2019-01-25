@@ -2,11 +2,30 @@
     <div class="pub-lua-warp" v-loading="loading">
 
         <div class="title-pub title-other">
-           {{info.publicStatus === 23 ? '测试环境' : '正式环境'}}
+           {{'测试环境'}}
         </div>
         <div>
             <ul>
                 <li v-for="(item, index) in testlist" :key="index">
+                    <el-row>
+                        <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
+                        <el-col :span="8">
+                            <div v-if="item.publicStatus === 0">待运维确认</div>
+                            <div v-if="item.publicStatus === 1">已生效</div>
+                            <div v-if="item.publicStatus === 2">发布失败</div>
+                        </el-col>
+                        <el-col :span="8"><div>{{item.publishTime}}</div></el-col>
+                    </el-row>
+                </li>
+            </ul> 
+        </div>
+
+        <div class="title-pub title-other">
+           {{'正式环境'}}
+        </div>
+        <div>
+            <ul>
+                <li v-for="(item, index) in publiclist" :key="index">
                     <el-row>
                         <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
                         <el-col :span="8">
@@ -52,7 +71,8 @@ export default {
         {type: 2, name: '美居app', time: '2018-10-24', id: ''},
         {type: 3, name: '云端', time: '', id: ''}
       ],
-      loading: false
+      loading: false,
+      publiclist: []
     };
   },
   methods: {
@@ -73,11 +93,13 @@ export default {
       API.getLuapub(params)
           .then(res => {
             this.loading = false;
-            if (this.info.publicStatus === 23) {
-              this.testlist = res.result ? this.initData(res.result, 0) : [];
-            } else {
-              this.testlist = res.result ? this.initData(res.result, 1) : [];
-            }  
+            this.testlist = res.result ? this.initData(res.result, 0) : [];
+            this.publiclist = res.result ? this.initData(res.result, 1) : [];
+            // if (this.info.publicStatus === 23) {
+            //   this.testlist = res.result ? this.initData(res.result, 0) : [];
+            // } else {
+            //   this.testlist = res.result ? this.initData(res.result, 1) : [];
+            // }
           })
           .catch(() => {
             this.loading = false;
