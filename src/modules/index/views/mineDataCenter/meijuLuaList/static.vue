@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import API from '@/modules/index/api/system/system.js';
+import API from '@/modules/index/api/dataCenter/dataCenter.js';
 export default {
   props: {
     info: {
@@ -90,9 +90,9 @@ export default {
     getList () {
       this.loading = true;
       const params = {
-        luaId: this.info.luaId
+        url: this.info.url
       };
-      API.getLuapub(params)
+      API.luapubGetEnvironment(params)
           .then(res => {
             this.loading = false;
             this.testlist = res.result ? this.initData(res.result, 0) : [];
