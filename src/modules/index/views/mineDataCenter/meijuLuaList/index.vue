@@ -78,9 +78,10 @@
           </template>
         </el-table-column>
         <el-table-column prop="cName" width="150" label="上传人" align="center"></el-table-column>
-        <el-table-column label="操作" align="center" fixed='right'>
+        <el-table-column label="操作" align="center" fixed='right' width="130">
           <template slot-scope="scope">
             <span class="mine-down" @click="downLoad(scope.row)" v-authority="'b1_mjLuaDownTag'">下载</span>
+            <span class="mine-down" @click="showInfo(scope.row)" v-authority="'b1_mjLuaDownTag'">查看环境</span>
           </template>
         </el-table-column>
       </el-table>
@@ -97,9 +98,13 @@
       >
       </mine-pagination>
     </div>
+      <mine-dialog :dialogFormVisible='flag' :width='"40%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
+        <lua-static slot="option" :flag="flag" @close="close"  :info="info" @requestTable="handleCurrentChange('info')"></lua-static>
+      </mine-dialog>
   </div>
 </template>
 <script>
+import mineDialog from '@/modules/index/components/mine-dialog';
 import { restData, format } from '@/modules/index/api/system/common.js';
 import conHeader from '@/components/awesome/con-header/con-header';
 import API from '@/modules/index/api/dataCenter/dataCenter.js';
@@ -107,10 +112,13 @@ import { dictMixin } from '@/modules/index/views/mineSystem/dictMixin';
 import moment from 'moment';
 import { getToken } from '@/utils/auth';
 import minePagination from '@/modules/index/components/mine-pagination';
+import luaStatic from './static';
 export default {
   components: {
     conHeader,
-    minePagination
+    minePagination,
+    luaStatic,
+    mineDialog
   },
   mixins: [dictMixin],
   data() {
@@ -130,7 +138,12 @@ export default {
       currentPage: 1,
       total: 0,
       pageSize: 10,
-      applyInfoId: 1
+      // applyInfoId: 1,
+      flag: false,
+      showClose: true,
+      modalFlag: false,
+      title: '查看环境',
+      info: {}
     };
   },
   created() {
@@ -138,6 +151,13 @@ export default {
     this.getList(true);
   },
   methods: {
+    showInfo (val) {
+      this.flag = true;
+      this.info = {...val};
+    },
+    handleCurrentChange (val) {
+      this.getList(true)
+    },
     departMentChange (val) {
       this.formInline.typeCode = '';
       this.applianList = [];
@@ -214,7 +234,7 @@ export default {
     // 弹框关闭
     close(val) {
       this.flag = val;
-      this.applyInfoId = '';
+      // this.applyInfoId = '';
     },
     getList(flag) {
       if (this.formInline.time && this.formInline.time.length) {
