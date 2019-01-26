@@ -93,7 +93,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="activeTime" label="生效时间" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="publisherName" label="提交人" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="creatorName" label="提交人" show-overflow-tooltip></el-table-column>
         <el-table-column prop="auditorName" label="审核人" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">

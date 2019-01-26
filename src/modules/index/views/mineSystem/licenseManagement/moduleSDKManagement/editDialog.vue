@@ -71,7 +71,7 @@
           <el-input type="textarea" v-model.trim="formData.description"></el-input>
         </el-form-item>
         <el-form-item label="发布周知人" prop="tempNoticeMipAccounts">
-          <el-select style="width:100%" :multiple-limit="100" v-model.trim="formData.tempNoticeMipAccounts" @change="noticeMipAccountsChange" multiple placeholder="请选择">
+          <el-select style="width:100%" :multiple-limit="100" filterable v-model.trim="formData.tempNoticeMipAccounts" @change="noticeMipAccountsChange" multiple placeholder="请选择">
             <el-option
               v-for="(item, index) in noticeMipAccountsList"
               :key="index"
