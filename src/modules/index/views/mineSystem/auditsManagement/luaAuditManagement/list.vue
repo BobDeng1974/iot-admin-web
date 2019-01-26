@@ -2,7 +2,7 @@
  <div class="lua-list-mine-warp" v-loading="loading">
      <div>
         <el-table :data="tableData" style="width: 100%"  class='table' :max-height="300">
-            <el-table-column prop="index" align="center" :render-header="renderIndex"></el-table-column>
+            <el-table-column prop="index" align="center" width="50" :render-header="renderIndex"></el-table-column>
             <el-table-column prop="publicStatus" label="状态" align="center">
                 <template slot-scope="scope">
                     <span v-if="scope.row.publicStatus === 0">编辑中</span>
@@ -17,10 +17,10 @@
                 </template>
             </el-table-column>
             <el-table-column prop="auditor" label="处理人" align="center"></el-table-column>
-            <el-table-column prop="auditTime" label="时间" align="center"></el-table-column>
+            <el-table-column prop="auditTime" width="170" label="时间" align="center"></el-table-column>
         </el-table>
     </div>
-    <div class="fenye">
+    <!-- <div class="fenye">
         <mine-pagination
         @numberChange="numberChange"
         :total="total"
@@ -29,7 +29,7 @@
         :current-page="currentPage"
         >
         </mine-pagination>
-    </div>
+    </div> -->
  </div>
 </template>
 <script>
@@ -38,8 +38,7 @@ import minePagination from '@/modules/index/components/mine-pagination';
 export default {
   props: {
     id: {
-      type: Number,
-      default: ''
+      type: [String, Number]
     },
     flag: {
       type: Boolean
@@ -97,13 +96,13 @@ export default {
       }
       const params = {
         pageNo: this.currentPage,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        luaId: this.id
       };
-    //   API.getLuaaudit(params)
-      API.getSupplyListIndex(params)
+      API.getLuaaudit(params)
           .then(res => {
             this.loading = false;
-            this.tableData = res.result ? this.initTab(res.result.data, this.currentPage, this.pageSize) : [];
+            this.tableData = res.result ? this.initTab(res.result, this.currentPage, this.pageSize) : [];
             this.total = res.result.total;
           })
           .catch(() => {

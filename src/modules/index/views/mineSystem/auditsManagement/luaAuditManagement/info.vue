@@ -52,11 +52,11 @@
 
         <div class="dialog-footer" v-if="info.publicStatus === 10">
             <el-button type="primary" @click="testSubmit(0)">测试审核通过</el-button>
-            <el-button type="primary" @click="auditFail(1)">审核失败</el-button>
+            <el-button type="primary" @click="auditFail(1)">测试审核失败</el-button>
         </div>
         <div class="dialog-footer" v-if="info.publicStatus === 30">
             <el-button type="primary" @click="publickSubmit(0)">发布审核通过</el-button>
-            <el-button type="primary" @click="publickAuditFail(1)">审核失败</el-button>
+            <el-button type="primary" @click="publickAuditFail(1)">发布审核失败</el-button>
         </div>
 
         <mine-dialog :dialogFormVisible='flag' :appendToBody="true" :center="true" :modal="true" :width='"40%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
@@ -93,10 +93,10 @@ export default {
   },
   methods: {
     showList () {
+      this.id = this.info.id;
       this.title = '流程记录';
       this.flag = true;
       this.modalFlag = true;
-      this.id = this.info.id;
     },
     close (val) {
       this.flag = val;

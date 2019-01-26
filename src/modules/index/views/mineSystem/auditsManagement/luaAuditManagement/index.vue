@@ -14,15 +14,15 @@
             <el-table-column prop="functionDescription" label="功能说明" align="center"></el-table-column>
             <el-table-column prop="publicStatus" label="状态" align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.publicStatus === 0">编辑中</span>
-                <span v-if="scope.row.publicStatus === 10">等待测试审核</span>
-                <span v-if="scope.row.publicStatus === 20">测试审核成功</span>
-                <span v-if="scope.row.publicStatus === 5">测试审核失败</span>
-                <span v-if="scope.row.publicStatus === 30">等待发布审核</span>
-                <span v-if="scope.row.publicStatus === 40">发布审核成功</span>
-                <span v-if="scope.row.publicStatus === 25">发布审核失败</span>
-                <span v-if="scope.row.publicStatus === 23">发布测试环境成功</span>
-                <span v-if="scope.row.publicStatus === 50">发布成功</span>
+                <span v-if="scope.row.publicStatus === 0" class="other">编辑中</span>
+                <span v-if="scope.row.publicStatus === 10" class="other">等待测试审核</span>
+                <span v-if="scope.row.publicStatus === 20" class="other">测试审核成功</span>
+                <span v-if="scope.row.publicStatus === 5" class="other">测试审核失败</span>
+                <span v-if="scope.row.publicStatus === 30" class="other">等待发布审核</span>
+                <span v-if="scope.row.publicStatus === 40" class="other">发布审核成功</span>
+                <span v-if="scope.row.publicStatus === 25" class="other">发布审核失败</span>
+                <span v-if="scope.row.publicStatus === 23" class="other">发布测试环境成功</span>
+                <span v-if="scope.row.publicStatus === 50" class="other">发布成功</span>
               </template>
             </el-table-column>
             <!-- <el-table-column prop="auditDate" label="审核时间" align="center"></el-table-column> -->
@@ -50,8 +50,8 @@
         </div>
         <!-- 弹框 -->
         <mine-dialog :dialogFormVisible='flag' :width='"40%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
-          <publishing-testenvironment slot="option" @close="close" :info="info" v-if="type === 'publishingTestEnvironment'" @requestTable="handleCurrentChange('creadModuleVendor')"></publishing-testenvironment>
-          <publishing-environment slot="option" @close="close" :info="info" v-if="type === 'publishingEnvironment'" @requestTable="handleCurrentChange('creadModuleVendor')"></publishing-environment>
+          <publishing-testenvironment :flag="flag" slot="option" @close="close" :info="info" v-if="type === 'publishingTestEnvironment'" @requestTable="handleCurrentChange('creadModuleVendor')"></publishing-testenvironment>
+          <publishing-environment :flag="flag" slot="option" @close="close" :info="info" v-if="type === 'publishingEnvironment'" @requestTable="handleCurrentChange('creadModuleVendor')"></publishing-environment>
           <lua-info slot="option" @close="close"  :info="info" v-if="type === 'info'" @requestTable="handleCurrentChange('info')"></lua-info>
           <lua-static slot="option" :flag="flag" @close="close"  :info="info" v-if="type === 'static'" @requestTable="handleCurrentChange('info')"></lua-static>
         </mine-dialog>
@@ -79,6 +79,10 @@ export default {
   },
   mixins: [ dictMixin ],
   created () {
+    this.$route;
+    this.$router.currentRoute.query;
+    this.info;
+    debugger;
     this.getList(true);
     // this.getAlluser();
   },
@@ -97,7 +101,7 @@ export default {
       modalFlag: false,
       title: '',
       type: '',
-    //   info: {},
+      info: {},
       loading: false
     };
   },
@@ -111,8 +115,8 @@ export default {
         pageNo: this.currentPage,
         pageSize: this.pageSize
       };
-    //   API.getLuaList(params)
-      API.getSupplyListIndex(params)
+      API.getLuaList(params)
+    //   API.getSupplyListIndex(params)
           .then(res => {
             this.loading = false;
             this.tableData = res.result ? this.initTab(res.result.data, this.currentPage, this.pageSize) : [];
@@ -134,13 +138,14 @@ export default {
       this.flag = true;
       this.type = type;
       this.info = {...val};
+      debugger;
     },
     toTips (val) {
       this.initDialog('详情', 'info', val);
     },
     publish (val) {
       console.log(val);
-      this.initDialog('发布环境', 'publishingEnvironment', val);
+      this.initDialog('发布正式环境', 'publishingEnvironment', val);
     },
     staticLua (val) {
       this.initDialog('环境查看', 'static', val);
@@ -200,6 +205,9 @@ export default {
   .table-moduleVendor{
       margin-top: 24px;
     td {
+      .other {
+        color: #606266;
+      }
       span{
         padding: 0 2px;
         color: #5667FF;

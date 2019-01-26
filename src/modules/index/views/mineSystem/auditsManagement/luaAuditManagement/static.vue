@@ -56,16 +56,28 @@ export default {
     };
   },
   methods: {
+    initData (val, flag) {
+      var arr =[];
+      for (var i = 0; i < val.length; i++) {
+        if (flag === val[i].env) {
+          arr.push(val[i]);
+        }
+      }
+      return arr;
+    },
     getList () {
       this.loading = true;
       const params = {
         luaId: this.info.id
       };
-    //   API.getLuapub(params)
-      API.getSupplyListIndex(params)
+      API.getLuapub(params)
           .then(res => {
             this.loading = false;
-            this.testlist = res.result ? res.result : [];
+            if (this.info.publicStatus === 23) {
+              this.testlist = res.result ? this.initData(res.result, 0) : [];
+            } else {
+              this.testlist = res.result ? this.initData(res.result, 1) : [];
+            }  
           })
           .catch(() => {
             this.loading = false;
