@@ -90,7 +90,7 @@ export default {
     getList () {
       this.loading = true;
       const params = {
-        luaId: this.info.url
+        url: this.info.url
       };
       API.luapubGetEnvironment(params)
           .then(res => {
