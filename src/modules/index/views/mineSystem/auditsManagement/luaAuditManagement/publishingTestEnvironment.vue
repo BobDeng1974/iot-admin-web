@@ -19,7 +19,7 @@
                 <div v-if="item.publicStatus === 99">
                     <el-row>
                         <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
-                        <el-col :span="8"><div @click="publickOnce(item)" class="btn-submit">提交发布</div></el-col>
+                        <el-col :span="8"><div @click="publickOnce(item)" class="btn-submit" v-authority="'b1_luaPublishingTest'">提交发布</div></el-col>
                         <el-col :span="8"><div></div></el-col>
                     </el-row>
                 </div>
@@ -28,7 +28,7 @@
                     <el-row>
                         <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
                         <el-col :span="8"><div>发布失败</div></el-col>
-                        <el-col :span="8"><div @click="publickAgain(item)" class="btn-submit">重试</div></el-col>
+                        <el-col :span="8"><div @click="publickAgain(item)" class="btn-submit" v-authority="'b1_luaPublishingTest'">重试</div></el-col>
                     </el-row>
                 </div>
                 <!-- 这里是区分 美居  还是 云端 等待运维确认-->
@@ -37,7 +37,7 @@
                         <el-row>
                             <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
                             <el-col :span="8"><div>发布中</div></el-col>
-                            <el-col :span="8"><div @click="checkSucess(item)" class="btn-submit">确认成功</div></el-col>
+                            <el-col :span="8"><div @click="checkSucess(item)" class="btn-submit" v-authority="'b1_luaOperationConfirmation'">确认成功</div></el-col>
                         </el-row>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
         </div>
 
         <div class="dialog-footer" v-if="show">
-          <el-button type="primary" @click="enter">发布测试环境成功</el-button>
+          <el-button type="primary" @click="enter" v-authority="'b1_luaConfirmationTest'">发布测试环境成功</el-button>
         </div>
     </div>
 </template>

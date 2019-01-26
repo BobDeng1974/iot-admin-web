@@ -30,10 +30,10 @@
             <el-table-column prop="cuid" label="上传人" align="center"></el-table-column>
             <el-table-column label="操作" align="center" width='150' fixed="right">
               <template slot-scope="scope">
-                <span @click="toTips(scope.row)">详情</span>
-                <span @click="publishTest(scope.row)" v-if="scope.row.publicStatus === 20">发布测试环境</span>
-                <span @click="publish(scope.row)" v-if="scope.row.publicStatus === 40">发布环境</span>
-                <span @click="staticLua(scope.row)" v-if="scope.row.publicStatus === 23 || scope.row.publicStatus === 50">环境查看</span>
+                <span @click="toTips(scope.row)" v-authority="'b1_luaInformationTag'">详情</span>
+                <span @click="publishTest(scope.row)" v-if="scope.row.publicStatus === 20" v-authority="'b1_luaPublishingTest'">发布测试环境</span>
+                <span @click="publish(scope.row)" v-if="scope.row.publicStatus === 40" v-authority="'b1_luaPublishingEnvironment'">发布环境</span>
+                <span @click="staticLua(scope.row)" v-if="scope.row.publicStatus === 23 || scope.row.publicStatus === 50" v-authority="'b1_luaPublishingCheck'">环境查看</span>
               </template>
             </el-table-column>
           </el-table>
@@ -138,7 +138,6 @@ export default {
       this.flag = true;
       this.type = type;
       this.info = {...val};
-      debugger;
     },
     toTips (val) {
       this.initDialog('详情', 'info', val);

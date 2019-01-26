@@ -1,12 +1,11 @@
 <template>
     <div class="pub-lua-warp" v-loading="loading">
-
-        <div class="title-pub title-other">
+       <div class="title-pub title-other">
            {{'测试环境'}}
         </div>
         <div>
             <ul>
-                <li v-for="(item, index) in testlist" :key="index">
+                <li v-for="(item, index) in publiclist" :key="index">
                     <el-row>
                         <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
                         <el-col :span="8">
@@ -25,7 +24,7 @@
         </div>
         <div>
             <ul>
-                <li v-for="(item, index) in publiclist" :key="index">
+                <li v-for="(item, index) in testlist" :key="index">
                     <el-row>
                         <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
                         <el-col :span="8">
@@ -43,7 +42,7 @@
 </template>
 
 <script>
-import API from '@/modules/index/api/system/system.js';
+import API from '@/modules/index/api/dataCenter/dataCenter.js';
 export default {
   props: {
     info: {
@@ -71,8 +70,11 @@ export default {
         {type: 2, name: '美居app', time: '2018-10-24', id: ''},
         {type: 3, name: '云端', time: '', id: ''}
       ],
-      loading: false,
-      publiclist: []
+      publiclist: [
+        {type: 2, name: '美居app', time: '2018-10-24', id: ''},
+        {type: 3, name: '云端', time: '', id: ''}
+      ],
+      loading: false
     };
   },
   methods: {
@@ -88,18 +90,13 @@ export default {
     getList () {
       this.loading = true;
       const params = {
-        luaId: this.info.id
+        url: this.info.url
       };
-      API.getLuapub(params)
+      API.luapubGetEnvironment(params)
           .then(res => {
             this.loading = false;
             this.testlist = res.result ? this.initData(res.result, 0) : [];
             this.publiclist = res.result ? this.initData(res.result, 1) : [];
-            // if (this.info.publicStatus === 23) {
-            //   this.testlist = res.result ? this.initData(res.result, 0) : [];
-            // } else {
-            //   this.testlist = res.result ? this.initData(res.result, 1) : [];
-            // }
           })
           .catch(() => {
             this.loading = false;

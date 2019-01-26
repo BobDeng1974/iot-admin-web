@@ -11,7 +11,7 @@
             <span v-if="info.publicStatus === 25">发布审核失败</span>
             <span v-if="info.publicStatus === 23">发布测试环境成功</span>
             <span v-if="info.publicStatus === 50">发布成功</span>
-            <i class="el-icon-d-arrow-right" @click="showList"></i>
+            <i class="el-icon-d-arrow-right" @click="showList" v-authority="'b1_luaProcessRecord'"></i>
         </div>
        <el-form label-width="120px" :model="info" label-position="left">
             <el-form-item label="名称">
@@ -50,11 +50,11 @@
 
         <!-- 按钮 (也需要通过状态判断显示哪个)-->
 
-        <div class="dialog-footer" v-if="info.publicStatus === 10">
+        <div class="dialog-footer" v-if="info.publicStatus === 10" v-authority="'b1_luaTestSubmit'">
             <el-button type="primary" @click="testSubmit(0)">测试审核通过</el-button>
             <el-button type="primary" @click="auditFail(1)">测试审核失败</el-button>
         </div>
-        <div class="dialog-footer" v-if="info.publicStatus === 30">
+        <div class="dialog-footer" v-if="info.publicStatus === 30" v-authority="'b1_luaPublickSubmit'">
             <el-button type="primary" @click="publickSubmit(0)">发布审核通过</el-button>
             <el-button type="primary" @click="publickAuditFail(1)">发布审核失败</el-button>
         </div>
