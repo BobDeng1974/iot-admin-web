@@ -119,10 +119,10 @@
         <div slot="option" v-else-if="isEdit">
           <div v-if="status!==1">
           <!-- <div v-if="!isDetails"> -->
-            <edit-dialog :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close"  @handleSave="handleSaveEdit"></edit-dialog>
+            <edit-dialog :noticeMipAccountsList="noticeMipAccountsListArr" :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close"  @handleSave="handleSaveEdit"></edit-dialog>
           </div>
           <div v-else >
-            <detail-dialog  :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close" @handleSave="addHandleSave"></detail-dialog>
+            <detail-dialog :noticeMipAccountsList="noticeMipAccountsListArr" :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close" @handleSave="addHandleSave"></detail-dialog>
             <!-- <div v-if="status===1">
               <detail-dialog  :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close" @handleSave="addHandleSave"></detail-dialog>
             </div>
@@ -209,6 +209,7 @@ export default {
     console.log(this.$router.currentRoute, 'moduleSDKManagement');
     this.getChipModelJson();
     this.initListData(true);
+    this.moduleSDKManagementNoticeMip();
   },
   methods: {
     initListData(flag) {

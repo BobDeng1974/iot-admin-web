@@ -26,7 +26,7 @@ export const dropDownTranslation = {
       applianceTypeList: [], // 品类
       deparmentList: [],
       applianList: [],
-      noticeMipAccountsList: [] // 发布周知人列表
+      noticeMipAccountsListArr: [] // 发布周知人列表
     };
   },
   methods: {
@@ -34,7 +34,7 @@ export const dropDownTranslation = {
       let params = {};
       moduleSdkApi.moduleSDKManagementNoticeMip(params).then((res) => {
         if (res.code === 0) {
-          this.noticeMipAccountsList = res.result;
+          this.noticeMipAccountsListArr = res.result;
         }
       });
     },

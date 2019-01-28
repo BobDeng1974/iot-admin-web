@@ -111,6 +111,10 @@ export default {
     },
     editDetailData: {
       type: Object
+    },
+    noticeMipAccountsList: {
+      type: Array,
+      defualt: []
     }
   },
   mixins: [moduleSdkMixin, dropDownTranslation],
@@ -145,7 +149,7 @@ export default {
       useInfoList: [
           {id: 1, name: '1'}
       ],
-      noticeMipAccountsList: [
+      // noticeMipAccountsList: [
         // {account: 1, name: 'test1'},
         // {account: 2, name: 'test2'},
         // {account: 3, name: 'test3'},
@@ -154,7 +158,7 @@ export default {
         // {account: 6, name: 'test6'},
         // {account: 7, name: 'test7'},
         // {account: 8, name: 'test8'}
-      ],
+      // ],
       luaFormRules: {
         // status: {required: true, message: '请输入', trigger: 'blur'},
         name: {required: true, validagittor: this.checkName, trigger: 'blur'},
@@ -180,7 +184,12 @@ export default {
       immediate: true,
       deep: true,
       handler(nowVal, oldVal) {
-        this.initData();
+        // this.initData();
+        // this.moduleSDKManagementNoticeMip();
+        // setTimeout(() => {
+            this.getChipModelJson();
+            this.handleData();
+        // }, 1000);
         // this.moduleSDKManagementNoticeMip();
         // this.getChipModelJson();
         // this.handleData();
@@ -192,13 +201,13 @@ export default {
     }
   },
   methods: {
-   async initData() {
-     await this.moduleSDKManagementNoticeMip();
-     setTimeout(() => {
-        this.getChipModelJson();
-        this.handleData();
-     }, 1000);
-    },
+  //  async initData() {
+    //  await this.moduleSDKManagementNoticeMip();
+    //  setTimeout(() => {
+    //     this.getChipModelJson();
+    //     this.handleData();
+    //  }, 1000);
+    // },
     handleSatus(key) {
       if (key === 0) {
         return '新建';
