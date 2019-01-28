@@ -67,8 +67,8 @@
           </div>
           <!-- <div class="file-upload" v-if="editLuaFileName">{{editLuaFileName}}</div> -->
         </el-form-item>
-        <el-form-item label="功能说明" prop="desc">
-          <el-input type="textarea" v-model.trim="formData.desc"></el-input>
+        <el-form-item label="功能说明" prop="description">
+          <el-input type="textarea" v-model.trim="formData.description"></el-input>
         </el-form-item>
         <!-- <el-form-item label="发布周知人" prop="noticeMipAccounts">
           <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccounts"></el-input>
@@ -76,8 +76,8 @@
         <el-form-item label="发布周知人" prop="noticeMipAccountsName">
           <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccountsName"></el-input>
         </el-form-item>
-        <el-form-item v-if="isDetails" label="提交人" prop="publisherName">
-          <el-input  v-model.trim="formData.publisherName"></el-input>
+        <el-form-item v-if="isDetails" label="提交人" prop="creatorName">
+          <el-input  v-model.trim="formData.creatorName"></el-input>
         </el-form-item>
         <el-form-item v-if="isDetails" label="生效时间" prop="activeTime">
           <el-input  v-model.trim="formData.activeTime"></el-input>
@@ -108,6 +108,10 @@ export default {
     },
     editDetailData: {
       type: Object
+    },
+    noticeMipAccountsList: {
+      type: Array,
+      defualt: []
     }
   },
   watch: {
@@ -115,8 +119,11 @@ export default {
       immediate: true,
       deep: true,
       handler(nowVal, oldVal) {
-        this.getChipModelJson();
-        this.handleData();
+        // this.moduleSDKManagementNoticeMip();
+        // setTimeout(() => {
+          this.getChipModelJson();
+          this.handleData();
+        // }, 1000);
         // if (nowVal === true) {
         //  this.editDetailData;
         //  debugger;
@@ -153,7 +160,7 @@ export default {
         reportOriginFileName: '',
         description: '',
         noticeMipAccounts: '',
-        publisherName: '',
+        creatorName: '',
         activeTime: '',
         auditorName: ''
       },
@@ -168,20 +175,20 @@ export default {
         // compileChain: {required: true, validator: this.checkTool, trigger: 'blur'},
         sdkUrl: {required: true, message: '请上传SDK文件', trigger: 'change'},
         reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
-        desc: {required: true, validator: this.checkDesc, trigger: 'change'},
+        description: {required: true, validator: this.checkDesc, trigger: 'change'},
         // noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
         noticeMipAccountsName: {required: true, message: '请输入', trigger: 'blur'}
-      },
-      noticeMipAccountsList: [
-        {id: 1, name: 'test1'},
-        {id: 2, name: 'test2'},
-        {id: 3, name: 'test3'},
-        {id: 4, name: 'test4'},
-        {id: 5, name: 'test5'},
-        {id: 6, name: 'test6'},
-        {id: 7, name: 'test7'},
-        {id: 8, name: 'test8'}
-      ]
+      }
+      // noticeMipAccountsList: [
+      //   {account: 1, name: 'test1'},
+      //   {account: 2, name: 'test2'},
+      //   {account: 3, name: 'test3'},
+      //   {account: 4, name: 'test4'},
+      //   {account: 5, name: 'test5'},
+      //   {account: 6, name: 'test6'},
+      //   {account: 7, name: 'test7'},
+      //   {account: 8, name: 'test8'}
+      // ]
     };
   },
   created() {
@@ -204,7 +211,7 @@ export default {
     },
     handleSatus(key) {
       if (key === 0) {
-        return '新建';
+        return '编辑';
       } else if (key === 1) {
         return '待审核';
       } else if (key === 2) {
@@ -224,12 +231,12 @@ export default {
       this.formData.compileChain = this.editDetailData.compileChain;
       this.formData.sdkUrl = this.editDetailData.sdkUrl;
       this.formData.reportUrl = this.editDetailData.reportUrl;
-      this.formData.desc = this.editDetailData.description;
+      this.formData.description = this.editDetailData.description;
 
       // this.formData.noticeMipAccounts = this.editDetailData.noticeMipAccounts;
       this.handleNoticeMipAccountsChange(this.editDetailData.noticeMipAccounts.split(';'));
 
-      this.formData.publisherName = this.editDetailData.publisherName;
+      this.formData.creatorName = this.editDetailData.creatorName;
       this.formData.activeTime = this.editDetailData.activeTime;
       this.formData.auditorName = this.editDetailData.auditorName;
               this.fileList.splice(0, 1, {
@@ -246,8 +253,8 @@ export default {
       for (let index = 0; index < array.length; index++) {
         const element = array[index];
           tempNoticeMipAccountsArr.push(commonFun.fetchWord(
-              Number(element),
-              'id',
+              element,
+              'account',
               this.noticeMipAccountsList,
               'name'
             ));
@@ -260,8 +267,11 @@ export default {
       this.formData.noticeMipAccounts = array.join(';');
     },
     handleCancel() {
+    this.$nextTick(function(params) {
+        console.log(this.formData.noticeMipAccountsName);
       if (!commonFun.doSubmit('form', this)) return;
       this.handleAudit(3);
+     });
     },
     handleSave() {
       if (!commonFun.doSubmit('form', this)) return;

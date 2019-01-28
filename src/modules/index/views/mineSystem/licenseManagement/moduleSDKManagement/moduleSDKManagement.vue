@@ -83,7 +83,7 @@
         <el-table-column label="状态" show-overflow-tooltip align="left">
           <template slot-scope="scope">
             <div>
-              <span  v-if="scope.row.status === 0">新建</span>
+              <span  v-if="scope.row.status === 0">编辑</span>
               <span  v-if="scope.row.status === 1">待审核</span>
               <span  v-if="scope.row.status === 2">审核通过</span>
               <span  v-if="scope.row.status === 3">审核失败</span>
@@ -114,15 +114,15 @@
     <div>
       <mine-dialog :dialogFormVisible='flag' :width='dialogWidth' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
         <div slot="option" v-if="isAdd">
-          <add-dialog @close="close" @handleSave="addHandleSave"></add-dialog>
+          <add-dialog :noticeMipAccountsList="noticeMipAccountsListArr" @close="close" @handleSave="addHandleSave"></add-dialog>
         </div>
         <div slot="option" v-else-if="isEdit">
           <div v-if="status!==1">
           <!-- <div v-if="!isDetails"> -->
-            <edit-dialog :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close"  @handleSave="handleSaveEdit"></edit-dialog>
+            <edit-dialog :noticeMipAccountsList="noticeMipAccountsListArr" :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close"  @handleSave="handleSaveEdit"></edit-dialog>
           </div>
           <div v-else >
-            <detail-dialog  :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close" @handleSave="addHandleSave"></detail-dialog>
+            <detail-dialog :noticeMipAccountsList="noticeMipAccountsListArr" :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close" @handleSave="addHandleSave"></detail-dialog>
             <!-- <div v-if="status===1">
               <detail-dialog  :flag="flag" :editDetailData="editDetailData" :sdkId="sdkId" :isDetails="isDetails" @close="close" @handleSave="addHandleSave"></detail-dialog>
             </div>
@@ -174,7 +174,7 @@ export default {
       },
       // chipModelList: [{ value: 1, id: 1 }],
       statusList: [
-        { value: '新建', id: 0 },
+        { value: '编辑', id: 0 },
         { value: '待审核', id: 1 },
         { value: '审核通过', id: 2 },
         { value: '审核失败', id: 3 },
@@ -209,6 +209,7 @@ export default {
     console.log(this.$router.currentRoute, 'moduleSDKManagement');
     this.getChipModelJson();
     this.initListData(true);
+    this.moduleSDKManagementNoticeMip();
   },
   methods: {
     initListData(flag) {
@@ -299,7 +300,7 @@ export default {
       this.isEdit = true;
       this.isDetails = true;
       this.flag = true;
-      this.title = val.name + '名称';
+      this.title = val.name;
       this.editDetailData = val;
       this.status = val.status;
     },
@@ -310,7 +311,7 @@ export default {
       this.isEdit = true;
       this.isDetails = true;
       this.flag = true;
-      this.title = val.name + '名称';
+      this.title = val.name;
       this.editDetailData = val;
       this.status = val.status;
     },

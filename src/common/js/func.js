@@ -103,8 +103,12 @@ const commonFun = {
         if (form[key1] instanceof Array) {
           for (let index = 0; index < form[key1].length; index++) {
             const element = form[key1][index];
-            for (const key in element) {
-              element[key] = '';
+            if (typeof element === 'object') {
+              for (const key in element) {
+                element[key] = '';
+              }
+            } else {
+              form[key1] = [];
             }
           }
           // form[key1] = [];

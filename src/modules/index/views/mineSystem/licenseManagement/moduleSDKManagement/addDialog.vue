@@ -77,7 +77,7 @@
               v-for="(item, index) in noticeMipAccountsList"
               :key="index"
               :label="item.name"
-              :value="item.id"
+              :value="item.account"
               >
             </el-option>
           </el-select>
@@ -115,6 +115,12 @@ import { moduleSdkMixin } from '@/common/js/validation';
 import { dropDownTranslation } from '@/common/js/dropDownTranslation';
 import moduleSdkApi from '@/modules/index/api/myProductsData/moduleSdk';
 export default {
+  props: {
+    noticeMipAccountsList: {
+      type: Array,
+      defualt: []
+    }
+  },
   mixins: [moduleSdkMixin, dropDownTranslation],
   data() {
     return {
@@ -124,9 +130,9 @@ export default {
       reportAccept: '.xlsx, .xls ,.doc ,.docx',
       fileReportList: [],
       // 上传的参数结束
-      status: '新建',
+      status: '编辑',
       formData: {
-        // status: '新建',
+        // status: '编辑',
         name: '',
         version: '',
         chip: '',
@@ -141,16 +147,16 @@ export default {
         tempNoticeMipAccounts: ''
       },
       noticeMipAccountsName: '',
-      noticeMipAccountsList: [
-        {id: 1, name: 'test1'},
-        {id: 2, name: 'test2'},
-        {id: 3, name: 'test3'},
-        {id: 4, name: 'test4'},
-        {id: 5, name: 'test5'},
-        {id: 6, name: 'test6'},
-        {id: 7, name: 'test7'},
-        {id: 8, name: 'test8'}
-      ],
+      // noticeMipAccountsList: [
+      //   {account: 1, name: 'test1'},
+      //   {account: 2, name: 'test2'},
+      //   {account: 3, name: 'test3'},
+      //   {account: 4, name: 'test4'},
+      //   {account: 5, name: 'test5'},
+      //   {account: 6, name: 'test6'},
+      //   {account: 7, name: 'test7'},
+      //   {account: 8, name: 'test8'}
+      // ],
       // useInfoList: [
       //     {id: 1, name: '1'}
       // ],
@@ -170,6 +176,7 @@ export default {
   },
   created() {
     this.getChipModelJson();
+    this.moduleSDKManagementNoticeMip();
   },
   methods: {
     noticeMipAccountsChange(array) {
@@ -178,7 +185,7 @@ export default {
         const element = array[index];
           tempNoticeMipAccountsArr.push(commonFun.fetchWord(
               element,
-              'id',
+              'account',
               this.noticeMipAccountsList,
               'name'
             ));
@@ -222,6 +229,7 @@ export default {
             onClose: () => {
               this.$emit('handleSave', false);
               commonFun.restData(this.formData);
+              this.noticeMipAccountsName = '';
               this.fileList = [];
             }
           });
