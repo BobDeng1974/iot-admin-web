@@ -317,15 +317,20 @@ export default {
       console.log(params, '参数');
       moduleSdkApi.sdkpackageinfoCreate(params).then((res) => {
         if (res.code === 0) {
+          this.$emit('handleSave', false);
+          commonFun.restData(this.formData);
+          this.fileList = [];
+          this.fileReportList = [];
           this.$message({
             showClose: true,
             message: '新增成功',
-            type: 'success',
-            onClose: () => {
-              this.$emit('handleSave', false);
-              commonFun.restData(this.formData);
-              this.fileList = [];
-            }
+            type: 'success'
+            // onClose: () => {
+            //   this.$emit('handleSave', false);
+            //   commonFun.restData(this.formData);
+            //   this.fileList = [];
+            //   this.fileReportList = [];
+            // }
           });
         }
       }).catch(() => {

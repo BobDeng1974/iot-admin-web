@@ -8,7 +8,8 @@ const moduleSdkApi = {
     return request({
       url: `${MJAPP_NAME}/moduleSDKManagement/list`,
       method: 'post',
-      data: query
+      data: query,
+      showLoading: true
     });
   },
   moduleSDKManagementGet: (params) => {
@@ -23,7 +24,8 @@ const moduleSdkApi = {
     return request({
       url: `${MJAPP_NAME}/moduleSDKManagement/create`,
       method: 'post',
-      data: query
+      data: query,
+      showLoading: true
     });
   },
     // 获取发布周知人列表
@@ -31,7 +33,8 @@ const moduleSdkApi = {
       return request({
         url: `${MJAPP_NAME}/moduleSDKManagement/noticeMip`,
         method: 'post',
-        data: query
+        data: query,
+        showLoading: true
       });
     },
   // 审批
@@ -39,7 +42,8 @@ const moduleSdkApi = {
     return request({
       url: `${MJAPP_NAME}/moduleSDKManagement/audit`,
       method: 'post',
-      data: query
+      data: query,
+      showLoading: true
     });
   },
   // 发布
@@ -47,7 +51,8 @@ const moduleSdkApi = {
     return request({
       url: `${MJAPP_NAME}/moduleSDKManagement/publish`,
       method: 'post',
-      data: query
+      data: query,
+      showLoading: true
     });
   },
   // 删除

@@ -10,7 +10,8 @@ const dataStatistics = {
     return request({
       url: `${MJAPP_NAME}/statistics/overview`,
       data: query,
-      method: 'post'
+      method: 'post',
+      showLoading: true
     }).then(res => res);
   },
   // 产品数据统计中的下拉列表框数据
