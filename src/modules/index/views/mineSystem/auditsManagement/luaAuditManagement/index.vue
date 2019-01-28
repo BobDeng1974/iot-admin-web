@@ -6,13 +6,13 @@
         <div class="table-moduleVendor" v-loading="loading">
           <el-table :data="tableData" style="width: 100%"  class='table'>
             <el-table-column prop="index" align="center" :render-header="renderIndex" width="50"></el-table-column>
-            <el-table-column prop="name" label="名称" align="center" width="150"></el-table-column>
-            <el-table-column prop="applianceType" label="品类" align="center" width="150"></el-table-column>
-            <el-table-column prop="sn8" label="型号码" align="center" width="150"></el-table-column>
-            <el-table-column prop="modelNumber" label="model-number" align="center" width="150"></el-table-column>
-            <el-table-column prop="version" label="版本号" align="center" width="150"></el-table-column>
-            <el-table-column prop="functionDescription" label="功能说明" align="center" width="150"></el-table-column>
-            <el-table-column prop="publicStatus" label="状态" align="center" width="150">
+            <el-table-column prop="name" label="名称" align="center" width="150" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="applianceType" label="品类" align="center" width="150" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="sn8" label="型号码" align="center" width="150" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="modelNumber" label="model-number" align="center" width="150" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="version" label="版本号" align="center" width="150" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="functionDescription" label="功能说明" align="center" width="150" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="publicStatus" label="状态" align="center" width="150" show-overflow-tooltip>
               <template slot-scope="scope">
                 <span v-if="scope.row.publicStatus === 0" class="other">编辑中</span>
                 <span v-if="scope.row.publicStatus === 10" class="other">等待测试审核</span>
@@ -26,8 +26,8 @@
               </template>
             </el-table-column>
             <!-- <el-table-column prop="auditDate" label="审核时间" align="center"></el-table-column> -->
-            <el-table-column prop="effectDate" label="生效时间" align="center" width="180"></el-table-column>
-            <el-table-column prop="cuid" label="上传人" align="center" width="150"></el-table-column>
+            <el-table-column prop="effectDate" label="生效时间" align="center" width="180" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="cuid" label="上传人" align="center" width="150" show-overflow-tooltip></el-table-column>
             <el-table-column label="操作" align="center" width='150' fixed="right">
               <template slot-scope="scope">
                 <span @click="toTips(scope.row)" v-authority="'b1_luaInformationTag'">详情</span>
