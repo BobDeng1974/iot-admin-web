@@ -4,7 +4,7 @@ import NProgress from 'nprogress';
 
 import { getToken } from '@/utils/auth';
 import store from '@/modules/index/store';
-
+import { showFullScreenLoading, tryHideFullScreenLoading } from './loading';
 import {
   Message,
   MessageBox
@@ -25,10 +25,14 @@ service.interceptors.request.use(config => {
     // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
     config.headers['accessToken'] = getToken();
   }
+  if (config.showLoading) {
+    showFullScreenLoading();
+  }
   NProgress.start();
   return config;
 }, error => {
   NProgress.done();
+  tryHideFullScreenLoading();
   console.log(error);
   Promise.reject(error);
 });
@@ -36,8 +40,11 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(
   response => {
-    // debugger;
     NProgress.done();
+    debugger;
+    if (response.config.showLoading) {
+      tryHideFullScreenLoading();
+    }
     if (response.headers['content-disposition']) {
       return response;
     } else {
@@ -98,6 +105,7 @@ service.interceptors.response.use(
   },
   error => {
     NProgress.done();
+    tryHideFullScreenLoading();
     const response = error.response;
     if (response) {
       switch (response.status) {
