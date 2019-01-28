@@ -5,7 +5,7 @@
         </div>
         <div>
             <ul>
-                <li v-for="(item, index) in publiclist" :key="index">
+                <li v-for="(item, index) in testlist" :key="index">
                     <el-row>
                         <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
                         <el-col :span="8">
@@ -24,7 +24,7 @@
         </div>
         <div>
             <ul>
-                <li v-for="(item, index) in testlist" :key="index">
+                <li v-for="(item, index) in publiclist" :key="index">
                     <el-row>
                         <el-col :span="8"><div>{{item.LuaEvn === 0 ? '美居app' : '云端'}}</div></el-col>
                         <el-col :span="8">
