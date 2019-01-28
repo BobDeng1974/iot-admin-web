@@ -11,7 +11,7 @@
             <span v-if="info.publicStatus === 25">发布审核失败</span>
             <span v-if="info.publicStatus === 23">发布测试环境成功</span>
             <span v-if="info.publicStatus === 50">发布成功</span>
-            <i class="el-icon-d-arrow-right" @click="showList" v-authority="'b1_luaProcessRecord'"></i>
+            <i class="el-icon-tickets" @click="showList" v-authority="'b1_luaProcessRecord'"></i>
         </div>
        <el-form label-width="120px" :model="info" label-position="left">
             <el-form-item label="名称">
