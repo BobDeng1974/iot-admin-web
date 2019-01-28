@@ -53,7 +53,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="24">
+          <el-col v-authority="'moduleSDKManagement_list'" :span="24">
             <el-button
               class="pull-right query-btn"
               @click="clear"
@@ -68,7 +68,7 @@
       </el-form>
       <div class='sdk-add-btn'>
         <span class="btn-select">
-          <el-button type="primary"  @click="addSdk">新增模块SDK</el-button>
+          <el-button type="primary" v-authority="'moduleSDKManagement_create'"   @click="addSdk">新增模块SDK</el-button>
         </span>
       </div>
     </div>
@@ -98,9 +98,9 @@
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <!-- v-authority="" -->
-            <el-button v-if="scope.row.status!==3" type="text" size="small" @click="detailSdk(scope.row)">详情</el-button>
-            <el-button  v-if="scope.row.status===2" type="text" size="small" class="opt-btn"  @click="issueSdk(scope.row)">发布</el-button>
-            <el-button  v-if="scope.row.status===3" class="" type="text" size="small" @click="editSdk(scope.row)">详情</el-button>
+            <el-button v-if="scope.row.status!==3" type="text" size="small" v-authority="'moduleSDKManagement_audit'" @click="detailSdk(scope.row)">详情</el-button>
+            <el-button  v-if="scope.row.status===2" type="text" size="small" v-authority="'moduleSDKManagement_publish'"  class="opt-btn"  @click="issueSdk(scope.row)">发布</el-button>
+            <el-button  v-if="scope.row.status===3" class="" type="text" size="small" v-authority="'moduleSDKManagement_create'"  @click="editSdk(scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -283,8 +283,8 @@ export default {
     },
     clear() {
       commonFun.restData(this.queryFormData);
-      this.chipModelList = [];
-      this.statusList = [];
+      // this.chipModelList = [];
+      // this.statusList = [];
       this.initListData(true);
     },
     addSdk() {
