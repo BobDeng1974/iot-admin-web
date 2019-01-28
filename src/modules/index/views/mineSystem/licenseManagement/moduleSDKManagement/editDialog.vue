@@ -129,7 +129,7 @@ export default {
       // 上传的参数结束
       status: '',
       formData: {
-        // status: '新建',
+        // status: '编辑',
         name: '',
         version: '',
         chip: '',
@@ -210,7 +210,7 @@ export default {
     // },
     handleSatus(key) {
       if (key === 0) {
-        return '新建';
+        return '编辑';
       } else if (key === 1) {
         return '待审核';
       } else if (key === 2) {

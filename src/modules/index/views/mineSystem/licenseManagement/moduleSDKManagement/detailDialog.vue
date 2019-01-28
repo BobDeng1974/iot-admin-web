@@ -211,7 +211,7 @@ export default {
     },
     handleSatus(key) {
       if (key === 0) {
-        return '新建';
+        return '编辑';
       } else if (key === 1) {
         return '待审核';
       } else if (key === 2) {
