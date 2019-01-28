@@ -236,9 +236,21 @@ export default {
       // this.formData.noticeMipAccounts = this.editDetailData.noticeMipAccounts;
       this.handleNoticeMipAccountsChange(this.editDetailData.noticeMipAccounts.split(';'));
 
-      this.formData.creatorName = this.editDetailData.creatorName;
+      // this.formData.creatorName = this.editDetailData.creatorName;
+     this.formData.creatorName = commonFun.fetchWord(
+              this.editDetailData.creatorName,
+              'name',
+              this.noticeMipAccountsList,
+              'MipName'
+            );
       this.formData.activeTime = this.editDetailData.activeTime;
-      this.formData.auditorName = this.editDetailData.auditorName;
+      // this.formData.auditorName = this.editDetailData.auditorName;
+           this.formData.auditorName = commonFun.fetchWord(
+              this.editDetailData.auditorName,
+              'name',
+              this.noticeMipAccountsList,
+              'MipName'
+            );
               this.fileList.splice(0, 1, {
               name: this.editDetailData.sdkOriginFileName,
               url: this.editDetailData.sdkUrl
@@ -256,7 +268,7 @@ export default {
               element,
               'account',
               this.noticeMipAccountsList,
-              'name'
+              'MipName'
             ));
           // this.formData.tempNoticeMipAccounts.push(Number(element));
       }

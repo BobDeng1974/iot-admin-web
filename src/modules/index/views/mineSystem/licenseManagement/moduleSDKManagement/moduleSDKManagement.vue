@@ -93,9 +93,21 @@
           </template>
         </el-table-column>
         <el-table-column prop="activeTime" label="生效时间" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="creatorName" label="提交人" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="auditorName" label="审核人" show-overflow-tooltip></el-table-column>
-        <el-table-column label="操作" width="150">
+        <el-table-column  label="提交人" show-overflow-tooltip>
+          <template slot-scope="scope">
+            <div>
+              <span>{{scope.row.creatorName|filtersCreatorName(noticeMipAccountsListArr)}}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column  label="审核人" show-overflow-tooltip>
+          <template slot-scope="scope">
+            <div>
+              <span>{{scope.row.auditorName|filtersAuditorName(noticeMipAccountsListArr)}}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <!-- v-authority="" -->
             <el-button v-if="scope.row.status!==3" type="text" size="small" v-authority="'moduleSDKManagement_audit'" @click="detailSdk(scope.row)">详情</el-button>
@@ -202,14 +214,41 @@ export default {
       status: ''
     };
   },
+  beforeCreate() {
+
+  },
   created() {
+    this.moduleSDKManagementNoticeMip();
     this.$router;
     this.$route;
     console.log(this.$route, 'moduleSDKManagement');
     console.log(this.$router.currentRoute, 'moduleSDKManagement');
+    // this.noticeMipAccountsListArr;
     this.getChipModelJson();
     this.initListData(true);
-    this.moduleSDKManagementNoticeMip();
+  },
+  filters: {
+    filtersCreatorName(val, noticeMipAccountsListArr) {
+       let account = commonFun.fetchWord(
+              val,
+              'name',
+              noticeMipAccountsListArr,
+              'account'
+            );
+      return `${val}${account ? '(' : ''}${account} ${account ? ')' : ''}`;
+    },
+    filtersAuditorName(val, noticeMipAccountsListArr) {
+      if (!val) {
+        return '';
+      }
+          let account = commonFun.fetchWord(
+              val,
+              'name',
+              noticeMipAccountsListArr,
+              'account'
+            );
+      return `${val}${account ? '(' : ''}${account} ${account ? ')' : ''}`;
+    }
   },
   methods: {
     initListData(flag) {

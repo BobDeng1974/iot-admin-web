@@ -34,7 +34,11 @@ export const dropDownTranslation = {
       let params = {};
       moduleSdkApi.moduleSDKManagementNoticeMip(params).then((res) => {
         if (res.code === 0) {
-          this.noticeMipAccountsListArr = res.result;
+          let array = res.result;
+          this.noticeMipAccountsListArr = array.map((ele, index, array) => {
+            ele.MipName = ele.name + '(' + ele.account + ')';
+           return ele;
+          });
         }
       });
     },
