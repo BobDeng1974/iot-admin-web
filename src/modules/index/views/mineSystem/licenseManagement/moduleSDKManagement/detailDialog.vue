@@ -87,7 +87,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="dialog-footer" v-if="editDetailData.status===1">
+    <div class="dialog-footer" v-authority="'moduleSDKManagement_audit'" v-if="editDetailData.status===1">
       <el-button type="primary" @click="handleSave">审核通过</el-button>
       <el-button @click="handleCancel">审核失败</el-button>
     </div>
@@ -236,9 +236,21 @@ export default {
       // this.formData.noticeMipAccounts = this.editDetailData.noticeMipAccounts;
       this.handleNoticeMipAccountsChange(this.editDetailData.noticeMipAccounts.split(';'));
 
-      this.formData.creatorName = this.editDetailData.creatorName;
+      // this.formData.creatorName = this.editDetailData.creatorName;
+     this.formData.creatorName = commonFun.fetchWord(
+              this.editDetailData.creatorName,
+              'name',
+              this.noticeMipAccountsList,
+              'MipName'
+            );
       this.formData.activeTime = this.editDetailData.activeTime;
-      this.formData.auditorName = this.editDetailData.auditorName;
+      // this.formData.auditorName = this.editDetailData.auditorName;
+           this.formData.auditorName = commonFun.fetchWord(
+              this.editDetailData.auditorName,
+              'name',
+              this.noticeMipAccountsList,
+              'MipName'
+            );
               this.fileList.splice(0, 1, {
               name: this.editDetailData.sdkOriginFileName,
               url: this.editDetailData.sdkUrl
@@ -256,7 +268,7 @@ export default {
               element,
               'account',
               this.noticeMipAccountsList,
-              'name'
+              'MipName'
             ));
           // this.formData.tempNoticeMipAccounts.push(Number(element));
       }

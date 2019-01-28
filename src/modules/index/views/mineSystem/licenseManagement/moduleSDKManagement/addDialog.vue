@@ -76,7 +76,7 @@
             <el-option
               v-for="(item, index) in noticeMipAccountsList"
               :key="index"
-              :label="item.name"
+              :label="item.MipName"
               :value="item.account"
               >
             </el-option>
@@ -101,7 +101,7 @@
         </el-form-item> -->
       </el-form>
     </div>
-    <div class="dialog-footer">
+    <div class="dialog-footer"  v-authority="'moduleSDKManagement_create'">
       <el-button type="primary" @click="handleSave">保存</el-button>
       <el-button type="primary" @click="handleSubmitTestAudit">提交测试审核</el-button>
     </div>
@@ -180,6 +180,7 @@ export default {
   },
   methods: {
     noticeMipAccountsChange(array) {
+      debugger;
       let tempNoticeMipAccountsArr = [];
       for (let index = 0; index < array.length; index++) {
         const element = array[index];
@@ -187,7 +188,7 @@ export default {
               element,
               'account',
               this.noticeMipAccountsList,
-              'name'
+              'MipName'
             ));
       }
       this.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
@@ -284,6 +285,7 @@ export default {
     },
     // 移除文件时
     uploadRemove(file, fileList) {
+      this.formData.sdkUrl = '';
       this.fileList = fileList;
     },
     // sdk上传调用的接口
@@ -315,6 +317,7 @@ export default {
     },
     // 移除文件时
     reportUploadRemove(file, fileList) {
+      this.formData.reportUrl = '';
       this.fileReportList = fileList;
     }
     // 测试报告上传调用的接口

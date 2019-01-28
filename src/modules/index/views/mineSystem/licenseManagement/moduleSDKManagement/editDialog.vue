@@ -12,7 +12,7 @@
           <el-input v-model.trim="formData.version"></el-input>
         </el-form-item>
         <el-form-item label="芯片信息" prop="chip">
-          <el-select v-model.trim="formData.chip" clearable style="width:100%">
+          <el-select v-model.trim="formData.chip" filterable clearable @change="chipChange" style="width:100%">
             <el-option v-for="(item, index) in chipModelList" :key="index" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
@@ -75,7 +75,7 @@
             <el-option
               v-for="(item, index) in noticeMipAccountsList"
               :key="index"
-              :label="item.name"
+              :label="item.MipName"
               :value="item.account"
               >
             </el-option>
@@ -90,7 +90,7 @@
         </el-form-item> -->
       </el-form>
     </div>
-    <div class="dialog-footer" v-if="editDetailData.status===0||editDetailData.status===3">
+    <div class="dialog-footer" v-authority="'moduleSDKManagement_create'" v-if="editDetailData.status===0||editDetailData.status===3">
       <el-button type="primary" @click="handleSave">保存</el-button>
       <el-button type="primary" @click="handleSubmitTestAudit">提交测试审核</el-button>
     </div>
@@ -115,6 +115,9 @@ export default {
     noticeMipAccountsList: {
       type: Array,
       defualt: []
+    },
+    flag: {
+      type: Boolean
     }
   },
   mixins: [moduleSdkMixin, dropDownTranslation],
@@ -180,34 +183,35 @@ export default {
     // this.handleData();
   },
   watch: {
-    'editDetailData.id': {
-      immediate: true,
-      deep: true,
+    // 'editDetailData.id': {
+    //   immediate: true,
+    //   deep: true,
+    //   handler(nowVal, oldVal) {
+    //     this.getChipModelJson();
+    //     this.handleData();
+    //  }
+    // },
+    flag: {
       handler(nowVal, oldVal) {
-        // this.initData();
-        // this.moduleSDKManagementNoticeMip();
-        // setTimeout(() => {
-            this.getChipModelJson();
-            this.handleData();
-        // }, 1000);
-        // this.moduleSDKManagementNoticeMip();
-        // this.getChipModelJson();
-        // this.handleData();
-        // if (nowVal === true) {
-        //  this.editDetailData;
-        //  debugger;
-      // }
-     }
+        if (nowVal === true) {
+        this.getChipModelJson();
+        this.handleData();
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
   methods: {
-  //  async initData() {
-    //  await this.moduleSDKManagementNoticeMip();
-    //  setTimeout(() => {
-    //     this.getChipModelJson();
-    //     this.handleData();
-    //  }, 1000);
-    // },
+    chipChange(val) {
+      this.formData.chipName = commonFun.fetchWord(
+              val,
+              'id',
+              this.chipModelList,
+              'name'
+            );
+    },
+
     handleSatus(key) {
       if (key === 0) {
         return '编辑';
@@ -264,7 +268,7 @@ export default {
               element,
               'account',
               this.noticeMipAccountsList,
-              'name'
+              'MipName'
             ));
       }
       this.formData.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
@@ -272,7 +276,6 @@ export default {
       this.formData.noticeMipAccounts = array.join(';');
     },
     handleNoticeMipAccountsChange(array) {
-      debugger;
       let tempNoticeMipAccountsArr = [];
       for (let index = 0; index < array.length; index++) {
         const element = array[index];
@@ -280,7 +283,7 @@ export default {
               element,
               'account',
               this.noticeMipAccountsList,
-              'name'
+              'MipName'
             ));
           this.formData.tempNoticeMipAccounts.push(element);
       }
@@ -375,6 +378,7 @@ export default {
     },
     // 移除文件时
     uploadRemove(file, fileList) {
+      this.formData.sdkUrl = '';
       this.fileList = fileList;
     },
     // sdk上传调用的接口
@@ -406,6 +410,7 @@ export default {
     },
     // 移除文件时
     reportUploadRemove(file, fileList) {
+      this.formData.reportUrl = '';
       this.fileReportList = fileList;
     }
     // 测试报告上传调用的接口

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>确认发布，将公布到开发者平台官网，并邮件通知开发者</div>
-    <div class="dialog-footer">
+    <div class="dialog-footer" v-authority="'moduleSDKManagement_publish'">
       <el-button type="primary" @click="handleSave">确认发布</el-button>
       <el-button @click="handleCancel">取消</el-button>
     </div>
