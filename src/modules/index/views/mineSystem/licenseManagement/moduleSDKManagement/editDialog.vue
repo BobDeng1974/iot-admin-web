@@ -76,7 +76,7 @@
               v-for="(item, index) in noticeMipAccountsList"
               :key="index"
               :label="item.name"
-              :value="item.id"
+              :value="item.account"
               >
             </el-option>
           </el-select>
@@ -146,14 +146,14 @@ export default {
           {id: 1, name: '1'}
       ],
       noticeMipAccountsList: [
-        {id: 1, name: 'test1'},
-        {id: 2, name: 'test2'},
-        {id: 3, name: 'test3'},
-        {id: 4, name: 'test4'},
-        {id: 5, name: 'test5'},
-        {id: 6, name: 'test6'},
-        {id: 7, name: 'test7'},
-        {id: 8, name: 'test8'}
+        // {account: 1, name: 'test1'},
+        // {account: 2, name: 'test2'},
+        // {account: 3, name: 'test3'},
+        // {account: 4, name: 'test4'},
+        // {account: 5, name: 'test5'},
+        // {account: 6, name: 'test6'},
+        // {account: 7, name: 'test7'},
+        // {account: 8, name: 'test8'}
       ],
       luaFormRules: {
         // status: {required: true, message: '请输入', trigger: 'blur'},
@@ -180,8 +180,10 @@ export default {
       immediate: true,
       deep: true,
       handler(nowVal, oldVal) {
-        this.getChipModelJson();
-        this.handleData();
+        this.initData();
+        // this.moduleSDKManagementNoticeMip();
+        // this.getChipModelJson();
+        // this.handleData();
         // if (nowVal === true) {
         //  this.editDetailData;
         //  debugger;
@@ -190,6 +192,13 @@ export default {
     }
   },
   methods: {
+   async initData() {
+     await this.moduleSDKManagementNoticeMip();
+     setTimeout(() => {
+        this.getChipModelJson();
+        this.handleData();
+     }, 1000);
+    },
     handleSatus(key) {
       if (key === 0) {
         return '新建';
@@ -244,30 +253,35 @@ export default {
         const element = array[index];
           tempNoticeMipAccountsArr.push(commonFun.fetchWord(
               element,
-              'id',
+              'account',
               this.noticeMipAccountsList,
               'name'
             ));
       }
       this.formData.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
-
+      debugger;
       this.formData.noticeMipAccounts = array.join(';');
     },
     handleNoticeMipAccountsChange(array) {
+      debugger;
       let tempNoticeMipAccountsArr = [];
       for (let index = 0; index < array.length; index++) {
         const element = array[index];
           tempNoticeMipAccountsArr.push(commonFun.fetchWord(
-              Number(element),
-              'id',
+              element,
+              'account',
               this.noticeMipAccountsList,
               'name'
             ));
-          this.formData.tempNoticeMipAccounts.push(Number(element));
+          this.formData.tempNoticeMipAccounts.push(element);
       }
       debugger;
       console.log(tempNoticeMipAccountsArr);
-
+      // if (this.noticeMipAccountsList.length > 0) {
+      //     this.formData.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
+      // } else {
+      //   this.formData.noticeMipAccountsName = this.editDetailData.noticeMipAccounts;
+      // }
       this.formData.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
       this.formData.noticeMipAccounts = array.join(';');
     },

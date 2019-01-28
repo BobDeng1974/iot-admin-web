@@ -2,6 +2,7 @@ import API from '@/modules/index/api/myProductsData/index';
 import dataCenterAPI from '@/modules/index/api/dataCenter/dataCenter';
 import systemAPI from '@/modules/index/api/system/system.js';
 // import { getSn8Select } from '@/modules/index/api/myAgreement/index';
+import moduleSdkApi from '@/modules/index/api/myProductsData/moduleSdk';
 export const dropDownTranslation = {
   data() {
     return {
@@ -24,10 +25,19 @@ export const dropDownTranslation = {
       citiesList: [], // 市
       applianceTypeList: [], // 品类
       deparmentList: [],
-      applianList: []
+      applianList: [],
+      noticeMipAccountsList: [] // 发布周知人列表
     };
   },
   methods: {
+    moduleSDKManagementNoticeMip() {
+      let params = {};
+      moduleSdkApi.moduleSDKManagementNoticeMip(params).then((res) => {
+        if (res.code === 0) {
+          this.noticeMipAccountsList = res.result;
+        }
+      });
+    },
     // 数据统计开始
     getQueryinfo() {
       dataCenterAPI.queryinfo().then((res) => {

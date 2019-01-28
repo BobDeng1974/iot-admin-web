@@ -26,6 +26,14 @@ const moduleSdkApi = {
       data: query
     });
   },
+    // 获取发布周知人列表
+  moduleSDKManagementNoticeMip: (query) => {
+      return request({
+        url: `${MJAPP_NAME}/moduleSDKManagement/noticeMip`,
+        method: 'post',
+        data: query
+      });
+    },
   // 审批
   sdkpackageinfoAudit: (query) => {
     return request({

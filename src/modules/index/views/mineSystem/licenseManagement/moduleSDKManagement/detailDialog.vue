@@ -115,6 +115,7 @@ export default {
       immediate: true,
       deep: true,
       handler(nowVal, oldVal) {
+        this.moduleSDKManagementNoticeMip();
         this.getChipModelJson();
         this.handleData();
         // if (nowVal === true) {
@@ -173,14 +174,14 @@ export default {
         noticeMipAccountsName: {required: true, message: '请输入', trigger: 'blur'}
       },
       noticeMipAccountsList: [
-        {id: 1, name: 'test1'},
-        {id: 2, name: 'test2'},
-        {id: 3, name: 'test3'},
-        {id: 4, name: 'test4'},
-        {id: 5, name: 'test5'},
-        {id: 6, name: 'test6'},
-        {id: 7, name: 'test7'},
-        {id: 8, name: 'test8'}
+        {account: 1, name: 'test1'},
+        {account: 2, name: 'test2'},
+        {account: 3, name: 'test3'},
+        {account: 4, name: 'test4'},
+        {account: 5, name: 'test5'},
+        {account: 6, name: 'test6'},
+        {account: 7, name: 'test7'},
+        {account: 8, name: 'test8'}
       ]
     };
   },
@@ -246,8 +247,8 @@ export default {
       for (let index = 0; index < array.length; index++) {
         const element = array[index];
           tempNoticeMipAccountsArr.push(commonFun.fetchWord(
-              Number(element),
-              'id',
+              element,
+              'account',
               this.noticeMipAccountsList,
               'name'
             ));

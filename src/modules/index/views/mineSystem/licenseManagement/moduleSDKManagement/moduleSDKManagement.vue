@@ -299,7 +299,7 @@ export default {
       this.isEdit = true;
       this.isDetails = true;
       this.flag = true;
-      this.title = val.name + '名称';
+      this.title = val.name;
       this.editDetailData = val;
       this.status = val.status;
     },
@@ -310,7 +310,7 @@ export default {
       this.isEdit = true;
       this.isDetails = true;
       this.flag = true;
-      this.title = val.name + '名称';
+      this.title = val.name;
       this.editDetailData = val;
       this.status = val.status;
     },
