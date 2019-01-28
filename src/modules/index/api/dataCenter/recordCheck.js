@@ -68,6 +68,14 @@ const recordCheckApi = {
         responseType: 'blob'
       }).then(res => res);
     },
+    // 环境查看接口（数据中心）
+    luapubGetEnvironment: (query) => {
+      return request({
+        url: `${MJAPP_NAME}/luapub/getEnvironment`,
+        data: query,
+        method: 'post'
+      }).then(res => res);
+    },
     // 云端lua列表
     getCloudLuaList: (query) => {
       return request({
