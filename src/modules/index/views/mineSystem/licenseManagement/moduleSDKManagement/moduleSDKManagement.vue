@@ -110,9 +110,9 @@
         <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <!-- v-authority="" -->
-            <el-button v-if="scope.row.status!==3" type="text" size="small"  @click="detailSdk(scope.row)">详情</el-button>
+            <el-button v-if="scope.row.status!==3" type="text" size="small" v-authority="'moduleSDKManagement_get'" @click="detailSdk(scope.row)">详情</el-button>
             <el-button  v-if="scope.row.status===2" type="text" size="small" v-authority="'moduleSDKManagement_publish'"  class="opt-btn"  @click="issueSdk(scope.row)">发布</el-button>
-            <el-button  v-if="scope.row.status===3" class="" type="text" size="small"  @click="editSdk(scope.row)">详情</el-button>
+            <el-button  v-if="scope.row.status===3" class="" type="text" size="small" v-authority="'moduleSDKManagement_get'"  @click="editSdk(scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
