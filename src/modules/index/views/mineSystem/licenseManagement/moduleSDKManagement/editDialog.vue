@@ -24,6 +24,7 @@
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
               <el-upload
+                :on-preview="sdkUrlDownLoad"
                 :accept="accept"
                 :http-request="uploadImgApi"
                 :action="'dddd'"
@@ -48,6 +49,7 @@
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
               <el-upload class="upload-demo"
+                :on-preview="reportUrlDownLoad"
                 :accept="reportAccept"
                 :http-request="uploadImgReportApi"
                 :action="'dddd'"
@@ -152,18 +154,7 @@ export default {
       useInfoList: [
           {id: 1, name: '1'}
       ],
-      // noticeMipAccountsList: [
-        // {account: 1, name: 'test1'},
-        // {account: 2, name: 'test2'},
-        // {account: 3, name: 'test3'},
-        // {account: 4, name: 'test4'},
-        // {account: 5, name: 'test5'},
-        // {account: 6, name: 'test6'},
-        // {account: 7, name: 'test7'},
-        // {account: 8, name: 'test8'}
-      // ],
       luaFormRules: {
-        // status: {required: true, message: '请输入', trigger: 'blur'},
         name: {required: true, validagittor: this.checkName, trigger: 'blur'},
         version: {required: true, validator: this.checkName, trigger: 'blur'},
         chip: {required: true, message: '请选择', trigger: 'change'},
@@ -172,25 +163,11 @@ export default {
         reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
         description: {required: true, validator: this.checkDesc, trigger: 'change'},
         noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
-        // tempNoticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
         noticeMipAccountsName: {required: true, message: '请输入', trigger: 'blur'}
       }
     };
   },
-  created() {
-    // this.editDetailData;
-    // console.log(this.editDetailData);
-    // this.handleData();
-  },
   watch: {
-    // 'editDetailData.id': {
-    //   immediate: true,
-    //   deep: true,
-    //   handler(nowVal, oldVal) {
-    //     this.getChipModelJson();
-    //     this.handleData();
-    //  }
-    // },
     flag: {
       handler(nowVal, oldVal) {
         if (nowVal === true) {
@@ -203,6 +180,22 @@ export default {
     }
   },
   methods: {
+    sdkUrlDownLoad() {
+      this.downLoadClickA(this.formData.sdkUrl);
+    },
+    reportUrlDownLoad() {
+      this.downLoadClickA(this.formData.reportUrl);
+    },
+    downLoadClickA(urlArr) {
+      let link = document.createElement('a');
+      link.style.height = '0px';
+      link.href = urlArr;
+      link.target = '_blank';
+      link.setAttribute('download', urlArr);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    },
     chipChange(val) {
       this.formData.chipName = commonFun.fetchWord(
               val,

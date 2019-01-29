@@ -24,6 +24,7 @@
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
               <el-upload class="upload-demo"
+                :on-preview="sdkUrlDownLoad"
                 :accept="accept"
                 :http-request="uploadImgApi"
                 :action="'dddd'"
@@ -47,6 +48,7 @@
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
               <el-upload class="upload-demo"
+                :on-preview="reportUrlDownLoad"
                 :accept="reportAccept"
                 :http-request="uploadImgReportApi"
                 :action="'dddd'"
@@ -164,6 +166,22 @@ export default {
     };
   },
   methods: {
+    sdkUrlDownLoad() {
+      this.downLoadClickA(this.formData.sdkUrl);
+    },
+    reportUrlDownLoad() {
+      this.downLoadClickA(this.formData.reportUrl);
+    },
+    downLoadClickA(urlArr) {
+      let link = document.createElement('a');
+      link.style.height = '0px';
+      link.href = urlArr;
+      link.target = '_blank';
+      link.setAttribute('download', urlArr);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    },
     moduleSDKManagementGet() {
       let params = {
         id: this.sdkId
