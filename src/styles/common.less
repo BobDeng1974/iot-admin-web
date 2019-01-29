@@ -227,9 +227,14 @@ html,body{
    }
   }
 }
-.el-loading-spinner{
-  display: none;
+.el-loading-mask.iot-loading{
+  z-index: 9999999999999999999999!important;
+  .el-loading-spinner{
+    display: none;
+  }
 }
-.el-loading-mask{
-  z-index: 9999999!important;
+body{
+  #nprogress .bar{
+    z-index: 2001;
+  }
 }

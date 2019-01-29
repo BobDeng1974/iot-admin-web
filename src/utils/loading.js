@@ -6,7 +6,8 @@ function startLoading() {
     text: '',
     background: 'transparent',
     spinner: '',
-    target: document.querySelector('#app')
+    target: document.querySelector('#app>.demo-wrapper'),
+    customClass: 'iot-loading'
   });
 }
 

@@ -208,7 +208,7 @@ export default {
   left: 0;
   width: 100%;
   background: #1d233c;
-  z-index: 999;
+  z-index: 2001;
 }
 .page-header-container {
   height: 65px;
