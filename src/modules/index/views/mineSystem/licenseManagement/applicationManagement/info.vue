@@ -10,7 +10,7 @@
             <td class="column">
               <span class="ineerSpan" v-if="key !== 'departOrderUrl' && key !== 'licDownloadName'"> {{hardwareDetail[key]}}</span>
               <div v-if="key === 'departOrderUrl'">
-                <img :src="hardwareDetail[key]" alt="">
+                <img :src="hardwareDetail[key]?hardwareDetail[key]:defaultImage" alt="">
                 <!-- <img :src="imgKey.url" alt="" v-for="(imgKey, index) in hardwareDetail[key]" :key="index"> -->
               </div>
               <div v-if="key === 'licDownloadName'">
@@ -53,6 +53,7 @@
 import API from '@/modules/index/api/system/system.js';
 import ls from '@/utils/storage/local_storage.js';
 import { getToken } from '@/utils/auth';
+import defaultImage from './../../../../../../../static/img/default.png';
 // const { APPLICATION_NAME } = window.environment.iotserver;
 // import '@/modules/index/views/mineSystem/configurationManagement/documentManagement/static/js/zTree/jquery-3.3.1.min';
 export default {
@@ -74,6 +75,7 @@ export default {
   },
   data() {
     return {
+      defaultImage: defaultImage,
       loading: false,
       tableLabel: {
         status: '状态',

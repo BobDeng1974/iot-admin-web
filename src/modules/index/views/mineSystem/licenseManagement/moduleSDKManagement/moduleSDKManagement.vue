@@ -93,14 +93,14 @@
           </template>
         </el-table-column>
         <el-table-column prop="activeTime" label="生效时间" show-overflow-tooltip></el-table-column>
-        <el-table-column  label="提交人" show-overflow-tooltip>
+        <el-table-column  label="提交人" width="150" show-overflow-tooltip>
           <template slot-scope="scope">
             <div>
               <span>{{scope.row.creatorName|filtersCreatorName(noticeMipAccountsListArr)}}</span>
             </div>
           </template>
         </el-table-column>
-        <el-table-column  label="审核人" show-overflow-tooltip>
+        <el-table-column  label="审核人" width="150" show-overflow-tooltip>
           <template slot-scope="scope">
             <div>
               <span>{{scope.row.auditorName|filtersAuditorName(noticeMipAccountsListArr)}}</span>
@@ -110,9 +110,9 @@
         <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <!-- v-authority="" -->
-            <el-button v-if="scope.row.status!==3" type="text" size="small" v-authority="'moduleSDKManagement_audit'" @click="detailSdk(scope.row)">详情</el-button>
+            <el-button v-if="scope.row.status!==3" type="text" size="small"  @click="detailSdk(scope.row)">详情</el-button>
             <el-button  v-if="scope.row.status===2" type="text" size="small" v-authority="'moduleSDKManagement_publish'"  class="opt-btn"  @click="issueSdk(scope.row)">发布</el-button>
-            <el-button  v-if="scope.row.status===3" class="" type="text" size="small" v-authority="'moduleSDKManagement_create'"  @click="editSdk(scope.row)">详情</el-button>
+            <el-button  v-if="scope.row.status===3" class="" type="text" size="small"  @click="editSdk(scope.row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
