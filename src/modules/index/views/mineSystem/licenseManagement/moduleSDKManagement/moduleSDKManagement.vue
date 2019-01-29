@@ -16,7 +16,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="SDK版本" prop="version" >
-              <el-input v-model.trim="queryFormData.version"></el-input>
+              <el-input v-model.trim="queryFormData.version" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
