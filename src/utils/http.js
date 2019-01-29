@@ -41,7 +41,7 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     NProgress.done();
-    debugger;
+    // debugger;
     if (response.config.showLoading) {
       tryHideFullScreenLoading();
     }
