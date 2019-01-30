@@ -24,6 +24,7 @@
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
               <el-upload class="upload-demo"
+                :on-preview="sdkUrlDownLoad"
                 :accept="accept"
                 :http-request="uploadImgApi"
                 :action="'dddd'"
@@ -41,13 +42,13 @@
               </el-upload>
             </div>
           </div>
-          <!-- <div class="file-upload" v-if="editfileSdkPackage">{{editfileSdkPackage}}</div> -->
         </el-form-item>
         <el-form-item label="测试报告" prop="reportUrl">
           <el-input type="hidden" style="display:none" v-model="formData.reportUrl"></el-input>
           <div class="upload-wrapper addlua-upload">
             <div class="upload-btn">
               <el-upload class="upload-demo"
+                :on-preview="reportUrlDownLoad"
                 :accept="reportAccept"
                 :http-request="uploadImgReportApi"
                 :action="'dddd'"
@@ -65,14 +66,10 @@
               </el-upload>
             </div>
           </div>
-          <!-- <div class="file-upload" v-if="editLuaFileName">{{editLuaFileName}}</div> -->
         </el-form-item>
         <el-form-item label="功能说明" prop="description">
           <el-input type="textarea" v-model.trim="formData.description"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="发布周知人" prop="noticeMipAccounts">
-          <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccounts"></el-input>
-        </el-form-item> -->
         <el-form-item label="发布周知人" prop="noticeMipAccountsName">
           <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccountsName"></el-input>
         </el-form-item>
@@ -119,15 +116,8 @@ export default {
       immediate: true,
       deep: true,
       handler(nowVal, oldVal) {
-        // this.moduleSDKManagementNoticeMip();
-        // setTimeout(() => {
           this.getChipModelJson();
           this.handleData();
-        // }, 1000);
-        // if (nowVal === true) {
-        //  this.editDetailData;
-        //  debugger;
-      // }
      }
     }
   },
@@ -143,13 +133,6 @@ export default {
       formData: {
         status: '',
         name: '',
-        // version: '',
-        // chip: '',
-        // compileChain: '',
-        // sdkUrl: '',
-        // reportUrl: '',
-        // desc: '',
-        // noticeMipAccounts: '',
         version: '',
         chip: '',
         chipName: '',
@@ -179,26 +162,26 @@ export default {
         // noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
         noticeMipAccountsName: {required: true, message: '请输入', trigger: 'blur'}
       }
-      // noticeMipAccountsList: [
-      //   {account: 1, name: 'test1'},
-      //   {account: 2, name: 'test2'},
-      //   {account: 3, name: 'test3'},
-      //   {account: 4, name: 'test4'},
-      //   {account: 5, name: 'test5'},
-      //   {account: 6, name: 'test6'},
-      //   {account: 7, name: 'test7'},
-      //   {account: 8, name: 'test8'}
-      // ]
+
     };
   },
-  created() {
-    // this.getChipModelJson();
-    // this.editDetailData;
-    // console.log(this.editDetailData);
-    // this.handleData();
-    // this.moduleSDKManagementGet();
-  },
   methods: {
+    sdkUrlDownLoad() {
+      this.downLoadClickA(this.formData.sdkUrl);
+    },
+    reportUrlDownLoad() {
+      this.downLoadClickA(this.formData.reportUrl);
+    },
+    downLoadClickA(urlArr) {
+      let link = document.createElement('a');
+      link.style.height = '0px';
+      link.href = urlArr;
+      link.target = '_blank';
+      link.setAttribute('download', urlArr);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    },
     moduleSDKManagementGet() {
       let params = {
         id: this.sdkId
@@ -270,7 +253,6 @@ export default {
               this.noticeMipAccountsList,
               'MipName'
             ));
-          // this.formData.tempNoticeMipAccounts.push(Number(element));
       }
       debugger;
       console.log(tempNoticeMipAccountsArr);
@@ -282,32 +264,37 @@ export default {
     this.$nextTick(function(params) {
         console.log(this.formData.noticeMipAccountsName);
       if (!commonFun.doSubmit('form', this)) return;
-      this.handleAudit(3);
+      this.handleAudit(3, '审核失败');
      });
     },
     handleSave() {
       if (!commonFun.doSubmit('form', this)) return;
-      this.handleAudit(2);
+      this.handleAudit(2, '审核通过');
     },
     // 审批
-    handleAudit(status) {
+    handleAudit(status, tip) {
       let params = {
         status: status,
         id: this.sdkId
       };
       console.log(params, '参数');
-      // this.$emit('handleSave', false);
-      moduleSdkApi.sdkpackageinfoAudit(params).then((res) => {
-        if (res.code === 0) {
-          this.$emit('handleSave', false);
-          this.$message({
-            showClose: true,
-            message: res.message,
-            type: 'success',
-            onClose: () => {
-            }
-          });
-        }
+      this.$confirm(`此操作将${tip}, 是否继续?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        moduleSdkApi.sdkpackageinfoAudit(params).then((res) => {
+          if (res.code === 0) {
+            this.$emit('handleSave', false);
+            this.$message({
+              showClose: true,
+              message: res.message,
+              type: 'success',
+              onClose: () => {
+              }
+            });
+          }
+        });
       });
     },
     // sdk上传调用的接口开始
