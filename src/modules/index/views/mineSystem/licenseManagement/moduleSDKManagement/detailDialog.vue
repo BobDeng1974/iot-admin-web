@@ -16,7 +16,7 @@
             <el-option v-for="(item, index) in chipModelList" :key="index" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="编译工具链" prop="compileChain">
+        <el-form-item label="编译工具链">
           <el-input v-model.trim="formData.compileChain"></el-input>
         </el-form-item>
         <el-form-item label="SDK文件" prop="sdkUrl">
