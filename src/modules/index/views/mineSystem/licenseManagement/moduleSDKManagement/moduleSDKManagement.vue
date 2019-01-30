@@ -252,17 +252,17 @@ export default {
   },
   methods: {
     initListData(flag) {
+      this.loading = true;
+      if (flag) {
+        this.currentPage = 1;
+      }
       let params = {
         ...this.queryFormData,
         pageNo: this.currentPage,
         pageSize: this.pageSize
       };
-      if (flag) {
-        this.currentPage = 1;
-      }
       console.log(params, '参数');
 
-      this.loading = true;
       moduleSdkApi.sdkpackageinfoList(params).then((res) => {
         // debugger;
         this.loading = false;
