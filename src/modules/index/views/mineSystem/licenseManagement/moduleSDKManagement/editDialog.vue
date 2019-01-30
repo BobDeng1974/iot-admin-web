@@ -16,7 +16,7 @@
             <el-option v-for="(item, index) in chipModelList" :key="index" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="编译工具链" prop="compileChain">
+        <el-form-item label="编译工具链">
           <el-input v-model.trim="formData.compileChain"></el-input>
         </el-form-item>
         <el-form-item label="SDK文件" prop="sdkUrl">
@@ -158,7 +158,7 @@ export default {
         name: {required: true, validagittor: this.checkName, trigger: 'blur'},
         version: {required: true, validator: this.checkName, trigger: 'blur'},
         chip: {required: true, message: '请选择', trigger: 'change'},
-        compileChain: {required: false, validator: this.checkTool, trigger: 'blur'},
+        // compileChain: {required: false, validator: this.checkTool, trigger: 'blur'},
         sdkUrl: {required: true, message: '请上传SDK文件', trigger: 'change'},
         reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
         description: {required: true, validator: this.checkDesc, trigger: 'change'},
