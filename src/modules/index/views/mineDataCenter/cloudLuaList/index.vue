@@ -80,7 +80,7 @@
         <el-table-column label="操作" align="center" fixed='right' width="130">
           <template slot-scope="scope">
             <span v-authority="'b1_cloudLuaDownTag'"  class="mine-down" @click="downLoad(scope.row)">下载</span>
-             <span class="mine-down" @click="showInfo(scope.row)" v-authority="'b1_mjLuaDownTag'">查看环境</span>
+             <span class="mine-down" @click="showInfo(scope.row)" v-authority="'b1_cloudCheckEnv'">查看环境</span>
           </template>
         </el-table-column>
       </el-table>
