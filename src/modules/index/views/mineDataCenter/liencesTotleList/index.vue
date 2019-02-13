@@ -36,7 +36,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="型号码">
-              <el-select v-model="formInline.sn8" placeholder="请选择" clearable>
+              <el-select filterable v-model="formInline.sn8" placeholder="请选择" clearable>
                 <el-option v-for="item in sn8List" :key="item.id" :label="item.sn8" :value="item.sn8">
                 </el-option>
               </el-select>

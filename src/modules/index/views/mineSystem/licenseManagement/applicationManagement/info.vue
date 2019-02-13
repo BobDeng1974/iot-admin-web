@@ -8,11 +8,12 @@
               <span>{{val}}</span>
             </td>
             <td class="column">
-              <span class="ineerSpan" v-if="key !== 'departOrderUrl' && key !== 'licDownloadName'"> {{hardwareDetail[key]}}</span>
+              <span class="ineerSpan" v-if="key !== 'departOrderUrl' && key !== 'licDownloadName'&&key !== 'purpose'"> {{hardwareDetail[key]}}</span>
               <div v-if="key === 'departOrderUrl'">
                 <img :src="hardwareDetail[key]?hardwareDetail[key]:defaultImage" alt="">
                 <!-- <img :src="imgKey.url" alt="" v-for="(imgKey, index) in hardwareDetail[key]" :key="index"> -->
               </div>
+              <div v-if="key==='purpose'">{{hardwareDetail[key]===0?"批量":'打样'}}</div>
               <div v-if="key === 'licDownloadName'">
                 <!-- <span v-if="hardwareDetail[key]==='文件包正在生成中，请在提交时间半个小时后打开本页面下载'" v-authority="'b1_licDownloadTag'" > {{hardwareDetail[key]}}</span> -->
                 <!-- <span v-else> -->
@@ -79,6 +80,7 @@ export default {
       loading: false,
       tableLabel: {
         status: '状态',
+        purpose: '用途',
         supplyName: '申请厂商',
         type: '申请类型',
         nums: '申请数量',
