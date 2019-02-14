@@ -62,6 +62,13 @@
     <div class="table-breadcrumb" v-loading="loading">
       <el-table :data="tableData" style="width: 100%" class='table'>
         <el-table-column prop="index" width="50" align="center" :render-header="renderIndex"></el-table-column>
+        <el-table-column prop="purpose" width="50" label="用途" align="center">
+          <template slot-scope="scope">
+            <div>
+              {{scope.row.purpose === 1?'打样':'批量'}}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="supplyName" width="150" label="申请厂商" align="center"></el-table-column>
         <el-table-column prop="preApplyId" width="150" label="对应预申请单" align="center"></el-table-column>
         <el-table-column prop="departName" width="150" label="所属事业部" align="center"></el-table-column>

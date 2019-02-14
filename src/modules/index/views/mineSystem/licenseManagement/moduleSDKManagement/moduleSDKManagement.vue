@@ -267,6 +267,9 @@ export default {
         // debugger;
         this.loading = false;
         if (res.code === 0) {
+          if (res.result.total !== 0 && res.result.data.length === 0) {
+            this.initListData(true);
+          }
           this.total = res.result ? res.result.total : 0;
           this.dataList = res.result ? this.initTableData(res.result.data) : [];
         } else {
@@ -310,11 +313,13 @@ export default {
     },
         // 改变pageSize
     handleSizeChange(val) {
+      debugger;
       this.pageSize = val;
       this.initListData(true);
     },
     // 改变currentPage
     handleCurrentChange(val) {
+      debugger;
       this.initListData(false);
     },
     handleQuery() {

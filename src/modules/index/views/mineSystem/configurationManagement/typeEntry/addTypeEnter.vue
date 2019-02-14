@@ -3,7 +3,7 @@
     <div class="title-userInfomation">
       <con-header :title-icon="addProductsIcon" title="产品型号信息录入" :hasBottomBorder="false"></con-header>
     </div>
-    
+
 
     <div class="mine-r-table">
       <div class="tip-one">基本信息录入</div>
@@ -31,7 +31,7 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="选择品类" prop="applianId">
-                  <el-select v-model="addInfo.applianId" placeholder="请选择" clearable>
+                  <el-select filterable v-model="addInfo.applianId" placeholder="请选择" clearable>
                     <el-option v-for="item in applianList" :key="item.id" :label="item.nameZh" :value="item.id">
                     </el-option>
                   </el-select>
@@ -208,7 +208,7 @@ export default {
       rules: {
         departmentId: { required: true, message: '请选择', trigger: 'change' },
         applianId: { required: true, message: '请选择', trigger: 'change' },
-        sn8: { required: true,  validator: this.checkSn8, trigger: 'change' },
+        sn8: { required: true, validator: this.checkSn8, trigger: 'change' },
         modelNumber: { required: false, validator: this.checkModelNumber, trigger: 'change' },
         productName: { required: false, validator: this.checkPoductName, trigger: 'change' },
         model: { required: true, validator: this.checkModel, trigger: 'change' },
@@ -312,5 +312,4 @@ export default {
   }
 }
 </style>
-
 
