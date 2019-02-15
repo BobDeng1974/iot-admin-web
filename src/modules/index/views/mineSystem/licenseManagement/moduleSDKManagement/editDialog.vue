@@ -72,7 +72,7 @@
         <el-form-item label="功能说明" prop="description">
           <el-input type="textarea" v-model.trim="formData.description"></el-input>
         </el-form-item>
-        <el-form-item label="发布周知人" prop="tempNoticeMipAccounts">
+        <el-form-item label="发布周知人" class="mip-accounts" prop="tempNoticeMipAccounts">
           <el-select style="width:100%" :multiple-limit="100" filterable v-model.trim="formData.tempNoticeMipAccounts" @change="noticeMipAccountsChange" multiple placeholder="请选择">
             <el-option
               v-for="(item, index) in noticeMipAccountsList"
@@ -82,10 +82,11 @@
               >
             </el-option>
           </el-select>
+          <el-button type="primary" v-if="editDetailData.status===0||editDetailData.status===3"  @click="allSelect">全选</el-button>
           <!-- <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input> -->
         </el-form-item>
         <el-form-item prop="noticeMipAccountsName">
-          <el-input type="textarea" disabled placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccountsName"></el-input>
+          <el-input type="textarea" disabled  v-model.trim="formData.noticeMipAccountsName"></el-input>
         </el-form-item>
         <el-form-item v-if="isHidden" label="提交人" prop="creatorName">
           <el-input  v-model.trim="formData.creatorName"></el-input>
@@ -169,7 +170,7 @@ export default {
       ],
       luaFormRules: {
         name: {required: true, validagittor: this.checkName, trigger: 'blur'},
-        version: {required: true, validator: this.checkName, trigger: 'blur'},
+        version: {required: true, validator: this.checkVersion, trigger: 'blur'},
         chip: {required: true, message: '请选择', trigger: 'change'},
         // compileChain: {required: false, validator: this.checkTool, trigger: 'blur'},
         sdkUrl: {required: true, message: '请上传SDK文件', trigger: 'change'},
@@ -193,6 +194,20 @@ export default {
     }
   },
   methods: {
+    allSelect() {
+      this.formData.tempNoticeMipAccounts = [];
+      this.noticeMipAccountsName = '';
+      let array = [];
+      debugger;
+      if (this.noticeMipAccountsList.length !== this.formData.tempNoticeMipAccounts.length) {
+        for (let index = 0; index < this.noticeMipAccountsList.length; index++) {
+          const element = this.noticeMipAccountsList[index];
+          this.formData.tempNoticeMipAccounts.push(element.account);
+          array.push(element.account);
+        }
+        this.noticeMipAccountsChange(array);
+      }
+    },
     sdkUrlDownLoad() {
       this.downLoadClickA(this.formData.sdkUrl);
     },
@@ -238,7 +253,7 @@ export default {
       } else {
         this.disabled = true;
       }
-      if (this.editDetailData.status === 0 || this.editDetailData.status === 1) {
+      if (this.editDetailData.status === 3 || this.editDetailData.status === 0 || this.editDetailData.status === 1) {
         this.isHidden = false;
       }
 
@@ -345,7 +360,7 @@ export default {
           this.fileReportList = [];
           this.$message({
             showClose: true,
-            message: '新增成功',
+            message: res.message,
             type: 'success'
             // onClose: () => {
             //   this.$emit('handleSave', false);

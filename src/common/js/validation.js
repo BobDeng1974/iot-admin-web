@@ -171,10 +171,10 @@ export const moduleSdkMixin = {
       if (!value) {
         callback(new Error('请输入'));
       } else {
-        if (value.length > 20) {
-          callback(new Error('输入内容在20字以下'));
-        } else if (/[\u4e00-\u9fa5]/.test(value)) {
-          callback(new Error('不能输入中文内容'));
+        if (value.length > 40) {
+          callback(new Error('输入内容在40字以下'));
+        } else if (!/^[\u4e00-\u9fa5A-Za-z0-9-_]*$/.test(value)) {
+          callback(new Error('不能输入特殊字符'));
         } else {
           callback();
         }

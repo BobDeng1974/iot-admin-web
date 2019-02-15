@@ -85,21 +85,10 @@
           <!-- <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input> -->
         </el-form-item>
         <el-form-item>
-          <el-input type="textarea" disabled  placeholder="不超过100个mip" v-model.trim="noticeMipAccountsName"></el-input>
+          <el-input type="textarea" disabled v-model.trim="noticeMipAccountsName"></el-input>
           <!-- <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input> -->
 
         </el-form-item>
-        <!-- <el-form-item>
-          <el-select type="textarea" style="width:100%" disabled v-model.trim="formData.noticeMipAccounts" multiple placeholder="不超过100个mip">
-            <el-option
-              v-for="(item, index) in noticeMipAccountsList"
-              :key="index"
-              :label="item.name"
-              :value="item.id"
-              >
-            </el-option>
-          </el-select>
-        </el-form-item> -->
       </el-form>
     </div>
     <div class="dialog-footer"  v-authority="'moduleSDKManagement_create'">
@@ -167,7 +156,7 @@ export default {
       luaFormRules: {
         // status: {required: true, message: '请输入', trigger: 'blur'},
         name: {required: true, validator: this.checkName, trigger: 'blur'},
-        version: {required: true, validator: this.checkName, trigger: 'blur'},
+        version: {required: true, validator: this.checkVersion, trigger: 'blur'},
         chip: {required: true, message: '请选择', trigger: 'change'},
         // compileChain: {required: false, validator: this.checkTool, trigger: 'blur'},
         sdkUrl: {required: true, message: '请上传SDK文件', trigger: 'change'},
@@ -184,6 +173,8 @@ export default {
   },
   methods: {
     allSelect() {
+      this.formData.tempNoticeMipAccounts = [];
+      this.noticeMipAccountsName = '';
       let array = [];
       debugger;
       if (this.noticeMipAccountsList.length !== this.formData.tempNoticeMipAccounts.length) {
