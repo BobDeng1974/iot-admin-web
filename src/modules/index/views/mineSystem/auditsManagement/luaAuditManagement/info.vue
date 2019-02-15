@@ -69,6 +69,7 @@
 import mineDialog from '@/modules/index/components/mine-dialog';
 import listDialog from './list';
 import API from '@/modules/index/api/system/system.js';
+import ls from '@/utils/storage/local_storage.js';
 export default {
   props: {
     info: {
@@ -92,6 +93,17 @@ export default {
     };
   },
   methods: {
+    isDownload(value) {
+      const buttonFlag = ls.getObject('buttonFlag');
+      if (buttonFlag.length) {
+        if (buttonFlag.indexOf(value) === -1) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+      debugger;
+    },
     showList () {
       this.id = this.info.id;
       this.title = '流程记录';
@@ -231,6 +243,8 @@ export default {
     },
     // lua文件下载
     downLoadLuaFile (file) {
+      if (!this.isDownload('b1_downloadLua')) return false;
+
       API.downloadLua({id: file})
       .then(response => {
         let tempNameStr = response.headers['content-disposition'].split(';')[1];
@@ -247,6 +261,8 @@ export default {
     },
     // 自测文件下载
     downLoadTestFile (file) {
+      if (!this.isDownload('b1_downloadTestFile')) return false;
+
       API.downloadTest({id: file})
       .then(response => {
         let tempNameStr = response.headers['content-disposition'].split(';')[1];
@@ -263,6 +279,8 @@ export default {
     },
     // 测试报告文件下载
     downLoadTestReportFile (file) {
+      if (!this.isDownload('b1_downloadTestReport')) return false;
+
       API.downloadTestReport({id: file})
       .then(response => {
         let tempNameStr = response.headers['content-disposition'].split(';')[1];
