@@ -11,7 +11,7 @@
         <el-form-item label="版本号" prop="version">
           <el-input v-model.trim="formData.version"></el-input>
         </el-form-item>
-        <el-form-item label="芯片信息" prop="chip">
+        <el-form-item label="芯片信息" ref="chip" prop="chip">
           <el-select v-model.trim="formData.chip" filterable clearable style="width:100%">
             <el-option v-for="(item, index) in chipModelList" :key="index" :label="item.name" :value="item.id"></el-option>
           </el-select>
@@ -71,7 +71,7 @@
         <el-form-item label="功能说明" prop="description">
           <el-input type="textarea" v-model.trim="formData.description"></el-input>
         </el-form-item>
-        <el-form-item label="发布周知人" prop="tempNoticeMipAccounts">
+        <el-form-item label="发布周知人" class="mip-accounts" prop="tempNoticeMipAccounts">
           <el-select style="width:100%" :multiple-limit="100" filterable v-model.trim="formData.tempNoticeMipAccounts" @change="noticeMipAccountsChange" multiple placeholder="请选择">
             <el-option
               v-for="(item, index) in noticeMipAccountsList"
@@ -81,6 +81,7 @@
               >
             </el-option>
           </el-select>
+          <el-button type="primary" @click="allSelect">全选</el-button>
           <!-- <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input> -->
         </el-form-item>
         <el-form-item>
@@ -119,6 +120,22 @@ export default {
     noticeMipAccountsList: {
       type: Array,
       defualt: []
+    },
+    flag: {
+      type: Boolean
+    }
+  },
+  watch: {
+    flag: {
+      handler(nowVal, oldVal) {
+        if (oldVal === true) {
+          debugger;
+          commonFun.restData(this.formData);
+          this.$refs.form.resetFields();
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
   mixins: [moduleSdkMixin, dropDownTranslation],
@@ -144,22 +161,9 @@ export default {
         reportOriginFileName: '',
         description: '',
         noticeMipAccounts: '',
-        tempNoticeMipAccounts: ''
+        tempNoticeMipAccounts: []
       },
       noticeMipAccountsName: '',
-      // noticeMipAccountsList: [
-      //   {account: 1, name: 'test1'},
-      //   {account: 2, name: 'test2'},
-      //   {account: 3, name: 'test3'},
-      //   {account: 4, name: 'test4'},
-      //   {account: 5, name: 'test5'},
-      //   {account: 6, name: 'test6'},
-      //   {account: 7, name: 'test7'},
-      //   {account: 8, name: 'test8'}
-      // ],
-      // useInfoList: [
-      //     {id: 1, name: '1'}
-      // ],
       luaFormRules: {
         // status: {required: true, message: '请输入', trigger: 'blur'},
         name: {required: true, validator: this.checkName, trigger: 'blur'},
@@ -168,7 +172,7 @@ export default {
         // compileChain: {required: false, validator: this.checkTool, trigger: 'blur'},
         sdkUrl: {required: true, message: '请上传SDK文件', trigger: 'change'},
         reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
-        description: {required: true, validator: this.checkDesc, trigger: 'change'},
+        description: {required: true, validator: this.checkDesc, trigger: 'blur'},
         // noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
         tempNoticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'}
       }
@@ -179,8 +183,19 @@ export default {
     this.moduleSDKManagementNoticeMip();
   },
   methods: {
-    noticeMipAccountsChange(array) {
+    allSelect() {
+      let array = [];
       debugger;
+      if (this.noticeMipAccountsList.length !== this.formData.tempNoticeMipAccounts.length) {
+        for (let index = 0; index < this.noticeMipAccountsList.length; index++) {
+          const element = this.noticeMipAccountsList[index];
+          this.formData.tempNoticeMipAccounts.push(element.account);
+          array.push(element.account);
+        }
+        this.noticeMipAccountsChange(array);
+      }
+    },
+    noticeMipAccountsChange(array) {
       let tempNoticeMipAccountsArr = [];
       for (let index = 0; index < array.length; index++) {
         const element = array[index];
@@ -232,13 +247,6 @@ export default {
             showClose: true,
             message: '新增成功',
             type: 'success'
-            // onClose: () => {
-            //   this.$emit('handleSave', false);
-            //   commonFun.restData(this.formData);
-            //   this.noticeMipAccountsName = '';
-            //   this.fileList = [];
-            //   this.fileReportList = [];
-            // }
           });
         }
       }).catch(() => {

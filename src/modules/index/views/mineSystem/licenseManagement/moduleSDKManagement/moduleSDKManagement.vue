@@ -126,7 +126,7 @@
     <div>
       <mine-dialog :dialogFormVisible='flag' :width='dialogWidth' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
         <div slot="option" v-if="isAdd">
-          <add-dialog :noticeMipAccountsList="noticeMipAccountsListArr" @close="close" @handleSave="addHandleSave"></add-dialog>
+          <add-dialog  :flag="flag" :noticeMipAccountsList="noticeMipAccountsListArr" @close="close" @handleSave="addHandleSave"></add-dialog>
         </div>
         <div slot="option" v-else-if="isEdit">
           <div v-if="status!==1">

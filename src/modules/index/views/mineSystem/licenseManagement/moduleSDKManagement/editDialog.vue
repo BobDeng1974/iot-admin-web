@@ -87,6 +87,15 @@
         <el-form-item prop="noticeMipAccountsName">
           <el-input type="textarea" disabled placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccountsName"></el-input>
         </el-form-item>
+        <el-form-item v-if="isHidden" label="提交人" prop="creatorName">
+          <el-input  v-model.trim="formData.creatorName"></el-input>
+        </el-form-item>
+        <el-form-item v-if="isHidden" label="生效时间" prop="activeTime">
+          <el-input  v-model.trim="formData.activeTime"></el-input>
+        </el-form-item>
+        <el-form-item v-if="isHidden" label="审核人" prop="auditorName">
+          <el-input  v-model.trim="formData.auditorName"></el-input>
+        </el-form-item>
         <!-- <el-form-item label="发布周知人" prop="noticeMipAccounts">
           <el-input type="textarea" placeholder="请输入发布人的mip账号以;分割" v-model.trim="formData.noticeMipAccounts"></el-input>
         </el-form-item> -->
@@ -125,6 +134,7 @@ export default {
   mixins: [moduleSdkMixin, dropDownTranslation],
   data() {
     return {
+      isHidden: true,
       disabled: true,
       // 上传的参数开始
       accept: '.lua',
@@ -148,6 +158,9 @@ export default {
         noticeMipAccounts: '',
         tempNoticeMipAccounts: [],
         noticeMipAccountsName: '',
+        creatorName: '',
+        activeTime: '',
+        auditorName: '',
         id: ''
       },
 
@@ -225,6 +238,9 @@ export default {
       } else {
         this.disabled = true;
       }
+      if (this.editDetailData.status === 0 || this.editDetailData.status === 1) {
+        this.isHidden = false;
+      }
 
       this.status = this.handleSatus(this.editDetailData.status);
        this.formData.id = this.editDetailData.id;
@@ -241,9 +257,22 @@ export default {
        this.formData.tempNoticeMipAccounts = [];
       // this.formData.noticeMipAccounts = this.editDetailData.noticeMipAccounts;
      this.handleNoticeMipAccountsChange(this.editDetailData.noticeMipAccounts.split(';'));
-      this.formData.publisherName = this.editDetailData.publisherName;
+
+      this.formData.creatorName = commonFun.fetchWord(
+              this.editDetailData.creatorName,
+              'name',
+              this.noticeMipAccountsList,
+              'MipName'
+            );
       this.formData.activeTime = this.editDetailData.activeTime;
-      this.formData.auditorName = this.editDetailData.auditorName;
+           this.formData.auditorName = commonFun.fetchWord(
+              this.editDetailData.auditorName,
+              'name',
+              this.noticeMipAccountsList,
+              'MipName'
+            );
+
+      this.formData.publisherName = this.editDetailData.publisherName;
               this.fileList.splice(0, 1, {
               name: this.editDetailData.sdkOriginFileName,
               url: this.editDetailData.sdkUrl
