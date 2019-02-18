@@ -247,8 +247,9 @@ export default {
 
       API.downloadLua({id: file})
       .then(response => {
-        let tempNameStr = response.headers['content-disposition'].split(';')[1];
-        let fileName = tempNameStr.split('=')[1];
+        // let tempNameStr = response.headers['content-disposition'].split(';')[1];
+        // let fileName = tempNameStr.split('=')[1];
+        let fileName = this.info.fileOrginalName;
         let blob = new Blob([response.data]);
         let objectUrl = URL.createObjectURL(blob);
         let link = document.createElement('a');
@@ -265,8 +266,9 @@ export default {
 
       API.downloadTest({id: file})
       .then(response => {
-        let tempNameStr = response.headers['content-disposition'].split(';')[1];
-        let fileName = tempNameStr.split('=')[1];
+        // let tempNameStr = response.headers['content-disposition'].split(';')[1];
+        // let fileName = tempNameStr.split('=')[1];
+        let fileName = this.info.testFileName;
         let blob = new Blob([response.data]);
         let objectUrl = URL.createObjectURL(blob);
         let link = document.createElement('a');
@@ -283,8 +285,9 @@ export default {
 
       API.downloadTestReport({id: file})
       .then(response => {
-        let tempNameStr = response.headers['content-disposition'].split(';')[1];
-        let fileName = tempNameStr.split('=')[1];
+        // let tempNameStr = response.headers['content-disposition'].split(';')[1];
+        // let fileName = tempNameStr.split('=')[1];
+        let fileName = this.info.testReportName;
         let blob = new Blob([response.data]);
         let objectUrl = URL.createObjectURL(blob);
         let link = document.createElement('a');
