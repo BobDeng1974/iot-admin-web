@@ -268,7 +268,7 @@ export default {
       .then(response => {
         // let tempNameStr = response.headers['content-disposition'].split(';')[1];
         // let fileName = tempNameStr.split('=')[1];
-        let fileName = this.info.fileOrginalName;
+        let fileName = this.info.testFileName;
         let blob = new Blob([response.data]);
         let objectUrl = URL.createObjectURL(blob);
         let link = document.createElement('a');
@@ -287,7 +287,7 @@ export default {
       .then(response => {
         // let tempNameStr = response.headers['content-disposition'].split(';')[1];
         // let fileName = tempNameStr.split('=')[1];
-        let fileName = this.info.fileOrginalName;
+        let fileName = this.info.testReportName;
         let blob = new Blob([response.data]);
         let objectUrl = URL.createObjectURL(blob);
         let link = document.createElement('a');
