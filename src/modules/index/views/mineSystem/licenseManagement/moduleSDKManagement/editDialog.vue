@@ -82,7 +82,7 @@
               >
             </el-option>
           </el-select>
-          <el-button type="primary" v-if="editDetailData.status===0||editDetailData.status===3"  @click="allSelect">全选</el-button>
+          <el-button type="primary" v-if="editDetailData.status===0||editDetailData.status===3"  @click="allSelect">{{isSelect}}</el-button>
           <!-- <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input> -->
         </el-form-item>
         <el-form-item prop="noticeMipAccountsName">
@@ -135,6 +135,7 @@ export default {
   mixins: [moduleSdkMixin, dropDownTranslation],
   data() {
     return {
+      isSelect: '取消全选',
       isHidden: true,
       disabled: true,
       // 上传的参数开始
@@ -196,16 +197,21 @@ export default {
   methods: {
     allSelect() {
       this.formData.tempNoticeMipAccounts = [];
-      this.noticeMipAccountsName = '';
+      this.formData.noticeMipAccountsName = '';
       let array = [];
       debugger;
-      if (this.noticeMipAccountsList.length !== this.formData.tempNoticeMipAccounts.length) {
-        for (let index = 0; index < this.noticeMipAccountsList.length; index++) {
-          const element = this.noticeMipAccountsList[index];
-          this.formData.tempNoticeMipAccounts.push(element.account);
-          array.push(element.account);
+      if (this.isSelect === '全选') {
+        if (this.noticeMipAccountsList.length !== this.formData.tempNoticeMipAccounts.length) {
+          for (let index = 0; index < this.noticeMipAccountsList.length; index++) {
+            const element = this.noticeMipAccountsList[index];
+            this.formData.tempNoticeMipAccounts.push(element.account);
+            array.push(element.account);
+          }
+          this.noticeMipAccountsChange(array);
         }
-        this.noticeMipAccountsChange(array);
+        this.isSelect = '取消全选';
+      } else {
+      this.isSelect = '全选';
       }
     },
     sdkUrlDownLoad() {
@@ -296,6 +302,12 @@ export default {
               name: this.editDetailData.reportOriginFileName,
               url: this.editDetailData.reportUrl
             });
+      if (this.formData.tempNoticeMipAccounts.length === this.noticeMipAccountsList.length) {
+        this.isSelect = '取消全选';
+      } else {
+        this.isSelect = '全选';
+      }
+            debugger;
     },
     noticeMipAccountsChange(array) {
       let tempNoticeMipAccountsArr = [];
@@ -311,6 +323,11 @@ export default {
       this.formData.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
       debugger;
       this.formData.noticeMipAccounts = array.join(';');
+      if (this.formData.tempNoticeMipAccounts.length === this.noticeMipAccountsList.length) {
+        this.isSelect = '取消全选';
+      } else {
+        this.isSelect = '全选';
+      }
     },
     handleNoticeMipAccountsChange(array) {
       let tempNoticeMipAccountsArr = [];

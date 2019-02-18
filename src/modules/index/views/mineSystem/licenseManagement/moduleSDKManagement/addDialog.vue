@@ -81,7 +81,7 @@
               >
             </el-option>
           </el-select>
-          <el-button type="primary" @click="allSelect">全选</el-button>
+          <el-button type="primary" @click="allSelect">{{isSelect}}</el-button>
           <!-- <el-input type="textarea"  placeholder="不超过100个mip" v-model.trim="formData.noticeMipAccounts"></el-input> -->
         </el-form-item>
         <el-form-item>
@@ -117,6 +117,7 @@ export default {
   watch: {
     flag: {
       handler(nowVal, oldVal) {
+        this.isSelect = '全选';
         if (oldVal === true) {
           debugger;
           commonFun.restData(this.formData);
@@ -130,6 +131,7 @@ export default {
   mixins: [moduleSdkMixin, dropDownTranslation],
   data() {
     return {
+      isSelect: '全选',
       // 上传的参数开始
       accept: '.lua',
       fileList: [],
@@ -176,15 +178,20 @@ export default {
       this.formData.tempNoticeMipAccounts = [];
       this.noticeMipAccountsName = '';
       let array = [];
-      debugger;
-      if (this.noticeMipAccountsList.length !== this.formData.tempNoticeMipAccounts.length) {
-        for (let index = 0; index < this.noticeMipAccountsList.length; index++) {
-          const element = this.noticeMipAccountsList[index];
-          this.formData.tempNoticeMipAccounts.push(element.account);
-          array.push(element.account);
-        }
-        this.noticeMipAccountsChange(array);
-      }
+      if (this.isSelect === '全选') {
+          debugger;
+          if (this.noticeMipAccountsList.length !== this.formData.tempNoticeMipAccounts.length) {
+            for (let index = 0; index < this.noticeMipAccountsList.length; index++) {
+              const element = this.noticeMipAccountsList[index];
+              this.formData.tempNoticeMipAccounts.push(element.account);
+              array.push(element.account);
+            }
+            this.noticeMipAccountsChange(array);
+          }
+          this.isSelect = '取消全选';
+       } else {
+         this.isSelect = '全选';
+       }
     },
     noticeMipAccountsChange(array) {
       let tempNoticeMipAccountsArr = [];
@@ -200,6 +207,11 @@ export default {
       this.noticeMipAccountsName = tempNoticeMipAccountsArr.join(';');
 
       this.formData.noticeMipAccounts = array.join(';');
+      if (this.formData.tempNoticeMipAccounts.length === this.noticeMipAccountsList.length) {
+        this.isSelect = '取消全选';
+      } else {
+        this.isSelect = '全选';
+      }
     },
     handleSubmitTestAudit() {
       // this.$emit('close', false);

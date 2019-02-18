@@ -288,14 +288,17 @@ export default {
       this.flag = val;
     },
     addHandleSave(val) {
+      commonFun.restData(this.queryFormData);
       this.flag = val;
       this.initListData(true);
     },
     handleSaveEdit(val) {
+      commonFun.restData(this.queryFormData);
       this.flag = val;
       this.initListData(true);
     },
     issueHandleSave(val) {
+      commonFun.restData(this.queryFormData);
       this.flag = val;
       this.initListData(true);
     },
