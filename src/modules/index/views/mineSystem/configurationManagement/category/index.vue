@@ -177,6 +177,9 @@ export default {
           console.log(res, '查询列表');
           this.loading = false;
           if (res.code === 0) {
+          if (res.result.total !== 0 && res.result.data.length === 0) {
+            this.getList(true);
+          }
             this.total = res.result ? res.result.total : 0;
             this.tableData = res.result ? this.initTableData(res.result.data) : [];
           } else {

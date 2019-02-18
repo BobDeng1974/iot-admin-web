@@ -34,7 +34,7 @@
           </el-col>
         </el-row>
 
-        <el-row>        
+        <el-row>
            <el-col :span="8" class="other-label">
             <el-form-item label="model-number">
               <el-input v-model="formInline.modelNo"></el-input>
@@ -155,7 +155,7 @@ export default {
       this.info = {...val};
     },
     handleCurrentChange (val) {
-      this.getList(true)
+      this.getList(true);
     },
     // 下载功能
     downLoad(val) {
@@ -289,6 +289,9 @@ export default {
           console.log(res, '获取列表');
           this.loading = false;
           if (res.code === 0) {
+            if (res.result.total !== 0 && res.result.data.length === 0) {
+              this.getList(true);
+            }
             this.total = res.result ? res.result.total : 0;
             this.tableData = res.result
               ? this.initTableData(res.result.data)
@@ -333,7 +336,7 @@ export default {
           .el-form-item__label{
             line-height: 20px !important;
           }
-        } 
+        }
       }
   .mine-down{
     color: blue;

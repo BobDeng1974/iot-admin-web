@@ -100,7 +100,7 @@
            >
            </mine-pagination>
         </div>
-        
+
         <!-- 弹框 -->
         <mine-dialog :dialogFormVisible='flag' :width='"60%"' :modalFlag="modalFlag" @close="close" :title="title" :showClose="showClose">
           <eidt-type slot="option"  @close="close" :eidtInfos='eidtInfos' v-if="eidtFlag" @requestTable="selectSerch(false)"></eidt-type>
@@ -221,6 +221,9 @@ export default {
         console.log(res, '获取用户列表');
         this.loading = false;
         if (res.code === 0) {
+          if (res.result.total !== 0 && res.result.data.length === 0) {
+            this.selectSerch(true);
+          }
           this.total = res.result ? res.result.total : 0;
           this.tableData = res.result ? this.initTable(res.result.data) : [];
         } else {
@@ -316,5 +319,4 @@ export default {
   }
 }
 </style>
-
 
