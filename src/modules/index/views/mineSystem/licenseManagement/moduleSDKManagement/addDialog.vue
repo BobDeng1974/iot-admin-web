@@ -121,6 +121,7 @@ export default {
         if (oldVal === true) {
           debugger;
           commonFun.restData(this.formData);
+          this.noticeMipAccountsName = '';
           this.$refs.form.resetFields();
         }
       },
@@ -165,7 +166,7 @@ export default {
         reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
         description: {required: true, validator: this.checkDesc, trigger: 'blur'},
         // noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
-        tempNoticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'}
+        tempNoticeMipAccounts: {required: true, message: '请输入', trigger: 'change'}
       }
     };
   },

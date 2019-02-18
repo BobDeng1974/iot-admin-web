@@ -178,7 +178,7 @@ export default {
         reportUrl: {required: true, message: '请上传测试报告文件', trigger: 'change'},
         description: {required: true, validator: this.checkDesc, trigger: 'change'},
         noticeMipAccounts: {required: true, message: '请输入', trigger: 'blur'},
-        noticeMipAccountsName: {required: true, message: '请输入', trigger: 'blur'}
+        noticeMipAccountsName: {required: true, message: '请输入', trigger: 'change'}
       }
     };
   },
