@@ -91,7 +91,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="dialog-footer"  v-authority="'moduleSDKManagement_create'">
+    <div class="dialog-footer"  v-authority="'b1_moduleSDKManagement_create'">
       <el-button type="primary" @click="handleSave">保存</el-button>
       <el-button type="primary" @click="handleSubmitTestAudit">提交测试审核</el-button>
     </div>

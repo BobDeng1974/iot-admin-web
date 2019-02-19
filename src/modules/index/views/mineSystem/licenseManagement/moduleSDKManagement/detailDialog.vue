@@ -84,7 +84,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="dialog-footer" v-authority="'moduleSDKManagement_audit'" v-if="editDetailData.status===1">
+    <div class="dialog-footer" v-authority="'b1_moduleSDKManagement_audit'" v-if="editDetailData.status===1">
       <el-button type="primary" @click="handleSave">审核通过</el-button>
       <el-button @click="handleCancel">审核失败</el-button>
     </div>
