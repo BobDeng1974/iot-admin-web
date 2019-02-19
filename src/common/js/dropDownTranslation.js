@@ -111,9 +111,11 @@ export const dropDownTranslation = {
         .then(res => {
           if (res.code === 0) {
             if (res.result.length >= 0) {
-              res.result.forEach((element, index) => {
-                element.id = index + 1;
-              });
+              // res.result.forEach((element, index) => {
+              //   element.id = index + 1;
+              // });
+              // debugger;
+              // document.write(JSON.stringify(res.result));
               this.cpuList = res.result;
             }
             // debugger;
@@ -132,9 +134,9 @@ export const dropDownTranslation = {
         .then(res => {
           if (res.code === 0) {
             if (res.result.length >= 0) {
-              res.result.forEach((element, index) => {
-                element.id = index + 1;
-              });
+              // res.result.forEach((element, index) => {
+              //   element.id = index + 1;
+              // });
               this.chipBrandList = res.result;
             }
           } else {
@@ -151,9 +153,10 @@ export const dropDownTranslation = {
         .then(res => {
           if (res.code === 0) {
             if (res.result.length >= 0) {
-              res.result.forEach((element, index) => {
-                element.id = index + 1;
-              });
+              // res.result.forEach((element, index) => {
+              //   element.id = index + 1;
+              // });
+              // document.write(JSON.stringify(res.result));
               this.chipModelList = res.result;
             }
           } else {
@@ -170,9 +173,9 @@ export const dropDownTranslation = {
         .then(res => {
           if (res.code === 0) {
             if (res.result.length >= 0) {
-              res.result.forEach((element, index) => {
-                element.id = index + 1;
-              });
+              // res.result.forEach((element, index) => {
+              //   element.id = index + 1;
+              // });
               this.OperatingSystemList = res.result;
             }
           } else {
