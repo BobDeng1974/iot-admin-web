@@ -13,6 +13,7 @@
             <div class="home-top-right">
               <div ><span>姓名</span>{{userInfo.realName}}</div>
               <div ><span>mip账号</span>{{userInfo.account}}</div>
+              <div ><span>邮箱</span>{{userInfo.email}}</div>
               <!-- <div ><span></span>{{userInfo.}}</div> -->
             </div>
           </div>
