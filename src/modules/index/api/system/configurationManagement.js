@@ -152,6 +152,28 @@ const configurationManagementApi = {
       url: `${MJAPP_NAME}/user/getContacts`,
       method: 'post'
     }).then(res => res);
+  },
+  // SN白名单管理
+  getSnList: (query) => {
+    return request({
+      url: `${MJAPP_NAME}/sn/list`,
+      method: 'post',
+      data: query
+    }).then(res => res);
+  },
+  recoverSn: (query) => {
+    return request({
+      url: `${MJAPP_NAME}/sn/recover`,
+      method: 'post',
+      data: query
+    }).then(res => res);
+  },
+  forbidSn: (query) => {
+    return request({
+      url: `${MJAPP_NAME}/sn/forbid`,
+      method: 'post',
+      data: query
+    }).then(res => res);
   }
 };
 export default configurationManagementApi;

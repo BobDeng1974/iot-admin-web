@@ -276,6 +276,13 @@ export const sconfigurationManagementRouter =
       component: _import('mineSystem/configurationManagement/typeEntry/addTypeEnter'),
       name: '产品型号信息录入',
       meta: { title: '产品型号信息录入', icon: 'dots' }
+    },
+    // SN白名单管理
+    {
+      path: 'snWhitelistManagement',
+      component: _import('mineSystem/configurationManagement/snWhitelistManagement/index'),
+      name: 'SN白名单管理',
+      meta: { title: 'SN白名单管理', icon: 'dots' }
     }
   ]
 };

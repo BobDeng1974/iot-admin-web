@@ -248,3 +248,38 @@ export const applicationManagementMixin = {
     }
   }
 };
+// 账户认证管理
+export const snWhitelistManagementMixin = {
+  methods: {
+    checkMobile (rule, value, callback) {
+        if (!value) {
+          callback();
+        } else {
+          if (!/^[1-9]\d*$/.test(value)) {
+            callback(new Error('请输入正确的手机号格式只能输入正整数'));
+          } else {
+            callback();
+          }
+        }
+    },
+    // sn校验
+    checkSn(rule, value, callback) {
+      if (!value) {
+        callback();
+      } else {
+        if (value.length !== 32) {
+          callback(new Error('请输入正确的格式,SN为32位字符'));
+        } else {
+          debugger;
+          if (!/^[0-9]*$/.test(value.substring(0, 4))) {
+            callback(new Error('请输入正确的格式,SN前4位是数字组合'));
+          } else if (!/^[A-Z][0-9a-zA-Z_]/.test(value.substring(4, 6))) {
+            callback(new Error('请输入正确的格式,SN第5位-第6位是型号码'));
+          } else {
+            callback();
+          }
+        }
+      }
+    }
+  }
+};
