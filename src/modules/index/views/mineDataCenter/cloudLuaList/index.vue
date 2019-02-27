@@ -71,9 +71,9 @@
               <span>{{scope.row.release === 0 ? '未发布' : '已发布'}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="cdate" width="150" label="生效时间" align="center">
+        <el-table-column prop="mdate" width="150" label="生效时间" align="center">
           <template slot-scope="scope">
-            <div>{{scope.row.cdate | fomatDate('yyyy-MM-dd HH:mm')}}</div>
+            <div>{{scope.row.mdate | fomatDate('yyyy-MM-dd HH:mm')}}</div>
           </template>
         </el-table-column>
         <el-table-column prop="cName" width="150" label="上传人" align="center"></el-table-column>
