@@ -39,9 +39,13 @@
             <el-table-column prop="auditUid" label="审批人" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
-                  <el-button type="text" @click="enterBtton(scope.row.id, 0)" :disabled="scope.row.status === 1">启用</el-button>
+                  <span v-authority="'b1_snEnabledTag'">
+                    <el-button type="text" @click="enterBtton(scope.row.id, 0)" :disabled="scope.row.status === 1">启用</el-button>
+                  </span>
                   <span style="color: #DEDFE5;">|</span>
-                  <el-button type="text" @click="enterBtton(scope.row.id, 1)" :disabled="scope.row.status === 0">禁用</el-button>
+                  <span v-authority="'b1_snProhibitTag'">
+                    <el-button type="text" @click="enterBtton(scope.row.id, 1)" :disabled="scope.row.status === 0">禁用</el-button>
+                  </span>
               </template>
             </el-table-column>
           </el-table>
