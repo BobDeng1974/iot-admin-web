@@ -270,7 +270,6 @@ export const snWhitelistManagementMixin = {
         if (value.length !== 32) {
           callback(new Error('请输入正确的格式,SN为32位字符'));
         } else {
-          debugger;
           if (!/^[0-9]*$/.test(value.substring(0, 4))) {
             callback(new Error('请输入正确的格式,SN前4位是数字组合'));
           } else if (!/^[A-Z][0-9a-zA-Z_]/.test(value.substring(4, 6))) {

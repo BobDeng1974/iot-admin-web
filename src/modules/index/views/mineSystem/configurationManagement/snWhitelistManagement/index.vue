@@ -139,10 +139,6 @@ export default {
         type: 'warning'
       }).then(() => {
         this.save(val, flag);
-        this.$message({
-          type: 'success',
-          message: '操作成功!'
-        });
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -158,6 +154,10 @@ export default {
         API.recoverSn(params)
         .then(res => {
             if (res.code === 0) {
+              this.$message({
+                type: 'success',
+                message: res.message
+              });
               this.getList(false);
             }
         });
@@ -165,6 +165,10 @@ export default {
         API.forbidSn(params)
         .then(res => {
             if (res.code === 0) {
+              this.$message({
+                type: 'success',
+                message: res.message
+              });
               this.getList(false);
             }
         });
