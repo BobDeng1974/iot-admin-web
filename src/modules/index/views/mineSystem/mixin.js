@@ -265,15 +265,18 @@ export const snWhitelistManagementMixin = {
     // sn校验
     checkSn(rule, value, callback) {
       if (!value) {
-        callback();
+        callback(new Error('请输入'));
       } else {
         if (value.length !== 32) {
           callback(new Error('请输入正确的格式,SN为32位字符'));
         } else {
+          debugger;
           if (!/^[0-9]*$/.test(value.substring(0, 4))) {
             callback(new Error('请输入正确的格式,SN前4位是数字组合'));
-          } else if (!/^[A-Z][0-9a-zA-Z_]/.test(value.substring(4, 6))) {
-            callback(new Error('请输入正确的格式,SN第5位-第6位是型号码'));
+          } else if (!/^[0-9A-Z]*$/g.test(value.substring(4, 6))) {
+            callback(new Error('请输入正确的格式,SN第5位-第6位是品类码后两位'));
+          } else if (!/^[0-9a-zA-Z]*$/g.test(value.substring(6, 32))) {
+            callback(new Error('请输入正确的格式,SN后26位只能输入字母，数字或字母数字组合'));
           } else {
             callback();
           }
