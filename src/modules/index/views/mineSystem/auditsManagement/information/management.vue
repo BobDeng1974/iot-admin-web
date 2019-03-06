@@ -488,7 +488,7 @@ export default {
           } else if (this.tableData.sdkLibName === '待上传' || this.tableData.sdkLibName === '') {
             flag = false;
             this.$message({
-              message: '请上传sdkLib文件',
+              message: '请上传SDKlib文件',
               type: 'warning'
             });
           } else {
